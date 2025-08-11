@@ -248,6 +248,10 @@
       "print": {
         "button": "Обновить материал",
         "title": "Обновление материала для печати"
+      },
+      "activity-schedule-item": {
+        "button": "Обновить активность",
+        "title": "Обновление активности"
       }
     },
     "delete": {
@@ -376,6 +380,9 @@
     "partner-legal-entity-deleted": "Юридическое лицо удалено",
     "partner-agreement-created": "Договор создан",
     "partner-agreement-updated": "Договор обновлен",
-    "partner-agreement-deleted": "Договор удален"
+    "partner-agreement-deleted": "Договор удален",
+    "activity-schedule-item-created": "Активность создана",
+    "activity-schedule-item-updated": "Активность обновлена",
+    "activity-schedule-item-deleted": "Активность удалена"
   }
 }

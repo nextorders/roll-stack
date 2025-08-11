@@ -1,7 +1,7 @@
-import type { ActivityScheduleDraft } from '../types'
+import type { ActivityScheduleDraft, ActivityScheduleItemDraft } from '../types'
 import { eq, sql } from 'drizzle-orm'
 import { useDatabase } from '../database'
-import { activitySchedules } from '../tables'
+import { activityScheduleItems, activitySchedules } from '../tables'
 
 export class Activity {
   static async findSchedule(id: string) {
@@ -10,6 +10,12 @@ export class Activity {
       with: {
         items: true,
       },
+    })
+  }
+
+  static async findScheduleItem(id: string) {
+    return useDatabase().query.activityScheduleItems.findFirst({
+      where: (activity, { eq }) => eq(activity.id, id),
     })
   }
 
@@ -26,7 +32,12 @@ export class Activity {
     return schedule
   }
 
-  static async updateSchedule(id: string, data: ActivityScheduleDraft) {
+  static async createScheduleItem(data: ActivityScheduleItemDraft) {
+    const [item] = await useDatabase().insert(activityScheduleItems).values(data).returning()
+    return item
+  }
+
+  static async updateSchedule(id: string, data: Partial<ActivityScheduleDraft>) {
     const [schedule] = await useDatabase()
       .update(activitySchedules)
       .set({
@@ -38,7 +49,23 @@ export class Activity {
     return schedule
   }
 
+  static async updateScheduleItem(id: string, data: Partial<ActivityScheduleItemDraft>) {
+    const [item] = await useDatabase()
+      .update(activityScheduleItems)
+      .set({
+        ...data,
+        updatedAt: sql`now()`,
+      })
+      .where(eq(activityScheduleItems.id, id))
+      .returning()
+    return item
+  }
+
   static async deleteSchedule(id: string) {
     return useDatabase().delete(activitySchedules).where(eq(activitySchedules.id, id))
+  }
+
+  static async deleteScheduleItem(id: string) {
+    return useDatabase().delete(activityScheduleItems).where(eq(activityScheduleItems.id, id))
   }
 }
