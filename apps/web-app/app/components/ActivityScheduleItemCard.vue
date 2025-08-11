@@ -40,7 +40,7 @@
         }"
       />
 
-      <div class="flex flex-row flex-wrap gap-1.5">
+      <div class="flex flex-row flex-wrap gap-1.5 opacity-25 group-hover/list:opacity-100 duration-200">
         <UBadge
           v-for="channel in item.communicationChannels"
           :key="channel"
