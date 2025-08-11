@@ -88,6 +88,12 @@ const menuItems = computed(() => [
     active: route.path.startsWith('/agreement'),
   },
   {
+    label: t('app.menu.activity-schedules'),
+    to: '/activity',
+    icon: 'i-lucide-calendar-fold',
+    active: route.path.startsWith('/activity'),
+  },
+  {
     label: 'Отзывы клиентов',
     icon: 'i-lucide-star',
     onSelect: () => {

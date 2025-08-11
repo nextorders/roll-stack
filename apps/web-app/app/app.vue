@@ -50,6 +50,7 @@ const ticket = useTicketStore()
 const notification = useNotificationStore()
 const post = usePostStore()
 const print = usePrintStore()
+const activity = useActivityStore()
 
 await Promise.all([
   client.update(),
@@ -61,6 +62,7 @@ await Promise.all([
   notification.update(),
   post.update(),
   print.update(),
+  activity.update(),
 ])
 
 // Auto Update Online

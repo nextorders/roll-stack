@@ -137,3 +137,9 @@ export type TicketDraft = InferInsertModel<typeof tables.tickets>
 
 export type TicketMessage = InferSelectModel<typeof tables.ticketMessages>
 export type TicketMessageDraft = InferInsertModel<typeof tables.ticketMessages>
+
+export type ActivitySchedule = InferSelectModel<typeof tables.activitySchedules>
+export type ActivityScheduleDraft = InferInsertModel<typeof tables.activitySchedules>
+
+export type ActivityScheduleItem = InferSelectModel<typeof tables.activityScheduleItems>
+export type ActivityScheduleItemDraft = InferInsertModel<typeof tables.activityScheduleItems>

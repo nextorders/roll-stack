@@ -129,7 +129,9 @@
       "tickets": "Тикеты",
       "staff": "Сотрудники",
       "agreements": "Договоры",
-      "prestige": "Престиж"
+      "prestige": "Престиж",
+      "activity-schedule": "Регламент активностей",
+      "activity-schedules": "Регламенты активностей"
     },
     "product": {
       "available-for-purchase": "Доступен для покупки",
