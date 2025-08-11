@@ -7,9 +7,9 @@
         {{ schedule.title }}
       </h3>
 
-      <h3 class="text-base/5">
+      <p v-if="schedule.description" class="text-base/5">
         {{ schedule.description }}
-      </h3>
+      </p>
     </div>
   </ActiveCard>
 </template>

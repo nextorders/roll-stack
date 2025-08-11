@@ -1,5 +1,5 @@
 <template>
-  <Header :title="`${schedule?.title}`" />
+  <Header :title="schedule?.title ?? t('app.menu.activity-schedule')" />
 
   <Content>
     <div class="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3">

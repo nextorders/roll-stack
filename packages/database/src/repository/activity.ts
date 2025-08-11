@@ -1,5 +1,5 @@
 import type { ActivityScheduleDraft } from '../types'
-import { eq } from 'drizzle-orm'
+import { eq, sql } from 'drizzle-orm'
 import { useDatabase } from '../database'
 import { activitySchedules } from '../tables'
 
@@ -29,7 +29,10 @@ export class Activity {
   static async updateSchedule(id: string, data: ActivityScheduleDraft) {
     const [schedule] = await useDatabase()
       .update(activitySchedules)
-      .set(data)
+      .set({
+        ...data,
+        updatedAt: sql`now()`,
+      })
       .where(eq(activitySchedules.id, id))
       .returning()
     return schedule
