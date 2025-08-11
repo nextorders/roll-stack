@@ -36,7 +36,7 @@
         :ui="{
           item: 'border-default/50',
           trigger: 'text-base/5',
-          body: 'text-base/5',
+          body: 'text-sm/4 whitespace-pre-wrap',
         }"
       />
 
