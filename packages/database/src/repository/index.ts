@@ -1,4 +1,5 @@
 import { useDatabase } from '../database'
+import { Activity } from './activity'
 import { Channel } from './channel'
 import { Chat } from './chat'
 import { Checkout } from './checkout'
@@ -23,6 +24,7 @@ import { User } from './user'
 import { WasabiVista } from './wasabi-vista'
 
 class Repository {
+  readonly activity = Activity
   readonly channel = Channel
   readonly chat = Chat
   readonly checkout = Checkout

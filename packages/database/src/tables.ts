@@ -57,6 +57,15 @@ type WasabiVistaUserType = 'private' | 'group' | 'supergroup' | 'channel'
 
 type TicketStatus = 'opened' | 'closed'
 
+type CommunicationChannel = 'telegram'
+  | 'vk'
+  | 'website'
+  | 'mobile_app'
+  | 'uds_feed'
+  | 'store_administrator'
+  | 'table_tent'
+  | 'contextual_advertising'
+
 export const permissions = pgTable('permissions', {
   id: cuid2('id').defaultRandom().primaryKey(),
   createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
@@ -648,6 +657,30 @@ export const ticketMessages = pgTable('ticket_messages', {
   }),
 })
 
+export const activitySchedules = pgTable('activity_schedules', {
+  id: cuid2('id').defaultRandom().primaryKey(),
+  createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  title: varchar('title').notNull(),
+  description: varchar('description'),
+})
+
+export const activityScheduleItems = pgTable('activity_schedule_items', {
+  id: cuid2('id').defaultRandom().primaryKey(),
+  createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  title: varchar('title').notNull(),
+  description: varchar('description'),
+  period: varchar('period').notNull(),
+  isOptional: boolean('is_optional').notNull().default(false),
+  terms: varchar('terms'),
+  communicationChannels: jsonb('communication_channels').notNull().default([]).$type<CommunicationChannel[]>(),
+  activityScheduleId: cuid2('activity_schedule_id').notNull().references(() => activitySchedules.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
+})
+
 export const userRelations = relations(users, ({ many, one }) => ({
   chatMessages: many(chatMessages),
   chatMembers: many(chatMembers),
@@ -1038,5 +1071,16 @@ export const ticketMessageRelations = relations(ticketMessages, ({ one }) => ({
   user: one(users, {
     fields: [ticketMessages.userId],
     references: [users.id],
+  }),
+}))
+
+export const activityScheduleRelations = relations(activitySchedules, ({ many }) => ({
+  items: many(activityScheduleItems),
+}))
+
+export const activityScheduleItemRelations = relations(activityScheduleItems, ({ one }) => ({
+  schedule: one(activitySchedules, {
+    fields: [activityScheduleItems.activityScheduleId],
+    references: [activitySchedules.id],
   }),
 }))
