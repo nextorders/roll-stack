@@ -42,7 +42,7 @@
       </div>
 
       <div
-        v-for="agreement in partner?.legalEntity?.agreements"
+        v-for="agreement in activeAgreements"
         :key="agreement.id"
         class="lg:col-span-2"
       >
@@ -60,6 +60,8 @@ const partnerStore = usePartnerStore()
 const partner = computed(() => partnerStore.partners.find((partner) => partner.id === params.id))
 
 const partnerUser = computed(() => partner.value?.users.filter((user) => user.type === 'partner')[0])
+
+const activeAgreements = computed(() => partner.value?.legalEntity?.agreements.filter((agreement) => agreement.isActive))
 
 useHead({
   title: t('common.partner'),

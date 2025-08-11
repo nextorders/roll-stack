@@ -1,7 +1,23 @@
 <template>
   <UCard>
-    <div class="shrink-0 w-full flex flex-col gap-3.5">
-      <UIcon name="i-lucide-calendar-range" class="size-14 text-primary" />
+    <div class="shrink-0 w-full flex flex-col gap-3 group/list">
+      <div class="flex flex-row gap-1.5 justify-between">
+        <UIcon
+          name="i-lucide-calendar-range"
+          class="size-14 text-primary"
+        />
+
+        <UTooltip :text="`Редактировать активность «${item?.title}»`">
+          <UButton
+            variant="outline"
+            color="neutral"
+            size="md"
+            icon="i-lucide-pencil"
+            class="size-10 justify-center opacity-0 group-hover/list:opacity-100"
+            @click="modalUpdateActivityScheduleItem.open({ scheduleId: item.activityScheduleId, itemId: item.id })"
+          />
+        </UTooltip>
+      </div>
 
       <h3 class="text-xl md:text-xl/6 font-semibold">
         {{ item.title }}
@@ -11,7 +27,7 @@
         <UIcon name="i-lucide-clock" class="shrink-0 size-5" /> {{ item.period }}
       </h4>
 
-      <p class="text-base/5 whitespace-pre-wrap">
+      <p class="text-sm/4 whitespace-pre-wrap">
         {{ item.description }}
       </p>
 
@@ -30,6 +46,7 @@
           :key="channel"
           :label="getCommunicationChannelData(channel).label"
           :icon="getCommunicationChannelData(channel).icon"
+          size="lg"
           color="neutral"
           variant="outline"
           :ui="{
@@ -41,6 +58,7 @@
           v-for="tag in item.tags"
           :key="tag"
           :label="getTagData(tag)"
+          size="lg"
           color="neutral"
           variant="subtle"
         />
@@ -52,6 +70,7 @@
 <script setup lang="ts">
 import type { AccordionItem } from '@nuxt/ui'
 import type { ActivityScheduleItem } from '@roll-stack/database'
+import { ModalUpdateActivityScheduleItem } from '#components'
 
 type CommunicationChannel = ActivityScheduleItem['communicationChannels'][number]
 type Tag = ActivityScheduleItem['tags'][number]
@@ -59,6 +78,9 @@ type Tag = ActivityScheduleItem['tags'][number]
 const { item } = defineProps<{ item: ActivityScheduleItem }>()
 
 const { t } = useI18n()
+
+const overlay = useOverlay()
+const modalUpdateActivityScheduleItem = overlay.create(ModalUpdateActivityScheduleItem)
 
 const accordionItems = ref<AccordionItem[]>([
   {
