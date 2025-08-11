@@ -18,6 +18,7 @@
       <UAccordion
         :items="accordionItems"
         :ui="{
+          item: 'border-default/50',
           trigger: 'text-base/5',
           body: 'text-base/5',
         }"
@@ -37,9 +38,9 @@
         />
 
         <UBadge
-          v-for="tag in tags"
+          v-for="tag in item.tags"
           :key="tag"
-          :label="tag"
+          :label="getTagData(tag)"
           color="neutral"
           variant="subtle"
         />
@@ -53,10 +54,18 @@ import type { AccordionItem } from '@nuxt/ui'
 import type { ActivityScheduleItem } from '@roll-stack/database'
 
 type CommunicationChannel = ActivityScheduleItem['communicationChannels'][number]
+type Tag = ActivityScheduleItem['tags'][number]
 
 const { item } = defineProps<{ item: ActivityScheduleItem }>()
 
+const { t } = useI18n()
+
 const accordionItems = ref<AccordionItem[]>([
+  {
+    label: 'Цели и задачи',
+    icon: 'i-lucide-goal',
+    content: item.goal ?? '',
+  },
   {
     label: 'Условия',
     icon: 'i-lucide-trending-up-down',
@@ -64,32 +73,27 @@ const accordionItems = ref<AccordionItem[]>([
   },
 ])
 
-const tags = [
-  'Постоянная акция',
-  'Опционально',
-]
-
 function getCommunicationChannelData(type: CommunicationChannel) {
   switch (type) {
     case 'vk':
       return {
         icon: 'simple-icons:vk',
-        label: 'Вконтакте',
+        label: t('common.social.vk'),
       }
     case 'telegram':
       return {
         icon: 'simple-icons:telegram',
-        label: 'Telegram',
+        label: t('common.social.telegram'),
       }
     case 'website':
       return {
         icon: 'i-lucide-app-window',
-        label: 'Вебсайт',
+        label: t('common.website'),
       }
-    case 'uds_feed':
+    case 'uds':
       return {
         icon: 'i-lucide-newspaper',
-        label: 'UDS рассылка',
+        label: 'UDS',
       }
     case 'table_tent':
       return {
@@ -111,11 +115,31 @@ function getCommunicationChannelData(type: CommunicationChannel) {
         icon: 'i-lucide-megaphone',
         label: 'Контекстная реклама',
       }
+    case 'calendar':
+      return {
+        icon: 'i-lucide-calendar',
+        label: 'Календарь скидок',
+      }
     default:
       return {
         icon: 'i-lucide-info',
         label: type,
       }
+  }
+}
+
+function getTagData(tag: Tag) {
+  switch (tag) {
+    case 'permanent':
+      return 'Постоянная акция'
+    case 'optional':
+      return 'Опционально'
+    case 'temporary':
+      return 'Временная акция'
+    case 'advertising':
+      return 'Реклама'
+    default:
+      return tag
   }
 }
 </script>
