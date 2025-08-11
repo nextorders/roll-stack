@@ -82,12 +82,12 @@ function getCommunicationChannelData(type: CommunicationChannel) {
     case 'vk':
       return {
         icon: 'simple-icons:vk',
-        label: 'Вконтакте',
+        label: t('common.social.vk'),
       }
     case 'telegram':
       return {
         icon: 'simple-icons:telegram',
-        label: 'Telegram',
+        label: t('common.social.telegram'),
       }
     case 'website':
       return {
