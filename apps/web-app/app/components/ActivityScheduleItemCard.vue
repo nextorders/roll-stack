@@ -18,6 +18,7 @@
       <UAccordion
         :items="accordionItems"
         :ui="{
+          item: 'border-default/50',
           trigger: 'text-base/5',
           body: 'text-base/5',
         }"
@@ -56,7 +57,14 @@ type CommunicationChannel = ActivityScheduleItem['communicationChannels'][number
 
 const { item } = defineProps<{ item: ActivityScheduleItem }>()
 
+const { t } = useI18n()
+
 const accordionItems = ref<AccordionItem[]>([
+  {
+    label: 'Цели и задачи',
+    icon: 'i-lucide-goal',
+    content: item.goal ?? '',
+  },
   {
     label: 'Условия',
     icon: 'i-lucide-trending-up-down',
@@ -84,12 +92,12 @@ function getCommunicationChannelData(type: CommunicationChannel) {
     case 'website':
       return {
         icon: 'i-lucide-app-window',
-        label: 'Вебсайт',
+        label: t('common.website'),
       }
-    case 'uds_feed':
+    case 'uds':
       return {
         icon: 'i-lucide-newspaper',
-        label: 'UDS рассылка',
+        label: 'UDS',
       }
     case 'table_tent':
       return {
@@ -110,6 +118,11 @@ function getCommunicationChannelData(type: CommunicationChannel) {
       return {
         icon: 'i-lucide-megaphone',
         label: 'Контекстная реклама',
+      }
+    case 'calendar':
+      return {
+        icon: 'i-lucide-calendar',
+        label: 'Календарь скидок',
       }
     default:
       return {

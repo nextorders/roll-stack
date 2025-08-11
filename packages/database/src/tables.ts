@@ -61,10 +61,11 @@ type CommunicationChannel = 'telegram'
   | 'vk'
   | 'website'
   | 'mobile_app'
-  | 'uds_feed'
+  | 'uds'
   | 'store_administrator'
   | 'table_tent'
   | 'contextual_advertising'
+  | 'calendar'
 
 export const permissions = pgTable('permissions', {
   id: cuid2('id').defaultRandom().primaryKey(),
@@ -674,6 +675,7 @@ export const activityScheduleItems = pgTable('activity_schedule_items', {
   period: varchar('period').notNull(),
   isOptional: boolean('is_optional').notNull().default(false),
   terms: varchar('terms'),
+  goal: varchar('goal'),
   communicationChannels: jsonb('communication_channels').notNull().default([]).$type<CommunicationChannel[]>(),
   activityScheduleId: cuid2('activity_schedule_id').notNull().references(() => activitySchedules.id, {
     onDelete: 'cascade',
