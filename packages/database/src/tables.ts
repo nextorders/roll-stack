@@ -67,6 +67,11 @@ type CommunicationChannel = 'telegram'
   | 'contextual_advertising'
   | 'calendar'
 
+type ActivityScheduleTag = 'permanent'
+  | 'temporary'
+  | 'optional'
+  | 'advertising'
+
 export const permissions = pgTable('permissions', {
   id: cuid2('id').defaultRandom().primaryKey(),
   createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
@@ -677,6 +682,7 @@ export const activityScheduleItems = pgTable('activity_schedule_items', {
   terms: varchar('terms'),
   goal: varchar('goal'),
   communicationChannels: jsonb('communication_channels').notNull().default([]).$type<CommunicationChannel[]>(),
+  tags: jsonb('tags').notNull().default([]).$type<ActivityScheduleTag[]>(),
   activityScheduleId: cuid2('activity_schedule_id').notNull().references(() => activitySchedules.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',

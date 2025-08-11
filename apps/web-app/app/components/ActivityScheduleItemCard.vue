@@ -38,9 +38,9 @@
         />
 
         <UBadge
-          v-for="tag in tags"
+          v-for="tag in item.tags"
           :key="tag"
-          :label="tag"
+          :label="getTagData(tag)"
           color="neutral"
           variant="subtle"
         />
@@ -54,6 +54,7 @@ import type { AccordionItem } from '@nuxt/ui'
 import type { ActivityScheduleItem } from '@roll-stack/database'
 
 type CommunicationChannel = ActivityScheduleItem['communicationChannels'][number]
+type Tag = ActivityScheduleItem['tags'][number]
 
 const { item } = defineProps<{ item: ActivityScheduleItem }>()
 
@@ -71,11 +72,6 @@ const accordionItems = ref<AccordionItem[]>([
     content: item.terms ?? '',
   },
 ])
-
-const tags = [
-  'Постоянная акция',
-  'Опционально',
-]
 
 function getCommunicationChannelData(type: CommunicationChannel) {
   switch (type) {
@@ -129,6 +125,21 @@ function getCommunicationChannelData(type: CommunicationChannel) {
         icon: 'i-lucide-info',
         label: type,
       }
+  }
+}
+
+function getTagData(tag: Tag) {
+  switch (tag) {
+    case 'permanent':
+      return 'Постоянная акция'
+    case 'optional':
+      return 'Опционально'
+    case 'temporary':
+      return 'Временная акция'
+    case 'advertising':
+      return 'Реклама'
+    default:
+      return tag
   }
 }
 </script>
