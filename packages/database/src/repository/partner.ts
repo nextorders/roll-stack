@@ -49,6 +49,7 @@ export class Partner {
       with: {
         files: true,
         legalEntity: true,
+        kitchens: true,
       },
     })
   }

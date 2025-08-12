@@ -3,6 +3,7 @@ import type { Kitchen, Partner, PartnerAgreement, PartnerAgreementFile, PartnerL
 export type PartnerAgreementWithAllData = PartnerAgreement & {
   files: PartnerAgreementFile[]
   legalEntity: PartnerLegalEntity | null
+  kitchens: Kitchen[]
 }
 
 export type PartnerAgreementWithData = PartnerAgreement & {

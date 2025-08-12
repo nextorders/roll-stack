@@ -58,7 +58,7 @@
         base: 'table-fixed border-separate border-spacing-0',
         thead: '[&>tr]:bg-default [&>tr]:after:content-none',
         tbody: '[&>tr]:last:[&>td]:border-b-0',
-        th: 'py-1 bg-elevated/50 first:rounded-l-lg last:rounded-r-lg border-y border-default first:border-l last:border-r',
+        th: 'py-1.5 text-sm/4 bg-elevated/50 first:rounded-l-lg last:rounded-r-lg border-y border-default first:border-l last:border-r',
         td: 'border-b border-default [&:has([data-action=true]))]:pr-0',
       }"
     >
@@ -67,14 +67,26 @@
       </template>
       <template #internalId-cell="{ row }">
         <div class="flex flex-row gap-2 items-center">
-          <ULink :to="`/agreement/${row.getValue('id')}`" class="text-base font-medium text-highlighted">
+          <p class="text-base font-medium text-highlighted">
             {{ row.getValue('internalId') }}
-          </ULink>
+          </p>
           <UIcon
             v-if="row.getValue('isActive')"
             name="i-lucide-check"
             class="size-4 text-secondary"
           />
+        </div>
+      </template>
+      <template #kitchens-cell="{ row }">
+        <div class="flex flex-col gap-0.5 items-start">
+          <ULink
+            v-for="kitchen in row.original.kitchens"
+            :key="kitchen.id"
+            :to="`/kitchen/${kitchen.id}`"
+            class="font-medium text-highlighted"
+          >
+            {{ kitchen.name }}
+          </ULink>
         </div>
       </template>
       <template #legalEntity-cell="{ row }">
@@ -184,12 +196,15 @@ const columns: Ref<TableColumn<PartnerAgreementWithAllData>[]> = ref([{
     return h(UButton, {
       color: 'neutral',
       variant: 'ghost',
-      label: '№ договора',
+      label: '№',
       icon: isSorted ? icon : 'i-lucide-arrow-up-down',
       class: '-mx-2.5',
       onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
     })
   },
+}, {
+  accessorKey: 'kitchens',
+  header: 'Кухни',
 }, {
   accessorKey: 'files',
   header: 'Файлы / сканы',
