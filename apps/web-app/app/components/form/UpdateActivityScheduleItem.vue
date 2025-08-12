@@ -60,15 +60,6 @@
         block
         :label="$t('common.update')"
       />
-
-      <!-- <UButton
-        variant="soft"
-        color="error"
-        size="xl"
-        icon="i-lucide-trash-2"
-        class="aspect-square justify-center"
-        @click="onDelete"
-      /> -->
     </div>
   </UForm>
 </template>
@@ -119,25 +110,4 @@ async function onSubmit(event: FormSubmitEvent<UpdateActivityScheduleItem>) {
     actionToast.error(toastId)
   }
 }
-
-// async function onDelete() {
-//   const toastId = actionToast.start()
-//   emit('submitted')
-
-//   try {
-//     await $fetch(`/api/menu/category/id/${categoryId}`, {
-//       method: 'DELETE',
-//     })
-
-//     await menuStore.update()
-
-//     actionToast.success(toastId, t('toast.category-deleted'))
-//     emit('success')
-
-//     router.push(redirectTo)
-//   } catch (error) {
-//     console.error(error)
-//     actionToast.error(toastId)
-//   }
-// }
 </script>

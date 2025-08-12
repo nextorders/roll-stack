@@ -90,8 +90,10 @@ async function onSubmit(event: FormSubmitEvent<CompleteTask>) {
       body: event.data,
     })
 
-    await taskStore.update()
-    await userStore.update()
+    await Promise.all([
+      taskStore.update(),
+      userStore.update(),
+    ])
 
     actionToast.success(toastId, t('toast.task-completed'))
     emit('success')

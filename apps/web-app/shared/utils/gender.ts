@@ -1,4 +1,6 @@
-export function suffixByGender(word: [string, string], gender?: 'male' | 'female' | 'unknown') {
+import type { UserGender } from '../types'
+
+export function suffixByGender(word: [string, string], gender?: UserGender) {
   if (gender === 'male') {
     return word[0]
   } else if (gender === 'female') {

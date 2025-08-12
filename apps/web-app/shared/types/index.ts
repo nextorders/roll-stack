@@ -52,3 +52,5 @@ export interface Range {
   start: Date
   end: Date
 }
+
+export type UserGender = 'male' | 'female' | 'unknown'

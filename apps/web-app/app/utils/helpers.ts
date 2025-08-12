@@ -1,4 +1,5 @@
 import type { WeightUnit } from '~~/shared/services/common'
+import type { UserGender } from '~~/shared/types'
 
 export function getCategoryInfo(category: string) {
   if (category === 'development') {
@@ -46,6 +47,16 @@ export function getLocalizedWeightUnitsForSelect(): { value: WeightUnit, label: 
     { value: 'ML', label: t('common.weight-unit.ml') },
     // { value: 'OZ', label: t('common.weight-unit.oz') },
     // { value: 'LB', label: t('common.weight-unit.lb') },
+  ]
+}
+
+export function getLocalizedGenderForSelect(): { value: UserGender, label: string }[] {
+  const { t } = useI18n()
+
+  return [
+    { value: 'male', label: t('common.gender.male') },
+    { value: 'female', label: t('common.gender.female') },
+    { value: 'unknown', label: t('common.gender.unknown') },
   ]
 }
 
