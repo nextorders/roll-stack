@@ -65,7 +65,7 @@ const { params } = useRoute('partner-id')
 const partnerStore = usePartnerStore()
 const partner = computed(() => partnerStore.partners.find((partner) => partner.id === params.id))
 
-const partnerUser = computed(() => partner.value?.users.filter((user) => user.type === 'partner')[0])
+const partnerUser = computed(() => partner.value?.users.find((user) => user.type === 'partner'))
 
 const activeAgreements = computed(() => partner.value?.legalEntity?.agreements.filter((agreement) => agreement.isActive))
 
