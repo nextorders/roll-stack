@@ -106,10 +106,6 @@ export const partners = pgTable('partners', {
   priceLevel: integer('price_level').notNull().default(0),
   prestige: integer('prestige').notNull().default(0),
   isActive: boolean('is_active').notNull().default(true),
-  gender: varchar('gender').notNull().default('unknown').$type<UserGender>(),
-  name: varchar('name').notNull(),
-  surname: varchar('surname').notNull().default(''),
-  avatarUrl: varchar('avatar_url'),
   city: varchar('city'),
   legalEntityId: cuid2('legal_entity_id').references(() => partnerLegalEntities.id),
 })

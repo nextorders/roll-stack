@@ -34,7 +34,8 @@ export const getPartnersBySurnameTool = tool({
     surname: z.string(),
   }),
   execute: async ({ surname }) => {
-    const partners = await repository.partner.list()
-    return partners.filter((partner) => partner.surname?.toLowerCase().includes(surname.toLowerCase()))
+    const users = await repository.user.list()
+    const partners = users.filter((user) => user.type === 'partner')
+    return partners.filter((p) => p.surname?.toLowerCase().includes(surname.toLowerCase()))
   },
 })
