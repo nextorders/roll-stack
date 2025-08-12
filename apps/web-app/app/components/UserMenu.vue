@@ -1,6 +1,6 @@
 <template>
   <UDropdownMenu
-    v-if="user.id"
+    v-if="userStore.id"
     size="lg"
     :items="userMenuItems"
     :search-input="false"
@@ -8,9 +8,9 @@
     :ui="{ content: 'w-64' }"
   >
     <UButton
-      :avatar="{ src: user.avatarUrl ?? undefined }"
+      :avatar="{ src: userStore.avatarUrl ?? undefined }"
       :ui="{ trailingIcon: 'text-dimmed' }"
-      :label="user.fullName ?? t('common.colleague')"
+      :label="userStore.fullName ?? t('common.colleague')"
       block
       color="neutral"
       variant="ghost"
@@ -28,7 +28,7 @@ const { t } = useI18n()
 const colorMode = useColorMode()
 const app = useApp()
 
-const user = useUserStore()
+const userStore = useUserStore()
 
 async function signOut() {
   await clear()
@@ -41,10 +41,10 @@ const modalUpdateUser = overlay.create(ModalUpdateUser)
 
 const userMenuItems = computed(() => [
   {
-    label: user.fullName ?? t('common.colleague'),
+    label: userStore.fullName ?? t('common.colleague'),
     type: 'label' as const,
     avatar: {
-      src: user.avatarUrl ?? undefined,
+      src: userStore.avatarUrl ?? undefined,
     },
   },
   {
@@ -55,7 +55,7 @@ const userMenuItems = computed(() => [
     type: 'link' as const,
     icon: 'lucide:edit',
     onClick() {
-      modalUpdateUser.open()
+      modalUpdateUser.open({ userId: userStore.id })
     },
   },
   {

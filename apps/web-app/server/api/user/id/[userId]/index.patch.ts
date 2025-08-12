@@ -21,18 +21,12 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    // Guard: if not this user in session
+    // Guard: if no user in session
     const session = await getUserSession(event)
     if (!session?.user) {
       throw createError({
         statusCode: 401,
         message: 'Not logged in',
-      })
-    }
-    if (session.user.id !== userId) {
-      throw createError({
-        statusCode: 403,
-        message: 'Forbidden',
       })
     }
 

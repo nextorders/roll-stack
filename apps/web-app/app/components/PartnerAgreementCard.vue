@@ -5,25 +5,34 @@
       !agreement.isActive && 'opacity-75 grayscale-100',
     ]"
   >
-    <div class="flex flex-col gap-3">
-      <div class="flex flex-row items-start gap-2.5">
-        <UIcon
-          name="i-lucide-scroll-text"
-          class="shrink-0 size-14 text-primary"
-          @click="modalUpdatePartnerAgreement.open({ agreementId: agreement.id })"
-        />
+    <div class="flex flex-col gap-3 group/list">
+      <div class="flex flex-row justify-between">
+        <div class="flex flex-row items-start gap-2.5">
+          <UIcon name="i-lucide-scroll-text" class="shrink-0 size-14 text-primary" />
 
-        <UProgress
-          v-model="agreementProgress"
-          size="md"
-          color="secondary"
-          orientation="vertical"
-          inverted
-          class="h-14 py-1"
-          :ui="{
-            indicator: agreementProgress <= 15 && '!bg-error',
-          }"
-        />
+          <UProgress
+            v-model="agreementProgress"
+            size="md"
+            color="secondary"
+            orientation="vertical"
+            inverted
+            class="h-14 py-1"
+            :ui="{
+              indicator: agreementProgress <= 15 && '!bg-error',
+            }"
+          />
+        </div>
+
+        <UTooltip :text="`Редактировать «Договор №${agreement.internalId}»`">
+          <UButton
+            variant="outline"
+            color="neutral"
+            size="md"
+            icon="i-lucide-pencil"
+            class="size-10 justify-center opacity-0 group-hover/list:opacity-100"
+            @click="modalUpdatePartnerAgreement.open({ agreementId: agreement.id })"
+          />
+        </UTooltip>
       </div>
 
       <h3 class="text-xl md:text-xl/6 font-semibold">

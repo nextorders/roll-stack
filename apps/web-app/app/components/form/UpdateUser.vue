@@ -31,11 +31,29 @@
       />
     </UFormField>
 
+    <UFormField :label="$t('common.phone')" name="phone">
+      <UInput
+        v-model="state.phone"
+        size="xl"
+        class="w-full items-center justify-center"
+      />
+    </UFormField>
+
     <UFormField :label="$t('common.caption')" name="caption">
       <UInput
         v-model="state.caption"
         size="xl"
         class="w-full items-center justify-center"
+      />
+    </UFormField>
+
+    <UFormField :label="$t('common.gender.title')" name="gender">
+      <USelect
+        v-model="state.gender"
+        :items="getLocalizedGenderForSelect()"
+        :placeholder="$t('common.select')"
+        size="xl"
+        class="w-full"
       />
     </UFormField>
 
@@ -56,18 +74,24 @@ import type { FormSubmitEvent } from '@nuxt/ui'
 import type { UpdateUser } from '~~/shared/services/user'
 import { updateUserSchema } from '~~/shared/services/user'
 
+const { userId } = defineProps<{ userId: string }>()
+
 const emit = defineEmits(['success', 'submitted'])
 
 const { t } = useI18n()
 const actionToast = useActionToast()
 
+const partnerStore = usePartnerStore()
 const userStore = useUserStore()
+const user = userStore.find(userId)
 
 const state = ref<Partial<UpdateUser>>({
-  name: userStore.name,
-  surname: userStore.surname,
-  email: userStore.email ?? undefined,
-  caption: userStore.caption,
+  name: user?.name,
+  surname: user?.surname,
+  email: user?.email ?? undefined,
+  phone: user?.phone ?? undefined,
+  caption: user?.caption,
+  gender: user?.gender,
 })
 
 async function onSubmit(event: FormSubmitEvent<UpdateUser>) {
@@ -75,12 +99,15 @@ async function onSubmit(event: FormSubmitEvent<UpdateUser>) {
   emit('submitted')
 
   try {
-    await $fetch(`/api/user/id/${userStore.id}`, {
+    await $fetch(`/api/user/id/${user?.id}`, {
       method: 'PATCH',
       body: event.data,
     })
 
-    await userStore.update()
+    await Promise.all([
+      userStore.update(),
+      partnerStore.update(),
+    ])
 
     actionToast.success(toastId, t('toast.user-updated'))
     emit('success')

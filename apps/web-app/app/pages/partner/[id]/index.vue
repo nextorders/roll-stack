@@ -35,7 +35,11 @@
         </div>
       </UCard>
 
-      <UserCard v-if="partnerUser" :user="partnerUser" />
+      <UserCard
+        v-if="partnerUser"
+        :user="partnerUser"
+        @click="modalUpdateUser.open({ userId: partnerUser.id })"
+      />
 
       <div class="lg:col-span-2">
         <PartnerLegalEntityCard :partner-id="partner?.id ?? ''" :entity="partner?.legalEntity" />
@@ -53,6 +57,8 @@
 </template>
 
 <script setup lang="ts">
+import { ModalUpdateUser } from '#components'
+
 const { t } = useI18n()
 const { params } = useRoute('partner-id')
 
@@ -62,6 +68,9 @@ const partner = computed(() => partnerStore.partners.find((partner) => partner.i
 const partnerUser = computed(() => partner.value?.users.filter((user) => user.type === 'partner')[0])
 
 const activeAgreements = computed(() => partner.value?.legalEntity?.agreements.filter((agreement) => agreement.isActive))
+
+const overlay = useOverlay()
+const modalUpdateUser = overlay.create(ModalUpdateUser)
 
 useHead({
   title: t('common.partner'),

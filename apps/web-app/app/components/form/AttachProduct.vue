@@ -87,8 +87,10 @@ async function onSubmit(event: FormSubmitEvent<AttachProductToMenuCategory>) {
       body: event.data,
     })
 
-    await productStore.update()
-    await menuStore.update()
+    await Promise.all([
+      productStore.update(),
+      menuStore.update(),
+    ])
 
     actionToast.success(toastId, t('toast.category-updated'))
     emit('success')
