@@ -24,10 +24,7 @@
 
       <template #content>
         <div class="h-auto w-56 p-4 flex flex-col gap-2">
-          <UIcon
-            :name="getFileData(file).icon"
-            class="size-10 text-muted/50"
-          />
+          <UIcon :name="getFileData(file).icon" class="size-10" />
 
           <div class="flex flex-col gap-2.5">
             <h4 class="text-base/5">

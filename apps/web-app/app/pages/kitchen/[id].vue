@@ -6,16 +6,6 @@
         highlight
         class="flex-1 -ml-2.5"
       />
-
-      <UButton
-        size="lg"
-        variant="solid"
-        color="secondary"
-        class="w-full md:w-fit"
-        icon="i-lucide-square-pen"
-        :label="t('common.edit')"
-        @click="() => {}"
-      />
     </template>
   </Header>
 

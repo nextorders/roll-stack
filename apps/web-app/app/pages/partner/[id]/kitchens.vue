@@ -6,9 +6,7 @@
         :key="kitchen.id"
         :to="`/kitchen/${kitchen.id}`"
       >
-        <KitchenCard :kitchen="kitchen">
-          {{ kitchen }}
-        </KitchenCard>
+        <KitchenCard :kitchen="kitchen" />
       </NuxtLink>
     </div>
   </Content>

@@ -2,7 +2,7 @@
   <Content>
     <div class="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       <div
-        v-for="agreement in partner?.legalEntity?.agreements"
+        v-for="agreement in agreements"
         :key="agreement.id"
         class="lg:col-span-2"
       >
@@ -28,6 +28,8 @@ const { params } = useRoute('partner-id')
 
 const partnerStore = usePartnerStore()
 const partner = computed(() => partnerStore.partners.find((partner) => partner.id === params.id))
+
+const agreements = computed(() => partnerStore.agreements.filter((agreement) => agreement.legalEntityId === partner.value?.legalEntityId))
 
 const overlay = useOverlay()
 const modalCreatePartnerAgreement = overlay.create(ModalCreatePartnerAgreement)

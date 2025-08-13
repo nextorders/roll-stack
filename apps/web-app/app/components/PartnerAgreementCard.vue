@@ -63,6 +63,28 @@
         {{ agreement.comment }}
       </p>
 
+      <div v-if="agreement.kitchens.length" class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+        <NuxtLink
+          v-for="kitchen in agreement.kitchens"
+          :key="kitchen.id"
+          :to="`/kitchen/${kitchen.id}`"
+        >
+          <ActiveCard class="min-h-auto !p-4 !ring-accented bg-transparent">
+            <div class="shrink-0 w-full h-full flex flex-col gap-1.5 items-center justify-center text-center">
+              <UIcon name="i-lucide-store" class="size-8 text-primary" />
+
+              <h3 class="text-base/4 font-semibold">
+                {{ kitchen.address }}
+              </h3>
+
+              <h3 class="text-sm/5">
+                {{ kitchen.city }}
+              </h3>
+            </div>
+          </ActiveCard>
+        </NuxtLink>
+      </div>
+
       <div v-if="agreement.files.length" class="flex flex-col gap-1.5">
         <UButton
           v-for="file in agreement.files"
@@ -71,7 +93,7 @@
           external
           target="_blank"
           size="lg"
-          variant="subtle"
+          variant="outline"
           color="neutral"
           icon="i-lucide-file-symlink"
           :label="file.name"
@@ -82,12 +104,11 @@
 </template>
 
 <script setup lang="ts">
-import type { PartnerAgreement, PartnerAgreementFile } from '@roll-stack/database'
 import { ModalUpdatePartnerAgreement } from '#components'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale/ru'
 
-const { agreement } = defineProps<{ agreement: PartnerAgreement & { files: PartnerAgreementFile[] } }>()
+const { agreement } = defineProps<{ agreement: PartnerAgreementWithAllData }>()
 
 const overlay = useOverlay()
 const modalUpdatePartnerAgreement = overlay.create(ModalUpdatePartnerAgreement)
