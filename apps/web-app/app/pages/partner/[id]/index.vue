@@ -1,6 +1,6 @@
 <template>
   <Content>
-    <div class="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6 gap-4 md:gap-6">
       <UCard>
         <div class="shrink-0 w-full flex flex-col gap-2">
           <UIcon name="i-lucide-handshake" class="size-14 text-primary" />
@@ -67,7 +67,11 @@ const partner = computed(() => partnerStore.partners.find((partner) => partner.i
 
 const partnerUser = computed(() => partner.value?.users.find((user) => user.type === 'partner'))
 
-const activeAgreements = computed(() => partner.value?.legalEntity?.agreements.filter((agreement) => agreement.isActive))
+const activeAgreements = computed(() =>
+  partnerStore.agreements
+    .filter((agreement) => agreement.isActive === true)
+    .filter((agreement) => agreement.legalEntityId === partner.value?.legalEntityId),
+)
 
 const overlay = useOverlay()
 const modalUpdateUser = overlay.create(ModalUpdateUser)
