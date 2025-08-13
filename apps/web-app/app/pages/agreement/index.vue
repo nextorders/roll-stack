@@ -66,15 +66,21 @@
         {{ row.getValue('id') }}
       </template>
       <template #internalId-cell="{ row }">
-        <div class="flex flex-row gap-2 items-center">
-          <p class="text-base font-medium text-highlighted">
-            {{ row.getValue('internalId') }}
+        <div class="flex flex-col gap-0.5">
+          <div class="flex flex-row gap-2 items-center">
+            <p class="text-base font-medium text-highlighted">
+              {{ row.getValue('internalId') }}
+            </p>
+            <UIcon
+              v-if="row.getValue('isActive')"
+              name="i-lucide-check"
+              class="size-4 text-secondary"
+            />
+          </div>
+
+          <p v-if="row.original.concludedAt" class="text-xs">
+            от {{ format(new Date(row.original.concludedAt), 'd MMMM yyyy', { locale: ru }) }}
           </p>
-          <UIcon
-            v-if="row.getValue('isActive')"
-            name="i-lucide-check"
-            class="size-4 text-secondary"
-          />
         </div>
       </template>
       <template #kitchens-cell="{ row }">
@@ -98,10 +104,19 @@
         <AgreementFilesBlock :files="row.original.files" />
       </template>
       <template #royalty-cell="{ row }">
-        {{ row.getValue('royalty') }}% / от {{ formatNumber(row.getValue('minRoyaltyPerMonth')) }}
+        <div class="text-center">
+          <div>{{ row.getValue('royalty') }}%</div>
+          от {{ formatNumber(row.getValue('minRoyaltyPerMonth')) }}
+        </div>
       </template>
       <template #marketingFee-cell="{ row }">
-        {{ row.getValue('marketingFee') }}% / от {{ formatNumber(row.getValue('minMarketingFeePerMonth')) }}
+        <div v-if="row.getValue('marketingFee')" class="text-center">
+          <div>{{ row.getValue('marketingFee') }}%</div>
+          от {{ formatNumber(row.getValue('minMarketingFeePerMonth')) }}
+        </div>
+        <div v-else class="text-center">
+          -
+        </div>
       </template>
       <template #comment-cell="{ row }">
         <div class="text-sm/4 whitespace-pre-wrap max-w-56">
@@ -151,6 +166,8 @@ import type { DropdownMenuItem, TableColumn } from '@nuxt/ui'
 import type { PartnerAgreement } from '@roll-stack/database'
 import type { PartnerAgreementWithAllData } from '~/stores/partner'
 import { getPaginationRowModel } from '@tanstack/table-core'
+import { format } from 'date-fns'
+import { ru } from 'date-fns/locale/ru'
 import { upperFirst } from 'scule'
 
 const UButton = resolveComponent('UButton')
@@ -207,7 +224,7 @@ const columns: Ref<TableColumn<PartnerAgreementWithAllData>[]> = ref([{
   header: 'Кухни',
 }, {
   accessorKey: 'files',
-  header: 'Файлы / сканы',
+  header: 'Файлы',
 }, {
   accessorKey: 'legalEntity',
   header: 'Юр. лицо',
