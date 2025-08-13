@@ -63,7 +63,7 @@
         {{ agreement.comment }}
       </p>
 
-      <div v-if="agreement.kitchens.length" class="grid grid-cols-2 gap-2.5">
+      <div v-if="agreement.kitchens.length" class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
         <NuxtLink
           v-for="kitchen in agreement.kitchens"
           :key="kitchen.id"
