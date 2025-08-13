@@ -45,7 +45,7 @@
     "vitest-browser-vue": "catalog:"
   },
   "resolutions": {
-    "unimport": "4.1.1"
+    "unimport": "5.2.0"
   },
   "lint-staged": {
     "*.ts": "eslint ."
