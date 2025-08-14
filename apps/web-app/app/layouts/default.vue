@@ -1,9 +1,9 @@
 <template>
   <div class="fixed inset-0 flex overflow-hidden">
-    <div class="hidden lg:flex flex-col min-h-svh min-w-16 w-72 border-r border-default shrink-0 bg-elevated/25">
+    <!-- <div class="hidden lg:flex flex-col min-h-svh min-w-16 w-72 border-r border-default shrink-0 bg-elevated/25">
       <NavigationHeader class="h-16" />
       <Navigation />
-    </div>
+    </div> -->
 
     <main class="flex flex-col min-w-0 min-h-svh lg:not-last:border-r lg:not-last:border-default flex-1">
       <slot />
@@ -19,7 +19,7 @@
         <UButton
           icon="i-lucide-x"
           color="neutral"
-          variant="ghost"
+          variant="outline"
           @click="isNavbarOpened = false"
         />
 

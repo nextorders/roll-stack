@@ -1,6 +1,6 @@
 <template>
   <div class="h-16 shrink-0 flex items-center justify-between border-b border-default px-4 sm:px-6 gap-1.5">
-    <div class="flex items-center gap-1.5 min-w-0">
+    <div class="flex items-center gap-2.5 md:gap-4 min-w-0">
       <HeaderMenuButton />
 
       <h1 class="flex items-center gap-1.5 font-medium text-lg text-highlighted truncate">
