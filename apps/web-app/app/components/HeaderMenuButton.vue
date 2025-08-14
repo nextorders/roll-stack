@@ -2,8 +2,7 @@
   <UButton
     icon="i-lucide-menu"
     color="neutral"
-    variant="ghost"
-    class="visible lg:hidden"
+    variant="outline"
     @click="isNavbarOpened = true"
   />
 </template>

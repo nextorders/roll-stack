@@ -5,6 +5,20 @@
     class="flex flex-col gap-3"
     @submit="onSubmit"
   >
+    <UFormField
+      :label="$t('app.partner-legal-entity.title')"
+      name="legalEntityId"
+      required
+    >
+      <USelectMenu
+        v-model="selectedLegalEntity"
+        :items="legalEntities"
+        :placeholder="$t('common.select')"
+        size="xl"
+        class="w-full"
+      />
+    </UFormField>
+
     <UFormField label="Роялти, %" name="royalty">
       <UInputNumber
         v-model="state.royalty"
@@ -98,6 +112,20 @@ const state = ref<Partial<UpdatePartnerAgreement>>({
   minMarketingFeePerMonth: agreement.value?.minMarketingFeePerMonth,
   lumpSumPayment: agreement.value?.lumpSumPayment,
   comment: agreement.value?.comment ?? undefined,
+  legalEntityId: agreement.value?.legalEntityId ?? undefined,
+})
+
+const legalEntities = computed(() => partnerStore.legalEntities.map((legalEntity) => {
+  return {
+    label: legalEntity.name,
+    value: legalEntity.id,
+  }
+}))
+
+const selectedLegalEntity = ref(legalEntities.value.find((legalEntity) => legalEntity.value === agreement.value?.legalEntityId))
+
+watch(selectedLegalEntity, (newValue) => {
+  state.value.legalEntityId = newValue?.value
 })
 
 async function onSubmit(event: FormSubmitEvent<UpdatePartnerAgreement>) {
