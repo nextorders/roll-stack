@@ -23,6 +23,7 @@ export type PartnerWithData = Partner & {
 export const usePartnerStore = defineStore('partner', () => {
   const partners = ref<PartnerWithData[]>([])
   const agreements = ref<PartnerAgreementWithAllData[]>([])
+  const legalEntities = ref<PartnerLegalEntity[]>([])
 
   async function update() {
     try {
@@ -33,7 +34,10 @@ export const usePartnerStore = defineStore('partner', () => {
 
       partners.value = data
 
-      await updateAgreements()
+      await Promise.all([
+        updateAgreements(),
+        updateLegalEntities(),
+      ])
     } catch (error) {
       if (error instanceof Error) {
         if (error.message.includes('404')) {
@@ -60,9 +64,27 @@ export const usePartnerStore = defineStore('partner', () => {
     }
   }
 
+  async function updateLegalEntities() {
+    try {
+      const data = await $fetch('/api/partner/legal/list')
+      if (!data) {
+        return
+      }
+
+      legalEntities.value = data
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message.includes('404')) {
+          // Not found
+        }
+      }
+    }
+  }
+
   return {
     partners,
     agreements,
+    legalEntities,
 
     update,
   }

@@ -1,5 +1,15 @@
 <template>
-  <Header :title="t('app.menu.agreements')" />
+  <Header :title="t('app.menu.agreements')">
+    <UButton
+      size="lg"
+      variant="solid"
+      color="secondary"
+      class="w-full md:w-fit"
+      icon="i-lucide-circle-plus"
+      :label="t('app.create.agreement.button')"
+      @click="modalCreatePartnerAgreement.open()"
+    />
+  </Header>
 
   <Content>
     <div class="flex flex-wrap items-center justify-between gap-1.5">
@@ -83,6 +93,9 @@
           </p>
         </div>
       </template>
+      <template #willEndAt-cell="{ row }">
+        {{ format(new Date(row.getValue('willEndAt')), 'd MMMM yyyy', { locale: ru }) }}
+      </template>
       <template #kitchens-cell="{ row }">
         <div class="flex flex-col gap-0.5 items-start">
           <ULink
@@ -165,6 +178,7 @@
 import type { DropdownMenuItem, TableColumn } from '@nuxt/ui'
 import type { PartnerAgreement } from '@roll-stack/database'
 import type { PartnerAgreementWithAllData } from '~/stores/partner'
+import { ModalCreatePartnerAgreement, ModalUpdatePartnerAgreement } from '#components'
 import { getPaginationRowModel } from '@tanstack/table-core'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale/ru'
@@ -175,6 +189,10 @@ const UButton = resolveComponent('UButton')
 const { t } = useI18n()
 
 const filterValue = ref('')
+
+const overlay = useOverlay()
+const modalCreatePartnerAgreement = overlay.create(ModalCreatePartnerAgreement)
+const modalUpdatePartnerAgreement = overlay.create(ModalUpdatePartnerAgreement)
 
 const partnerStore = usePartnerStore()
 
@@ -187,6 +205,7 @@ const columnVisibility = ref({
   isActive: false,
   minRoyaltyPerMonth: false,
   minMarketingFeePerMonth: false,
+  willEndAt: false,
 })
 const rowSelection = ref()
 const pagination = ref({
@@ -214,6 +233,22 @@ const columns: Ref<TableColumn<PartnerAgreementWithAllData>[]> = ref([{
       color: 'neutral',
       variant: 'ghost',
       label: '№',
+      icon: isSorted ? icon : 'i-lucide-arrow-up-down',
+      class: '-mx-2.5',
+      onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
+    })
+  },
+}, {
+  accessorKey: 'willEndAt',
+  enableSorting: true,
+  header: ({ column }) => {
+    const isSorted = column.getIsSorted()
+    const icon = isSorted === 'asc' ? 'i-lucide-arrow-up-narrow-wide' : 'i-lucide-arrow-down-wide-narrow'
+
+    return h(UButton, {
+      color: 'neutral',
+      variant: 'ghost',
+      label: 'Дата окончания',
       icon: isSorted ? icon : 'i-lucide-arrow-up-down',
       class: '-mx-2.5',
       onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
@@ -252,19 +287,15 @@ const columns: Ref<TableColumn<PartnerAgreementWithAllData>[]> = ref([{
   enableHiding: false,
 }])
 
-function getDropdownActions(_: PartnerAgreement): DropdownMenuItem[][] {
+function getDropdownActions(agreement: PartnerAgreement): DropdownMenuItem[][] {
   return [
     [
       {
-        type: 'label',
-        label: t('common.actions'),
+        label: t('common.edit'),
+        type: 'link',
+        onSelect: () => modalUpdatePartnerAgreement.open({ agreementId: agreement.id }),
+        icon: 'i-lucide-pencil',
       },
-      //  {
-      //   label: t('common.open-page'),
-      //   type: 'link',
-      //   to: `/product/${product.id}`,
-      //   icon: 'i-lucide-cooking-pot',
-      // },
     ],
   ]
 }

@@ -6,6 +6,20 @@
     class="flex flex-col gap-3"
     @submit="onSubmit"
   >
+    <UFormField
+      :label="$t('app.partner-legal-entity.title')"
+      name="legalEntityId"
+      required
+    >
+      <USelectMenu
+        v-model="selectedLegalEntity"
+        :items="legalEntities"
+        :placeholder="$t('common.select')"
+        size="xl"
+        class="w-full"
+      />
+    </UFormField>
+
     <UPopover>
       <UFormField
         label="Дата заключения"
@@ -125,7 +139,7 @@ import type { FormSubmitEvent } from '@nuxt/ui'
 import { createPartnerAgreementSchema } from '#shared/services/partner'
 import { DateFormatter, getLocalTimeZone } from '@internationalized/date'
 
-const { partnerId, legalEntityId } = defineProps<{ partnerId: string, legalEntityId: string }>()
+const { partnerId, legalEntityId } = defineProps<{ partnerId: string, legalEntityId?: string }>()
 const emit = defineEmits(['success', 'submitted'])
 
 const { t } = useI18n()
@@ -143,7 +157,20 @@ const state = ref<Partial<CreatePartnerAgreement>>({
   minRoyaltyPerMonth: undefined,
   lumpSumPayment: undefined,
   comment: undefined,
-  legalEntityId,
+  legalEntityId: legalEntityId ?? undefined,
+})
+
+const legalEntities = computed(() => partnerStore.legalEntities.map((legalEntity) => {
+  return {
+    label: legalEntity.name,
+    value: legalEntity.id,
+  }
+}))
+
+const selectedLegalEntity = ref(legalEntities.value.find((legalEntity) => legalEntity.value === legalEntityId))
+
+watch(selectedLegalEntity, () => {
+  state.value.legalEntityId = selectedLegalEntity.value?.value
 })
 
 const df = new DateFormatter('ru-RU', {

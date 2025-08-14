@@ -54,6 +54,14 @@ export class Partner {
     })
   }
 
+  static async listLegalEntities() {
+    return useDatabase().query.partnerLegalEntities.findMany({
+      with: {
+        agreements: true,
+      },
+    })
+  }
+
   static async create(data: PartnerDraft) {
     const [partner] = await useDatabase().insert(partners).values(data).returning()
     return partner

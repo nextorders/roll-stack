@@ -18,6 +18,10 @@
       <NuxtLink v-if="partner" :to="`/partner/${partner.id}`">
         <PartnerCard :partner="partner" />
       </NuxtLink>
+
+      <div v-if="agreement" class="lg:col-span-2">
+        <PartnerAgreementCard :agreement="agreement" />
+      </div>
     </div>
   </Content>
 </template>
@@ -30,6 +34,8 @@ const partnerStore = usePartnerStore()
 const kitchenStore = useKitchenStore()
 const kitchen = computed(() => kitchenStore.kitchens.find((k) => k.id === params.id))
 const partner = computed(() => partnerStore.partners.find((partner) => partner.id === kitchen.value?.partnerId))
+
+const agreement = computed(() => partnerStore.agreements.find((agreement) => agreement.id === kitchen.value?.agreementId))
 
 useHead({
   title: t('common.kitchen'),
