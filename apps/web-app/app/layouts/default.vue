@@ -13,6 +13,7 @@
   <USlideover
     v-model:open="isNavbarOpened"
     side="left"
+    class="md:max-w-86"
   >
     <template #header>
       <div class="flex flex-row items-center">
