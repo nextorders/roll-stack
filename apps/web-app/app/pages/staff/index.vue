@@ -3,7 +3,7 @@
 
   <Content>
     <template v-if="user.id">
-      <div class="mb-20 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-4.5">
+      <div class="mb-20 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-4.5">
         <NuxtLink
           v-for="staff in activeStaff"
           :key="staff.id"
