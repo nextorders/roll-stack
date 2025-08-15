@@ -1,6 +1,6 @@
 <template>
   <Content>
-    <div class="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div class="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
       <div v-if="partner?.legalEntity" class="lg:col-span-2">
         <PartnerLegalEntityCard :partner-id="partner?.id ?? ''" :entity="partner.legalEntity" />
       </div>

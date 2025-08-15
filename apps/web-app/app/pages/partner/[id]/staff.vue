@@ -1,6 +1,6 @@
 <template>
   <Content>
-    <div class="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-6">
+    <div class="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-6 2xl:grid-cols-7">
       <UserCard
         v-for="user in partner?.users"
         :key="user.id"
