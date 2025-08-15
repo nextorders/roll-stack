@@ -2,13 +2,13 @@ import type { Context } from 'grammy'
 import { repository } from '@roll-stack/database'
 import { Bot } from 'grammy'
 
-const logger = useLogger('telegram:wasabi-vista')
+const logger = useLogger('telegram:wasabi-bot')
 const { telegram } = useRuntimeConfig()
 
 let bot: Bot | null = null
 
-export async function useCreateWasabiVistaBot() {
-  bot = new Bot(telegram.wasabiVistaToken)
+export async function useCreateWasabiBot() {
+  bot = new Bot(telegram.wasabiToken)
 
   bot.on('message:text', async (ctx) => {
     if (ctx.hasCommand('start')) {
@@ -25,9 +25,9 @@ export async function useCreateWasabiVistaBot() {
 
   try {
     await bot.start()
-    logger.info('Wasabi Vista bot started successfully')
+    logger.info('Wasabi bot started successfully')
   } catch (error) {
-    logger.error('Failed to start Wasabi Vista bot:', error)
+    logger.error('Failed to start Wasabi bot:', error)
     throw error
   }
 }
@@ -44,11 +44,11 @@ async function handleStart(ctx: Context) {
   }
 
   // Find user
-  const wasabiVistaUser = await repository.wasabiVista.findUserByTelegramId(ctx.message.from.id.toString())
-  if (!wasabiVistaUser) {
+  const wasabiUser = await repository.wasabi.findUserByTelegramId(ctx.message.from.id.toString())
+  if (!wasabiUser) {
     const accessKey = await generateAccessCode()
 
-    const createdUser = await repository.wasabiVista.createUser({
+    const createdUser = await repository.wasabi.createUser({
       telegramId: ctx.message.from.id.toString(),
       accessKey,
       firstName: ctx.message.from.first_name,
@@ -64,7 +64,7 @@ async function handleStart(ctx: Context) {
     return
   }
 
-  if (!wasabiVistaUser.user) {
+  if (!wasabiUser.user) {
     await ctx.reply('Нет доступа. Используйте ранее полученный Ключ доступа. Или передайте его в службу поддержки.')
     return
   }
@@ -77,20 +77,20 @@ async function handleMessage(ctx: Context) {
     return
   }
 
-  const wasabiVistaUser = await repository.wasabiVista.findUserByTelegramId(ctx.message.from.id.toString())
-  if (!wasabiVistaUser?.user) {
+  const wasabiUser = await repository.wasabi.findUserByTelegramId(ctx.message.from.id.toString())
+  if (!wasabiUser?.user) {
     return
   }
 
   // Get last ticket
-  const tickets = await repository.ticket.listOpenedByUser(wasabiVistaUser.user.id)
+  const tickets = await repository.ticket.listOpenedByUser(wasabiUser.user.id)
   let ticket = tickets?.[0]
   if (!tickets.length || !ticket) {
     // Create ticket
     ticket = await repository.ticket.create({
-      title: `Сопровождение ${wasabiVistaUser.user.name} ${wasabiVistaUser.user.surname}`,
+      title: `${wasabiUser.user.name} ${wasabiUser.user.surname}`,
       description: 'Создано автоматически',
-      userId: wasabiVistaUser.user.id,
+      userId: wasabiUser.user.id,
       status: 'opened',
     })
   }
@@ -100,24 +100,24 @@ async function handleMessage(ctx: Context) {
 
   await repository.ticket.createMessage({
     ticketId: ticket.id,
-    userId: wasabiVistaUser.user.id,
+    userId: wasabiUser.user.id,
     text: ctx.message.text,
   })
 
-  logger.log('message', wasabiVistaUser.user.id, ctx.message.from.id, ctx.message.text)
-  ctx.reply('Ваше сообщение передано в службу поддержки.')
+  logger.log('message', wasabiUser.user.id, ctx.message.from.id, ctx.message.text)
+  ctx.reply('Сообщение передано в службу поддержки.')
 }
 
-export function useWasabiVistaBot(): Bot {
+export function useWasabiBot(): Bot {
   if (!bot) {
-    throw new Error('Wasabi Vista bot is not initialized. Call useCreateWasabiVistaBot() first.')
+    throw new Error('Wasabi bot is not initialized. Call useCreateWasabiBot() first.')
   }
 
   return bot
 }
 
-export async function notifyWasabiVistaAdmin(message: string) {
-  return useWasabiVistaBot().api.sendMessage(telegram.adminId, message)
+export async function notifyWasabiAdmin(message: string) {
+  return useWasabiBot().api.sendMessage(telegram.adminId, message)
 }
 
 async function generateAccessCode(): Promise<string> {
@@ -126,8 +126,8 @@ async function generateAccessCode(): Promise<string> {
   // Code should be unique
   while (!selectedCode) {
     const code = getRandInteger(100000, 999999).toString()
-    const wasabiVistaUser = await repository.wasabiVista.findUserByKey(code)
-    if (!wasabiVistaUser) {
+    const wasabiUser = await repository.wasabi.findUserByKey(code)
+    if (!wasabiUser) {
       selectedCode = code
     }
   }

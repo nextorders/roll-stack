@@ -1,5 +1,5 @@
 import process from 'node:process'
-import { useCreateWasabiVistaBot } from '../services/telegram/wasabi-vista'
+import { useCreateWasabiBot } from '../services/telegram/wasabi-bot'
 
 export default defineNitroPlugin(() => {
   const logger = useLogger('plugin:start-telegram')
@@ -11,13 +11,13 @@ export default defineNitroPlugin(() => {
 
   const { telegram } = useRuntimeConfig()
 
-  if (!telegram.wasabiVistaToken) {
+  if (!telegram.wasabiToken) {
     // No config provided
     return
   }
 
   // Start the bots (using long polling)
-  useCreateWasabiVistaBot()
+  useCreateWasabiBot()
 
   logger.success('Telegram server started')
 })

@@ -3,7 +3,7 @@ import { eq, sql } from 'drizzle-orm'
 import { useDatabase } from '../database'
 import { wasabiVistaUsers } from '../tables'
 
-export class WasabiVista {
+export class Wasabi {
   static async findUser(id: string) {
     return useDatabase().query.wasabiVistaUsers.findFirst({
       where: (users, { eq }) => eq(users.id, id),

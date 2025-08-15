@@ -21,7 +21,7 @@ import { Product } from './product'
 import { Task } from './task'
 import { Ticket } from './ticket'
 import { User } from './user'
-import { WasabiVista } from './wasabi-vista'
+import { Wasabi } from './wasabi'
 
 class Repository {
   readonly activity = Activity
@@ -46,7 +46,7 @@ class Repository {
   readonly task = Task
   readonly ticket = Ticket
   readonly user = User
-  readonly wasabiVista = WasabiVista
+  readonly wasabi = Wasabi
 
   async checkHealth(): Promise<boolean> {
     await useDatabase().query.users.findFirst()

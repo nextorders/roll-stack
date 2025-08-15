@@ -19,7 +19,7 @@ export default defineNuxtConfig({
       serviceToken: '',
     },
     telegram: {
-      wasabiVistaToken: '',
+      wasabiToken: '',
       adminId: '',
     },
     public: {
