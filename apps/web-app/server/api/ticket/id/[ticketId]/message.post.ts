@@ -1,6 +1,6 @@
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { useWasabiVistaBot } from '~~/server/services/telegram/wasabi-vista'
+import { useWasabiBot } from '~~/server/services/telegram/wasabi-bot'
 import { createTicketMessageSchema } from '~~/shared/services/ticket'
 
 export default defineEventHandler(async (event) => {
@@ -55,11 +55,11 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const wasabiVistaUser = await repository.wasabiVista.findUserById(ticket.userId)
-    if (wasabiVistaUser) {
+    const wasabiUser = await repository.wasabi.findUserById(ticket.userId)
+    if (wasabiUser) {
       // Send message to Telegram
       const text = `${user.name} ${user.surname}: ${data.text}`
-      await useWasabiVistaBot().api.sendMessage(wasabiVistaUser.telegramId, text)
+      await useWasabiBot().api.sendMessage(wasabiUser.telegramId, text)
     }
 
     return {
