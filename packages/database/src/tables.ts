@@ -53,7 +53,7 @@ type PaymentMethodType = 'card' | 'cash' | 'online'
 
 type FeedbackPointType = 'yandex_map' | '2gis_map' | 'vk_group'
 
-type WasabiUserType = 'private' | 'group' | 'supergroup' | 'channel'
+type TelegramUserType = 'private' | 'group' | 'supergroup' | 'channel'
 
 type TicketStatus = 'opened' | 'closed'
 
@@ -623,7 +623,7 @@ export const wasabiUsers = pgTable('wasabi_users', {
   lastName: varchar('last_name'),
   username: varchar('username'),
   title: varchar('title'),
-  type: varchar('type').notNull().$type<WasabiUserType>(),
+  type: varchar('type').notNull().$type<TelegramUserType>(),
   userId: cuid2('user_id').references(() => users.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',
