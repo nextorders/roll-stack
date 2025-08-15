@@ -1,23 +1,23 @@
-import type { WasabiVistaUserDraft } from '../types'
+import type { WasabiUserDraft } from '../types'
 import { eq, sql } from 'drizzle-orm'
 import { useDatabase } from '../database'
-import { wasabiVistaUsers } from '../tables'
+import { wasabiUsers } from '../tables'
 
 export class Wasabi {
   static async findUser(id: string) {
-    return useDatabase().query.wasabiVistaUsers.findFirst({
+    return useDatabase().query.wasabiUsers.findFirst({
       where: (users, { eq }) => eq(users.id, id),
     })
   }
 
   static async findUserByKey(key: string) {
-    return useDatabase().query.wasabiVistaUsers.findFirst({
+    return useDatabase().query.wasabiUsers.findFirst({
       where: (users, { eq }) => eq(users.accessKey, key),
     })
   }
 
   static async findUserByTelegramId(telegramId: string) {
-    return useDatabase().query.wasabiVistaUsers.findFirst({
+    return useDatabase().query.wasabiUsers.findFirst({
       where: (users, { eq }) => eq(users.telegramId, telegramId),
       with: {
         user: true,
@@ -26,29 +26,29 @@ export class Wasabi {
   }
 
   static async findUserById(userId: string) {
-    return useDatabase().query.wasabiVistaUsers.findFirst({
+    return useDatabase().query.wasabiUsers.findFirst({
       where: (users, { eq }) => eq(users.userId, userId),
     })
   }
 
-  static async createUser(data: WasabiVistaUserDraft) {
-    const [user] = await useDatabase().insert(wasabiVistaUsers).values(data).returning()
+  static async createUser(data: WasabiUserDraft) {
+    const [user] = await useDatabase().insert(wasabiUsers).values(data).returning()
     return user
   }
 
-  static async updateUser(id: string, data: Partial<WasabiVistaUserDraft>) {
+  static async updateUser(id: string, data: Partial<WasabiUserDraft>) {
     const [user] = await useDatabase()
-      .update(wasabiVistaUsers)
+      .update(wasabiUsers)
       .set({
         ...data,
         updatedAt: sql`now()`,
       })
-      .where(eq(wasabiVistaUsers.id, id))
+      .where(eq(wasabiUsers.id, id))
       .returning()
     return user
   }
 
   static async deleteUser(id: string) {
-    return useDatabase().delete(wasabiVistaUsers).where(eq(wasabiVistaUsers.id, id))
+    return useDatabase().delete(wasabiUsers).where(eq(wasabiUsers.id, id))
   }
 }

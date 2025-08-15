@@ -53,7 +53,7 @@ type PaymentMethodType = 'card' | 'cash' | 'online'
 
 type FeedbackPointType = 'yandex_map' | '2gis_map' | 'vk_group'
 
-type WasabiVistaUserType = 'private' | 'group' | 'supergroup' | 'channel'
+type WasabiUserType = 'private' | 'group' | 'supergroup' | 'channel'
 
 type TicketStatus = 'opened' | 'closed'
 
@@ -613,7 +613,7 @@ export const networkMetrics = pgTable('network_metrics', {
   averageCheck: numeric('average_check', { mode: 'number' }).notNull().default(0),
 })
 
-export const wasabiVistaUsers = pgTable('wasabi_vista_users', {
+export const wasabiUsers = pgTable('wasabi_users', {
   id: cuid2('id').defaultRandom().primaryKey(),
   createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
@@ -623,7 +623,7 @@ export const wasabiVistaUsers = pgTable('wasabi_vista_users', {
   lastName: varchar('last_name'),
   username: varchar('username'),
   title: varchar('title'),
-  type: varchar('type').notNull().$type<WasabiVistaUserType>(),
+  type: varchar('type').notNull().$type<WasabiUserType>(),
   userId: cuid2('user_id').references(() => users.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',
@@ -693,7 +693,7 @@ export const userRelations = relations(users, ({ many, one }) => ({
   taskLists: many(taskLists),
   postLikes: many(postLikes),
   postComments: many(postComments),
-  wasabiVistaUsers: many(wasabiVistaUsers),
+  wasabiUsers: many(wasabiUsers),
   tickets: many(tickets),
   ticketMessages: many(ticketMessages),
   focusedTask: one(tasks, {
@@ -1048,9 +1048,9 @@ export const clientReviewRelations = relations(clientReviews, ({ one }) => ({
   }),
 }))
 
-export const wasabiVistaUserRelations = relations(wasabiVistaUsers, ({ one }) => ({
+export const wasabiUserRelations = relations(wasabiUsers, ({ one }) => ({
   user: one(users, {
-    fields: [wasabiVistaUsers.userId],
+    fields: [wasabiUsers.userId],
     references: [users.id],
   }),
 }))
