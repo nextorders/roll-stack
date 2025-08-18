@@ -9,7 +9,7 @@
     "url": "git+https://github.com/nextorders/roll-stack.git"
   },
   "engines": {
-    "node": ">=22.17.1",
+    "node": ">=22.18.0",
     "pnpm": ">=10.14.0"
   },
   "scripts": {
