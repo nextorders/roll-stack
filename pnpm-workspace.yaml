@@ -3,37 +3,37 @@ packages:
   - packages/*
 
 catalog:
-  '@antfu/eslint-config': ^5.2.0
+  '@antfu/eslint-config': ^5.2.1
   '@commitlint/cli': ^19.8.1
   '@commitlint/config-conventional': ^19.8.1
-  '@date-fns/tz': ^1.2.0
+  '@date-fns/tz': ^1.4.1
   '@dicebear/collection': ^9.2.3
   '@dicebear/core': ^9.2.3
-  '@iconify-json/circle-flags': ^1.2.6
+  '@iconify-json/circle-flags': ^1.2.8
   '@iconify-json/fluent': ^1.2.28
-  '@iconify-json/fluent-emoji-flat': ^1.2.3
-  '@iconify-json/lucide': ^1.2.61
-  '@iconify-json/simple-icons': ^1.2.46
+  '@iconify-json/fluent-emoji-flat': ^1.2.5
+  '@iconify-json/lucide': ^1.2.62
+  '@iconify-json/simple-icons': ^1.2.48
   '@internationalized/date': ^3.8.2
   '@neoconfetti/vue': ^2.2.1
   '@nuxt/devtools': ^2.6.2
-  '@nuxt/image': ^1.10.0
-  '@nuxt/ui': ^3.3.0
-  '@nuxtjs/i18n': ^10.0.3
-  '@openai/agents': ^0.0.13
+  '@nuxt/image': ^1.11.0
+  '@nuxt/ui': ^3.3.2
+  '@nuxtjs/i18n': ^10.0.5
+  '@openai/agents': ^0.0.17
   '@paralleldrive/cuid2': ^2.2.2
   '@pinia/nuxt': ^0.11.2
   '@tailwindcss/typography': ^0.5.16
-  '@types/node': ^24.2.0
+  '@types/node': ^24.3.0
   '@types/pg': ^8.15.5
-  '@unovis/ts': ^1.5.2
-  '@unovis/vue': ^1.5.2
+  '@unovis/ts': ^1.6.0
+  '@unovis/vue': ^1.6.0
   '@vitejs/plugin-vue': ^6.0.1
   '@vitest/browser': ^3.2.4
   '@vitest/coverage-v8': ^3.2.4
-  '@vueuse/core': ^13.6.0
-  '@vueuse/integrations': ^13.6.0
-  '@vueuse/nuxt': ^13.6.0
+  '@vueuse/core': ^13.7.0
+  '@vueuse/integrations': ^13.7.0
+  '@vueuse/nuxt': ^13.7.0
   arktype: ^2.1.20
   aws4fetch: ^1.0.20
   changelogen-monorepo: ^0.5.0
@@ -42,19 +42,19 @@ catalog:
   drizzle-cuid2: ^2.1.0
   drizzle-kit: ^0.31.4
   drizzle-orm: ^0.44.4
-  eslint: ^9.32.0
-  grammy: ^1.37.0
+  eslint: ^9.33.0
+  grammy: ^1.38.1
   husky: ^9.1.7
-  ioredis: ^5.6.1
-  libphonenumber-js: ^1.12.10
-  lint-staged: ^16.1.4
+  ioredis: ^5.7.0
+  libphonenumber-js: ^1.12.12
+  lint-staged: ^16.1.5
   nitropack: latest
   node-xlsx: ^0.24.0
   nuxt: ^4.0.2
-  nuxt-auth-utils: ^0.5.22
+  nuxt-auth-utils: ^0.5.23
   nuxt-tiptap-editor: ^2.3.1
   nuxt-zod-i18n: ^1.12.1
-  openai: ^5.10.2
+  openai: ^5.12.2
   pg: ^8.16.3
   pinia: ^3.0.3
   playwright: ^1.54.2
@@ -63,14 +63,13 @@ catalog:
   sortablejs: ^1.15.6
   tailwindcss-motion: ^1.1.1
   typescript: ^5.8.3
-  unbuild: ^3.6.0
   uqr: ^0.1.2
-  vite: ^7.1.1
+  vite: ^7.1.2
   vite-tsconfig-paths: ^5.1.4
   vitest: ^3.2.4
   vitest-browser-vue: ^1.1.0
   vue-tsc: ^3.0.5
-  zod: 3.25.67
+  zod: ^3.25.76
 
 ignoredBuiltDependencies:
   - '@parcel/watcher'
