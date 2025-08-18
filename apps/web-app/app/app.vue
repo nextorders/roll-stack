@@ -59,7 +59,6 @@ await Promise.all([
   menu.update(),
   product.update(),
   chat.update(),
-  notification.update(),
   post.update(),
   print.update(),
   activity.update(),
@@ -74,6 +73,7 @@ onMounted(async () => {
     user.update(),
     task.update(),
     ticket.update(),
+    notification.update(),
   ])
 
   interval = setInterval(async () => {
@@ -82,6 +82,7 @@ onMounted(async () => {
       user.update(),
       task.update(),
       ticket.update(),
+      notification.update(),
     ])
   }, 30000)
 })

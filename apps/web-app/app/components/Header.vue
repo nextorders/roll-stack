@@ -11,6 +11,23 @@
     <div class="flex items-center shrink-0 gap-3">
       <slot />
 
+      <UTooltip text="Уведомления" :shortcuts="['N']">
+        <UButton
+          color="neutral"
+          variant="ghost"
+          square
+          @click="isNotificationsOpened = true"
+        >
+          <UChip
+            color="error"
+            inset
+            :show="haveNotifications"
+          >
+            <UIcon name="i-lucide-bell" class="size-5 shrink-0" />
+          </UChip>
+        </UButton>
+      </UTooltip>
+
       <UsersOnline />
     </div>
   </div>
@@ -24,4 +41,9 @@
 
 <script setup lang="ts">
 defineProps<{ title: string }>()
+
+const { isNotificationsOpened } = useApp()
+
+const notificationStore = useNotificationStore()
+const haveNotifications = computed(() => notificationStore.notifications.filter((notification) => !notification.viewedAt).length > 0)
 </script>

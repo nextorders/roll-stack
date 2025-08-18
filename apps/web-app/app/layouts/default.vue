@@ -5,6 +5,8 @@
     </main>
   </div>
 
+  <NotificationsDrawer />
+
   <USlideover
     v-model:open="isNavbarOpened"
     side="left"

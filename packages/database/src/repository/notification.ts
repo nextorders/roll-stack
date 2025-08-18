@@ -1,5 +1,5 @@
 import type { NotificationDraft } from '../types'
-import { eq } from 'drizzle-orm'
+import { eq, sql } from 'drizzle-orm'
 import { useDatabase } from '../database'
 import { notifications } from '../tables'
 
@@ -13,7 +13,10 @@ export class Notification {
   static async listByUser(userId: string) {
     return useDatabase().query.notifications.findMany({
       where: (notifications, { eq }) => eq(notifications.userId, userId),
+      orderBy: (notifications, { desc }) => desc(notifications.createdAt),
+      limit: 250,
       with: {
+        author: true,
         task: {
           with: {
             performer: true,
@@ -31,7 +34,10 @@ export class Notification {
   static async update(id: string, data: Partial<NotificationDraft>) {
     const [notification] = await useDatabase()
       .update(notifications)
-      .set(data)
+      .set({
+        ...data,
+        updatedAt: sql`now()`,
+      })
       .where(eq(notifications.id, id))
       .returning()
     return notification
