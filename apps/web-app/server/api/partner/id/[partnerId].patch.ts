@@ -1,13 +1,13 @@
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { updatePartnerAgreementSchema } from '~~/shared/services/partner'
+import { updatePartnerSchema } from '~~/shared/services/partner'
 
 export default defineEventHandler(async (event) => {
   try {
     // await hasPermission(event, 'product:edit')
 
-    const agreementId = getRouterParam(event, 'agreementId')
-    if (!agreementId) {
+    const partnerId = getRouterParam(event, 'partnerId')
+    if (!partnerId) {
       throw createError({
         statusCode: 400,
         message: 'Id is required',
@@ -15,20 +15,20 @@ export default defineEventHandler(async (event) => {
     }
 
     const body = await readBody(event)
-    const data = updatePartnerAgreementSchema(body)
+    const data = updatePartnerSchema(body)
     if (data instanceof type.errors) {
       throw data
     }
 
-    const agreement = await repository.partner.findAgreement(agreementId)
-    if (!agreement) {
+    const partner = await repository.partner.find(partnerId)
+    if (!partner) {
       throw createError({
         statusCode: 404,
-        message: 'Agreement not found',
+        message: 'Partner not found',
       })
     }
 
-    await repository.partner.updateAgreement(agreementId, data)
+    await repository.partner.update(partnerId, data)
 
     return {
       ok: true,
