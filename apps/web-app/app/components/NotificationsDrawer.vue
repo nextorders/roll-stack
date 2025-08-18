@@ -11,7 +11,7 @@
               <div class="flex flex-row gap-3 items-center">
                 <UChip
                   color="error"
-                  :show="!!notification.viewedAt"
+                  :show="!notification.viewedAt"
                   inset
                 >
                   <UAvatar
