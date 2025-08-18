@@ -2,7 +2,6 @@
   <UModal title="Создание договора">
     <template #body>
       <FormCreatePartnerAgreement
-        :partner-id="partnerId ?? ''"
         :legal-entity-id="legalEntityId ?? ''"
         @submitted="overlay.closeAll"
         @success="overlay.closeAll"
@@ -13,7 +12,6 @@
 
 <script setup lang="ts">
 defineProps<{
-  partnerId?: string
   legalEntityId?: string
 }>()
 

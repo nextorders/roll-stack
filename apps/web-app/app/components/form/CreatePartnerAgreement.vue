@@ -139,7 +139,7 @@ import type { FormSubmitEvent } from '@nuxt/ui'
 import { createPartnerAgreementSchema } from '#shared/services/partner'
 import { DateFormatter, getLocalTimeZone } from '@internationalized/date'
 
-const { partnerId, legalEntityId } = defineProps<{ partnerId: string, legalEntityId?: string }>()
+const { legalEntityId } = defineProps<{ legalEntityId?: string }>()
 const emit = defineEmits(['success', 'submitted'])
 
 const { t } = useI18n()
@@ -200,7 +200,7 @@ async function onSubmit(event: FormSubmitEvent<CreatePartnerAgreement>) {
   emit('submitted')
 
   try {
-    await $fetch(`/api/partner/id/${partnerId}/agreement`, {
+    await $fetch('/api/partner/agreement', {
       method: 'POST',
       body: event.data,
     })

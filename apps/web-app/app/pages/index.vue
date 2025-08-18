@@ -1,7 +1,5 @@
 <template>
-  <Header :title="$t('app.menu.my-space')">
-    <UsersOnline />
-  </Header>
+  <Header :title="$t('app.menu.my-space')" />
 
   <Content>
     <template v-if="userStore.id">

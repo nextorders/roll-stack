@@ -41,8 +41,8 @@
         @click="modalUpdateUser.open({ userId: partnerUser.id })"
       />
 
-      <div class="lg:col-span-2">
-        <PartnerLegalEntityCard :partner-id="partner?.id ?? ''" :entity="partner?.legalEntity" />
+      <div v-if="partner?.legalEntity" class="lg:col-span-2">
+        <PartnerLegalEntityCard :entity="partner.legalEntity" />
       </div>
 
       <div

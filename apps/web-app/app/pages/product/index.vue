@@ -1,15 +1,5 @@
 <template>
-  <Header :title="t('app.menu.products')">
-    <UButton
-      size="lg"
-      variant="solid"
-      color="secondary"
-      class="w-full md:w-fit"
-      icon="i-lucide-circle-plus"
-      :label="t('app.create.product.button')"
-      @click="modalCreateProduct.open()"
-    />
-  </Header>
+  <Header :title="t('app.menu.products')" />
 
   <Content>
     <div class="flex flex-wrap items-center justify-between gap-1.5">
@@ -53,9 +43,19 @@
             :label="$t('common.columns')"
             color="neutral"
             variant="outline"
-            trailing-icon="i-lucide-settings-2"
+            icon="i-lucide-settings-2"
           />
         </UDropdownMenu>
+
+        <UButton
+          size="md"
+          variant="solid"
+          color="secondary"
+          class="w-full md:w-fit"
+          icon="i-lucide-circle-plus"
+          :label="t('app.create.product.button')"
+          @click="modalCreateProduct.open()"
+        />
       </div>
     </div>
 

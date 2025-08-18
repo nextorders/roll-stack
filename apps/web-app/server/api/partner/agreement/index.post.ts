@@ -6,14 +6,6 @@ export default defineEventHandler(async (event) => {
   try {
     // await hasPermission(event, 'product:delete')
 
-    const partnerId = getRouterParam(event, 'partnerId')
-    if (!partnerId) {
-      throw createError({
-        statusCode: 400,
-        message: 'Id is required',
-      })
-    }
-
     const body = await readBody(event)
     const data = createPartnerAgreementSchema(body)
     if (data instanceof type.errors) {
