@@ -10,6 +10,8 @@
 
     <div class="flex items-center shrink-0 gap-3">
       <slot />
+
+      <UsersOnline />
     </div>
   </div>
 

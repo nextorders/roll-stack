@@ -13,7 +13,7 @@
         <CreateCard
           label="Добавить новый договор"
           icon="i-lucide-scroll-text"
-          @click="modalCreatePartnerAgreement.open({ partnerId: partner?.id, legalEntityId: partner?.legalEntity?.id })"
+          @click="modalCreatePartnerAgreement.open({ legalEntityId: partner?.legalEntity?.id })"
         />
       </div>
     </div>

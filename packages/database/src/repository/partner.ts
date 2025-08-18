@@ -13,6 +13,12 @@ export class Partner {
     })
   }
 
+  static async findLegalEntity(id: string) {
+    return useDatabase().query.partnerLegalEntities.findFirst({
+      where: (legalEntities, { eq }) => eq(legalEntities.id, id),
+    })
+  }
+
   static async findAgreement(id: string) {
     return useDatabase().query.partnerAgreements.findFirst({
       where: (agreements, { eq }) => eq(agreements.id, id),
@@ -84,6 +90,15 @@ export class Partner {
       .where(eq(partners.id, id))
       .returning()
     return partner
+  }
+
+  static async updateLegalEntity(id: string, data: Partial<PartnerLegalEntityDraft>) {
+    const [legalEntity] = await useDatabase()
+      .update(partnerLegalEntities)
+      .set(data)
+      .where(eq(partnerLegalEntities.id, id))
+      .returning()
+    return legalEntity
   }
 
   static async updateAgreement(id: string, data: Partial<PartnerAgreementDraft>) {

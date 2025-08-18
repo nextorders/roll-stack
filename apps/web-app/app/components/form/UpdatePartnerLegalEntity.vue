@@ -1,6 +1,6 @@
 <template>
   <UForm
-    :validate="createValidator(createPartnerLegalEntitySchema)"
+    :validate="createValidator(updatePartnerLegalEntitySchema)"
     :state="state"
     class="flex flex-col gap-3"
     @submit="onSubmit"
@@ -54,15 +54,19 @@
       size="xl"
       block
       class="mt-3"
-      :label="$t('common.create')"
+      :label="$t('common.update')"
     />
   </UForm>
 </template>
 
 <script setup lang="ts">
-import type { CreatePartnerLegalEntity } from '#shared/services/partner'
+import type { UpdatePartnerLegalEntity } from '#shared/services/partner'
 import type { FormSubmitEvent } from '@nuxt/ui'
-import { createPartnerLegalEntitySchema } from '#shared/services/partner'
+import { updatePartnerLegalEntitySchema } from '#shared/services/partner'
+
+const { entityId } = defineProps<{
+  entityId: string
+}>()
 
 const emit = defineEmits(['success', 'submitted'])
 
@@ -70,27 +74,28 @@ const { t } = useI18n()
 const actionToast = useActionToast()
 
 const partnerStore = usePartnerStore()
+const entity = computed(() => partnerStore.legalEntities.find((legalEntity) => legalEntity.id === entityId))
 
-const state = ref<Partial<CreatePartnerLegalEntity>>({
-  inn: undefined,
-  ogrnip: undefined,
-  name: undefined,
-  comment: undefined,
+const state = ref<Partial<UpdatePartnerLegalEntity>>({
+  name: entity.value?.name,
+  inn: entity.value?.inn,
+  ogrnip: entity.value?.ogrnip ?? undefined,
+  comment: entity.value?.comment ?? undefined,
 })
 
-async function onSubmit(event: FormSubmitEvent<CreatePartnerLegalEntity>) {
+async function onSubmit(event: FormSubmitEvent<UpdatePartnerLegalEntity>) {
   const toastId = actionToast.start()
   emit('submitted')
 
   try {
-    await $fetch('/api/partner/legal', {
-      method: 'POST',
+    await $fetch(`/api/partner/legal/id/${entityId}`, {
+      method: 'PATCH',
       body: event.data,
     })
 
     await partnerStore.update()
 
-    actionToast.success(toastId, t('toast.partner-legal-entity-created'))
+    actionToast.success(toastId, t('toast.partner-legal-entity-updated'))
     emit('success')
   } catch (error) {
     console.error(error)

@@ -1,26 +1,14 @@
 <template>
-  <Header :title="t('app.menu.agreements')">
-    <UButton
-      size="lg"
-      variant="solid"
-      color="secondary"
-      class="w-full md:w-fit"
-      icon="i-lucide-circle-plus"
-      :label="t('app.create.agreement.button')"
-      @click="modalCreatePartnerAgreement.open()"
-    />
-  </Header>
+  <Header :title="t('app.menu.agreements')" />
 
   <Content>
     <div class="flex flex-wrap items-center justify-between gap-1.5">
-      <div class="flex flex-row gap-2.5">
-        <UInput
-          v-model="filterValue"
-          placeholder="По номеру"
-          class="max-w-sm"
-          icon="i-lucide-search"
-        />
-      </div>
+      <UInput
+        v-model="filterValue"
+        placeholder="По номеру"
+        class="max-w-sm"
+        icon="i-lucide-search"
+      />
 
       <div class="flex flex-wrap items-center gap-1.5">
         <UDropdownMenu
@@ -46,9 +34,29 @@
             :label="$t('common.columns')"
             color="neutral"
             variant="outline"
-            trailing-icon="i-lucide-settings-2"
+            icon="i-lucide-settings-2"
           />
         </UDropdownMenu>
+
+        <UButton
+          size="md"
+          variant="solid"
+          color="secondary"
+          class="w-full md:w-fit"
+          icon="i-lucide-circle-plus"
+          :label="t('app.create.partner-legal-entity.button')"
+          @click="modalCreatePartnerLegalEntity.open()"
+        />
+
+        <UButton
+          size="md"
+          variant="solid"
+          color="secondary"
+          class="w-full md:w-fit"
+          icon="i-lucide-circle-plus"
+          :label="t('app.create.agreement.button')"
+          @click="modalCreatePartnerAgreement.open()"
+        />
       </div>
     </div>
 
@@ -178,7 +186,7 @@
 import type { DropdownMenuItem, TableColumn } from '@nuxt/ui'
 import type { PartnerAgreement } from '@roll-stack/database'
 import type { PartnerAgreementWithAllData } from '~/stores/partner'
-import { ModalCreatePartnerAgreement, ModalUpdatePartnerAgreement } from '#components'
+import { ModalCreatePartnerAgreement, ModalCreatePartnerLegalEntity, ModalUpdatePartnerAgreement } from '#components'
 import { getPaginationRowModel } from '@tanstack/table-core'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale/ru'
@@ -193,6 +201,7 @@ const filterValue = ref('')
 const overlay = useOverlay()
 const modalCreatePartnerAgreement = overlay.create(ModalCreatePartnerAgreement)
 const modalUpdatePartnerAgreement = overlay.create(ModalUpdatePartnerAgreement)
+const modalCreatePartnerLegalEntity = overlay.create(ModalCreatePartnerLegalEntity)
 
 const partnerStore = usePartnerStore()
 

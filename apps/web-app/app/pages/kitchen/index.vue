@@ -1,26 +1,14 @@
 <template>
-  <Header :title="t('app.menu.kitchens')">
-    <UButton
-      size="lg"
-      variant="solid"
-      color="secondary"
-      class="w-full md:w-fit"
-      icon="i-lucide-upload"
-      label="Добавить выручку"
-      @click="modalUploadKitchenRevenue.open()"
-    />
-  </Header>
+  <Header :title="t('app.menu.kitchens')" />
 
   <Content>
     <div class="flex flex-wrap items-center justify-between gap-1.5">
-      <div class="flex flex-row gap-2.5">
-        <UInput
-          v-model="filterValue"
-          placeholder="По названию"
-          class="max-w-sm"
-          icon="i-lucide-search"
-        />
-      </div>
+      <UInput
+        v-model="filterValue"
+        placeholder="По названию"
+        class="max-w-sm"
+        icon="i-lucide-search"
+      />
 
       <div class="flex flex-wrap items-center gap-1.5">
         <UDropdownMenu
@@ -46,9 +34,19 @@
             :label="$t('common.columns')"
             color="neutral"
             variant="outline"
-            trailing-icon="i-lucide-settings-2"
+            icon="i-lucide-settings-2"
           />
         </UDropdownMenu>
+
+        <UButton
+          size="md"
+          variant="solid"
+          color="secondary"
+          class="w-full md:w-fit"
+          icon="i-lucide-upload"
+          label="Добавить выручку"
+          @click="modalUploadKitchenRevenue.open()"
+        />
       </div>
     </div>
 

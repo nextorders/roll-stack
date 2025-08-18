@@ -1,7 +1,8 @@
 <template>
-  <UModal title="Создание юридического лица">
+  <UModal title="Обновление юридического лица">
     <template #body>
-      <FormCreatePartnerLegalEntity
+      <FormUpdatePartnerLegalEntity
+        :entity-id="entityId"
         @submitted="overlay.closeAll"
         @success="overlay.closeAll"
       />
@@ -10,5 +11,9 @@
 </template>
 
 <script setup lang="ts">
+defineProps<{
+  entityId: string
+}>()
+
 const overlay = useOverlay()
 </script>
