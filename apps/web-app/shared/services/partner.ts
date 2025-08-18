@@ -1,5 +1,12 @@
 import { type } from 'arktype'
 
+export const updatePartnerSchema = type({
+  priceLevel: type('1 <= number <= 4 | undefined').describe('error.length.invalid').optional(),
+  city: type('string <= 50 | undefined').describe('error.length.invalid').optional(),
+  legalEntityId: type('string | undefined').describe('error.length.invalid').optional(),
+})
+export type UpdatePartner = typeof updatePartnerSchema.infer
+
 export const createPartnerLegalEntitySchema = type({
   inn: type('10 <= string <= 12').describe('error.length.invalid'),
   ogrnip: type('15 <= string <= 15 | undefined').describe('error.length.invalid').optional(),

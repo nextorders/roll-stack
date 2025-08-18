@@ -1,6 +1,6 @@
 <template>
-  <UCard class="h-full">
-    <div class="flex flex-col gap-3 group/list">
+  <UCard class="h-full group/list">
+    <div class="flex flex-col gap-3">
       <div class="flex flex-row justify-between">
         <div class="flex flex-row items-start gap-2.5">
           <UIcon name="i-lucide-scale" class="size-14 text-primary" />

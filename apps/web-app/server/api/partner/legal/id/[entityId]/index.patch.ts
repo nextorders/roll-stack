@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
     const entity = await repository.partner.findLegalEntity(entityId)
     if (!entity) {
       throw createError({
-        statusCode: 400,
+        statusCode: 404,
         message: 'Entity not found',
       })
     }

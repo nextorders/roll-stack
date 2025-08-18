@@ -1,11 +1,11 @@
 <template>
   <UCard
-    class="h-full"
+    class="h-full group/list"
     :class="[
       !agreement.isActive && 'opacity-75 grayscale-100',
     ]"
   >
-    <div class="flex flex-col gap-3 group/list">
+    <div class="flex flex-col gap-3">
       <div class="flex flex-row justify-between">
         <div class="flex flex-row items-start gap-2.5">
           <UIcon name="i-lucide-scroll-text" class="shrink-0 size-14 text-primary" />
