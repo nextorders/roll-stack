@@ -1,19 +1,17 @@
 import type { Notification, Task, User } from '@roll-stack/database'
 
-type NotificationWithEntities = Notification & {
-  task: Task | null
+type TaskWithPerformer = Task & {
+  performer: User | null
 }
 
-type NotificationWithTask = Notification & {
-  task: (Task & {
-    performer: User
-  })
+type NotificationWithEntities = Notification & {
+  task: TaskWithPerformer | null
+  author: User
 }
 
 export const useNotificationStore = defineStore('notification', () => {
   const notifications = ref<NotificationWithEntities[]>([])
 
-  const interval = ref<NodeJS.Timeout | undefined>(undefined)
   const toastContext = useToast()
 
   async function update() {
@@ -36,13 +34,13 @@ export const useNotificationStore = defineStore('notification', () => {
     }
   }
 
-  function showCompletedTaskToast(notification: NotificationWithTask) {
+  function _showCompletedTaskToast(notification: NotificationWithEntities) {
     toastContext.add({
       id: notification.id,
       title: notification.title,
-      description: notification.description,
+      description: notification.description ?? '',
       avatar: {
-        src: notification.task.performer.avatarUrl ?? undefined,
+        src: notification.task?.performer?.avatarUrl ?? undefined,
         alt: '',
       },
       color: 'info',
@@ -97,26 +95,18 @@ export const useNotificationStore = defineStore('notification', () => {
     // }, 3000)
   }
 
-  watch(notifications, () => {
-    for (const notification of notifications.value) {
-      // already shown?
-      if (toastContext.toasts.value.find((toast) => toast.id === notification.id)) {
-        continue
-      }
+  // watch(notifications, () => {
+  //   for (const notification of notifications.value) {
+  //     // already shown?
+  //     if (toastContext.toasts.value.find((toast) => toast.id === notification.id)) {
+  //       continue
+  //     }
 
-      if (notification.type === 'task_completed') {
-        showCompletedTaskToast(notification as NotificationWithTask)
-      }
-    }
-  })
-
-  onMounted(() => {
-    interval.value = setInterval(() => update(), 30000)
-  })
-
-  onUnmounted(() => {
-    clearInterval(interval.value)
-  })
+  //     if (notification.type === 'task_completed') {
+  //       showCompletedTaskToast(notification)
+  //     }
+  //   }
+  // })
 
   return {
     notifications,

@@ -368,9 +368,14 @@ export const notifications = pgTable('notifications', {
   id: cuid2('id').defaultRandom().primaryKey(),
   createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  viewedAt: timestamp('viewed_at', { precision: 3, withTimezone: true, mode: 'string' }),
   type: varchar('type').notNull().$type<NotificationType>(),
   title: varchar('title').notNull(),
-  description: varchar('description').notNull(),
+  description: varchar('description'),
+  authorId: cuid2('author_id').notNull().references(() => users.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
   userId: cuid2('user_id').notNull().references(() => users.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',
@@ -859,7 +864,8 @@ export const mediaItemRelations = relations(mediaItems, ({ one }) => ({
   }),
 }))
 
-export const taskRelations = relations(tasks, ({ one }) => ({
+export const taskRelations = relations(tasks, ({ one, many }) => ({
+  notifications: many(notifications),
   performer: one(users, {
     fields: [tasks.performerId],
     references: [users.id],
@@ -879,6 +885,10 @@ export const taskListRelations = relations(taskLists, ({ many, one }) => ({
 }))
 
 export const notificationRelations = relations(notifications, ({ one }) => ({
+  author: one(users, {
+    fields: [notifications.authorId],
+    references: [users.id],
+  }),
   user: one(users, {
     fields: [notifications.userId],
     references: [users.id],
