@@ -38,25 +38,17 @@
           />
         </UDropdownMenu>
 
-        <UButton
-          size="md"
-          variant="solid"
-          color="secondary"
-          class="w-full md:w-fit"
-          icon="i-lucide-circle-plus"
-          :label="t('app.create.partner-legal-entity.button')"
-          @click="modalCreatePartnerLegalEntity.open()"
-        />
-
-        <UButton
-          size="md"
-          variant="solid"
-          color="secondary"
-          class="w-full md:w-fit"
-          icon="i-lucide-circle-plus"
-          :label="t('app.create.agreement.button')"
-          @click="modalCreatePartnerAgreement.open()"
-        />
+        <UDropdownMenu
+          :items="itemsForCreateButton"
+          :content="{ align: 'end' }"
+          class="ml-auto"
+        >
+          <UButton
+            icon="i-lucide-plus"
+            color="secondary"
+            variant="solid"
+          />
+        </UDropdownMenu>
       </div>
     </div>
 
@@ -308,6 +300,21 @@ function getDropdownActions(agreement: PartnerAgreement): DropdownMenuItem[][] {
     ],
   ]
 }
+
+const itemsForCreateButton = computed<DropdownMenuItem[]>(() => [
+  {
+    label: t('app.create.partner-legal-entity.button'),
+    type: 'link',
+    onSelect: () => modalCreatePartnerLegalEntity.open(),
+    icon: 'i-lucide-scale',
+  },
+  {
+    label: t('app.create.agreement.button'),
+    type: 'link',
+    onSelect: () => modalCreatePartnerAgreement.open(),
+    icon: 'i-lucide-scroll-text',
+  },
+])
 
 const table = useTemplateRef('table')
 
