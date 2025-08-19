@@ -1,7 +1,8 @@
 import process from 'node:process'
+import { useCreateAtriumBot } from '../services/telegram/atrium-bot'
 import { useCreateWasabiBot } from '../services/telegram/wasabi-bot'
 
-export default defineNitroPlugin(() => {
+export default defineNitroPlugin(async () => {
   const logger = useLogger('plugin:start-telegram')
 
   if (process.env.NODE_ENV !== 'production') {
@@ -17,7 +18,10 @@ export default defineNitroPlugin(() => {
   }
 
   // Start the bots (using long polling)
-  useCreateWasabiBot()
+  await Promise.all([
+    useCreateWasabiBot(),
+    useCreateAtriumBot(),
+  ])
 
-  logger.success('Telegram server started')
+  logger.success('Telegram bots started successfully')
 })

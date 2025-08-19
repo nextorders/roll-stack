@@ -1,7 +1,8 @@
-import type { Task, User } from '@roll-stack/database'
+import type { Task, TelegramUser, User } from '@roll-stack/database'
 
 type UserWithData = User & {
   focusedTask: Task | null
+  telegramUsers: TelegramUser[]
 }
 
 export const useUserStore = defineStore('user', () => {

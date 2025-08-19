@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { ModalUpdateUser } from '#components'
+import { ModalAttachTelegram, ModalUpdateUser } from '#components'
 
 const { clear, fetch: refreshSession } = useUserSession()
 const { t } = useI18n()
@@ -38,6 +38,7 @@ async function signOut() {
 
 const overlay = useOverlay()
 const modalUpdateUser = overlay.create(ModalUpdateUser)
+const modalAttachTelegram = overlay.create(ModalAttachTelegram)
 
 const userMenuItems = computed(() => [
   {
@@ -53,9 +54,17 @@ const userMenuItems = computed(() => [
   {
     label: 'Редактировать профиль',
     type: 'link' as const,
-    icon: 'lucide:edit',
+    icon: 'lucide:square-pen',
     onClick() {
       modalUpdateUser.open({ userId: userStore.id })
+    },
+  },
+  {
+    label: t('app.attach.telegram.button'),
+    type: 'link' as const,
+    icon: 'simple-icons:telegram',
+    onClick() {
+      modalAttachTelegram.open({ userId: userStore.id ?? '', botId: 'lwleg6bka2oo61x5ot6zog6h' })
     },
   },
   {
