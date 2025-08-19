@@ -18,19 +18,19 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const user = await repository.telegram.findUserByIdAndBotId(userId, data.botId)
-    if (!user) {
+    const user = await repository.telegram.findUserByKey(data.accessKey)
+    if (!user || user.botId !== data.botId) {
       throw createError({
         statusCode: 404,
         message: 'User not found',
       })
     }
 
-    // Guard: if accessKey is not correct
-    if (user.accessKey !== data.accessKey) {
+    // Guard: if accessKey is already used
+    if (user.userId) {
       throw createError({
         statusCode: 400,
-        message: 'Key is not correct',
+        message: 'Key is already used',
       })
     }
 

@@ -60,7 +60,7 @@ const userMenuItems = computed(() => [
     },
   },
   {
-    label: t('app.attach.telegram.button'),
+    label: 'Telegram',
     type: 'link' as const,
     icon: 'simple-icons:telegram',
     onClick() {
