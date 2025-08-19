@@ -49,11 +49,18 @@ const text = ref('')
 const loading = ref(false)
 
 async function onCommentSubmit() {
+  const trimmed = text.value.trim()
+  if (!trimmed) {
+    return
+  }
+
   loading.value = true
 
-  await epicStore.addComment(epicId, text.value)
-
-  text.value = ''
-  loading.value = false
+  try {
+    await epicStore.addComment(epicId, trimmed)
+    text.value = ''
+  } finally {
+    loading.value = false
+  }
 }
 </script>

@@ -12,8 +12,8 @@
           {{ comment?.text }}
         </div>
 
-        <div class="mt-1 flex justify-end text-xs text-dimmed">
-          {{ format(new Date(comment?.createdAt ?? ''), 'dd MMMM в HH:mm', { locale: ru }) }}
+        <div v-if="comment?.createdAt" class="mt-1 flex justify-end text-xs text-dimmed">
+          {{ format(new Date(comment.createdAt), 'dd MMMM в HH:mm', { locale: ru }) }}
         </div>
       </div>
     </div>
