@@ -2,14 +2,26 @@
   <Header :title="t('app.menu.epics')" />
 
   <Content>
-    <UContainer class="mb-20 max-w-lg">
-      <div class="mt-12 flex flex-col gap-6">
+    <div class="md:mx-auto">
+      <UButton
+        size="lg"
+        variant="solid"
+        color="primary"
+        class="w-full md:w-fit justify-center min-w-40"
+        icon="i-lucide-crown"
+        label="Создать эпик"
+        @click="modalCreateEpic.open()"
+      />
+    </div>
+
+    <div class="md:mx-auto md:mt-6 mb-20 max-w-lg">
+      <div class="flex flex-col gap-6">
         <NuxtLink
           v-for="epic of epicStore.epics"
           :key="epic.id"
           :to="`/epic/${epic.id}`"
         >
-          <ActiveCard class="w-full flex flex-col gap-5">
+          <ActiveCard class="w-full flex flex-col gap-5 motion-preset-bounce">
             <div class="flex flex-row items-start gap-2.5">
               <UIcon name="i-lucide-crown" class="size-14 text-primary" />
             </div>
@@ -63,17 +75,21 @@
       <div class="mt-16 flex flex-row justify-center">
         <UIcon name="i-lucide-route" class="size-8 text-dimmed/25" />
       </div>
-    </UContainer>
+    </div>
   </Content>
 </template>
 
 <script setup lang="ts">
+import { ModalCreateEpic } from '#components'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale/ru'
 
 const { t } = useI18n()
 
 const epicStore = useEpicStore()
+
+const overlay = useOverlay()
+const modalCreateEpic = overlay.create(ModalCreateEpic)
 
 useHead({
   title: 'Эпики',

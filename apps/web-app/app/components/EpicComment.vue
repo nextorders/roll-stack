@@ -1,5 +1,5 @@
 <template>
-  <article class="group/message relative w-full scroll-mt-4 sm:scroll-mt-6">
+  <article class="group/message relative w-full scroll-mt-4 sm:scroll-mt-6 motion-preset-slide-down-right">
     <div class="relative flex items-start gap-2 pb-2 rtl:justify-end">
       <div class="inline-flex items-center justify-center min-h-6 mt-1.5">
         <UserPopover :user="user">

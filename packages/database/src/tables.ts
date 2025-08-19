@@ -30,7 +30,7 @@ type WeightUnit = 'G' | 'KG' | 'ML' | 'L' | 'OZ' | 'LB'
 type MediaFormat = 'jpg' | 'webp'
 type FileFormat = 'docx' | 'cdr' | 'zip' | 'pdf'
 
-type NotificationType = 'task_completed'
+type NotificationType = 'task_completed' | 'epic_created'
 
 type ResolutionType = 'success' | 'failure' | 'unknown'
 
@@ -381,6 +381,10 @@ export const notifications = pgTable('notifications', {
     onUpdate: 'cascade',
   }),
   taskId: cuid2('task_id').references(() => tasks.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
+  epicId: cuid2('epic_id').references(() => epics.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',
   }),
