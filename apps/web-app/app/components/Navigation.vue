@@ -64,6 +64,12 @@ const menuItems = computed(() => [
     active: route.path.startsWith('/staff'),
   },
   {
+    label: t('app.menu.epics'),
+    to: '/epic',
+    icon: 'i-lucide-crown',
+    active: route.path.startsWith('/epic'),
+  },
+  {
     label: t('app.menu.tickets'),
     to: '/ticket',
     icon: 'i-lucide-messages-square',
@@ -167,17 +173,11 @@ const linkItems = computed(() => [
     icon: 'i-lucide-printer',
     active: route.path.startsWith('/print'),
   },
-  {
-    label: t('app.menu.suggest-idea'),
-    to: '/idea',
-    icon: 'i-lucide-message-square-heart',
-    active: route.path.startsWith('/idea'),
-  },
-  {
-    label: t('app.menu.roadmap'),
-    to: '/roadmap',
-    icon: 'i-lucide-map',
-    active: route.path.startsWith('/roadmap'),
-  },
+  // {
+  //   label: t('app.menu.suggest-idea'),
+  //   to: '/idea',
+  //   icon: 'i-lucide-message-square-heart',
+  //   active: route.path.startsWith('/idea'),
+  // },
 ])
 </script>

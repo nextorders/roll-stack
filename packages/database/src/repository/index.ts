@@ -5,6 +5,7 @@ import { Chat } from './chat'
 import { Checkout } from './checkout'
 import { City } from './city'
 import { Client } from './client'
+import { Epic } from './epic'
 import { Feedback } from './feedback'
 import { File } from './file'
 import { Kitchen } from './kitchen'
@@ -30,6 +31,7 @@ class Repository {
   readonly checkout = Checkout
   readonly city = City
   readonly client = Client
+  readonly epic = Epic
   readonly feedback = Feedback
   readonly file = File
   readonly kitchen = Kitchen

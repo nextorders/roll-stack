@@ -704,6 +704,33 @@ export const activityScheduleItems = pgTable('activity_schedule_items', {
   }),
 })
 
+export const epics = pgTable('epics', {
+  id: cuid2('id').defaultRandom().primaryKey(),
+  createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  title: varchar('title').notNull(),
+  description: varchar('description'),
+  userId: cuid2('user_id').notNull().references(() => users.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
+})
+
+export const epicComments = pgTable('epic_comments', {
+  id: cuid2('id').defaultRandom().primaryKey(),
+  createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  text: varchar('text').notNull(),
+  userId: cuid2('user_id').notNull().references(() => users.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
+  epicId: cuid2('epic_id').notNull().references(() => epics.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
+})
+
 export const userRelations = relations(users, ({ many, one }) => ({
   chatMessages: many(chatMessages),
   chatMembers: many(chatMembers),
@@ -1118,5 +1145,24 @@ export const activityScheduleItemRelations = relations(activityScheduleItems, ({
   schedule: one(activitySchedules, {
     fields: [activityScheduleItems.activityScheduleId],
     references: [activitySchedules.id],
+  }),
+}))
+
+export const epicRelations = relations(epics, ({ many, one }) => ({
+  comments: many(epicComments),
+  user: one(users, {
+    fields: [epics.userId],
+    references: [users.id],
+  }),
+}))
+
+export const epicCommentRelations = relations(epicComments, ({ one }) => ({
+  user: one(users, {
+    fields: [epicComments.userId],
+    references: [users.id],
+  }),
+  epic: one(epics, {
+    fields: [epicComments.epicId],
+    references: [epics.id],
   }),
 }))
