@@ -1,7 +1,7 @@
 <template>
   <UDrawer v-model:open="isNotificationsOpened" direction="right">
     <template #content>
-      <div class="p-4 min-w-80 max-w-120 min-h-96 size-full overflow-auto">
+      <div class="p-4 md:min-w-80 md:max-w-120 min-h-96 size-full overflow-auto">
         <div class="flex flex-col gap-2.5">
           <UCard
             v-for="notification in notificationStore.notifications"

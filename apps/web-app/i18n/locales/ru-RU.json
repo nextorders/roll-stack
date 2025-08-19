@@ -211,6 +211,10 @@
       "agreement": {
         "button": "Создать договор",
         "title": "Создание договора"
+      },
+      "epic": {
+        "button": "Создать эпик",
+        "title": "Создание эпика"
       }
     },
     "attach": {
@@ -416,6 +420,9 @@
     "activity-schedule-item-created": "Активность создана",
     "activity-schedule-item-updated": "Активность обновлена",
     "activity-schedule-item-deleted": "Активность удалена",
-    "telegram-attached": "Telegram привязан"
+    "telegram-attached": "Telegram привязан",
+    "epic-created": "Эпик создан",
+    "epic-updated": "Эпик обновлен",
+    "epic-deleted": "Эпик удален"
   }
 }

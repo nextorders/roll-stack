@@ -3,8 +3,19 @@
 
   <Content>
     <div class="md:mx-auto md:w-lg flex flex-col gap-5">
-      <div class="flex flex-row items-start gap-2.5">
+      <div class="flex flex-row items-start justify-between gap-2.5">
         <UIcon name="i-lucide-crown" class="size-14 text-primary" />
+
+        <UTooltip :text="`Редактировать «${epic?.title}»`">
+          <UButton
+            variant="outline"
+            color="neutral"
+            size="md"
+            icon="i-lucide-pencil"
+            class="size-10 justify-center"
+            @click="() => {}"
+          />
+        </UTooltip>
       </div>
 
       <h2 class="text-xl md:text-3xl font-bold">
@@ -63,4 +74,8 @@ const { params } = useRoute('epic-epicId')
 
 const epicStore = useEpicStore()
 const epic = computed(() => epicStore.epics.find((e) => e.id === params.epicId))
+
+useHead({
+  title: epic.value?.title,
+})
 </script>
