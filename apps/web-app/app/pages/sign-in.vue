@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-svh mx-auto grid grid-cols-1 lg:grid-cols-2">
-    <div class="hidden lg:block bg-[#54b948]">
+    <div class="hidden lg:block bg-secondary">
       <img
         src="/sushi-heart-light.png"
         alt=""
@@ -15,8 +15,17 @@
             {{ $t('app.welcome-message') }}
           </h1>
 
-          <div class="mx-auto max-w-[250px]">
-            <form v-if="state.step === 1" class="space-y-4">
+          <div v-if="!isLoaded" class="flex justify-center">
+            <Loader />
+          </div>
+          <div v-else class="mx-auto max-w-[250px]">
+            <UForm
+              v-if="state.step === 1"
+              :schema="signInSchema"
+              :state="state"
+              class="space-y-4"
+              @submit="sendCode"
+            >
               <UInput
                 v-model="state.phone"
                 placeholder="Номер телефона"
@@ -36,9 +45,9 @@
                 size="xl"
                 class="w-full justify-between"
                 label="Получить код"
-                @click="sendCode"
+                type="submit"
               />
-            </form>
+            </UForm>
 
             <form v-if="state.step === 2" class="space-y-4">
               <UPinInput
@@ -73,6 +82,8 @@
 </template>
 
 <script setup lang="ts">
+import { signInSchema } from '#shared/services/common'
+
 definePageMeta({
   layout: 'empty',
   middleware: ['02-guest-only'],
@@ -98,6 +109,12 @@ const state = ref({
   step: 1,
   phone: '',
   code: [],
+})
+
+const isLoaded = ref(false)
+
+onMounted(() => {
+  isLoaded.value = true
 })
 
 const isPhoneValid = ref(false)
