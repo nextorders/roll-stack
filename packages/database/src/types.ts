@@ -146,3 +146,9 @@ export type ActivityScheduleDraft = InferInsertModel<typeof tables.activitySched
 
 export type ActivityScheduleItem = InferSelectModel<typeof tables.activityScheduleItems>
 export type ActivityScheduleItemDraft = InferInsertModel<typeof tables.activityScheduleItems>
+
+export type Epic = InferSelectModel<typeof tables.epics>
+export type EpicDraft = InferInsertModel<typeof tables.epics>
+
+export type EpicComment = InferSelectModel<typeof tables.epicComments>
+export type EpicCommentDraft = InferInsertModel<typeof tables.epicComments>
