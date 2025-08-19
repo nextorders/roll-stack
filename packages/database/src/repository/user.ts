@@ -68,6 +68,7 @@ export class User {
       where: (users, { eq }) => eq(users.isActive, true),
       with: {
         focusedTask: true,
+        telegramUsers: true,
       },
     })
   }

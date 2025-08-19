@@ -71,6 +71,8 @@
     "price": "Цена",
     "sku": "Артикул",
     "city": "Город",
+    "access-key": "Ключ доступа",
+    "attach": "Привязать",
     "weight-or-volume": "Вес / Объем",
     "measurement-unit": "Ед. измерения",
     "abbreviation": {
@@ -213,6 +215,10 @@
       "product": {
         "button": "Добавить продукт",
         "title": "Добавление продукта в категорию"
+      },
+      "telegram": {
+        "button": "Привязать Telegram",
+        "title": "Привязка Telegram к аккаунту"
       }
     },
     "update": {
@@ -407,6 +413,7 @@
     "partner-agreement-deleted": "Договор удален",
     "activity-schedule-item-created": "Активность создана",
     "activity-schedule-item-updated": "Активность обновлена",
-    "activity-schedule-item-deleted": "Активность удалена"
+    "activity-schedule-item-deleted": "Активность удалена",
+    "telegram-attached": "Telegram привязан"
   }
 }

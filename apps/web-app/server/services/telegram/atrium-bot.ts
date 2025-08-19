@@ -3,15 +3,15 @@ import { repository } from '@roll-stack/database'
 import { Bot } from 'grammy'
 import { generateAccessCode } from './common'
 
-const logger = useLogger('telegram:wasabi-bot')
+const logger = useLogger('telegram:atrium-bot')
 const { telegram } = useRuntimeConfig()
 
 let bot: Bot | null = null
 
-export async function useCreateWasabiBot() {
-  const botInDb = await repository.telegram.findBot(telegram.wasabiBotId)
+export async function useCreateAtriumBot() {
+  const botInDb = await repository.telegram.findBot(telegram.atriumBotId)
   if (!botInDb?.token) {
-    throw new Error('Wasabi bot is not configured')
+    throw new Error('Atrium bot is not configured')
   }
 
   bot = new Bot(botInDb.token)
@@ -31,9 +31,9 @@ export async function useCreateWasabiBot() {
 
   try {
     await bot.start()
-    logger.info('Wasabi bot started successfully')
+    logger.info('Atrium bot started successfully')
   } catch (error) {
-    logger.error('Failed to start Wasabi bot:', error)
+    logger.error('Failed to start Atrium bot:', error)
     throw error
   }
 }
@@ -50,7 +50,7 @@ async function handleStart(ctx: Context) {
   }
 
   // Find user
-  const telegramUser = await repository.telegram.findUserByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.wasabiBotId)
+  const telegramUser = await repository.telegram.findUserByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.atriumBotId)
   if (!telegramUser) {
     const accessKey = await generateAccessCode()
 
@@ -61,18 +61,17 @@ async function handleStart(ctx: Context) {
       lastName: ctx.message.from.last_name,
       username: ctx.message.from.username,
       accessKey,
-      botId: telegram.wasabiBotId,
+      botId: telegram.atriumBotId,
     })
 
     logger.log('new user', createdUser?.id, ctx.message.from.id, ctx.message.text)
 
     await ctx.reply(`Ключ доступа: ${accessKey}`)
-
     return
   }
 
   if (!telegramUser.user) {
-    await ctx.reply('Нет доступа. Используйте ранее полученный Ключ доступа. Или передайте его в службу поддержки.')
+    await ctx.reply('Нет доступа. Используйте ранее полученный Ключ доступа.')
     return
   }
 
@@ -84,40 +83,18 @@ async function handleMessage(ctx: Context) {
     return
   }
 
-  const telegramUser = await repository.telegram.findUserByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.wasabiBotId)
+  const telegramUser = await repository.telegram.findUserByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.atriumBotId)
   if (!telegramUser?.user) {
     return
   }
 
-  // Get last ticket
-  const tickets = await repository.ticket.listOpenedByUser(telegramUser.user.id)
-  let ticket = tickets?.[0]
-  if (!tickets.length || !ticket) {
-    // Create ticket
-    ticket = await repository.ticket.create({
-      title: `${telegramUser.user.name} ${telegramUser.user.surname}`,
-      description: 'Создано автоматически',
-      userId: telegramUser.user.id,
-      status: 'opened',
-    })
-  }
-  if (!ticket) {
-    return
-  }
-
-  await repository.ticket.createMessage({
-    ticketId: ticket.id,
-    userId: telegramUser.user.id,
-    text: ctx.message.text,
-  })
-
   logger.log('message', telegramUser.user.id, ctx.message.from.id, ctx.message.text)
-  ctx.reply('Сообщение передано в службу поддержки.')
+  // ctx.reply('Сообщение передано в службу поддержки.')
 }
 
-export function useWasabiBot(): Bot {
+export function useAtriumBot(): Bot {
   if (!bot) {
-    throw new Error('Wasabi bot is not initialized. Call useCreateWasabiBot() first.')
+    throw new Error('Atrium bot is not initialized. Call useCreateAtriumBot() first.')
   }
 
   return bot
