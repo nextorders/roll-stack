@@ -13,6 +13,8 @@ export default defineEventHandler(async (event) => {
       })
     }
 
+    const { telegram } = useRuntimeConfig()
+
     const body = await readBody(event)
     const data = createTicketMessageSchema(body)
     if (data instanceof type.errors) {
@@ -55,7 +57,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const wasabiUser = await repository.wasabi.findUserById(ticket.userId)
+    const wasabiUser = await repository.telegram.findUserByIdAndBotId(ticket.userId, telegram.wasabiBotId)
     if (wasabiUser) {
       // Send message to Telegram
       const text = `${user.name} ${user.surname}: ${data.text}`

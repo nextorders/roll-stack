@@ -129,8 +129,11 @@ export type ClientReviewDraft = InferInsertModel<typeof tables.clientReviews>
 export type NetworkMetrics = InferSelectModel<typeof tables.networkMetrics>
 export type NetworkMetricsDraft = InferInsertModel<typeof tables.networkMetrics>
 
-export type WasabiUser = InferSelectModel<typeof tables.wasabiUsers>
-export type WasabiUserDraft = InferInsertModel<typeof tables.wasabiUsers>
+export type TelegramBot = InferSelectModel<typeof tables.telegramBots>
+export type TelegramBotDraft = InferInsertModel<typeof tables.telegramBots>
+
+export type TelegramUser = InferSelectModel<typeof tables.telegramUsers>
+export type TelegramUserDraft = InferInsertModel<typeof tables.telegramUsers>
 
 export type Ticket = InferSelectModel<typeof tables.tickets>
 export type TicketDraft = InferInsertModel<typeof tables.tickets>

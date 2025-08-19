@@ -19,7 +19,8 @@ export default defineNuxtConfig({
       serviceToken: '',
     },
     telegram: {
-      wasabiToken: '',
+      wasabiBotId: '',
+      atriumBotId: '',
       adminId: '',
     },
     public: {
