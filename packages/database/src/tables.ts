@@ -618,18 +618,32 @@ export const networkMetrics = pgTable('network_metrics', {
   averageCheck: numeric('average_check', { mode: 'number' }).notNull().default(0),
 })
 
-export const wasabiUsers = pgTable('wasabi_users', {
+export const telegramBots = pgTable('telegram_bots', {
+  id: cuid2('id').defaultRandom().primaryKey(),
+  createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  firstName: varchar('first_name'),
+  lastName: varchar('last_name'),
+  username: varchar('username'),
+  token: varchar('token').notNull(),
+})
+
+export const telegramUsers = pgTable('telegram_users', {
   id: cuid2('id').defaultRandom().primaryKey(),
   createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   accessKey: varchar('access_key').notNull().unique(),
-  telegramId: varchar('telegram_id').notNull().unique(),
+  telegramId: varchar('telegram_id').notNull(),
+  telegramUserType: varchar('type').notNull().$type<TelegramUserType>(),
   firstName: varchar('first_name'),
   lastName: varchar('last_name'),
   username: varchar('username'),
   title: varchar('title'),
-  type: varchar('type').notNull().$type<TelegramUserType>(),
   userId: cuid2('user_id').references(() => users.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
+  botId: cuid2('bot_id').notNull().references(() => telegramBots.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',
   }),
@@ -698,7 +712,7 @@ export const userRelations = relations(users, ({ many, one }) => ({
   taskLists: many(taskLists),
   postLikes: many(postLikes),
   postComments: many(postComments),
-  wasabiUsers: many(wasabiUsers),
+  telegramUsers: many(telegramUsers),
   tickets: many(tickets),
   ticketMessages: many(ticketMessages),
   focusedTask: one(tasks, {
@@ -1058,10 +1072,18 @@ export const clientReviewRelations = relations(clientReviews, ({ one }) => ({
   }),
 }))
 
-export const wasabiUserRelations = relations(wasabiUsers, ({ one }) => ({
+export const telegramBotRelations = relations(telegramBots, ({ many }) => ({
+  users: many(telegramUsers),
+}))
+
+export const telegramUserRelations = relations(telegramUsers, ({ one }) => ({
   user: one(users, {
-    fields: [wasabiUsers.userId],
+    fields: [telegramUsers.userId],
     references: [users.id],
+  }),
+  bot: one(telegramBots, {
+    fields: [telegramUsers.botId],
+    references: [telegramBots.id],
   }),
 }))
 

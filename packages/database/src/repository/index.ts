@@ -19,9 +19,9 @@ import { Post } from './post'
 import { Print } from './print'
 import { Product } from './product'
 import { Task } from './task'
+import { Telegram } from './telegram'
 import { Ticket } from './ticket'
 import { User } from './user'
-import { Wasabi } from './wasabi'
 
 class Repository {
   readonly activity = Activity
@@ -44,9 +44,9 @@ class Repository {
   readonly print = Print
   readonly product = Product
   readonly task = Task
+  readonly telegram = Telegram
   readonly ticket = Ticket
   readonly user = User
-  readonly wasabi = Wasabi
 
   async checkHealth(): Promise<boolean> {
     await useDatabase().query.users.findFirst()

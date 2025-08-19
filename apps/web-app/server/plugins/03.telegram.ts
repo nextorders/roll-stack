@@ -11,7 +11,7 @@ export default defineNitroPlugin(() => {
 
   const { telegram } = useRuntimeConfig()
 
-  if (!telegram.wasabiToken) {
+  if (!telegram.wasabiBotId || !telegram.atriumBotId) {
     // No config provided
     return
   }

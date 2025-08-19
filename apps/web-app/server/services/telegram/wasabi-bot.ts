@@ -8,7 +8,12 @@ const { telegram } = useRuntimeConfig()
 let bot: Bot | null = null
 
 export async function useCreateWasabiBot() {
-  bot = new Bot(telegram.wasabiToken)
+  const botInDb = await repository.telegram.findBot(telegram.wasabiBotId)
+  if (!botInDb?.token) {
+    throw new Error('Wasabi bot is not configured')
+  }
+
+  bot = new Bot(botInDb.token)
 
   bot.on('message:text', async (ctx) => {
     if (ctx.hasCommand('start')) {
@@ -44,17 +49,18 @@ async function handleStart(ctx: Context) {
   }
 
   // Find user
-  const wasabiUser = await repository.wasabi.findUserByTelegramId(ctx.message.from.id.toString())
-  if (!wasabiUser) {
+  const telegramUser = await repository.telegram.findUserByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.wasabiBotId)
+  if (!telegramUser) {
     const accessKey = await generateAccessCode()
 
-    const createdUser = await repository.wasabi.createUser({
+    const createdUser = await repository.telegram.createUser({
+      telegramUserType: ctx.message.chat.type,
       telegramId: ctx.message.from.id.toString(),
-      accessKey,
       firstName: ctx.message.from.first_name,
       lastName: ctx.message.from.last_name,
       username: ctx.message.from.username,
-      type: ctx.message.chat.type,
+      accessKey,
+      botId: telegram.wasabiBotId,
     })
 
     logger.log('new user', createdUser?.id, ctx.message.from.id, ctx.message.text)
@@ -64,7 +70,7 @@ async function handleStart(ctx: Context) {
     return
   }
 
-  if (!wasabiUser.user) {
+  if (!telegramUser.user) {
     await ctx.reply('Нет доступа. Используйте ранее полученный Ключ доступа. Или передайте его в службу поддержки.')
     return
   }
@@ -77,20 +83,20 @@ async function handleMessage(ctx: Context) {
     return
   }
 
-  const wasabiUser = await repository.wasabi.findUserByTelegramId(ctx.message.from.id.toString())
-  if (!wasabiUser?.user) {
+  const telegramUser = await repository.telegram.findUserByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.wasabiBotId)
+  if (!telegramUser?.user) {
     return
   }
 
   // Get last ticket
-  const tickets = await repository.ticket.listOpenedByUser(wasabiUser.user.id)
+  const tickets = await repository.ticket.listOpenedByUser(telegramUser.user.id)
   let ticket = tickets?.[0]
   if (!tickets.length || !ticket) {
     // Create ticket
     ticket = await repository.ticket.create({
-      title: `${wasabiUser.user.name} ${wasabiUser.user.surname}`,
+      title: `${telegramUser.user.name} ${telegramUser.user.surname}`,
       description: 'Создано автоматически',
-      userId: wasabiUser.user.id,
+      userId: telegramUser.user.id,
       status: 'opened',
     })
   }
@@ -100,11 +106,11 @@ async function handleMessage(ctx: Context) {
 
   await repository.ticket.createMessage({
     ticketId: ticket.id,
-    userId: wasabiUser.user.id,
+    userId: telegramUser.user.id,
     text: ctx.message.text,
   })
 
-  logger.log('message', wasabiUser.user.id, ctx.message.from.id, ctx.message.text)
+  logger.log('message', telegramUser.user.id, ctx.message.from.id, ctx.message.text)
   ctx.reply('Сообщение передано в службу поддержки.')
 }
 
@@ -126,8 +132,8 @@ async function generateAccessCode(): Promise<string> {
   // Code should be unique
   while (!selectedCode) {
     const code = getRandInteger(100000, 999999).toString()
-    const wasabiUser = await repository.wasabi.findUserByKey(code)
-    if (!wasabiUser) {
+    const user = await repository.telegram.findUserByKey(code)
+    if (!user) {
       selectedCode = code
     }
   }
