@@ -92,6 +92,6 @@ const overlay = useOverlay()
 const modalCreateEpic = overlay.create(ModalCreateEpic)
 
 useHead({
-  title: 'Эпики',
+  title: t('app.menu.epics'),
 })
 </script>
