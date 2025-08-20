@@ -1,3 +1,4 @@
+import type { NotificationOption } from '@roll-stack/database'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
 import { updateUserSchema } from '~~/shared/services/user'
@@ -36,7 +37,10 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const updatedUser = await repository.user.update(userId, data)
+    const updatedUser = await repository.user.update(userId, {
+      ...data,
+      notifications: data.notifications as NotificationOption[],
+    })
 
     return {
       ok: true,
