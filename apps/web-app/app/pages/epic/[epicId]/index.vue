@@ -6,14 +6,14 @@
       <div class="flex flex-row items-start justify-between gap-2.5">
         <UIcon name="i-lucide-crown" class="size-14 text-primary" />
 
-        <UTooltip :text="`Редактировать «${epic?.title}»`">
+        <UTooltip v-if="epic?.id" :text="`Редактировать «${epic?.title}»`">
           <UButton
             variant="outline"
             color="neutral"
             size="md"
             icon="i-lucide-pencil"
             class="size-10 justify-center"
-            @click="() => {}"
+            @click="modalUpdateEpic.open({ epicId: epic.id })"
           />
         </UTooltip>
       </div>
@@ -69,11 +69,16 @@
 </template>
 
 <script setup lang="ts">
+import { ModalUpdateEpic } from '#components'
+
 const { t } = useI18n()
 const { params } = useRoute('epic-epicId')
 
 const epicStore = useEpicStore()
 const epic = computed(() => epicStore.epics.find((e) => e.id === params.epicId))
+
+const overlay = useOverlay()
+const modalUpdateEpic = overlay.create(ModalUpdateEpic)
 
 useHead({
   title: epic.value?.title,
