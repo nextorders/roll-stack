@@ -15,6 +15,7 @@ export const useUserStore = defineStore('user', () => {
   const phone = ref<string | null>(null)
   const avatarUrl = ref<string | null>(null)
   const focusedTaskId = ref<string | null>(null)
+  const telegramUsers = ref<TelegramUser[]>([])
 
   const fullName = computed(() => {
     return `${name.value} ${surname.value}`
@@ -39,6 +40,7 @@ export const useUserStore = defineStore('user', () => {
       phone.value = data.phone
       avatarUrl.value = data.avatarUrl
       focusedTaskId.value = data.focusedTaskId
+      telegramUsers.value = data.telegramUsers
 
       // Updating all data
       await updateUsers()
@@ -105,6 +107,7 @@ export const useUserStore = defineStore('user', () => {
     email,
     avatarUrl,
     focusedTaskId,
+    telegramUsers,
 
     fullName,
 

@@ -1,3 +1,4 @@
+import type { NotificationOption } from './types'
 import { cuid2 } from 'drizzle-cuid2/postgres'
 import { relations } from 'drizzle-orm'
 import { boolean, date, integer, jsonb, numeric, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core'
@@ -96,6 +97,7 @@ export const users = pgTable('users', {
   avatarUrl: varchar('avatar_url'),
   focusedTaskId: cuid2('focused_task_id'),
   permissions: jsonb('permissions').notNull().default([]).$type<PermissionCode[]>(),
+  notifications: jsonb('notifications').notNull().default([]).$type<NotificationOption[]>(),
   partnerId: cuid2('partner_id').references(() => partners.id),
 })
 

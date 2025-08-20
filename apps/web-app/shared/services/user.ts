@@ -17,5 +17,11 @@ export const updateUserSchema = type({
   phone: type('11 <= string <= 12 | undefined').describe('error.length.invalid').optional(),
   caption: type('string <= 100 | undefined').describe('error.length.invalid').optional(),
   gender: userGenderSchema.describe('error.length.invalid').optional(),
+  notifications: type('string').array().describe('error.length.invalid').optional(),
 })
 export type UpdateUser = typeof updateUserSchema.infer
+
+export const updateUserNotificationsSchema = type({
+  active: type('string').array().describe('error.length.invalid').optional(),
+})
+export type UpdateUserNotifications = typeof updateUserNotificationsSchema.infer
