@@ -8,7 +8,7 @@
       </div>
 
       <div class="min-h-12 min-w-18 relative bg-elevated/25 px-3.5 py-2 rounded-lg ring ring-default">
-        <div class="text-sm/4 md:text-base/5 whitespace-break-spaces text-pretty font-semibold">
+        <div class="text-sm/4 md:text-base/5 whitespace-break-spaces text-pretty font-medium">
           {{ comment?.text }}
         </div>
 
