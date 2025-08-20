@@ -22,7 +22,7 @@
         {{ epic?.title }}
       </h2>
 
-      <div class="w-full text-lg leading-6 whitespace-pre-wrap break-words">
+      <div class="w-full text-base/5 whitespace-pre-wrap break-words">
         {{ epic?.description }}
       </div>
 
