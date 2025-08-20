@@ -26,11 +26,11 @@
               <UIcon name="i-lucide-crown" class="size-14 text-primary" />
             </div>
 
-            <h3 class="text-xl/5 font-semibold">
+            <h3 class="text-2xl/5 font-semibold">
               {{ epic.title }}
             </h3>
 
-            <div class="w-full text-base/6 whitespace-pre-wrap break-words">
+            <div class="w-full text-base/5 whitespace-pre-wrap break-words">
               {{ epic.description }}
             </div>
 

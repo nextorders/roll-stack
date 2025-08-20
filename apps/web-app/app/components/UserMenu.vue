@@ -21,12 +21,11 @@
 </template>
 
 <script setup lang="ts">
-import { ModalAttachTelegram, ModalUpdateUser } from '#components'
+import { ModalAttachTelegram, ModalUpdateUser, ModalUpdateUserNotifications } from '#components'
 
 const { clear, fetch: refreshSession } = useUserSession()
 const { t } = useI18n()
 const colorMode = useColorMode()
-const app = useApp()
 
 const userStore = useUserStore()
 
@@ -38,6 +37,7 @@ async function signOut() {
 
 const overlay = useOverlay()
 const modalUpdateUser = overlay.create(ModalUpdateUser)
+const modalUpdateUserNotifications = overlay.create(ModalUpdateUserNotifications)
 const modalAttachTelegram = overlay.create(ModalAttachTelegram)
 
 const userMenuItems = computed(() => [
@@ -60,41 +60,49 @@ const userMenuItems = computed(() => [
     },
   },
   {
-    label: 'Telegram',
+    label: 'Настройка уведомлений',
+    type: 'link' as const,
+    icon: 'lucide:bell-plus',
+    onClick() {
+      modalUpdateUserNotifications.open({ userId: userStore.id ?? '' })
+    },
+  },
+  {
+    label: 'Мой Telegram',
     type: 'link' as const,
     icon: 'simple-icons:telegram',
     onClick() {
       modalAttachTelegram.open({ userId: userStore.id ?? '', botId: 'lwleg6bka2oo61x5ot6zog6h' })
     },
   },
-  {
-    label: 'Изображения',
-    icon: 'lucide:images',
-    children: [
-      {
-        label: 'Цветные',
-        type: 'checkbox' as const,
-        icon: 'lucide:palette',
-        checked: app.imagesMode.value === 'color',
-        onUpdateChecked(checked: boolean) {
-          if (checked) {
-            app.imagesMode.value = 'color'
-          }
-        },
-      },
-      {
-        label: 'Черно-белые',
-        type: 'checkbox' as const,
-        icon: 'lucide:eclipse',
-        checked: app.imagesMode.value === 'grayscale',
-        onUpdateChecked(checked: boolean) {
-          if (checked) {
-            app.imagesMode.value = 'grayscale'
-          }
-        },
-      },
-    ],
-  },
+  // {
+  //   label: 'Изображения',
+  //   icon: 'lucide:images',
+  //   children: [
+  //     {
+  //       label: 'Цветные',
+  //       type: 'checkbox' as const,
+  //       icon: 'lucide:palette',
+  //       checked: app.imagesMode.value === 'color',
+  //       onUpdateChecked(checked: boolean) {
+  //         if (checked) {
+  //           app.imagesMode.value = 'color'
+  //         }
+  //       },
+  //     },
+  //     {
+  //       label: 'Черно-белые',
+  //       type: 'checkbox' as const,
+  //       icon: 'lucide:eclipse',
+  //       checked: app.imagesMode.value === 'grayscale',
+  //       onUpdateChecked(checked: boolean) {
+  //         if (checked) {
+  //           app.imagesMode.value = 'grayscale'
+  //         }
+  //       },
+  //     },
+  //   ],
+  // },
   {
     label: t('common.color-mode.title'),
     icon: 'lucide:sun-moon',

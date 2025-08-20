@@ -3,6 +3,10 @@ import type * as tables from './tables'
 
 export type { Database } from './connection'
 
+export type NotificationOption
+  = | 'task_completed_atrium'
+    | 'task_completed_telegram'
+
 export type Permission = InferSelectModel<typeof tables.permissions>
 export type PermissionDraft = InferInsertModel<typeof tables.permissions>
 

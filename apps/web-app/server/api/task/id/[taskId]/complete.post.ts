@@ -100,14 +100,16 @@ export default defineEventHandler(async (event) => {
       const allStaffExceptUser = users.filter((u) => u.type === 'staff' && u.id !== user.id)
 
       for (const staff of allStaffExceptUser) {
-        await repository.notification.create({
-          authorId: user.id,
-          userId: staff.id,
-          taskId: updatedTask.id,
-          type: 'task_completed',
-          title: `${suffixByGender(['Завершил', 'Завершила'], user.gender)} задачу «${updatedTask.name}»`,
-          description: updatedTask.report ? updatedTask.report : 'Без отчета',
-        })
+        if (staff.notifications.includes('task_completed_atrium')) {
+          await repository.notification.create({
+            authorId: user.id,
+            userId: staff.id,
+            taskId: updatedTask.id,
+            type: 'task_completed',
+            title: `${suffixByGender(['Завершил', 'Завершила'], user.gender)} задачу «${updatedTask.name}»`,
+            description: updatedTask.report ? updatedTask.report : 'Без отчета',
+          })
+        }
       }
     }
 

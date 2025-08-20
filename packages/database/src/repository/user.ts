@@ -10,6 +10,10 @@ export class User {
         eq(users.id, id),
         eq(users.isActive, true),
       ),
+      with: {
+        focusedTask: true,
+        telegramUsers: true,
+      },
     })
   }
 

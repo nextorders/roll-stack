@@ -44,6 +44,8 @@ const menuStore = useMenuStore()
 const partnerStore = usePartnerStore()
 const kitchenStore = useKitchenStore()
 const clientStore = useClientStore()
+const ticketStore = useTicketStore()
+const epicStore = useEpicStore()
 
 const menus = computed(() => menuStore.menus.map((menu) => ({
   label: menu.name,
@@ -68,12 +70,14 @@ const menuItems = computed(() => [
     to: '/epic',
     icon: 'i-lucide-crown',
     active: route.path.startsWith('/epic'),
+    badge: epicStore.epics.length,
   },
   {
     label: t('app.menu.tickets'),
     to: '/ticket',
-    icon: 'i-lucide-messages-square',
+    icon: 'i-lucide-mail-question-mark',
     active: route.path.startsWith('/ticket'),
+    badge: ticketStore.tickets.length,
   },
   {
     label: t('app.menu.kitchens'),
