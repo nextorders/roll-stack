@@ -19,6 +19,9 @@
         v-model="selectedResolution"
         :items="getResolutionForSelect()"
         :placeholder="$t('common.select')"
+        :content="{
+          side: 'top',
+        }"
         size="xl"
         class="w-full"
       />

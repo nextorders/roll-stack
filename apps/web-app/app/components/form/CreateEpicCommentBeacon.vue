@@ -18,6 +18,9 @@
         :items="availableMembers"
         :avatar="selectedMembers[0]?.avatar"
         :placeholder="$t('common.select')"
+        :content="{
+          side: 'top',
+        }"
         multiple
         size="xl"
         class="w-full"

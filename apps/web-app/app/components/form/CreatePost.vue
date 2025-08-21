@@ -14,6 +14,9 @@
         v-model="selectedType"
         :items="types"
         :placeholder="$t('common.select')"
+        :content="{
+          side: 'top',
+        }"
         size="xl"
         class="w-full"
       />
