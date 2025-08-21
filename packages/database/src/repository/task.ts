@@ -67,6 +67,13 @@ export class Task {
     })
   }
 
+  static async listCompletedToday() {
+    return useDatabase().query.tasks.findMany({
+      where: (tasks, { gte }) => gte(tasks.completedAt, sql`now() - interval '12 hour'`),
+      orderBy: (tasks, { desc }) => desc(tasks.updatedAt),
+    })
+  }
+
   static async autoCreatorsList() {
     return useDatabase().query.taskAutoCreators.findMany()
   }

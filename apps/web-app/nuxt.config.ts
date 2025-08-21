@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     },
     ai: {
       model: '',
+      modelPro: '',
       baseUrl: '',
       apiKey: '',
       serviceToken: '',
@@ -22,6 +23,7 @@ export default defineNuxtConfig({
       wasabiBotId: '',
       atriumBotId: '',
       adminId: '',
+      teamGroupId: '',
     },
     public: {
       mediaUrl: '',
@@ -45,6 +47,7 @@ export default defineNuxtConfig({
       '* * * * *': ['task:auto-create'], // Every minute
       '0 * * * *': ['kitchen:revenue-update'], // Every hour
       '0 0 * * *': ['kitchen:rating-update'], // Every day
+      '0 17 * * 1-5': ['ai:daily-report'], // Mon-Fri 17:00
     },
   },
   tiptap: {
