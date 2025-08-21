@@ -63,9 +63,9 @@ const state = ref<Partial<CreateBeacon>>({
 })
 
 const availableMembers = computed(() => {
-  // const notMe = userStore.staff.filter((staff) => staff.id !== userStore.id)
+  const notMe = userStore.staff.filter((staff) => staff.id !== userStore.id)
 
-  return userStore.staff.map((staff) => ({
+  return notMe.map((staff) => ({
     label: `${staff.name} ${staff.surname}`,
     value: staff.id,
     avatar: {
