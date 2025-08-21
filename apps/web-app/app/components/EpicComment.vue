@@ -34,7 +34,7 @@
             </div>
           </div>
 
-          <div v-if="comment?.notifications.length" class="flex flex-row flex-wrap gap-1">
+          <div v-if="comment?.notifications?.length" class="flex flex-row flex-wrap gap-1">
             <UserBeacon
               v-for="notification in comment.notifications"
               :key="notification.id"

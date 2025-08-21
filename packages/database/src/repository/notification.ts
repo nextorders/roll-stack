@@ -48,6 +48,7 @@ export class Notification {
       .update(notifications)
       .set({
         viewedAt: sql`now()`,
+        updatedAt: sql`now()`,
       })
       .where(eq(notifications.id, id))
       .returning()
