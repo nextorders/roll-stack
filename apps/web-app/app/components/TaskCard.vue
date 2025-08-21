@@ -150,7 +150,6 @@ const performer = computed(() => userStore.staff.find((staff) => staff.id === ta
 
 const canEdit = computed(() => list.value?.chat?.members.some((member) => member.userId === userStore.id) && !isCompleted.value)
 const canComplete = computed(() => canEdit.value && !isCompleted.value && (task.performerId === userStore.id || !task.performerId))
-const canOpenChat = computed(() => list.value?.chat?.members.some((member) => member.userId === userStore.id))
 const canFocus = computed(() => task.performerId === userStore.id && !isCompleted.value)
 const isFocused = computed(() => task.id === performer.value?.focusedTaskId)
 
@@ -159,14 +158,6 @@ const toastId = ref(`task-close-${task.id}`)
 
 const items = computed<DropdownMenuItem[]>(() => {
   const menuItems: DropdownMenuItem[] = [
-    {
-      label: 'Перейти в чат',
-      icon: 'i-lucide-messages-square',
-      color: 'neutral',
-      disabled: false,
-      onSelect: goToChat,
-      condition: canOpenChat.value,
-    },
     {
       label: isFocused.value ? 'Убрать фокус' : 'Сфокусироваться',
       icon: 'i-lucide-goal',
@@ -186,10 +177,6 @@ const items = computed<DropdownMenuItem[]>(() => {
 
   return menuItems.filter((item) => item.condition)
 })
-
-async function goToChat() {
-  await navigateTo(`/chat/${list.value?.chat?.id}`)
-}
 
 async function onFocus() {
   const toastId = actionToast.start()

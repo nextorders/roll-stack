@@ -1,13 +1,15 @@
 <template>
-  <UTooltip v-if="user" :text="notification.viewedAt ? 'Маяк получен' : 'Маяк отправлен'">
+  <UTooltip
+    v-if="user"
+    :text="notification.viewedAt ? `${user.name} ${user.surname}: Маяк получен` : `${user.name} ${user.surname}: Маяк отправлен`"
+  >
     <UButton
       v-if="user"
-      :label="user.name"
       :avatar="{ src: user.avatarUrl ?? undefined }"
       :trailing-icon="notification.viewedAt ? 'i-lucide-check' : 'i-lucide-bell'"
       color="neutral"
       variant="outline"
-      size="sm"
+      size="md"
       :ui="{
         trailingIcon: notification.viewedAt ? 'text-secondary' : 'text-secondary motion-preset-pulse motion-duration-1200',
       }"
