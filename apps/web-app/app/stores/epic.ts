@@ -1,7 +1,11 @@
-import type { Epic, EpicComment } from '@roll-stack/database'
+import type { Epic, EpicComment, Notification } from '@roll-stack/database'
+
+type EpicCommentWithData = EpicComment & {
+  notifications: Notification[]
+}
 
 type EpicWithData = Epic & {
-  comments: EpicComment[]
+  comments: EpicCommentWithData[]
 }
 
 export const useEpicStore = defineStore('epic', () => {

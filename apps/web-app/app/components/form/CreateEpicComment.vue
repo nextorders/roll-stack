@@ -1,13 +1,13 @@
 <template>
+  <div v-if="!userStore.id" class="flex justify-center items-center text-center text-muted">
+    <Loader />
+  </div>
   <UCard
+    v-else
     variant="subtle"
     class="mt-auto bg-elevated/25"
   >
-    <div v-if="!userStore.id" class="text-center text-muted">
-      <Loader />
-    </div>
     <form
-      v-else
       class="flex flex-col gap-4"
       @submit.prevent="onCommentSubmit"
     >
@@ -25,6 +25,15 @@
       />
 
       <div class="flex items-center justify-between gap-2">
+        <UButton
+          variant="ghost"
+          color="neutral"
+          size="lg"
+          icon="i-lucide-paperclip"
+          :loading="loading"
+          :disabled="loading"
+        />
+
         <UButton
           type="submit"
           color="secondary"

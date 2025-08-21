@@ -4,7 +4,7 @@ type TaskWithPerformer = Task & {
   performer: User | null
 }
 
-type NotificationWithEntities = Notification & {
+export type NotificationWithEntities = Notification & {
   task: TaskWithPerformer | null
   author: User
 }
@@ -22,6 +22,25 @@ export const useNotificationStore = defineStore('notification', () => {
       }
 
       notifications.value = data
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message.includes('401')) {
+          // No session
+        }
+        if (error.message.includes('404')) {
+          // Not found
+        }
+      }
+    }
+  }
+
+  async function markAsViewed(notificationId: string) {
+    try {
+      await $fetch(`/api/notification/id/${notificationId}/viewed`, {
+        method: 'POST',
+      })
+
+      await update()
     } catch (error) {
       if (error instanceof Error) {
         if (error.message.includes('401')) {
@@ -112,5 +131,6 @@ export const useNotificationStore = defineStore('notification', () => {
     notifications,
 
     update,
+    markAsViewed,
   }
 })

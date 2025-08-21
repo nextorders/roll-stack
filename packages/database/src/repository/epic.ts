@@ -25,6 +25,9 @@ export class Epic {
       with: {
         comments: {
           orderBy: (comments, { asc }) => asc(comments.createdAt),
+          with: {
+            notifications: true,
+          },
         },
       },
     })
