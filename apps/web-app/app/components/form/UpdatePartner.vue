@@ -14,6 +14,9 @@
         v-model="selectedLegalEntity"
         :items="legalEntities"
         :placeholder="$t('common.select')"
+        :content="{
+          side: 'top',
+        }"
         size="xl"
         class="w-full"
       />

@@ -9,7 +9,8 @@
       :trailing-icon="notification.viewedAt ? 'i-lucide-check' : 'i-lucide-bell'"
       color="neutral"
       variant="outline"
-      size="md"
+      size="lg"
+      class="relative py-1.5 rounded-full"
       :ui="{
         trailingIcon: notification.viewedAt ? 'text-secondary' : 'text-secondary motion-preset-pulse motion-duration-1200',
       }"

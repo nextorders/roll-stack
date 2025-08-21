@@ -4,6 +4,9 @@
     :ui="{
       content: 'w-48',
     }"
+    :content="{
+      sideOffset: -12,
+    }"
   >
     <UButton
       color="neutral"
@@ -16,21 +19,21 @@
       }"
       class="group/message relative text-left scroll-mt-4 sm:scroll-mt-6 motion-preset-slide-down-right"
     >
-      <div class="relative flex items-start gap-2 pb-2 rtl:justify-end">
+      <div class="min-w-[60%] relative flex items-start gap-2 pb-2 rtl:justify-end">
         <div class="inline-flex items-center justify-center min-h-6 mt-1.5">
           <UserPopover :user="user">
-            <UAvatar :src="user?.avatarUrl ?? ''" class="hover:scale-110 duration-200" />
+            <UAvatar :src="user?.avatarUrl ?? undefined" class="hover:scale-110 duration-200" />
           </UserPopover>
         </div>
 
-        <div class="min-h-12 min-w-18 bg-elevated/25 px-3.5 py-2 flex flex-col gap-2.5 rounded-lg ring ring-default">
-          <div>
-            <div class="text-sm/4 md:text-base/5 whitespace-break-spaces text-pretty font-medium">
-              {{ comment?.text }}
+        <div class="min-h-12 w-full bg-elevated/25 px-3.5 py-2 flex flex-col gap-2.5 rounded-lg ring ring-default">
+          <div class="flex flex-col gap-1">
+            <div v-if="comment?.createdAt" class="mt-1 flex justify-start text-xs text-dimmed">
+              {{ format(new Date(comment.createdAt), 'dd MMMM в HH:mm', { locale: ru }) }}
             </div>
 
-            <div v-if="comment?.createdAt" class="mt-1 flex justify-end text-xs text-dimmed">
-              {{ format(new Date(comment.createdAt), 'dd MMMM в HH:mm', { locale: ru }) }}
+            <div class="text-sm/4 md:text-base/5 whitespace-break-spaces text-default text-pretty font-medium">
+              {{ comment?.text }}
             </div>
           </div>
 

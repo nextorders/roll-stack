@@ -21,7 +21,7 @@
         :rows="3"
         :disabled="loading"
         class="w-full"
-        :ui="{ base: 'p-0 resize-none text-lg leading-6' }"
+        :ui="{ base: 'p-0 resize-none text-base/5' }"
       />
 
       <div class="flex items-center justify-between gap-2">

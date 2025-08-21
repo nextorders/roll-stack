@@ -33,6 +33,9 @@
         :items="availablePerformersItems"
         :avatar="selectedPerformer?.avatar"
         :placeholder="$t('common.select')"
+        :content="{
+          side: 'top',
+        }"
         size="xl"
         class="w-full"
       />
