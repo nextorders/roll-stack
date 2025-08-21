@@ -7,20 +7,49 @@
         </UserPopover>
       </div>
 
-      <div class="min-h-12 min-w-18 relative bg-elevated/25 px-3.5 py-2 rounded-lg ring ring-default">
-        <div class="text-sm/4 md:text-base/5 whitespace-break-spaces text-pretty font-medium">
-          {{ comment?.text }}
+      <div class="min-h-12 min-w-18 bg-elevated/25 px-3.5 py-2 flex flex-col gap-2.5 rounded-lg ring ring-default">
+        <div>
+          <div class="text-sm/4 md:text-base/5 whitespace-break-spaces text-pretty font-medium">
+            {{ comment?.text }}
+          </div>
+
+          <div v-if="comment?.createdAt" class="mt-1 flex justify-end text-xs text-dimmed">
+            {{ format(new Date(comment.createdAt), 'dd MMMM в HH:mm', { locale: ru }) }}
+          </div>
         </div>
 
-        <div v-if="comment?.createdAt" class="mt-1 flex justify-end text-xs text-dimmed">
-          {{ format(new Date(comment.createdAt), 'dd MMMM в HH:mm', { locale: ru }) }}
+        <div v-if="comment?.notifications.length" class="flex flex-row flex-wrap gap-1">
+          <UserBeacon
+            v-for="notification in comment.notifications"
+            :key="notification.id"
+            :notification="notification"
+          />
         </div>
+      </div>
+
+      <div class="flex flex-row gap-1">
+        <UDropdownMenu
+          :items="items"
+          :ui="{
+            content: 'w-48',
+          }"
+        >
+          <UButton
+            color="neutral"
+            variant="subtle"
+            size="sm"
+            icon="i-lucide-ellipsis-vertical"
+            class="opacity-25 group-hover/message:opacity-100 transition duration-200"
+          />
+        </UDropdownMenu>
       </div>
     </div>
   </article>
 </template>
 
 <script setup lang="ts">
+import type { DropdownMenuItem } from '@nuxt/ui'
+import { ModalCreateEpicCommentBeacon } from '#components'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale/ru'
 
@@ -29,10 +58,50 @@ const { epicId, commentId } = defineProps<{
   commentId: string
 }>()
 
+const overlay = useOverlay()
+const modalCreateEpicCommentBeacon = overlay.create(ModalCreateEpicCommentBeacon)
+
 const epicStore = useEpicStore()
 const userStore = useUserStore()
 
 const epic = computed(() => epicStore.epics.find((epic) => epic.id === epicId))
 const comment = computed(() => epic.value?.comments.find((comment) => comment.id === commentId))
 const user = computed(() => userStore.find(comment.value?.userId ?? ''))
+
+const items = computed<DropdownMenuItem[]>(() => {
+  const menuItems: DropdownMenuItem[] = [
+    {
+      label: 'Маякнуть',
+      icon: 'i-lucide-users-round',
+      color: 'neutral',
+      disabled: false,
+      onSelect: () => modalCreateEpicCommentBeacon.open({ commentId }),
+      condition: true,
+    },
+    {
+      label: 'Поставить лайк',
+      icon: 'i-lucide-thumbs-up',
+      color: 'neutral',
+      disabled: true,
+      onSelect: () => {},
+      condition: user.value?.id !== userStore.id,
+    },
+    {
+      label: 'Редактировать',
+      icon: 'i-lucide-edit',
+      disabled: true,
+      onSelect: () => {},
+      condition: user.value?.id === userStore.id,
+    },
+    {
+      label: 'Удалить',
+      icon: 'i-lucide-trash-2',
+      disabled: true,
+      onSelect: () => {},
+      condition: user.value?.id === userStore.id,
+    },
+  ]
+
+  return menuItems.filter((item) => item.condition)
+})
 </script>

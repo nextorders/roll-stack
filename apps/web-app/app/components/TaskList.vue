@@ -60,7 +60,7 @@
             color="neutral"
             size="md"
             icon="i-lucide-pencil"
-            class="opacity-0 group-hover/list:opacity-100"
+            class="opacity-0 group-hover/list:opacity-100 transition duration-200"
             @click="modalUpdateTaskList.open({ listId })"
           />
         </UTooltip>

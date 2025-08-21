@@ -63,7 +63,7 @@ export const useUserStore = defineStore('user', () => {
         return
       }
 
-      staff.value = data.filter((user) => user.type === 'staff')
+      staff.value = data.filter((user) => user.type === 'staff' && user.isActive && user.name && user.surname)
       users.value = data
     } catch (error) {
       if (error instanceof Error) {

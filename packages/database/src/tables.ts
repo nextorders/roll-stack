@@ -31,7 +31,9 @@ type WeightUnit = 'G' | 'KG' | 'ML' | 'L' | 'OZ' | 'LB'
 type MediaFormat = 'jpg' | 'webp'
 type FileFormat = 'docx' | 'cdr' | 'zip' | 'pdf'
 
-type NotificationType = 'task_completed' | 'epic_created'
+type NotificationType = 'task_completed'
+  | 'epic_created'
+  | 'user_beacon_on_epic_comment_created'
 
 type ResolutionType = 'success' | 'failure' | 'unknown'
 
@@ -387,6 +389,10 @@ export const notifications = pgTable('notifications', {
     onUpdate: 'cascade',
   }),
   epicId: cuid2('epic_id').references(() => epics.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
+  epicCommentId: cuid2('epic_comment_id').references(() => epicComments.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',
   }),
@@ -944,6 +950,14 @@ export const notificationRelations = relations(notifications, ({ one }) => ({
     fields: [notifications.taskId],
     references: [tasks.id],
   }),
+  epic: one(epics, {
+    fields: [notifications.epicId],
+    references: [epics.id],
+  }),
+  epicComment: one(epicComments, {
+    fields: [notifications.epicCommentId],
+    references: [epicComments.id],
+  }),
 }))
 
 export const checkoutRelations = relations(checkouts, ({ many, one }) => ({
@@ -1156,13 +1170,15 @@ export const activityScheduleItemRelations = relations(activityScheduleItems, ({
 
 export const epicRelations = relations(epics, ({ many, one }) => ({
   comments: many(epicComments),
+  notifications: many(notifications),
   user: one(users, {
     fields: [epics.userId],
     references: [users.id],
   }),
 }))
 
-export const epicCommentRelations = relations(epicComments, ({ one }) => ({
+export const epicCommentRelations = relations(epicComments, ({ many, one }) => ({
+  notifications: many(notifications),
   user: one(users, {
     fields: [epicComments.userId],
     references: [users.id],

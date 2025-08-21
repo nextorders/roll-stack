@@ -13,7 +13,7 @@
             color="neutral"
             size="md"
             icon="i-lucide-pencil"
-            class="size-10 justify-center opacity-0 group-hover/list:opacity-100"
+            class="size-10 justify-center opacity-0 group-hover/list:opacity-100 transition duration-200"
             @click="modalUpdateActivityScheduleItem.open({ scheduleId: item.activityScheduleId, itemId: item.id })"
           />
         </UTooltip>

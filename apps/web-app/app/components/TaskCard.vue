@@ -80,7 +80,7 @@
             </h4>
             <p
               v-if="task.description"
-              class="text-sm/4 text-neutral-500 line-clamp-2 group-hover/task:line-clamp-5"
+              class="text-sm/4 text-neutral-500 line-clamp-2 group-hover/task:line-clamp-5 transition duration-200"
               :class="[
                 isFocused ? 'text-secondary-600' : undefined,
               ]"

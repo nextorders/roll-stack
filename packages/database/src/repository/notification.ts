@@ -43,6 +43,17 @@ export class Notification {
     return notification
   }
 
+  static async markAsViewed(id: string) {
+    const [notification] = await useDatabase()
+      .update(notifications)
+      .set({
+        viewedAt: sql`now()`,
+      })
+      .where(eq(notifications.id, id))
+      .returning()
+    return notification
+  }
+
   static async delete(id: string) {
     return useDatabase().delete(notifications).where(eq(notifications.id, id))
   }

@@ -215,6 +215,10 @@
       "epic": {
         "button": "Создать эпик",
         "title": "Создание эпика"
+      },
+      "beacon": {
+        "button": "Создать маяк",
+        "title": "Создание маяка"
       }
     },
     "attach": {
@@ -427,6 +431,7 @@
     "telegram-attached": "Telegram привязан",
     "epic-created": "Эпик создан",
     "epic-updated": "Эпик обновлен",
-    "epic-deleted": "Эпик удален"
+    "epic-deleted": "Эпик удален",
+    "beacon-created": "Маяк создан"
   }
 }
