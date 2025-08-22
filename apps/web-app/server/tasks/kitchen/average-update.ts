@@ -1,4 +1,7 @@
+import process from 'node:process'
 import { repository } from '@roll-stack/database'
+
+const logger = useLogger('kitchen:average-update')
 
 export default defineTask({
   meta: {
@@ -7,6 +10,11 @@ export default defineTask({
   },
   async run() {
     try {
+      if (process.env.NODE_ENV !== 'production') {
+        logger.info('Skipping task in non-production environment')
+        return { result: true }
+      }
+
       const metrics = await repository.network.listMetrics()
 
       for (const m of metrics) {

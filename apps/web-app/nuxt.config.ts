@@ -18,6 +18,7 @@ export default defineNuxtConfig({
       baseUrl: '',
       apiKey: '',
       serviceToken: '',
+      dailyReportPrompt: '',
     },
     telegram: {
       wasabiBotId: '',

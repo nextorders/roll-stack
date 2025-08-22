@@ -1,3 +1,4 @@
+import process from 'node:process'
 import { repository } from '@roll-stack/database'
 
 const logger = useLogger('task:auto-create')
@@ -8,6 +9,11 @@ export default defineTask({
     description: 'Check if it is time to create a task',
   },
   async run() {
+    if (process.env.NODE_ENV !== 'production') {
+      logger.info('Skipping task in non-production environment')
+      return { result: true }
+    }
+
     // Wait 5 seconds
     await new Promise((resolve) => setTimeout(resolve, 5000))
 
