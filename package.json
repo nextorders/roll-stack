@@ -15,6 +15,7 @@
   "scripts": {
     "release": "changelogen-monorepo --release --push",
     "build": "pnpm -r run build",
+    "dev:generate-cert": "mkdir -p .cert && mkcert -key-file ./.cert/localhost-key.pem -cert-file ./.cert/localhost.pem 'app.local'",
     "dev:web-app:compose": "docker compose -f ./docker/web-app/docker-compose.yaml up -d",
     "dev:web-app": "pnpm -r --filter \"./apps/web-app\" dev",
     "lint": "eslint .",
