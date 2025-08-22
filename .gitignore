@@ -16,6 +16,7 @@ build/
 .nitro/
 .data/
 .storage/
+.cert/
 
 ### Node ###
 node_modules/
