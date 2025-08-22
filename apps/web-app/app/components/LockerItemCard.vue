@@ -45,7 +45,6 @@
 
 <script setup lang="ts">
 import type { LockerItemDuplicateWithData } from '~/stores/locker'
-import { UIcon } from '#components'
 
 defineProps<{ duplicate: LockerItemDuplicateWithData }>()
 
@@ -56,6 +55,8 @@ function copyToClipboard(text: string) {
   toast.add({
     title: 'Успех',
     description: 'Текст скопирован в буфер обмена',
+    color: 'secondary',
+    duration: 2000,
   })
 }
 </script>
