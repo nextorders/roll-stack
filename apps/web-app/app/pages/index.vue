@@ -45,7 +45,7 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+      <div class="mb-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
         <TaskList
           v-for="taskList in myLists"
           :key="taskList.id"
@@ -58,6 +58,10 @@
           icon="i-lucide-list-todo"
           @click="modalCreateTaskList.open()"
         />
+
+        <div v-if="lockerStore.duplicates?.length">
+          <LockerItemsList />
+        </div>
       </div>
     </template>
 
@@ -79,6 +83,7 @@ const overlay = useOverlay()
 const modalCreateTaskList = overlay.create(ModalCreateTaskList)
 const modalUploadUserAvatar = overlay.create(ModalUploadUserAvatar)
 
+const lockerStore = useLockerStore()
 const userStore = useUserStore()
 const taskStore = useTaskStore()
 

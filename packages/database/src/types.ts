@@ -156,3 +156,9 @@ export type EpicDraft = InferInsertModel<typeof tables.epics>
 
 export type EpicComment = InferSelectModel<typeof tables.epicComments>
 export type EpicCommentDraft = InferInsertModel<typeof tables.epicComments>
+
+export type LockerItem = InferSelectModel<typeof tables.lockerItems>
+export type LockerItemDraft = InferInsertModel<typeof tables.lockerItems>
+
+export type LockerItemDuplicate = InferSelectModel<typeof tables.lockerItemDuplicates>
+export type LockerItemDuplicateDraft = InferInsertModel<typeof tables.lockerItemDuplicates>
