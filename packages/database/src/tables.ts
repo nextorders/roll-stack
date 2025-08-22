@@ -743,6 +743,34 @@ export const epicComments = pgTable('epic_comments', {
   }),
 })
 
+export const lockerItems = pgTable('locker_items', {
+  id: cuid2('id').defaultRandom().primaryKey(),
+  createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  title: varchar('title').notNull(),
+  description: varchar('description'),
+  login: varchar('login'),
+  password: varchar('password').notNull(),
+  ownerId: cuid2('owner_id').notNull().references(() => users.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
+})
+
+export const lockerItemDuplicates = pgTable('locker_item_duplicates', {
+  id: cuid2('id').defaultRandom().primaryKey(),
+  createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  itemId: cuid2('item_id').notNull().references(() => lockerItems.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
+  userId: cuid2('user_id').notNull().references(() => users.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
+})
+
 export const userRelations = relations(users, ({ many, one }) => ({
   chatMessages: many(chatMessages),
   chatMembers: many(chatMembers),
@@ -754,6 +782,7 @@ export const userRelations = relations(users, ({ many, one }) => ({
   telegramUsers: many(telegramUsers),
   tickets: many(tickets),
   ticketMessages: many(ticketMessages),
+  lockerItemDuplicates: many(lockerItemDuplicates),
   focusedTask: one(tasks, {
     fields: [users.focusedTaskId],
     references: [tasks.id],
@@ -1186,5 +1215,20 @@ export const epicCommentRelations = relations(epicComments, ({ many, one }) => (
   epic: one(epics, {
     fields: [epicComments.epicId],
     references: [epics.id],
+  }),
+}))
+
+export const lockerItemRelations = relations(lockerItems, ({ many }) => ({
+  duplicates: many(lockerItemDuplicates),
+}))
+
+export const lockerItemDuplicateRelations = relations(lockerItemDuplicates, ({ one }) => ({
+  item: one(lockerItems, {
+    fields: [lockerItemDuplicates.itemId],
+    references: [lockerItems.id],
+  }),
+  user: one(users, {
+    fields: [lockerItemDuplicates.userId],
+    references: [users.id],
   }),
 }))

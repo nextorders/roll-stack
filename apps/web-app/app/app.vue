@@ -52,6 +52,7 @@ const post = usePostStore()
 const print = usePrintStore()
 const activity = useActivityStore()
 const epic = useEpicStore()
+const locker = useLockerStore()
 
 await Promise.all([
   client.update(),
@@ -63,6 +64,7 @@ await Promise.all([
   post.update(),
   print.update(),
   activity.update(),
+  locker.update(),
 ])
 
 // Auto Update Online

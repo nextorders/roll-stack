@@ -9,6 +9,7 @@ import { Epic } from './epic'
 import { Feedback } from './feedback'
 import { File } from './file'
 import { Kitchen } from './kitchen'
+import { Locker } from './locker'
 import { Media } from './media'
 import { Menu } from './menu'
 import { Network } from './network'
@@ -35,6 +36,7 @@ class Repository {
   readonly feedback = Feedback
   readonly file = File
   readonly kitchen = Kitchen
+  readonly locker = Locker
   readonly media = Media
   readonly menu = Menu
   readonly network = Network
