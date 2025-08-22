@@ -16,9 +16,7 @@
         v-for="duplicate in lockerStore.duplicates"
         :key="duplicate.id"
         :duplicate="duplicate"
-      >
-        {{ duplicate }}
-      </LockerItemCard>
+      />
     </div>
     <template v-else>
       <p class="text-base text-dimmed">
