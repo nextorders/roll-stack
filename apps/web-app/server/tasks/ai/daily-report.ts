@@ -1,6 +1,9 @@
+import process from 'node:process'
 import { repository } from '@roll-stack/database'
 import OpenAI from 'openai'
 import { useAtriumBot } from '~~/server/services/telegram/atrium-bot'
+
+const logger = useLogger('task:ai:daily-report')
 
 export default defineTask({
   meta: {
@@ -8,6 +11,11 @@ export default defineTask({
     description: 'Prepare and post daily report to Telegram group',
   },
   async run() {
+    if (process.env.NODE_ENV !== 'production') {
+      logger.info('Skipping task in non-production environment')
+      return { result: true }
+    }
+
     try {
       const { ai, telegram } = useRuntimeConfig()
 
@@ -29,7 +37,7 @@ export default defineTask({
         messages: [
           {
             role: 'system',
-            content: 'Ты работаешь в компании "Суши Love", которая является сетью доставки суши. В 3-5 абзацах расскажи что сегодня было сделано, лучшие моменты. Отвечай на русском. Не бойся использовать emoji',
+            content: ai.dailyReportPrompt,
           },
           {
             role: 'user',

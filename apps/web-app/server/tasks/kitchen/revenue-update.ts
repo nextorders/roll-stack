@@ -1,5 +1,8 @@
+import process from 'node:process'
 import { repository } from '@roll-stack/database'
 import { endOfWeek, startOfWeek } from 'date-fns'
+
+const logger = useLogger('kitchen:revenue-update')
 
 export default defineTask({
   meta: {
@@ -8,6 +11,11 @@ export default defineTask({
   },
   async run() {
     try {
+      if (process.env.NODE_ENV !== 'production') {
+        logger.info('Skipping task in non-production environment')
+        return { result: true }
+      }
+
       const kitchens = await repository.kitchen.list()
 
       // From this monday to sunday (use UTC+0 time zone)
