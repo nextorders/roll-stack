@@ -205,8 +205,8 @@ catalogs:
       specifier: ^3.0.5
       version: 3.0.5
     zod:
-      specifier: ^3.25.76
-      version: 3.25.76
+      specifier: ^4.1.1
+      version: 4.1.1
 
 overrides:
   unimport: 4.1.1
@@ -351,7 +351,7 @@ importers:
         version: 2.2.1
       '@openai/agents':
         specifier: 'catalog:'
-        version: 0.0.17(ws@8.18.3)(zod@3.25.67)
+        version: 0.0.17(ws@8.18.3)(zod@3.25.76)
       '@pinia/nuxt':
         specifier: 'catalog:'
         version: 0.11.2(magicast@0.3.5)(pinia@3.0.3(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2)))
@@ -387,7 +387,7 @@ importers:
         version: 2.3.1(@tiptap/core@2.24.2(@tiptap/pm@2.24.2))(@tiptap/extension-code-block@2.24.2(@tiptap/core@2.24.2(@tiptap/pm@2.24.2))(@tiptap/pm@2.24.2))(highlight.js@11.11.1)(magicast@0.3.5)(vue@3.5.18(typescript@5.9.2))
       openai:
         specifier: 'catalog:'
-        version: 5.12.2(ws@8.18.3)(zod@3.25.67)
+        version: 5.12.2(ws@8.18.3)(zod@3.25.76)
       pinia:
         specifier: 'catalog:'
         version: 3.0.3(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
@@ -530,7 +530,7 @@ importers:
         version: 3.8.2
       '@nuxt/ui':
         specifier: 'catalog:'
-        version: 3.3.2(@babel/parser@7.28.0)(@netlify/blobs@9.1.2)(aws4fetch@1.0.20)(change-case@5.4.4)(db0@0.3.2(drizzle-orm@0.44.4(@types/pg@8.15.5)(pg@8.16.3)))(embla-carousel@8.6.0)(ioredis@5.7.0)(jwt-decode@4.0.0)(magicast@0.3.5)(sortablejs@1.15.6)(typescript@5.9.2)(valibot@1.0.0(typescript@5.9.2))(vite@7.1.2(@types/node@24.3.0)(jiti@2.5.1)(lightningcss@1.30.1)(terser@5.39.1)(yaml@2.8.1))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))(zod@3.25.76)
+        version: 3.3.2(@babel/parser@7.28.0)(@netlify/blobs@9.1.2)(aws4fetch@1.0.20)(change-case@5.4.4)(db0@0.3.2(drizzle-orm@0.44.4(@types/pg@8.15.5)(pg@8.16.3)))(embla-carousel@8.6.0)(ioredis@5.7.0)(jwt-decode@4.0.0)(magicast@0.3.5)(sortablejs@1.15.6)(typescript@5.9.2)(valibot@1.0.0(typescript@5.9.2))(vite@7.1.2(@types/node@24.3.0)(jiti@2.5.1)(lightningcss@1.30.1)(terser@5.39.1)(yaml@2.8.1))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))(zod@4.1.1)
       '@nuxtjs/i18n':
         specifier: 'catalog:'
         version: 10.0.5(@netlify/blobs@9.1.2)(@vue/compiler-dom@3.5.18)(aws4fetch@1.0.20)(db0@0.3.2(drizzle-orm@0.44.4(@types/pg@8.15.5)(pg@8.16.3)))(eslint@9.33.0(jiti@2.5.1))(ioredis@5.7.0)(magicast@0.3.5)(rollup@4.45.1)(vue@3.5.18(typescript@5.9.2))
@@ -557,7 +557,7 @@ importers:
         version: 1.15.6
       zod:
         specifier: 'catalog:'
-        version: 3.25.76
+        version: 4.1.1
     devDependencies:
       '@iconify-json/circle-flags':
         specifier: 'catalog:'
@@ -8887,11 +8887,11 @@ packages:
     peerDependencies:
       zod: ^3.24.1
 
-  zod@3.25.67:
-    resolution: {integrity: sha512-idA2YXwpCdqUSKRCACDE6ItZD9TZzy3OZMtpfLoh6oPR47lipysRrJfjzMqFxQ3uJuUPyUeWe1r9vLH33xO/Qw==}
-
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
+
+  zod@4.1.1:
+    resolution: {integrity: sha512-SgMZK/h8Tigt9nnKkfJMvB/mKjiJXaX26xegP4sa+0wHIFVFWVlsQGdhklDmuargBD3Hsi3rsQRIzwJIhTPJHA==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -10210,8 +10210,8 @@ snapshots:
       express-rate-limit: 7.5.1(express@5.1.0)
       pkce-challenge: 5.0.0
       raw-body: 3.0.0
-      zod: 3.25.67
-      zod-to-json-schema: 3.24.6(zod@3.25.67)
+      zod: 3.25.76
+      zod-to-json-schema: 3.24.6(zod@3.25.76)
     transitivePeerDependencies:
       - supports-color
     optional: true
@@ -10307,7 +10307,7 @@ snapshots:
       unixify: 1.0.0
       urlpattern-polyfill: 8.0.2
       yargs: 17.7.2
-      zod: 3.25.67
+      zod: 3.25.76
     transitivePeerDependencies:
       - encoding
       - rollup
@@ -10664,7 +10664,7 @@ snapshots:
     transitivePeerDependencies:
       - magicast
 
-  '@nuxt/ui@3.3.2(@babel/parser@7.28.0)(@netlify/blobs@9.1.2)(aws4fetch@1.0.20)(change-case@5.4.4)(db0@0.3.2(drizzle-orm@0.44.4(@types/pg@8.15.5)(pg@8.16.3)))(embla-carousel@8.6.0)(ioredis@5.7.0)(jwt-decode@4.0.0)(magicast@0.3.5)(sortablejs@1.15.6)(typescript@5.9.2)(valibot@1.0.0(typescript@5.9.2))(vite@7.1.2(@types/node@24.3.0)(jiti@2.5.1)(lightningcss@1.30.1)(terser@5.39.1)(yaml@2.8.1))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))(zod@3.25.76)':
+  '@nuxt/ui@3.3.2(@babel/parser@7.28.0)(@netlify/blobs@9.1.2)(aws4fetch@1.0.20)(change-case@5.4.4)(db0@0.3.2(drizzle-orm@0.44.4(@types/pg@8.15.5)(pg@8.16.3)))(embla-carousel@8.6.0)(ioredis@5.7.0)(jwt-decode@4.0.0)(magicast@0.3.5)(sortablejs@1.15.6)(typescript@5.9.2)(valibot@1.0.0(typescript@5.9.2))(vite@7.1.2(@types/node@24.3.0)(jiti@2.5.1)(lightningcss@1.30.1)(terser@5.39.1)(yaml@2.8.1))(vue-router@4.5.1(vue@3.5.18(typescript@5.9.2)))(vue@3.5.18(typescript@5.9.2))(zod@4.1.1)':
     dependencies:
       '@iconify/vue': 5.0.0(vue@3.5.18(typescript@5.9.2))
       '@internationalized/date': 3.8.2
@@ -10713,7 +10713,7 @@ snapshots:
     optionalDependencies:
       valibot: 1.0.0(typescript@5.9.2)
       vue-router: 4.5.1(vue@3.5.18(typescript@5.9.2))
-      zod: 3.25.76
+      zod: 4.1.1
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -10877,47 +10877,47 @@ snapshots:
 
   '@one-ini/wasm@0.1.1': {}
 
-  '@openai/agents-core@0.0.17(ws@8.18.3)(zod@3.25.67)':
+  '@openai/agents-core@0.0.17(ws@8.18.3)(zod@3.25.76)':
     dependencies:
       debug: 4.4.1
-      openai: 5.12.2(ws@8.18.3)(zod@3.25.67)
+      openai: 5.12.2(ws@8.18.3)(zod@3.25.76)
     optionalDependencies:
       '@modelcontextprotocol/sdk': 1.17.3
-      zod: 3.25.67
+      zod: 3.25.76
     transitivePeerDependencies:
       - supports-color
       - ws
 
-  '@openai/agents-openai@0.0.17(ws@8.18.3)(zod@3.25.67)':
+  '@openai/agents-openai@0.0.17(ws@8.18.3)(zod@3.25.76)':
     dependencies:
-      '@openai/agents-core': 0.0.17(ws@8.18.3)(zod@3.25.67)
+      '@openai/agents-core': 0.0.17(ws@8.18.3)(zod@3.25.76)
       debug: 4.4.1
-      openai: 5.12.2(ws@8.18.3)(zod@3.25.67)
-      zod: 3.25.67
+      openai: 5.12.2(ws@8.18.3)(zod@3.25.76)
+      zod: 3.25.76
     transitivePeerDependencies:
       - supports-color
       - ws
 
-  '@openai/agents-realtime@0.0.17(zod@3.25.67)':
+  '@openai/agents-realtime@0.0.17(zod@3.25.76)':
     dependencies:
-      '@openai/agents-core': 0.0.17(ws@8.18.3)(zod@3.25.67)
+      '@openai/agents-core': 0.0.17(ws@8.18.3)(zod@3.25.76)
       '@types/ws': 8.18.1
       debug: 4.4.1
       ws: 8.18.3
-      zod: 3.25.67
+      zod: 3.25.76
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@openai/agents@0.0.17(ws@8.18.3)(zod@3.25.67)':
+  '@openai/agents@0.0.17(ws@8.18.3)(zod@3.25.76)':
     dependencies:
-      '@openai/agents-core': 0.0.17(ws@8.18.3)(zod@3.25.67)
-      '@openai/agents-openai': 0.0.17(ws@8.18.3)(zod@3.25.67)
-      '@openai/agents-realtime': 0.0.17(zod@3.25.67)
+      '@openai/agents-core': 0.0.17(ws@8.18.3)(zod@3.25.76)
+      '@openai/agents-openai': 0.0.17(ws@8.18.3)(zod@3.25.76)
+      '@openai/agents-realtime': 0.0.17(zod@3.25.76)
       debug: 4.4.1
-      openai: 5.12.2(ws@8.18.3)(zod@3.25.67)
-      zod: 3.25.67
+      openai: 5.12.2(ws@8.18.3)(zod@3.25.76)
+      zod: 3.25.76
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -16169,10 +16169,10 @@ snapshots:
       is-docker: 2.2.1
       is-wsl: 2.2.0
 
-  openai@5.12.2(ws@8.18.3)(zod@3.25.67):
+  openai@5.12.2(ws@8.18.3)(zod@3.25.76):
     optionalDependencies:
       ws: 8.18.3
-      zod: 3.25.67
+      zod: 3.25.76
 
   openid-client@6.6.4:
     dependencies:
@@ -18354,13 +18354,13 @@ snapshots:
       compress-commons: 6.0.2
       readable-stream: 4.7.0
 
-  zod-to-json-schema@3.24.6(zod@3.25.67):
+  zod-to-json-schema@3.24.6(zod@3.25.76):
     dependencies:
-      zod: 3.25.67
+      zod: 3.25.76
     optional: true
 
-  zod@3.25.67: {}
-
   zod@3.25.76: {}
+
+  zod@4.1.1: {}
 
   zwitch@2.0.4: {}
