@@ -40,6 +40,13 @@ useBackButton()
 
 // Init Stores
 const user = useUserStore()
+const task = useTaskStore()
+
+// Guard
+await user.update()
+if (!user.id) {
+  await navigateTo('/no-auth')
+}
 
 // Auto Update Online
 let interval: NodeJS.Timeout
@@ -48,12 +55,14 @@ onMounted(async () => {
   await Promise.all([
     user.updateOnline(),
     user.update(),
+    task.update(),
   ])
 
   interval = setInterval(async () => {
     await Promise.all([
       user.updateOnline(),
       user.update(),
+      task.update(),
     ])
   }, 30000)
 })

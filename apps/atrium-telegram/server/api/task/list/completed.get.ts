@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    return repository.user.find(user.id)
+    return repository.task.findAll()
   } catch (error) {
     throw errorResolver(error)
   }

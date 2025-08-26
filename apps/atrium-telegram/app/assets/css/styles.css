@@ -1,3 +1,15 @@
+:root {
+  --ui-primary: var(--tg-theme-link-color);
+  --ui-secondary: var(--tg-theme-link-color);
+  --ui-border: var(--tg-theme-section-separator-color);
+  --ui-text: var(--tg-theme-text-color);
+  --ui-bg: var(--tg-theme-secondary-bg-color);
+
+  --ui-color-neutral-400: var(--tg-theme-subtitle-text-color);
+  --ui-color-neutral-500: var(--tg-theme-subtitle-text-color);
+  --ui-color-neutral-600: var(--tg-theme-subtitle-text-color);
+}
+
 @layer theme {
   :root {
     --tg-theme-bg-color: #ffffff;
@@ -90,7 +102,7 @@
 }
 
 /* Preserve scrolling behavior */
-html, body, #app {
+/* html, body, #app {
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -102,7 +114,7 @@ html, body, #app {
 #app::-webkit-scrollbar {
   display: none;
   width: 0;
-}
+} */
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-headers);
