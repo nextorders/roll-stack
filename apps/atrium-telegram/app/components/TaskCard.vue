@@ -80,7 +80,7 @@
             </h4>
             <p
               v-if="task.description"
-              class="text-sm/4 text-neutral-500 transition duration-200"
+              class="text-sm/4 text-muted font-medium"
               :class="[
                 isFocused ? 'tg-text-button' : undefined,
               ]"
