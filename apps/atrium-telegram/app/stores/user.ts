@@ -46,11 +46,36 @@ export const useUserStore = defineStore('user', () => {
       phone.value = data.phone
       avatarUrl.value = data.avatarUrl
       focusedTaskId.value = data.focusedTaskId
+
+      // Updating all data
+      await updateUsers()
     } catch (error) {
       if (error instanceof Error) {
         if (error.message.includes('401')) {
           // No session
         }
+        if (error.message.includes('404')) {
+          // Not found
+        }
+      }
+    }
+  }
+
+  async function updateUsers() {
+    try {
+      const data = await $fetch('/api/user/list', {
+        headers: {
+          Authorization: `tma ${initDataRaw.value}`,
+        },
+      })
+      if (!data) {
+        return
+      }
+
+      staff.value = data.filter((user) => user.type === 'staff' && user.isActive && user.name && user.surname)
+      users.value = data
+    } catch (error) {
+      if (error instanceof Error) {
         if (error.message.includes('404')) {
           // Not found
         }
@@ -66,6 +91,9 @@ export const useUserStore = defineStore('user', () => {
 
       await $fetch(`/api/user/id/${id.value}/online`, {
         method: 'POST',
+        headers: {
+          Authorization: `tma ${initDataRaw.value}`,
+        },
       })
     } catch (error) {
       if (error instanceof Error) {

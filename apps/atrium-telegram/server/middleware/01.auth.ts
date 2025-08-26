@@ -1,0 +1,50 @@
+import type { User } from '@roll-stack/database'
+import type { InitData } from '@telegram-apps/init-data-node'
+import type { H3Event } from 'h3'
+import process from 'node:process'
+import { repository } from '@roll-stack/database'
+import { parse, validate } from '@telegram-apps/init-data-node'
+
+const logger = useLogger('middleware:auth')
+
+export default defineEventHandler(async (event) => {
+  event.context.user = await getUserFromToken(event)
+})
+
+async function getUserFromToken(event: H3Event): Promise<User | null> {
+  try {
+    const { telegram } = useRuntimeConfig()
+    const botToken = process.env.NODE_ENV !== 'development' ? telegram.atriumBotToken : telegram.devBotToken
+
+    const token = getHeader(event, 'Authorization') ?? getHeader(event, 'authorization')
+    if (!token) {
+      return null
+    }
+
+    const [_, authData] = token.split(' ')
+    if (!authData) {
+      return null
+    }
+
+    const telegramData = validateTelegramData(authData, botToken)
+    if (!telegramData?.user) {
+      return null
+    }
+
+    const userInDB = await repository.telegram.findUserByTelegramIdAndBotId(telegramData.user.id.toString(), telegram.atriumBotId)
+    if (!userInDB?.user) {
+      return null
+    }
+
+    return userInDB.user
+  } catch (e) {
+    logger.error(e)
+  }
+
+  return null
+}
+
+function validateTelegramData(authData: string, botToken: string): InitData | undefined {
+  validate(authData, botToken, { expiresIn: 0 })
+  return parse(authData)
+}

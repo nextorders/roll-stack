@@ -7,6 +7,17 @@ export type NotificationOption
   = | 'task_completed_atrium'
     | 'task_completed_telegram'
 
+export type UserType = 'staff'
+  | 'head'
+  | 'partner'
+  | 'partner_head'
+  | 'partner_admin'
+  | 'partner_cook'
+  | 'partner_courier'
+  | 'guest'
+  | 'bot'
+export type UserGender = 'male' | 'female' | 'unknown'
+
 export type Permission = InferSelectModel<typeof tables.permissions>
 export type PermissionDraft = InferInsertModel<typeof tables.permissions>
 
