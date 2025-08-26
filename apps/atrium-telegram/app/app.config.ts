@@ -10,9 +10,6 @@ export default defineAppConfig({
             base: 'px-4 py-3 font-semibold',
           },
         },
-        variant: {
-          gradient: 'text-white bg-linear-to-br from-secondary-400 to-secondary-500 hover:opacity-90 disabled:from-neutral-300 disabled:to-neutral-400 aria-disabled:from-neutral-300 aria-disabled:to-neutral-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
-        },
         color: {
           secondary: '!text-white disabled:!bg-inverted/25',
         },
@@ -23,11 +20,6 @@ export default defineAppConfig({
         variant: {
           pill: {
             trigger: 'data-[state=active]:!text-white',
-          },
-          gradient: {
-            list: 'bg-elevated rounded-lg',
-            trigger: 'data-[state=active]:bg-linear-to-br from-lime-300 to-lime-500 data-[state=active]:text-neutral-950 flex-1 w-full',
-            indicator: 'rounded-md shadow-xs',
           },
         },
       },

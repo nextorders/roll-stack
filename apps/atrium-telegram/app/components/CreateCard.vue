@@ -4,8 +4,8 @@
 
     <UButton
       size="md"
-      variant="subtle"
-      color="neutral"
+      variant="solid"
+      color="secondary"
       :label="label"
     />
   </div>

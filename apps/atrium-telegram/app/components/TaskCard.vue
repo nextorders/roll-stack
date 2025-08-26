@@ -60,18 +60,18 @@
         :ui="{
           trailingIcon: [
             'self-start mt-0.5 text-dimmed',
-            isFocused ? 'text-secondary' : undefined,
+            isFocused ? 'tg-text-button' : undefined,
           ],
         }"
         class="group/task duration-200 motion-preset-bounce cursor-pointer"
         :class="{
-          'bg-secondary/50 border-b-2 border-secondary': isFocused,
+          'bg-secondary border-b-2 border-secondary': isFocused,
         }"
       >
         <div class="flex flex-col gap-2 items-start">
           <div class="flex flex-col gap-1 items-start text-left">
             <h4
-              class="text-base/5 font-semibold"
+              class="text-base/5 font-semibold tg-text"
               :class="[
                 isFocused ? 'tg-text-button' : undefined,
               ]"
