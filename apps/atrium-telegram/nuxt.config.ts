@@ -25,6 +25,10 @@ export default defineNuxtConfig({
       teamGroupId: '',
     },
   },
+  ui: {
+    colorMode: false,
+    fonts: false,
+  },
   css: ['~/assets/css/styles.css'],
   i18n: {
     locales: [

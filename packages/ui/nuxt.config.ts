@@ -30,35 +30,6 @@ export default defineNuxtConfig({
     ],
   },
   css: [resolvePath('./app/assets/css/main.css')],
-  ui: {
-    colorMode: true,
-    fonts: true,
-  },
-  fonts: {
-    defaults: {
-      weights: [400, 500, 600, 700, 800, 900],
-      styles: ['normal', 'italic'],
-      subsets: [
-        'cyrillic-ext',
-        'cyrillic',
-        'latin-ext',
-        'latin',
-      ],
-    },
-    families: [
-      {
-        name: 'Nunito',
-        provider: 'google',
-      },
-      {
-        name: 'Nunito Sans',
-        provider: 'google',
-      },
-    ],
-  },
-  colorMode: {
-    storageKey: 'color-mode',
-  },
   icon: {
     customCollections: [
       { prefix: 'sushi', dir: resolvePath('./app/assets/icons') },
