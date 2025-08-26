@@ -1,11 +1,10 @@
 <template>
-  <div class="p-4">
+  <PageContainer :back="false">
     <h1>Привет, {{ userStore.name }}!</h1>
-    <p>Id пользователя: {{ initDataState?.user?.id }}</p>
-  </div>
+    <p>Id пользователя: {{ userStore.initDataState?.user?.id }}</p>
+  </PageContainer>
 </template>
 
 <script setup lang="ts">
-const { initDataState } = useTelegram()
 const userStore = useUserStore()
 </script>
