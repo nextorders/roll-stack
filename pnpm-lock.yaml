@@ -278,9 +278,6 @@ importers:
       '@telegram-apps/sdk-vue':
         specifier: 'catalog:'
         version: 2.0.30(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
-      arktype:
-        specifier: 'catalog:'
-        version: 2.1.20
       date-fns:
         specifier: 'catalog:'
         version: 4.1.0
