@@ -1,5 +1,5 @@
 import type { Task, User } from '@roll-stack/database'
-import { initDataRaw as _initDataRaw, useSignal } from '@telegram-apps/sdk-vue'
+import { initDataRaw as _initDataRaw, initDataState as _initDataState, useSignal } from '@telegram-apps/sdk-vue'
 
 type UserWithData = User & {
   focusedTask: Task | null
@@ -17,6 +17,7 @@ export const useUserStore = defineStore('user', () => {
   const focusedTaskId = ref<string | null>(null)
 
   const initDataRaw = useSignal(_initDataRaw)
+  const initDataState = useSignal(_initDataState)
 
   const fullName = computed(() => {
     return `${name.value} ${surname.value}`
@@ -95,6 +96,9 @@ export const useUserStore = defineStore('user', () => {
 
     staff,
     users,
+
+    initDataRaw,
+    initDataState,
 
     update,
     updateOnline,

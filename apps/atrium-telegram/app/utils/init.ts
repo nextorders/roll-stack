@@ -3,11 +3,14 @@ import {
   bindThemeParamsCssVars,
   bindViewportCssVars,
   emitEvent,
+  exitFullscreen,
   init as initSDK,
   mockTelegramEnv,
   mountBackButton,
+  mountClosingBehavior,
   mountMiniAppSync,
   mountViewport,
+  requestFullscreen,
   restoreInitData,
   retrieveLaunchParams,
   setDebug,
@@ -75,9 +78,24 @@ export async function init(options: {
     bindThemeParamsCssVars()
   }
 
+  mountClosingBehavior.ifAvailable()
+
   if (mountViewport.isAvailable()) {
     mountViewport().then(() => {
       bindViewportCssVars()
+
+      if (requestFullscreen.isAvailable()) {
+        requestFullscreen().finally(() => {
+          // Wait
+          setTimeout(() => {
+            // The app is now in fullscreen
+            if (window.innerWidth > 600) {
+              // Application should be in fullscreen mode only on small screens!
+              exitFullscreen()
+            }
+          }, 50)
+        })
+      }
     })
   }
 }

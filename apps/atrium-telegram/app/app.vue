@@ -35,6 +35,9 @@ await init({
   mockForMacOS: false,
 })
 
+// Telegram
+useBackButton()
+
 // Init Stores
 const user = useUserStore()
 
