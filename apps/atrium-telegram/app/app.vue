@@ -2,6 +2,7 @@
   <UApp
     :locale="locales[locale]"
     :tooltip="{ delayDuration: 0 }"
+    :toaster="{ position: 'top-center' }"
     class="min-h-svh"
   >
     <NuxtLoadingIndicator :color="false" class="bg-primary h-[2px]" />
@@ -13,7 +14,7 @@
 
 <script setup lang="ts">
 import * as locales from '@nuxt/ui/locale'
-import { retrieveLaunchParams } from '@telegram-apps/sdk-vue'
+import { retrieveLaunchParams, themeParams } from '@telegram-apps/sdk-vue'
 
 const { locale } = useI18n()
 
@@ -37,6 +38,18 @@ await init({
 
 // Telegram
 useBackButton()
+
+// Fix system theme
+const isDark = computed(() => themeParams.isDark())
+const colorMode = useColorMode()
+watch(colorMode, () => {
+  colorMode.value = isDark.value ? 'dark' : 'light'
+
+  const colorModeStorage = localStorage.getItem('color-mode')
+  if (colorMode.value === 'system' || colorModeStorage === 'system') {
+    localStorage.setItem('color-mode', colorMode.value)
+  }
+}, { immediate: true })
 
 // Init Stores
 const user = useUserStore()

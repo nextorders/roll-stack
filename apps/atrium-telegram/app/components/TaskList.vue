@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 rounded-lg border border-default tg-bg-section group/list space-y-3.5">
+  <div class="p-4 rounded-lg tg-bg-section group/list space-y-3.5">
     <div class="flex flex-row gap-2 items-center justify-between">
       <div class="flex flex-row gap-2.5 items-center">
         <UPopover
@@ -55,8 +55,8 @@
 
       <div v-if="canEdit" class="flex flex-row gap-2">
         <UButton
-          variant="outline"
-          color="neutral"
+          variant="soft"
+          color="primary"
           size="md"
           icon="i-lucide-pencil"
           @click="handleEditTaskList"
@@ -83,7 +83,7 @@
       />
     </div>
     <template v-else>
-      <p class="text-base text-dimmed">
+      <p class="text-base text-muted">
         Активных задач нет
       </p>
     </template>

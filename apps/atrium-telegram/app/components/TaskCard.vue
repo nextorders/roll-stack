@@ -1,37 +1,17 @@
 <template>
   <div class="w-full flex flex-row items-start gap-1">
-    <template v-if="isCompleted">
-      <UPopover
-        mode="hover"
-        :content="{
-          align: 'center',
-          side: 'bottom',
-          sideOffset: 8,
-        }"
-      >
-        <div>
-          <UIcon name="i-lucide-check" class="mt-1.5 size-5 text-secondary" />
-        </div>
-
-        <template #content>
-          <div class="h-auto w-64 p-4 flex flex-col gap-2 text-sm/4">
-            <h4 v-if="task.resolution" class="text-base/5 font-semibold">
-              {{ getLocalizedResolution(task.resolution) }}
-            </h4>
-
-            {{ task.report }}
-          </div>
-        </template>
-      </UPopover>
-    </template>
+    <UIcon
+      v-if="isCompleted"
+      name="i-lucide-check"
+      class="shrink-0 mt-1.5 size-5"
+    />
     <UCheckbox
       v-else-if="canComplete"
       v-model="checkbox"
-      color="secondary"
       variant="list"
       size="xl"
       icon="i-lucide-check"
-      class="mt-1.5 duration-200 motion-preset-bounce"
+      class="shrink-0 mt-1.5 duration-200 motion-preset-bounce"
       @change="onStartCompleting"
     />
     <UCheckbox
@@ -41,7 +21,7 @@
       variant="list"
       size="xl"
       icon="i-lucide-check"
-      class="mt-1.5 duration-200 motion-preset-bounce"
+      class="shrink-0 mt-1.5 duration-200 motion-preset-bounce"
       disabled
     />
 
@@ -53,8 +33,8 @@
     >
       <UButton
         color="secondary"
-        variant="ghost"
-        :trailing-icon="isFocused ? 'i-lucide-goal' : 'i-lucide-ellipsis-vertical'"
+        :variant="isFocused ? 'ghost' : 'ghost'"
+        :trailing-icon="isFocused ? 'i-lucide-goal' : undefined"
         block
         :ui="{
           trailingIcon: [
@@ -62,13 +42,10 @@
             isFocused ? 'text-secondary' : undefined,
           ],
         }"
-        class="group/task duration-200 motion-preset-bounce cursor-pointer"
-        :class="[
-          isFocused && 'border border-secondary/25',
-        ]"
+        class="group/task duration-200 motion-preset-bounce"
         @click="vibrate"
       >
-        <div class="flex flex-col gap-2 items-start">
+        <div class="w-full flex flex-col gap-2 items-start">
           <div class="flex flex-col gap-1 items-start text-left">
             <h4 class="text-base/5 font-medium tg-text">
               {{ task.name }}
@@ -91,7 +68,7 @@
               v-if="task?.date"
               size="md"
               color="primary"
-              variant="subtle"
+              variant="soft"
               icon="i-lucide-calendar"
               class="shrink-0"
             >
@@ -108,7 +85,6 @@
 import type { DropdownMenuItem } from '@nuxt/ui'
 import type { Task } from '@roll-stack/database'
 import { ModalCompleteTask, ModalUpdateTask } from '#components'
-import { getLocalizedResolution } from '#shared/utils/helpers'
 import { DateFormatter, getLocalTimeZone, parseDate } from '@internationalized/date'
 
 const { task } = defineProps<{
@@ -144,9 +120,15 @@ const checkbox = ref(false)
 const items = computed<DropdownMenuItem[]>(() => {
   const menuItems: DropdownMenuItem[] = [
     {
+      label: 'Выполнить',
+      icon: 'i-lucide-check',
+      disabled: !canComplete.value,
+      onSelect: () => modalCompleteTask.open({ taskId: task.id }),
+      condition: canComplete.value,
+    },
+    {
       label: isFocused.value ? 'Убрать фокус' : 'Сфокусироваться',
       icon: 'i-lucide-goal',
-      color: 'neutral',
       disabled: false,
       onSelect: isFocused.value ? onUnfocus : onFocus,
       condition: canFocus.value,
