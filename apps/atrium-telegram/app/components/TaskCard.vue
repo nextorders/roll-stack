@@ -24,17 +24,16 @@
         </template>
       </UPopover>
     </template>
-    <UTooltip v-else-if="canComplete" text="Задача выполнена?">
-      <UCheckbox
-        v-model="checkbox"
-        color="secondary"
-        variant="list"
-        size="xl"
-        icon="i-lucide-check"
-        class="mt-1.5 duration-200 motion-preset-bounce"
-        @change="onStartCompleting"
-      />
-    </UTooltip>
+    <UCheckbox
+      v-else-if="canComplete"
+      v-model="checkbox"
+      color="secondary"
+      variant="list"
+      size="xl"
+      icon="i-lucide-check"
+      class="mt-1.5 duration-200 motion-preset-bounce"
+      @change="onStartCompleting"
+    />
     <UCheckbox
       v-else
       v-model="checkbox"
@@ -65,8 +64,9 @@
         }"
         class="group/task duration-200 motion-preset-bounce cursor-pointer"
         :class="[
-          isFocused && 'border border-secondary',
+          isFocused && 'border border-secondary/25',
         ]"
+        @click="vibrate"
       >
         <div class="flex flex-col gap-2 items-start">
           <div class="flex flex-col gap-1 items-start text-left">
@@ -116,7 +116,7 @@ const { task } = defineProps<{
 }>()
 
 const { t } = useI18n()
-const toast = useToast()
+const { vibrate } = useFeedback()
 const actionToast = useActionToast()
 const taskStore = useTaskStore()
 const userStore = useUserStore()
@@ -140,7 +140,6 @@ const canFocus = computed(() => task.performerId === userStore.id && !isComplete
 const isFocused = computed(() => task.id === performer.value?.focusedTaskId)
 
 const checkbox = ref(false)
-const toastId = ref(`task-close-${task.id}`)
 
 const items = computed<DropdownMenuItem[]>(() => {
   const menuItems: DropdownMenuItem[] = [
@@ -195,6 +194,8 @@ async function onUnfocus() {
 }
 
 function onStartCompleting() {
+  vibrate()
+
   if (!checkbox.value) {
     return
   }
@@ -202,14 +203,5 @@ function onStartCompleting() {
   modalCompleteTask.open({ taskId: task.id })
 
   checkbox.value = false
-
-  toast.add({
-    id: toastId.value,
-    title: 'Закрываем задачу?',
-    description: 'Сразу как успешную или есть что добавить? Заполните форму.',
-    color: 'secondary',
-    type: 'foreground',
-    duration: 5000,
-  })
 }
 </script>

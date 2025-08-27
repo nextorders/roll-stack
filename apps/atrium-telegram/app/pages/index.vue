@@ -2,13 +2,11 @@
   <PageContainer :back="false">
     <div class="flex flex-col md:flex-row gap-6 md:gap-2 md:items-center md:justify-between">
       <div class="flex flex-row gap-3.5 items-center">
-        <UTooltip :text="$t('app.update.user-photo.button')">
-          <UAvatar
-            :src="userStore?.avatarUrl ?? undefined"
-            class="size-14 cursor-pointer hover:scale-95 active:scale-90 duration-200"
-            @click="modalUploadUserAvatar.open()"
-          />
-        </UTooltip>
+        <UAvatar
+          :src="userStore?.avatarUrl ?? undefined"
+          class="size-14 cursor-pointer hover:scale-95 active:scale-90 duration-200"
+          @click="handleUploadUserAvatar"
+        />
 
         <div class="flex flex-col gap-1">
           <h2 class="text-xl/6 md:text-2xl lg:text-3xl font-bold tracking-tight">
@@ -42,7 +40,7 @@
       </div>
     </div>
 
-    <div class="mb-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+    <div class="mb-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
       <TaskList
         v-for="taskList in myLists"
         :key="taskList.id"
@@ -63,6 +61,8 @@
 import { ModalCreateTaskList, ModalUploadUserAvatar } from '#components'
 import { getLocalTimeZone, isToday, parseDate } from '@internationalized/date'
 
+const { vibrate } = useFeedback()
+
 const overlay = useOverlay()
 const modalCreateTaskList = overlay.create(ModalCreateTaskList)
 const modalUploadUserAvatar = overlay.create(ModalUploadUserAvatar)
@@ -76,6 +76,11 @@ const myLists = computed(() =>
   ).filter((taskList) => taskStore.isTodayOnly ? taskList.tasks.filter((task) => !task.completedAt && task.date && isToday(parseDate(task.date), getLocalTimeZone())).length : true),
 )
 const myTodayTasks = computed(() => myLists.value.flatMap((taskList) => taskList.tasks.filter((task) => !task.completedAt && task.date && isToday(parseDate(task.date), getLocalTimeZone()))))
+
+function handleUploadUserAvatar() {
+  vibrate()
+  modalUploadUserAvatar.open()
+}
 
 useHead({
   title: 'Суши Атриум',

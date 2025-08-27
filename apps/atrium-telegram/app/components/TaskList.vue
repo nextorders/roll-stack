@@ -54,25 +54,21 @@
       </div>
 
       <div v-if="canEdit" class="flex flex-row gap-2">
-        <UTooltip :text="`Редактировать проект «${list?.name}»`">
-          <UButton
-            variant="outline"
-            color="neutral"
-            size="md"
-            icon="i-lucide-pencil"
-            @click="modalUpdateTaskList.open({ listId })"
-          />
-        </UTooltip>
+        <UButton
+          variant="outline"
+          color="neutral"
+          size="md"
+          icon="i-lucide-pencil"
+          @click="handleEditTaskList"
+        />
 
-        <UTooltip :text="`${$t('app.create.task.button')} в проекте «${list?.name}»`">
-          <UButton
-            variant="solid"
-            color="secondary"
-            size="md"
-            icon="i-lucide-plus"
-            @click="modalCreateTask.open({ performerId: userStore.id, listId })"
-          />
-        </UTooltip>
+        <UButton
+          variant="solid"
+          color="secondary"
+          size="md"
+          icon="i-lucide-plus"
+          @click="handleCreateTask"
+        />
       </div>
     </div>
 
@@ -103,6 +99,7 @@ const { listId, currentUserId } = defineProps<{
   currentUserId: string
 }>()
 
+const { vibrate } = useFeedback()
 const userStore = useUserStore()
 const taskStore = useTaskStore()
 
@@ -129,4 +126,14 @@ const canEdit = computed(() => list.value?.chat?.members.some((member) => member
 const overlay = useOverlay()
 const modalCreateTask = overlay.create(ModalCreateTask)
 const modalUpdateTaskList = overlay.create(ModalUpdateTaskList)
+
+function handleEditTaskList() {
+  vibrate()
+  modalUpdateTaskList.open({ listId })
+}
+
+function handleCreateTask() {
+  vibrate()
+  modalCreateTask.open({ performerId: userStore.id, listId })
+}
 </script>
