@@ -2,7 +2,10 @@
   <UApp
     :locale="locales[locale]"
     :tooltip="{ delayDuration: 0 }"
-    :toaster="{ position: 'top-center' }"
+    :toaster="{
+      position: 'top-center',
+      class: 'mt-16',
+    }"
     class="min-h-svh"
   >
     <NuxtLoadingIndicator :color="false" class="bg-primary h-[2px]" />

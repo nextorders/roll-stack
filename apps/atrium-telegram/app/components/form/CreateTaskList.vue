@@ -8,7 +8,7 @@
     <UFormField :label="$t('common.title')" name="name">
       <UInput
         v-model="state.name"
-        size="lg"
+        size="xl"
         class="w-full items-center justify-center"
       />
     </UFormField>
@@ -17,7 +17,7 @@
       <UInput
         v-model="state.description"
         placeholder="Для чего создан и что в нем будет"
-        size="lg"
+        size="xl"
         class="w-full items-center justify-center"
       />
     </UFormField>
@@ -32,7 +32,7 @@
           side: 'top',
         }"
         multiple
-        size="lg"
+        size="xl"
         class="w-full"
       />
     </UFormField>
@@ -41,7 +41,7 @@
       type="submit"
       variant="solid"
       color="secondary"
-      size="lg"
+      size="xl"
       block
       class="mt-3"
       :label="$t('common.create')"

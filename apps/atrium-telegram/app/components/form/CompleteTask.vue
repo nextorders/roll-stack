@@ -18,7 +18,7 @@
       <UTextarea
         v-model="state.report"
         :rows="4"
-        size="lg"
+        size="xl"
         class="w-full"
       />
     </UFormField>
@@ -27,7 +27,7 @@
       type="submit"
       variant="solid"
       color="secondary"
-      size="lg"
+      size="xl"
       trailing-icon="i-lucide-flag"
       block
       :label="$t('app.update.task.close')"
@@ -49,9 +49,7 @@ const { taskId } = defineProps<{
 
 const emit = defineEmits(['success', 'submitted'])
 
-const { t } = useI18n()
 const { vibrate } = useFeedback()
-const actionToast = useActionToast()
 const userStore = useUserStore()
 const taskStore = useTaskStore()
 
@@ -63,7 +61,6 @@ const state = ref<Partial<CompleteTask>>({
 })
 
 async function onSubmit(event: FormSubmitEvent<CompleteTask>) {
-  const toastId = actionToast.start()
   emit('submitted')
 
   try {
@@ -80,12 +77,10 @@ async function onSubmit(event: FormSubmitEvent<CompleteTask>) {
       userStore.update(),
     ])
 
-    actionToast.success(toastId, t('toast.task-completed'))
     vibrate('success')
     emit('success')
   } catch (error) {
     console.error(error)
-    actionToast.error(toastId)
     vibrate('error')
   }
 }

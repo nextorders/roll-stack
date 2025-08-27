@@ -45,8 +45,8 @@ const mainRoutes = computed(() => [
   {
     path: '/epic',
     name: 'quests',
-    title: 'Секрет',
-    icon: 'i-lucide-lock',
+    title: 'Эпики',
+    icon: 'i-lucide-crown',
   },
   {
     path: '/secret1',

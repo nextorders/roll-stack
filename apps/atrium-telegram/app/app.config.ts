@@ -1,5 +1,25 @@
 export default defineAppConfig({
   ui: {
+    input: {
+      slots: {
+        base: '!ring-muted',
+      },
+    },
+    inputMenu: {
+      slots: {
+        base: '!ring-muted',
+      },
+    },
+    selectMenu: {
+      slots: {
+        base: '!ring-muted',
+      },
+    },
+    textarea: {
+      slots: {
+        base: '!ring-muted',
+      },
+    },
     button: {
       slots: {
         base: 'font-semibold',
@@ -28,7 +48,7 @@ export default defineAppConfig({
       slots: {
         content: 'divide-y-0 !ring-muted/50',
         header: 'pb-0 min-h-12',
-        title: 'text-lg/5 font-semibold',
+        title: 'font-semibold',
       },
     },
     navigationMenu: {
