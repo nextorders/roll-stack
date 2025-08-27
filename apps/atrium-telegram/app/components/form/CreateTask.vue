@@ -96,6 +96,7 @@ const { performerId, listId } = defineProps<{
 const emit = defineEmits(['success', 'submitted'])
 
 const { t } = useI18n()
+const { vibrate } = useFeedback()
 const actionToast = useActionToast()
 
 const taskStore = useTaskStore()
@@ -170,10 +171,12 @@ async function onSubmit(event: FormSubmitEvent<CreateTask>) {
     await taskStore.update()
 
     actionToast.success(toastId, t('toast.task-created'))
+    vibrate('success')
     emit('success')
   } catch (error) {
     console.error(error)
     actionToast.error(toastId)
+    vibrate('error')
   }
 }
 </script>

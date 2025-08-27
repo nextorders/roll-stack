@@ -1,44 +1,42 @@
 <template>
   <PageContainer :back="false">
-    <div class="flex flex-col gap-6">
-      <div class="flex flex-row gap-3.5 items-center">
-        <UAvatar
-          :src="userStore?.avatarUrl ?? undefined"
-          class="size-14 cursor-pointer hover:scale-95 active:scale-90 duration-200"
-          @click="handleUploadUserAvatar"
-        />
+    <div class="flex flex-row gap-3.5 items-center">
+      <UAvatar
+        :src="userStore?.avatarUrl ?? undefined"
+        class="size-14 cursor-pointer hover:scale-95 active:scale-90 duration-200"
+        @click="handleUploadUserAvatar"
+      />
 
-        <div class="flex flex-col gap-1">
-          <h2 class="text-xl/6 font-bold tracking-tight">
-            {{ userStore.name }}, привет!
-          </h2>
-          <p class="text-base/5">
-            <template v-if="myTodayTasks.length">
-              Сегодня по плану еще
-              <ULink
-                as="button"
-                class="font-semibold underline underline-offset-4 decoration-dashed decoration-1 cursor-pointer"
-                :class="[
-                  taskStore.isTodayOnly ? 'tg-text' : 'text-secondary',
-                ]"
-                @click="taskStore.isTodayOnly = !taskStore.isTodayOnly"
-              >
-                {{ myTodayTasks.length }} {{ pluralizationRu(myTodayTasks.length, ['задача', 'задачи', 'задач']) }}
-              </ULink>.
-            </template>
-            <span>
-              Чем займемся?
-            </span>
-          </p>
-        </div>
-      </div>
-
-      <div class="flex flex-row items-end justify-end">
-        <TasksTodaySwitch />
+      <div class="flex flex-col gap-1">
+        <h2 class="text-lg/5 font-bold">
+          {{ userStore.name }}, привет!
+        </h2>
+        <p class="text-base/5">
+          <template v-if="myTodayTasks.length">
+            Сегодня по плану еще
+            <ULink
+              as="button"
+              class="font-semibold underline underline-offset-4 decoration-dashed decoration-1 cursor-pointer"
+              :class="[
+                taskStore.isTodayOnly ? 'tg-text' : 'text-secondary',
+              ]"
+              @click="taskStore.isTodayOnly = !taskStore.isTodayOnly"
+            >
+              {{ myTodayTasks.length }} {{ pluralizationRu(myTodayTasks.length, ['задача', 'задачи', 'задач']) }}
+            </ULink>.
+          </template>
+          <span>
+            Чем займемся?
+          </span>
+        </p>
       </div>
     </div>
 
-    <div class="mb-20 grid grid-cols-1 gap-4">
+    <template v-if="taskStore.isInitialized">
+      <div class="p-4 rounded-lg tg-bg-section">
+        <TasksTodaySwitch />
+      </div>
+
       <TaskList
         v-for="taskList in myLists"
         :key="taskList.id"
@@ -51,7 +49,14 @@
         icon="i-lucide-list-todo"
         @click="modalCreateTaskList.open()"
       />
+    </template>
+    <div v-else>
+      <div class="py-4 w-full flex justify-center">
+        <Loader />
+      </div>
     </div>
+
+    <div class="mb-20" />
   </PageContainer>
 </template>
 

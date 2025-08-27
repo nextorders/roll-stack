@@ -13,6 +13,7 @@ type TaskListWithData = TaskList & {
 export const useTaskStore = defineStore('task', () => {
   const lists = ref<TaskListWithData[]>([])
   const isTodayOnly = ref(false)
+  const isInitialized = ref(false)
 
   const initDataRaw = useSignal(_initDataRaw)
 
@@ -28,6 +29,8 @@ export const useTaskStore = defineStore('task', () => {
       }
 
       lists.value = data
+
+      isInitialized.value = true
     } catch (error) {
       if (error instanceof Error) {
         if (error.message.includes('401')) {
@@ -77,6 +80,7 @@ export const useTaskStore = defineStore('task', () => {
   return {
     lists,
     isTodayOnly,
+    isInitialized,
 
     update,
     setAsFocused,

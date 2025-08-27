@@ -43,7 +43,7 @@
           ],
         }"
         class="group/task duration-200 motion-preset-bounce"
-        @click="vibrate"
+        @click="vibrate()"
       >
         <div class="w-full flex flex-col gap-2 items-start">
           <div class="flex flex-col gap-1 items-start text-left">
@@ -90,9 +90,7 @@ const { task } = defineProps<{
   task: Task
 }>()
 
-const { t } = useI18n()
 const { vibrate } = useFeedback()
-const actionToast = useActionToast()
 const taskStore = useTaskStore()
 const userStore = useUserStore()
 
@@ -154,32 +152,28 @@ const items = computed<DropdownMenuItem[]>(() => {
 })
 
 async function onFocus() {
-  const toastId = actionToast.start()
-
   try {
     await taskStore.setAsFocused(task.id)
     await taskStore.update()
     await userStore.update()
 
-    actionToast.success(toastId, t('toast.task-focused'))
+    vibrate('success')
   } catch (error) {
     console.error(error)
-    actionToast.error(toastId)
+    vibrate('error')
   }
 }
 
 async function onUnfocus() {
-  const toastId = actionToast.start()
-
   try {
     await taskStore.setAsUnfocused(task.id)
     await taskStore.update()
     await userStore.update()
 
-    actionToast.success(toastId, t('toast.task-unfocused'))
+    vibrate('success')
   } catch (error) {
     console.error(error)
-    actionToast.error(toastId)
+    vibrate('error')
   }
 }
 
