@@ -3,6 +3,7 @@
   --ui-secondary: var(--tg-theme-link-color);
   --ui-border: var(--tg-theme-section-separator-color);
   --ui-text: var(--tg-theme-text-color);
+  --ui-text-muted: var(--tg-theme-hint-color);
   --ui-bg: var(--tg-theme-section-bg-color);
 
   --ui-color-neutral-400: var(--tg-theme-subtitle-text-color);

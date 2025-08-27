@@ -31,9 +31,8 @@
 </template>
 
 <script setup lang="ts">
-import { hapticFeedback } from '@telegram-apps/sdk-vue'
-
 const { t } = useI18n()
+const { vibrate } = useFeedback()
 const router = useRouter()
 
 const mainRoutes = computed(() => [
@@ -64,10 +63,7 @@ const mainRoutes = computed(() => [
 ])
 
 function handleClick(path: string) {
-  if (hapticFeedback.impactOccurred.isAvailable()) {
-    hapticFeedback.impactOccurred('light')
-  }
-
+  vibrate()
   router.push(path)
 }
 </script>
