@@ -8,6 +8,7 @@
       color="secondary"
       :label="label"
       :ui="{
+        base: 'px-3 rounded-full',
         label: 'font-medium',
       }"
       @click="vibrate"

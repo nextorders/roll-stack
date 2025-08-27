@@ -40,7 +40,7 @@
       </div>
     </div>
 
-    <div class="mb-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+    <div class="mb-20 grid grid-cols-1 gap-4">
       <TaskList
         v-for="taskList in myLists"
         :key="taskList.id"
