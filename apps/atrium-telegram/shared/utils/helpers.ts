@@ -37,3 +37,11 @@ export function getLocalizedResolution(resolution: Resolution) {
       return 'Не ясно, есть вопросы'
   }
 }
+
+export function getResolutionForSelect(): { value: Resolution, label: string, icon: string }[] {
+  return [
+    { value: 'success', label: 'Успешно выполнена', icon: 'i-lucide-circle-check' },
+    { value: 'failure', label: 'Не выполнена', icon: 'i-lucide-circle-x' },
+    { value: 'unknown', label: 'Не ясно, есть вопросы', icon: 'i-lucide-circle-help' },
+  ]
+}

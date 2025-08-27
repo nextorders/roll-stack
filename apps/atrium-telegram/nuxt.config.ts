@@ -30,8 +30,7 @@ export default defineNuxtConfig({
     fonts: false,
   },
   colorMode: {
-    preference: 'light',
-    fallback: 'light',
+    storageKey: 'color-mode',
   },
   css: ['~/assets/css/styles.css'],
   i18n: {
