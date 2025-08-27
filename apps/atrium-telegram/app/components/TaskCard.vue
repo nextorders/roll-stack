@@ -12,7 +12,7 @@
       size="xl"
       icon="i-lucide-check"
       class="shrink-0 mt-1.5 duration-200 motion-preset-bounce"
-      @change="onStartCompleting"
+      @change="handleComplete"
     />
     <UCheckbox
       v-else
@@ -56,13 +56,12 @@
           </div>
 
           <div class="flex flex-row gap-y-1 gap-x-2 items-center">
-            <UTooltip v-if="task.performerId" :text="`${performer?.name} ${performer?.surname}`">
-              <UAvatar
-                :src="performer?.avatarUrl ?? ''"
-                size="xs"
-                class="shrink-0"
-              />
-            </UTooltip>
+            <UAvatar
+              v-if="performer"
+              :src="performer?.avatarUrl ?? ''"
+              size="xs"
+              class="shrink-0"
+            />
 
             <UBadge
               v-if="task?.date"
@@ -123,21 +122,30 @@ const items = computed<DropdownMenuItem[]>(() => {
       label: 'Выполнить',
       icon: 'i-lucide-check',
       disabled: !canComplete.value,
-      onSelect: () => modalCompleteTask.open({ taskId: task.id }),
+      onSelect: () => {
+        vibrate()
+        modalCompleteTask.open({ taskId: task.id })
+      },
       condition: canComplete.value,
     },
     {
       label: isFocused.value ? 'Убрать фокус' : 'Сфокусироваться',
       icon: 'i-lucide-goal',
       disabled: false,
-      onSelect: isFocused.value ? onUnfocus : onFocus,
+      onSelect: () => {
+        vibrate()
+        isFocused.value ? onUnfocus() : onFocus()
+      },
       condition: canFocus.value,
     },
     {
       label: 'Редактировать',
       icon: 'i-lucide-edit',
       disabled: isCompleted.value,
-      onSelect: () => modalUpdateTask.open({ taskId: task.id }),
+      onSelect: () => {
+        vibrate()
+        modalUpdateTask.open({ taskId: task.id })
+      },
       condition: canEdit.value,
     },
   ]
@@ -175,7 +183,7 @@ async function onUnfocus() {
   }
 }
 
-function onStartCompleting() {
+function handleComplete() {
   vibrate()
 
   if (!checkbox.value) {

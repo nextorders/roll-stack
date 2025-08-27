@@ -10,6 +10,7 @@ import {
   mountClosingBehavior,
   mountMiniAppSync,
   mountViewport,
+  postEvent,
   requestFullscreen,
   restoreInitData,
   retrieveLaunchParams,
@@ -79,6 +80,11 @@ export async function init(options: {
   }
 
   mountClosingBehavior.ifAvailable()
+
+  // Orientation lock
+  postEvent('web_app_toggle_orientation_lock', {
+    locked: true,
+  })
 
   if (mountViewport.isAvailable()) {
     mountViewport().then(() => {

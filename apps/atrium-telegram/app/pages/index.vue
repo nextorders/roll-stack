@@ -1,6 +1,6 @@
 <template>
   <PageContainer :back="false">
-    <div class="flex flex-col md:flex-row gap-6 md:gap-2 md:items-center md:justify-between">
+    <div class="flex flex-col gap-6">
       <div class="flex flex-row gap-3.5 items-center">
         <UAvatar
           :src="userStore?.avatarUrl ?? undefined"
@@ -9,24 +9,22 @@
         />
 
         <div class="flex flex-col gap-1">
-          <h2 class="text-xl/6 md:text-2xl lg:text-3xl font-bold tracking-tight">
+          <h2 class="text-xl/6 font-bold tracking-tight">
             {{ userStore.name }}, привет!
           </h2>
-          <p class="text-base/5 md:text-lg/5">
+          <p class="text-base/5">
             <template v-if="myTodayTasks.length">
               Сегодня по плану еще
-              <UTooltip :text="taskStore.isTodayOnly ? 'Показать все' : 'Показать сегодняшние'">
-                <ULink
-                  as="button"
-                  class="font-semibold underline underline-offset-4 decoration-dashed decoration-1 cursor-pointer"
-                  :class="[
-                    taskStore.isTodayOnly ? 'tg-text' : 'text-secondary',
-                  ]"
-                  @click="taskStore.isTodayOnly = !taskStore.isTodayOnly"
-                >
-                  {{ myTodayTasks.length }} {{ pluralizationRu(myTodayTasks.length, ['задача', 'задачи', 'задач']) }}
-                </ULink>
-              </UTooltip>.
+              <ULink
+                as="button"
+                class="font-semibold underline underline-offset-4 decoration-dashed decoration-1 cursor-pointer"
+                :class="[
+                  taskStore.isTodayOnly ? 'tg-text' : 'text-secondary',
+                ]"
+                @click="taskStore.isTodayOnly = !taskStore.isTodayOnly"
+              >
+                {{ myTodayTasks.length }} {{ pluralizationRu(myTodayTasks.length, ['задача', 'задачи', 'задач']) }}
+              </ULink>.
             </template>
             <span>
               Чем займемся?

@@ -4,6 +4,7 @@
   --ui-border: var(--tg-theme-section-separator-color);
   --ui-border-accented: var(--tg-theme-hint-color);
   --ui-text: var(--tg-theme-text-color);
+  --ui-text-dimmed: var(--tg-theme-hint-color);
   --ui-text-muted: var(--tg-theme-hint-color);
   --ui-bg: var(--tg-theme-section-bg-color);
   --ui-bg-accented: var(--tg-theme-hint-color);
