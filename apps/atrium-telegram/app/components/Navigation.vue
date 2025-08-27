@@ -1,5 +1,5 @@
 <template>
-  <nav class="z-50 touch-pan-x fixed bottom-0 left-0 right-0 w-full h-25 tg-bg-bottom-bar rounded-t-lg">
+  <nav class="z-50 touch-pan-x fixed bottom-0 left-0 right-0 w-full h-25 tg-bg-bottom-bar border-t border-default rounded-t-lg">
     <div class="max-w-[28rem] mx-auto">
       <div class="mt-3 grid grid-cols-4">
         <button
