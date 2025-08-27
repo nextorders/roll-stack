@@ -18,8 +18,8 @@
       isClosing && '!translate-y-full',
     ]"
   >
-    <div ref="target" class="relative mb-10 p-4 md:p-6 lg:p-8 space-y-3 tg-bg-section tg-text rounded-xl shadow-lg max-h-[70dvh] overflow-y-auto !overflow-visible">
-      <h3 class="text-xl md:text-2xl font-medium leading-tight">
+    <div ref="target" class="relative mb-10 p-4 space-y-3 tg-bg-section tg-text rounded-xl shadow-lg max-h-[70dvh] overflow-y-auto !overflow-visible">
+      <h3 class="text-xl font-medium leading-tight">
         {{ title }}
       </h3>
 

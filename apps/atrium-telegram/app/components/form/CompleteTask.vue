@@ -6,7 +6,7 @@
     @submit="onSubmit"
   >
     <div class="mb-4 flex flex-col gap-1">
-      <h2 class="text-base/5 font-semibold">
+      <h2 class="text-base/5 font-medium">
         {{ task?.name }}
       </h2>
       <p class="text-sm/4 text-muted">
@@ -18,7 +18,7 @@
       <UTextarea
         v-model="state.report"
         :rows="4"
-        size="xl"
+        size="lg"
         class="w-full"
       />
     </UFormField>
@@ -27,7 +27,7 @@
       type="submit"
       variant="solid"
       color="secondary"
-      size="xl"
+      size="lg"
       trailing-icon="i-lucide-flag"
       block
       :label="$t('app.update.task.close')"
