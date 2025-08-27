@@ -5,7 +5,7 @@
         <UTooltip :text="$t('app.update.user-photo.button')">
           <UAvatar
             :src="userStore?.avatarUrl ?? undefined"
-            class="size-18 cursor-pointer hover:scale-95 active:scale-90 duration-200"
+            class="size-14 cursor-pointer hover:scale-95 active:scale-90 duration-200"
             @click="modalUploadUserAvatar.open()"
           />
         </UTooltip>

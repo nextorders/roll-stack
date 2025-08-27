@@ -3,7 +3,7 @@
   --ui-secondary: var(--tg-theme-link-color);
   --ui-border: var(--tg-theme-section-separator-color);
   --ui-text: var(--tg-theme-text-color);
-  --ui-bg: var(--tg-theme-secondary-bg-color);
+  --ui-bg: var(--tg-theme-section-bg-color);
 
   --ui-color-neutral-400: var(--tg-theme-subtitle-text-color);
   --ui-color-neutral-500: var(--tg-theme-subtitle-text-color);
@@ -101,17 +101,11 @@
   }
 }
 
-/* Preserve scrolling behavior */
-/* html, body, #app {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  overscroll-behavior: none;
+html, body {
+  background: transparent !important;
 }
-#app {
-  overflow-y: auto;
-}
-#app::-webkit-scrollbar {
+
+::-webkit-scrollbar {
   display: none;
   width: 0;
-} */
+}

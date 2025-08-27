@@ -60,31 +60,20 @@
         :ui="{
           trailingIcon: [
             'self-start mt-0.5 text-dimmed',
-            isFocused ? 'tg-text-button' : undefined,
+            isFocused ? 'text-secondary' : undefined,
           ],
         }"
         class="group/task duration-200 motion-preset-bounce cursor-pointer"
-        :class="{
-          'bg-secondary border-b-2 border-secondary': isFocused,
-        }"
+        :class="[
+          isFocused && 'border border-secondary',
+        ]"
       >
         <div class="flex flex-col gap-2 items-start">
           <div class="flex flex-col gap-1 items-start text-left">
-            <h4
-              class="text-base/5 font-semibold tg-text"
-              :class="[
-                isFocused ? 'tg-text-button' : undefined,
-              ]"
-            >
+            <h4 class="text-base/5 font-medium tg-text">
               {{ task.name }}
             </h4>
-            <p
-              v-if="task.description"
-              class="text-sm/4 text-muted font-medium"
-              :class="[
-                isFocused ? 'tg-text-button' : undefined,
-              ]"
-            >
+            <p v-if="task.description" class="text-sm/4 text-muted font-normal">
               {{ task.description }}
             </p>
           </div>
@@ -101,12 +90,9 @@
             <UBadge
               v-if="task?.date"
               size="md"
-              color="neutral"
-              variant="outline"
+              color="primary"
+              variant="subtle"
               icon="i-lucide-calendar"
-              :ui="{
-                leadingIcon: 'text-dimmed',
-              }"
               class="shrink-0"
             >
               {{ df.format(parseDate(task.date).toDate(getLocalTimeZone())) }}

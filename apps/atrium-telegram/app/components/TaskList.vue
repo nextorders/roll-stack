@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 rounded-lg border border-default tg-bg group/list space-y-2.5">
+  <div class="p-4 rounded-lg border border-default tg-bg-section group/list space-y-3.5">
     <div class="flex flex-row gap-2 items-center justify-between">
       <div class="flex flex-row gap-2.5 items-center">
         <UPopover
