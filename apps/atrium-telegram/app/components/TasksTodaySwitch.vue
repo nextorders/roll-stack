@@ -3,13 +3,12 @@
     v-model="taskStore.isTodayOnly"
     size="xl"
     color="secondary"
-    :label="taskStore.isTodayOnly ? 'Сегодня' : 'Все задачи'"
-    :default-value="taskStore.isTodayOnly"
+    :label="taskStore.isTodayOnly ? 'Задачи на сегодня' : 'Показаны все задачи'"
     :ui="{
-      root: 'flex-row-reverse items-center',
-      label: 'mr-3 text-base/5 font-semibold',
+      root: 'items-center',
+      label: 'ml-1.5 text-base/5 font-semibold',
     }"
-    @change="vibrate"
+    @change="vibrate()"
   />
 </template>
 

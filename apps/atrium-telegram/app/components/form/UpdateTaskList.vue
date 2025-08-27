@@ -73,6 +73,7 @@ const emit = defineEmits(['success', 'submitted'])
 type FormMember = { label: string, value: string, avatar: { src: string | undefined, alt: string } }
 
 const { t } = useI18n()
+const { vibrate } = useFeedback()
 const actionToast = useActionToast()
 
 const userStore = useUserStore()
@@ -119,10 +120,12 @@ async function onSubmit(event: FormSubmitEvent<UpdateTaskList>) {
     await taskStore.update()
 
     actionToast.success(toastId, t('toast.task-list-updated'))
+    vibrate('success')
     emit('success')
   } catch (error) {
     console.error(error)
     actionToast.error(toastId)
+    vibrate('error')
   }
 }
 
@@ -141,10 +144,12 @@ async function onDelete() {
     await taskStore.update()
 
     actionToast.success(toastId, t('toast.task-list-deleted'))
+    vibrate('success')
     emit('success')
   } catch (error) {
     console.error(error)
     actionToast.error(toastId)
+    vibrate('error')
   }
 }
 </script>

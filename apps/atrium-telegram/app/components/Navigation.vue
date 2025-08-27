@@ -1,5 +1,5 @@
 <template>
-  <nav class="z-50 touch-pan-x fixed bottom-0 left-0 right-0 w-full h-25 tg-bg-bottom-bar border-t border-default rounded-t-lg">
+  <nav class="z-50 touch-pan-x fixed bottom-0 left-0 right-0 w-full h-25 tg-bg-bottom-bar border-t border-default rounded-t-lg motion-preset-slide-up">
     <div class="max-w-[28rem] mx-auto">
       <div class="mt-3 grid grid-cols-4">
         <button
@@ -11,7 +11,7 @@
           <div
             class="relative py-1 w-full rounded-2xl flex flex-row items-center justify-center"
             :class="[
-              router.currentRoute.value.path === route.path && 'tg-bg-button tg-text-button',
+              router.currentRoute.value.path === route.path && 'tg-bg-button tg-text-button motion-translate-y-in',
             ]"
           >
             <UIcon :name="route.icon" class="size-6" />

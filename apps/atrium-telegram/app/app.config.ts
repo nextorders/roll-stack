@@ -26,7 +26,7 @@ export default defineAppConfig({
     },
     modal: {
       slots: {
-        content: 'divide-y-0',
+        content: 'divide-y-0 !ring-muted/50',
         header: 'pb-0 min-h-12',
         title: 'text-lg/5 font-semibold',
       },

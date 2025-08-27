@@ -1,9 +1,17 @@
 import { hapticFeedback } from '@telegram-apps/sdk-vue'
 
 function _useFeedback() {
-  function vibrate() {
-    if (hapticFeedback.impactOccurred.isAvailable()) {
+  function vibrate(type: 'light' | 'success' | 'error' = 'light') {
+    if (type === 'light' && hapticFeedback.impactOccurred.isAvailable()) {
       hapticFeedback.impactOccurred('light')
+    }
+
+    if (type === 'success' && hapticFeedback.notificationOccurred.isAvailable()) {
+      hapticFeedback.notificationOccurred('success')
+    }
+
+    if (type === 'error' && hapticFeedback.notificationOccurred.isAvailable()) {
+      hapticFeedback.notificationOccurred('error')
     }
   }
 

@@ -111,6 +111,7 @@ const { taskId } = defineProps<{
 const emit = defineEmits(['success', 'submitted'])
 
 const { t } = useI18n()
+const { vibrate } = useFeedback()
 const actionToast = useActionToast()
 
 const userStore = useUserStore()
@@ -197,10 +198,12 @@ async function onSubmit(event: FormSubmitEvent<UpdateTask>) {
     await taskStore.update()
 
     actionToast.success(toastId, t('toast.task-updated'))
+    vibrate('success')
     emit('success')
   } catch (error) {
     console.error(error)
     actionToast.error(toastId)
+    vibrate('error')
   }
 }
 
@@ -219,10 +222,12 @@ async function onDelete() {
     await taskStore.update()
 
     actionToast.success(toastId, t('toast.task-deleted'))
+    vibrate('success')
     emit('success')
   } catch (error) {
     console.error(error)
     actionToast.error(toastId)
+    vibrate('error')
   }
 }
 </script>
