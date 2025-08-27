@@ -10,7 +10,7 @@
         ref="fileRef"
         type="file"
         accept="image/*"
-        size="lg"
+        size="xl"
         class="w-full items-center justify-center"
         @change="onFileChange"
       />
@@ -20,7 +20,7 @@
       type="submit"
       variant="solid"
       color="secondary"
-      size="lg"
+      size="xl"
       block
       class="mt-3"
       :label="$t('common.upload')"

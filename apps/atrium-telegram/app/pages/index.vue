@@ -45,6 +45,7 @@
       />
 
       <CreateCard
+        v-if="!taskStore.isTodayOnly"
         :label="$t('app.create.task-list.button')"
         icon="i-lucide-list-todo"
         @click="modalCreateTaskList.open()"

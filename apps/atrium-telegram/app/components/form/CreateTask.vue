@@ -13,7 +13,7 @@
       <UInput
         v-model="state.name"
         :placeholder="$t('app.task.name-placeholder')"
-        size="lg"
+        size="xl"
         class="w-full items-center justify-center"
       />
     </UFormField>
@@ -22,7 +22,7 @@
       <UTextarea
         v-model="state.description"
         :rows="4"
-        size="lg"
+        size="xl"
         class="w-full"
       />
     </UFormField>
@@ -36,44 +36,42 @@
         :content="{
           side: 'top',
         }"
-        size="lg"
+        size="xl"
         class="w-full"
       />
     </UFormField>
 
-    <div class="grid grid-cols-1 md:grid-cols-2">
-      <UPopover>
-        <UFormField :label="$t('common.date')" name="date">
-          <UInput
-            :value="selectedDate ? df.format(selectedDate.toDate(getLocalTimeZone())) : ''"
-            placeholder="Выберите дату"
-            size="lg"
-            class="w-full items-center justify-center cursor-pointer"
-            :ui="{ trailing: 'pe-1.5' }"
-          >
-            <template v-if="selectedDate" #trailing>
-              <UButton
-                color="neutral"
-                variant="ghost"
-                size="md"
-                icon="i-lucide-x"
-                @click="selectedDate = undefined"
-              />
-            </template>
-          </UInput>
-        </UFormField>
+    <UPopover>
+      <UFormField :label="$t('common.date')" name="date">
+        <UInput
+          :value="selectedDate ? df.format(selectedDate.toDate(getLocalTimeZone())) : ''"
+          placeholder="Выберите дату"
+          size="xl"
+          class="w-full items-center justify-center cursor-pointer"
+          :ui="{ trailing: 'pe-2' }"
+        >
+          <template v-if="selectedDate" #trailing>
+            <UButton
+              color="neutral"
+              variant="ghost"
+              size="md"
+              icon="i-lucide-x"
+              @click="selectedDate = undefined"
+            />
+          </template>
+        </UInput>
+      </UFormField>
 
-        <template #content>
-          <UCalendar v-model="selectedDate" class="p-2" />
-        </template>
-      </UPopover>
-    </div>
+      <template #content>
+        <UCalendar v-model="selectedDate" class="p-2" />
+      </template>
+    </UPopover>
 
     <UButton
       type="submit"
       variant="solid"
       color="secondary"
-      size="lg"
+      size="xl"
       block
       class="mt-3"
       :label="$t('common.create')"
