@@ -33,9 +33,9 @@
     </div>
 
     <template v-if="taskStore.isInitialized">
-      <div class="p-4 rounded-lg tg-bg-section">
+      <Section>
         <TasksTodaySwitch />
-      </div>
+      </Section>
 
       <TaskList
         v-for="taskList in myLists"
@@ -56,8 +56,6 @@
         <Loader />
       </div>
     </div>
-
-    <div class="mb-20" />
   </PageContainer>
 </template>
 

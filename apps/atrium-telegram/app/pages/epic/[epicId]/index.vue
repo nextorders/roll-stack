@@ -1,0 +1,59 @@
+<template>
+  <PageContainer>
+    <Section>
+      <div class="flex flex-row items-start justify-between gap-2.5">
+        <UIcon name="i-lucide-crown" class="size-10 text-primary" />
+
+        <UButton
+          variant="soft"
+          color="primary"
+          size="md"
+          icon="i-lucide-pencil"
+          @click="handleEditEpic"
+        />
+      </div>
+
+      <h2 class="text-xl font-bold">
+        {{ epic?.title }}
+      </h2>
+
+      <div class="w-full text-base/5 whitespace-pre-wrap break-words">
+        {{ epic?.description }}
+      </div>
+    </Section>
+
+    <Section class="flex flex-row justify-between items-center">
+      <div v-if="epic?.comments && epic?.comments.length >= 0" class="flex flex-row items-center gap-2">
+        <UIcon name="i-lucide-message-circle" class="size-5" />
+        {{ epic.comments.length }} {{ pluralizationRu(epic.comments.length, ['комментарий', 'комментария', 'комментариев']) }}
+      </div>
+    </Section>
+
+    <div class="w-full flex flex-col gap-2 flex-1 last-of-type:mb-20">
+      <EpicComment
+        v-for="comment in epic?.comments"
+        :key="comment.id"
+        :epic-id="comment.epicId"
+        :comment-id="comment.id"
+      />
+    </div>
+
+    <FormCreateEpicComment v-if="epic?.id" :epic-id="epic.id" />
+  </PageContainer>
+</template>
+
+<script setup lang="ts">
+import { ModalUpdateEpic } from '#components'
+
+const { params } = useRoute('epic-epicId')
+
+const epicStore = useEpicStore()
+const epic = computed(() => epicStore.epics.find((e) => e.id === params.epicId))
+
+const overlay = useOverlay()
+const modalUpdateEpic = overlay.create(ModalUpdateEpic)
+
+function handleEditEpic() {
+  modalUpdateEpic.open({ epicId: epic.value?.id ?? '' })
+}
+</script>

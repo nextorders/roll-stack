@@ -11,7 +11,7 @@
           <div
             class="relative py-1 w-full rounded-2xl flex flex-row items-center justify-center"
             :class="[
-              router.currentRoute.value.path === route.path && 'tg-bg-button tg-text-button motion-translate-y-in',
+              (route.exact ? router.currentRoute.value.path === route.path : router.currentRoute.value.path.startsWith(route.path)) && 'tg-bg-button tg-text-button motion-translate-y-in',
             ]"
           >
             <UIcon :name="route.icon" class="size-6" />
@@ -19,7 +19,7 @@
           <p
             class="text-xs font-medium"
             :class="[
-              router.currentRoute.value.path === route.path && 'tg-text',
+              (route.exact ? router.currentRoute.value.path === route.path : router.currentRoute.value.path.startsWith(route.path)) && 'tg-text',
             ]"
           >
             {{ route.title }}
@@ -41,6 +41,7 @@ const mainRoutes = computed(() => [
     name: 'home',
     title: t('app.home'),
     icon: 'i-lucide-layout-dashboard',
+    exact: true,
   },
   {
     path: '/epic',
