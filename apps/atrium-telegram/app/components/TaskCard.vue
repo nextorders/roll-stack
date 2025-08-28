@@ -36,7 +36,7 @@
       }"
       :ui="{
         content: 'w-48',
-        item: 'p-2',
+        item: 'p-2 motion-preset-slide-left motion-duration-200',
       }"
     >
       <UButton

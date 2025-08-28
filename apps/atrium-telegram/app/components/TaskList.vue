@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 rounded-lg tg-bg-section group/list space-y-3.5">
+  <Section>
     <div class="flex flex-row gap-2 items-center justify-between">
       <div class="flex flex-row gap-2.5 items-center">
         <UPopover
@@ -87,7 +87,7 @@
         Активных задач нет
       </p>
     </template>
-  </div>
+  </Section>
 </template>
 
 <script setup lang="ts">
