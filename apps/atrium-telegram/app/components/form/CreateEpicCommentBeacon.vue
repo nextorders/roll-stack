@@ -81,7 +81,7 @@ const availableMembers = computed(() => {
     },
   }))
 })
-const selectedMembers = ref<FormMember[]>(availableMembers.value.filter((member) => state.value.usersId?.includes(member.value)) ?? [])
+const selectedMembers = ref<FormMember[]>([])
 
 watch(selectedMembers, () => {
   if (!selectedMembers.value) {
