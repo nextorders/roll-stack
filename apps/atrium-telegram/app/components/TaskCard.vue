@@ -3,15 +3,17 @@
     <UIcon
       v-if="isCompleted"
       name="i-lucide-check"
-      class="shrink-0 mt-1.5 size-5"
+      class="shrink-0 mt-1.5 size-6 text-secondary"
     />
     <UCheckbox
       v-else-if="canComplete"
       v-model="checkbox"
       variant="list"
-      size="xl"
       icon="i-lucide-check"
       class="shrink-0 mt-1.5 duration-200 motion-preset-bounce"
+      :ui="{
+        base: 'size-6',
+      }"
       @change="handleComplete"
     />
     <UCheckbox
@@ -19,16 +21,22 @@
       v-model="checkbox"
       color="secondary"
       variant="list"
-      size="xl"
       icon="i-lucide-check"
+      :ui="{
+        base: 'size-6',
+      }"
       class="shrink-0 mt-1.5 duration-200 motion-preset-bounce"
       disabled
     />
 
     <UDropdownMenu
       :items="items"
+      :content="{
+        sideOffset: -32,
+      }"
       :ui="{
         content: 'w-48',
+        item: 'p-2',
       }"
     >
       <UButton
