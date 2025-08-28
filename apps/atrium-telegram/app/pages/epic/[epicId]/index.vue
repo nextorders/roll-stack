@@ -29,7 +29,7 @@
       </div>
     </Section>
 
-    <div class="w-full flex flex-col gap-2 flex-1 last-of-type:mb-20">
+    <div class="w-full flex flex-col gap-3.5 flex-1 last-of-type:mb-20">
       <EpicComment
         v-for="comment in epic?.comments"
         :key="comment.id"
