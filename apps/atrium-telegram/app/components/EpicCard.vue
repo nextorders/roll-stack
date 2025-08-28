@@ -6,7 +6,7 @@
       {{ epic.title }}
     </h3>
 
-    <div class="w-full text-base/5 text-muted/50 whitespace-pre-wrap break-words line-clamp-3">
+    <div class="w-full text-sm/4 text-muted font-normal whitespace-pre-wrap break-words line-clamp-4">
       {{ epic.description }}
     </div>
 

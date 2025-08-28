@@ -3,5 +3,9 @@
     <slot />
   </main>
 
-  <Navigation />
+  <Navigation v-if="userStore.id" />
 </template>
+
+<script setup lang="ts">
+const userStore = useUserStore()
+</script>

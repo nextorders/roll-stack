@@ -158,7 +158,7 @@ async function onSubmit(event: FormSubmitEvent<CreateTask>) {
   emit('submitted')
 
   try {
-    await $fetch(`/api/task`, {
+    await $fetch('/api/task', {
       method: 'POST',
       headers: {
         Authorization: `tma ${userStore.initDataRaw}`,

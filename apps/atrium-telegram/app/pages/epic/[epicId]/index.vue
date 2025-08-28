@@ -47,6 +47,7 @@ import { ModalUpdateEpic } from '#components'
 
 const { params } = useRoute('epic-epicId')
 
+const { vibrate } = useFeedback()
 const epicStore = useEpicStore()
 const epic = computed(() => epicStore.epics.find((e) => e.id === params.epicId))
 
@@ -54,6 +55,11 @@ const overlay = useOverlay()
 const modalUpdateEpic = overlay.create(ModalUpdateEpic)
 
 function handleEditEpic() {
-  modalUpdateEpic.open({ epicId: epic.value?.id ?? '' })
+  if (!epic.value?.id) {
+    return
+  }
+
+  vibrate()
+  modalUpdateEpic.open({ epicId: epic.value.id })
 }
 </script>
