@@ -7,7 +7,7 @@ const USER_AVATARS_DIRECTORY = 'users'
 
 const IMAGE_SIZES = [256, 512]
 const IMAGE_FORMATS = ['jpg', 'webp'] as const
-const ACCEPTED_IMAGE_FORMATS = ['jpeg', 'jpg', 'png', 'webp']
+const ACCEPTED_IMAGE_FORMATS = ['jpeg', 'jpg', 'png', 'webp', 'heif', 'avif']
 
 export default defineEventHandler(async (event) => {
   let sharpStream

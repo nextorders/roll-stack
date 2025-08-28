@@ -7,6 +7,8 @@ const ACCEPTED_IMAGE_TYPES = [
   'image/png',
   'image/webp',
   'image/gif',
+  'image/avif',
+  'image/heif',
 ]
 
 const FileSchema = type('File')

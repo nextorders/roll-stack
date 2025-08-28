@@ -58,9 +58,7 @@ const emit = defineEmits(['success', 'submitted'])
 
 type FormMember = { label: string, value: string, avatar: { src: string | undefined, alt: string } }
 
-const { t } = useI18n()
 const { vibrate } = useFeedback()
-const actionToast = useActionToast()
 
 const userStore = useUserStore()
 const epicStore = useEpicStore()
@@ -94,11 +92,10 @@ watch(selectedMembers, () => {
 })
 
 async function onSubmit(event: FormSubmitEvent<CreateBeacon>) {
-  const toastId = actionToast.start()
   emit('submitted')
 
   try {
-    await $fetch(`https://atrium.sushi-love.ru/api/epic/comment/id/${commentId}/beacon`, {
+    await $fetch(`/api/epic/comment/id/${commentId}/beacon`, {
       method: 'POST',
       body: event.data,
     })
@@ -109,12 +106,10 @@ async function onSubmit(event: FormSubmitEvent<CreateBeacon>) {
       notificationStore.update(),
     ])
 
-    actionToast.success(toastId, t('toast.beacon-created'))
     vibrate('success')
     emit('success')
   } catch (error) {
     console.error(error)
-    actionToast.error(toastId)
     vibrate('error')
   }
 }
