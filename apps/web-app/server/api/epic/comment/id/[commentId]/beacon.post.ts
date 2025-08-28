@@ -1,7 +1,7 @@
+import { createBeaconSchema } from '#shared/services/notification'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
 import { useAtriumBot } from '~~/server/services/telegram/atrium-bot'
-import { createBeaconSchema } from '~~/shared/services/notification'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -10,14 +10,6 @@ export default defineEventHandler(async (event) => {
       throw createError({
         statusCode: 400,
         message: 'Id is required',
-      })
-    }
-
-    const session = await getUserSession(event)
-    if (!session?.user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
       })
     }
 
@@ -40,7 +32,7 @@ export default defineEventHandler(async (event) => {
     const epic = await repository.epic.find(comment.epicId)
     const users = await repository.user.list()
     const commentAuthor = users.find((user) => user.id === comment.userId)
-    const sender = users.find((user) => user.id === session.user?.id)
+    const sender = users.find((user) => user.id === data.senderId)
     if (!sender) {
       throw createError({
         statusCode: 404,
