@@ -1,4 +1,4 @@
-name: Deploy @roll-stack/web-app
+name: Deploy @roll-stack/atrium-telegram
 
 on:
   workflow_run:
@@ -14,8 +14,8 @@ jobs:
       matrix:
         include:
           - url: "https://sushi-love.ru"
-            environment: "Production Web App"
-            deployment: "web-app"
+            environment: "Production Atrium Telegram"
+            deployment: "atrium-telegram"
             namespace: "sushi"
     runs-on: ubuntu-latest
     permissions:
