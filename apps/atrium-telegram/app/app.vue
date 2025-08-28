@@ -4,7 +4,7 @@
     :tooltip="{ delayDuration: 0 }"
     :toaster="{
       position: 'top-center',
-      class: 'mt-16',
+      class: 'mt-20',
     }"
     class="min-h-svh"
   >

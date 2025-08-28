@@ -24,6 +24,7 @@ export default defineNuxtConfig({
       adminId: '',
       teamGroupId: '',
     },
+    coreApiUrl: '',
   },
   ui: {
     colorMode: true,
