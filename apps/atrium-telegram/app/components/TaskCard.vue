@@ -3,7 +3,7 @@
     <UIcon
       v-if="isCompleted"
       name="i-lucide-check"
-      class="shrink-0 mt-1.5 size-5"
+      class="shrink-0 mt-1.5 size-6 text-secondary"
     />
     <UCheckbox
       v-else-if="canComplete"
