@@ -3,9 +3,10 @@
     :items="items"
     :ui="{
       content: 'w-48',
+      item: 'p-2 motion-preset-slide-left motion-duration-200',
     }"
     :content="{
-      sideOffset: -12,
+      sideOffset: -32,
     }"
   >
     <UButton
@@ -15,7 +16,7 @@
       :ui="{
         base: 'p-0',
       }"
-      class="group/message relative text-left scroll-mt-4 motion-preset-slide-down-right"
+      class="group/message relative text-left scroll-mt-4 motion-preset-slide-left"
     >
       <div class="min-w-[60%] relative flex items-start gap-2 pb-2 rtl:justify-end">
         <div class="inline-flex items-center justify-center min-h-6 mt-1.5">

@@ -1,5 +1,5 @@
 <template>
-  <div class="relative active:scale-90 duration-200 motion-preset-slide-left" @click="vibrate()">
+  <div class="relative active:scale-90 duration-200" @click="vibrate()">
     <Section>
       <slot />
     </Section>
