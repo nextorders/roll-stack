@@ -62,6 +62,7 @@ const epicStore = useEpicStore()
 const notificationStore = useNotificationStore()
 
 const state = ref<Partial<CreateBeacon>>({
+  senderId: userStore.id,
   usersId: [],
 })
 
