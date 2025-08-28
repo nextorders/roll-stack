@@ -1,19 +1,19 @@
 <template>
-  <UDropdownMenu
-    :items="items"
-    :ui="{
-      content: 'w-48',
-      item: 'p-2 motion-preset-slide-left motion-duration-200',
-    }"
-    :content="{
-      sideOffset: -32,
-    }"
-  >
-    <div class="flex flex-row gap-2 items-start">
-      <div class="mt-1.5">
-        <UAvatar :src="user?.avatarUrl ?? undefined" />
-      </div>
-      <div class="w-full flex flex-col gap-1.5">
+  <div class="flex flex-row gap-2 items-start">
+    <div class="mt-2.5">
+      <UAvatar :src="user?.avatarUrl ?? undefined" />
+    </div>
+    <div class="w-full flex flex-col gap-1.5">
+      <UDropdownMenu
+        :items="items"
+        :ui="{
+          content: 'w-48',
+          item: 'p-2 motion-preset-slide-left motion-duration-200',
+        }"
+        :content="{
+          sideOffset: -32,
+        }"
+      >
         <ActiveCard>
           <div class="w-full relative flex flex-col justify-between gap-2">
             <div class="flex flex-col gap-1">
@@ -27,17 +27,17 @@
             </div>
           </div>
         </ActiveCard>
+      </UDropdownMenu>
 
-        <div v-if="comment?.notifications?.length" class="flex flex-row flex-wrap gap-1">
-          <UserBeacon
-            v-for="notification in comment.notifications"
-            :key="notification.id"
-            :notification="notification"
-          />
-        </div>
+      <div v-if="comment?.notifications?.length" class="-mt-4 ml-4 flex flex-row flex-wrap gap-1">
+        <UserBeacon
+          v-for="notification in comment.notifications"
+          :key="notification.id"
+          :notification="notification"
+        />
       </div>
     </div>
-  </UDropdownMenu>
+  </div>
 </template>
 
 <script setup lang="ts">
