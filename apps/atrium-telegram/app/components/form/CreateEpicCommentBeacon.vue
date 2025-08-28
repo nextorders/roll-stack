@@ -94,8 +94,10 @@ watch(selectedMembers, () => {
 async function onSubmit(event: FormSubmitEvent<CreateBeacon>) {
   emit('submitted')
 
+  const { public: publicEnv } = useRuntimeConfig()
+
   try {
-    await $fetch(`/api/epic/comment/id/${commentId}/beacon`, {
+    await $fetch(`${publicEnv.coreApiUrl}/epic/comment/id/${commentId}/beacon`, {
       method: 'POST',
       body: event.data,
     })
