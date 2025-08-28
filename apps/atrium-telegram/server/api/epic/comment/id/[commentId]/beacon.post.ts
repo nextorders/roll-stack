@@ -17,9 +17,9 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const { coreApiUrl } = useRuntimeConfig()
+    const { public: publicEnv } = useRuntimeConfig()
 
-    await $fetch(`${coreApiUrl}/epic/comment/id/${commentId}/beacon`, {
+    await $fetch(`${publicEnv.coreApiUrl}/epic/comment/id/${commentId}/beacon`, {
       method: 'POST',
       body: data,
     })

@@ -64,11 +64,10 @@ async function onSubmit(event: FormSubmitEvent<UploadMedia>) {
     const formData = new FormData()
     formData.append('file', event.data.file)
 
-    await $fetch(`/api/user/id/${userStore.id}/image`, {
+    const { public: publicEnv } = useRuntimeConfig()
+
+    await $fetch(`${publicEnv.coreApiUrl}/user/id/${userStore.id}/image`, {
       method: 'POST',
-      headers: {
-        Authorization: `tma ${userStore.initDataRaw}`,
-      },
       body: formData,
     })
 
