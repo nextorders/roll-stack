@@ -14,7 +14,7 @@
         v-model="state.name"
         :placeholder="$t('app.task.name-placeholder')"
         size="xl"
-        class="w-full items-center justify-center"
+        class="w-full"
       />
     </UFormField>
 
