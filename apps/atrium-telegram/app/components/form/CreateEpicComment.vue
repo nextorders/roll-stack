@@ -1,71 +1,73 @@
 <template>
-  <UCard
-    variant="subtle"
-    class="mt-auto bg-elevated/25"
+  <UForm
+    :validate="createValidator(createEpicCommentSchema)"
+    :state="state"
+    class="flex flex-col gap-3"
+    @submit="onSubmit"
   >
-    <form
-      class="flex flex-col gap-4"
-      @submit.prevent="onCommentSubmit"
-    >
+    <UFormField label="Комментарий" name="text">
       <UTextarea
-        v-model="text"
-        color="neutral"
-        variant="none"
-        size="xl"
-        required
-        autoresize
+        v-model="state.text"
         placeholder="Напишите свою мысль..."
-        :rows="3"
-        :disabled="loading"
+        autoresize
+        size="xl"
         class="w-full"
-        :ui="{ base: 'p-1' }"
       />
+    </UFormField>
 
-      <div class="flex items-center justify-end gap-2">
-        <UButton
-          type="submit"
-          color="secondary"
-          size="md"
-          :loading="loading"
-          :disabled="!text"
-          label="Добавить комментарий"
-          icon="i-lucide-send"
-          :ui="{
-            base: 'px-3 rounded-full',
-            label: 'font-medium',
-          }"
-        />
-      </div>
-    </form>
-  </UCard>
+    <UButton
+      type="submit"
+      variant="solid"
+      color="secondary"
+      size="xl"
+      icon="i-lucide-send"
+      block
+      class="mt-3"
+      :disabled="!state.text"
+      :label="$t('common.send')"
+    />
+  </UForm>
 </template>
 
 <script setup lang="ts">
+import type { CreateEpicComment } from '#shared/services/epic'
+import type { FormSubmitEvent } from '@nuxt/ui'
+import { createEpicCommentSchema } from '#shared/services/epic'
+
 const { epicId } = defineProps<{ epicId: string }>()
 
+const emit = defineEmits(['success', 'submitted'])
+
 const { vibrate } = useFeedback()
+const userStore = useUserStore()
 const epicStore = useEpicStore()
 
-const text = ref('')
-const loading = ref(false)
+const state = ref<Partial<CreateEpicComment>>({
+  text: undefined,
+})
 
-async function onCommentSubmit() {
-  const trimmed = text.value.trim()
-  if (!trimmed) {
-    return
-  }
-
-  loading.value = true
+async function onSubmit(event: FormSubmitEvent<CreateEpicComment>) {
+  emit('submitted')
 
   try {
-    await epicStore.addComment(epicId, trimmed)
-    text.value = ''
+    await $fetch(`/api/epic/id/${epicId}/comment`, {
+      method: 'POST',
+      headers: {
+        Authorization: `tma ${userStore.initDataRaw}`,
+      },
+      body: event.data,
+    })
+
+    await Promise.all([
+      epicStore.update(),
+      userStore.update(),
+    ])
+
     vibrate('success')
-  } catch (e) {
-    console.error(e)
+    emit('success')
+  } catch (error) {
+    console.error(error)
     vibrate('error')
-  } finally {
-    loading.value = false
   }
 }
 </script>

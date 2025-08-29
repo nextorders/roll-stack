@@ -38,12 +38,17 @@
       />
     </div>
 
-    <FormCreateEpicComment v-if="epic?.id" :epic-id="epic.id" />
+    <CreateCard
+      v-if="epic?.id"
+      :label="$t('app.create.epic-comment.button')"
+      icon="i-lucide-message-circle"
+      @click="modalCreateEpicComment.open({ epicId: epic.id })"
+    />
   </PageContainer>
 </template>
 
 <script setup lang="ts">
-import { ModalUpdateEpic } from '#components'
+import { ModalCreateEpicComment, ModalUpdateEpic } from '#components'
 
 const { params } = useRoute('epic-epicId')
 
@@ -53,6 +58,7 @@ const epic = computed(() => epicStore.epics.find((e) => e.id === params.epicId))
 
 const overlay = useOverlay()
 const modalUpdateEpic = overlay.create(ModalUpdateEpic)
+const modalCreateEpicComment = overlay.create(ModalCreateEpicComment)
 
 function handleEditEpic() {
   if (!epic.value?.id) {

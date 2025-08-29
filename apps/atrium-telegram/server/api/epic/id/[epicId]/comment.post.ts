@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
     }
 
     const comment = await repository.epic.createComment({
-      ...data,
+      text: data.text.trim(),
       userId: event.context.user.id,
       epicId,
     })

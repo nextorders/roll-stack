@@ -38,31 +38,6 @@ export const useEpicStore = defineStore('epic', () => {
     }
   }
 
-  async function addComment(epicId: string, text: string) {
-    try {
-      await $fetch(`/api/epic/id/${epicId}/comment`, {
-        method: 'POST',
-        headers: {
-          Authorization: `tma ${initDataRaw.value}`,
-        },
-        body: {
-          text,
-        },
-      })
-
-      await update()
-    } catch (error) {
-      if (error instanceof Error) {
-        if (error.message.includes('401')) {
-          // No
-        }
-        if (error.message.includes('404')) {
-          // Not found
-        }
-      }
-    }
-  }
-
   async function removeComment(id: string) {
     try {
       await $fetch(`/api/epic/comment/id/${id}`, {
@@ -89,7 +64,6 @@ export const useEpicStore = defineStore('epic', () => {
     epics,
 
     update,
-    addComment,
     removeComment,
   }
 })
