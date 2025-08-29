@@ -87,11 +87,10 @@
               class="size-4 text-secondary"
             />
           </div>
-
-          <p v-if="row.original.concludedAt" class="text-xs">
-            от {{ format(new Date(row.original.concludedAt), 'd MMMM yyyy', { locale: ru }) }}
-          </p>
         </div>
+      </template>
+      <template #concludedAt-cell="{ row }">
+        {{ format(new Date(row.getValue('concludedAt')), 'd MMMM yyyy', { locale: ru }) }}
       </template>
       <template #willEndAt-cell="{ row }">
         {{ format(new Date(row.getValue('willEndAt')), 'd MMMM yyyy', { locale: ru }) }}
@@ -129,6 +128,11 @@
         </div>
         <div v-else class="text-center">
           -
+        </div>
+      </template>
+      <template #patentStatus-cell="{ row }">
+        <div class="text-sm/4 whitespace-pre-wrap max-w-56">
+          {{ getPatentStatus(row.getValue('patentStatus')) }}
         </div>
       </template>
       <template #comment-cell="{ row }">
@@ -206,7 +210,6 @@ const columnVisibility = ref({
   isActive: false,
   minRoyaltyPerMonth: false,
   minMarketingFeePerMonth: false,
-  willEndAt: false,
 })
 const rowSelection = ref()
 const pagination = ref({
@@ -215,7 +218,7 @@ const pagination = ref({
 })
 const sorting = ref([
   {
-    id: 'internalId',
+    id: 'concludedAt',
     desc: true,
   },
 ])
@@ -240,6 +243,22 @@ const columns: Ref<TableColumn<PartnerAgreementWithAllData>[]> = ref([{
     })
   },
 }, {
+  accessorKey: 'concludedAt',
+  enableSorting: true,
+  header: ({ column }) => {
+    const isSorted = column.getIsSorted()
+    const icon = isSorted === 'asc' ? 'i-lucide-arrow-up-narrow-wide' : 'i-lucide-arrow-down-wide-narrow'
+
+    return h(UButton, {
+      color: 'neutral',
+      variant: 'ghost',
+      label: 'Заключен',
+      icon: isSorted ? icon : 'i-lucide-arrow-up-down',
+      class: '-mx-2.5',
+      onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
+    })
+  },
+}, {
   accessorKey: 'willEndAt',
   enableSorting: true,
   header: ({ column }) => {
@@ -249,7 +268,7 @@ const columns: Ref<TableColumn<PartnerAgreementWithAllData>[]> = ref([{
     return h(UButton, {
       color: 'neutral',
       variant: 'ghost',
-      label: 'Дата окончания',
+      label: 'Заканчивается',
       icon: isSorted ? icon : 'i-lucide-arrow-up-down',
       class: '-mx-2.5',
       onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
@@ -273,6 +292,9 @@ const columns: Ref<TableColumn<PartnerAgreementWithAllData>[]> = ref([{
 }, {
   accessorKey: 'marketingFee',
   header: 'Маркетинговый сбор',
+}, {
+  accessorKey: 'patentStatus',
+  header: 'Роспатент',
 }, {
   accessorKey: 'minMarketingFeePerMonth',
   header: 'Мин. маркетинговый сбор',

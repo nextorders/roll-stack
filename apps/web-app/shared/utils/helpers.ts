@@ -1,4 +1,4 @@
-import type { User } from '@roll-stack/database'
+import type { AgreementPatentStatus, User } from '@roll-stack/database'
 import type { Resolution } from '../services/task'
 
 export function getResolutionForSelect(): { value: Resolution, label: string, icon: string }[] {
@@ -29,6 +29,25 @@ export function getResolutionIcon(resolution: Resolution) {
     case 'unknown':
       return 'i-lucide-circle-help'
   }
+}
+
+export function getPatentStatus(status: AgreementPatentStatus) {
+  switch (status) {
+    case 'in_work':
+      return 'В работе'
+    case 'on_registration':
+      return 'На регистрации'
+    case 'registered':
+      return 'Зарегистрирован'
+  }
+}
+
+export function getPatentStatusForSelect(): { value: AgreementPatentStatus, label: string }[] {
+  return [
+    { value: 'in_work', label: 'В работе' },
+    { value: 'on_registration', label: 'На регистрации' },
+    { value: 'registered', label: 'Зарегистрирован' },
+  ]
 }
 
 export function getUserTypeLabel(type: User['type']): string {

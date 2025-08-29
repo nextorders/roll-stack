@@ -1,4 +1,4 @@
-import type { NotificationOption, UserGender, UserType } from './types'
+import type { AgreementPatentStatus, NotificationOption, UserGender, UserType } from './types'
 import { cuid2 } from 'drizzle-cuid2/postgres'
 import { relations } from 'drizzle-orm'
 import { boolean, date, integer, jsonb, numeric, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core'
@@ -127,6 +127,7 @@ export const partnerAgreements = pgTable('partner_agreements', {
   minMarketingFeePerMonth: numeric('min_marketing_fee_per_month', { mode: 'number' }).notNull().default(0),
   lumpSumPayment: numeric('lump_sum_payment', { mode: 'number' }).notNull().default(0),
   comment: varchar('comment'),
+  patentStatus: varchar('patent_status').notNull().default('in_work').$type<AgreementPatentStatus>(),
   legalEntityId: cuid2('legal_entity_id').references(() => partnerLegalEntities.id),
 })
 

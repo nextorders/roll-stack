@@ -35,6 +35,8 @@ export const createPartnerAgreementSchema = type({
 })
 export type CreatePartnerAgreement = typeof createPartnerAgreementSchema.infer
 
+const patentStatus = type('"in_work" | "on_registration" | "registered"')
+
 export const updatePartnerAgreementSchema = type({
   concludedAt: type('string | undefined').describe('error.length.invalid').optional(),
   willEndAt: type('string | undefined').describe('error.length.invalid').optional(),
@@ -46,5 +48,6 @@ export const updatePartnerAgreementSchema = type({
   lumpSumPayment: type('number >= 0 | undefined').describe('error.length.invalid').optional(),
   legalEntityId: type('string | undefined').describe('error.length.invalid').optional(),
   comment: type('string | undefined').describe('error.length.invalid').optional(),
+  patentStatus: patentStatus.describe('error.length.invalid').optional(),
 })
 export type UpdatePartnerAgreement = typeof updatePartnerAgreementSchema.infer
