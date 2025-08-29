@@ -1,7 +1,7 @@
 import type { NotificationOption } from '@roll-stack/database'
+import { updateUserSchema } from '#shared/services/user'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { updateUserSchema } from '~~/shared/services/user'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -17,17 +17,8 @@ export default defineEventHandler(async (event) => {
     const user = await repository.user.find(userId)
     if (!user?.id) {
       throw createError({
-        statusCode: 400,
-        message: 'User already have info',
-      })
-    }
-
-    // Guard: if no user in session
-    const session = await getUserSession(event)
-    if (!session?.user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
+        statusCode: 404,
+        message: 'User not found',
       })
     }
 

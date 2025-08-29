@@ -1,6 +1,6 @@
+import { detachProductFromMenuCategorySchema } from '#shared/services/menu'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { detachProductFromMenuCategorySchema } from '~~/shared/services/menu'
 
 export default defineEventHandler(async (event) => {
   try {

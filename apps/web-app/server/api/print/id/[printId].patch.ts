@@ -1,6 +1,6 @@
+import { updatePrintSchema } from '#shared/services/print'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { updatePrintSchema } from '~~/shared/services/print'
 
 export default defineEventHandler(async (event) => {
   try {

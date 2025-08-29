@@ -14,20 +14,13 @@ export default defineEventHandler(async (event) => {
     const user = await repository.user.find(userId)
     if (!user?.id) {
       throw createError({
-        statusCode: 400,
-        message: 'User already have info',
+        statusCode: 404,
+        message: 'User not found',
       })
     }
 
-    // Guard: if not this user in session
-    const session = await getUserSession(event)
-    if (!session?.user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-    if (session.user.id !== userId) {
+    // Guard: if not this user
+    if (event.context.user.id !== userId) {
       throw createError({
         statusCode: 403,
         message: 'Forbidden',

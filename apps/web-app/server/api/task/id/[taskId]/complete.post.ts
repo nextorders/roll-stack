@@ -1,8 +1,8 @@
 import type { Task, User } from '@roll-stack/database'
+import { completeTaskSchema } from '#shared/services/task'
+import { getLocalizedResolution } from '#shared/utils/helpers'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { completeTaskSchema } from '~~/shared/services/task'
-import { getLocalizedResolution } from '~~/shared/utils/helpers'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -20,15 +20,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const session = await getUserSession(event)
-    if (!session?.user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-
-    const user = await repository.user.find(session.user.id)
+    const user = await repository.user.find(event.context.user.id)
     if (!user) {
       throw createError({
         statusCode: 404,

@@ -1,6 +1,6 @@
+import { updateTaskListSchema } from '#shared/services/task'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { updateTaskListSchema } from '~~/shared/services/task'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -9,14 +9,6 @@ export default defineEventHandler(async (event) => {
       throw createError({
         statusCode: 400,
         message: 'Id is required',
-      })
-    }
-
-    const session = await getUserSession(event)
-    if (!session?.user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
       })
     }
 
@@ -29,7 +21,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // Guard: if don't have access
-    const canEdit = list.chat?.members.some((member) => member.userId === session.user?.id)
+    const canEdit = list.chat?.members.some((member) => member.userId === event.context.user.id)
     if (!canEdit) {
       throw createError({
         statusCode: 403,

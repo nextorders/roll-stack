@@ -1,6 +1,6 @@
+import { attachTelegramSchema } from '#shared/services/telegram'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { attachTelegramSchema } from '~~/shared/services/telegram'
 
 export default defineEventHandler(async (event) => {
   try {

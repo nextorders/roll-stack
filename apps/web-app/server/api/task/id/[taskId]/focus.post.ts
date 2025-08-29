@@ -10,15 +10,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const session = await getUserSession(event)
-    if (!session?.user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-
-    const user = await repository.user.find(session.user.id)
+    const user = await repository.user.find(event.context.user.id)
     if (!user) {
       throw createError({
         statusCode: 404,

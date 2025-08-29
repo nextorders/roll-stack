@@ -1,6 +1,6 @@
+import { updateProductSchema } from '#shared/services/product'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { updateProductSchema } from '~~/shared/services/product'
 
 export default defineEventHandler(async (event) => {
   try {

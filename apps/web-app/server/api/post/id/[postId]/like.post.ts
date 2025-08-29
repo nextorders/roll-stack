@@ -10,16 +10,8 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const session = await getUserSession(event)
-    if (!session?.user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-
     // Guard: already have like on this post
-    const likeInDB = await repository.post.findLike(postId, session.user.id)
+    const likeInDB = await repository.post.findLike(postId, event.context.user.id)
     if (likeInDB) {
       throw createError({
         statusCode: 400,
@@ -27,7 +19,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const like = await repository.post.createLike(postId, session.user.id)
+    const like = await repository.post.createLike(postId, event.context.user.id)
 
     return {
       ok: true,

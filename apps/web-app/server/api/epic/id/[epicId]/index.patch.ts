@@ -1,6 +1,6 @@
+import { updateEpicSchema } from '#shared/services/epic'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { updateEpicSchema } from '~~/shared/services/epic'
 
 export default defineEventHandler(async (event) => {
   try {

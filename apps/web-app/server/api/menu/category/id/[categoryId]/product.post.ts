@@ -1,6 +1,6 @@
+import { attachProductToMenuCategorySchema } from '#shared/services/menu'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { attachProductToMenuCategorySchema } from '~~/shared/services/menu'
 
 export default defineEventHandler(async (event) => {
   try {

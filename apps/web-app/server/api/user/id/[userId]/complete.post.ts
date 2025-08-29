@@ -1,6 +1,6 @@
+import { completeUserSchema } from '#shared/services/user'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { completeUserSchema } from '~~/shared/services/user'
 
 export default defineEventHandler(async (event) => {
   try {

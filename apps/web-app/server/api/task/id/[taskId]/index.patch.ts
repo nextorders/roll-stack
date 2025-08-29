@@ -1,8 +1,8 @@
 import type { Task, User } from '@roll-stack/database'
+import { updateTaskSchema } from '#shared/services/task'
+import { suffixByGender } from '#shared/utils/gender'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { updateTaskSchema } from '~~/shared/services/task'
-import { suffixByGender } from '~~/shared/utils/gender'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -20,22 +20,6 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const session = await getUserSession(event)
-    if (!session?.user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-
-    const user = await repository.user.find(session.user.id)
-    if (!user) {
-      throw createError({
-        statusCode: 404,
-        message: 'User not found',
-      })
-    }
-
     const task = await repository.task.find(taskId)
     if (!task) {
       throw createError({
@@ -47,12 +31,12 @@ export default defineEventHandler(async (event) => {
     const list = await repository.task.findList(task.listId)
     if (!list) {
       throw createError({
-        statusCode: 500,
+        statusCode: 404,
         message: 'Task list not found',
       })
     }
 
-    const canEdit = list.chat?.members.some((member) => member.userId === session.user?.id)
+    const canEdit = list.chat?.members.some((member) => member.userId === event.context.user?.id)
 
     // Guard: if don't have access
     if (!canEdit) {
@@ -76,7 +60,7 @@ export default defineEventHandler(async (event) => {
     if (list.chat) {
       const bot = await repository.chat.findNotificationBot(list.chat.id)
       if (bot) {
-        const text = prepareBotMessage(user, task, updatedTask, updatedPerformer)
+        const text = prepareBotMessage(event.context.user, task, updatedTask, updatedPerformer)
 
         // Send message as bot
         await repository.chat.createMessage({

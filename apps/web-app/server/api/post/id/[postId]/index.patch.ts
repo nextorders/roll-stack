@@ -1,6 +1,6 @@
+import { updatePostSchema } from '#shared/services/post'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { updatePostSchema } from '~~/shared/services/post'
 
 export default defineEventHandler(async (event) => {
   try {

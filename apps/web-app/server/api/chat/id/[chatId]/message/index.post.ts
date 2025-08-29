@@ -1,6 +1,6 @@
+import { createChatMessageSchema } from '#shared/services/chat'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { createChatMessageSchema } from '~~/shared/services/chat'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -18,14 +18,6 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const session = await getUserSession(event)
-    if (!session?.user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-
     const chat = await repository.chat.findWithEntities(chatId)
     if (!chat) {
       throw createError({
@@ -36,7 +28,7 @@ export default defineEventHandler(async (event) => {
 
     const message = await repository.chat.createMessage({
       chatId,
-      userId: session.user.id,
+      userId: event.context.user.id,
       text: data.text,
     })
     if (!message) {

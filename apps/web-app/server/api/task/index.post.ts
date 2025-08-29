@@ -1,7 +1,7 @@
+import { createTaskSchema } from '#shared/services/task'
+import { suffixByGender } from '#shared/utils/gender'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { createTaskSchema } from '~~/shared/services/task'
-import { suffixByGender } from '~~/shared/utils/gender'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -9,22 +9,6 @@ export default defineEventHandler(async (event) => {
     const data = createTaskSchema(body)
     if (data instanceof type.errors) {
       throw data
-    }
-
-    const session = await getUserSession(event)
-    if (!session?.user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-
-    const user = await repository.user.find(session.user.id)
-    if (!user) {
-      throw createError({
-        statusCode: 404,
-        message: 'User not found',
-      })
     }
 
     const task = await repository.task.create({
@@ -53,7 +37,7 @@ export default defineEventHandler(async (event) => {
     if (list.chat) {
       const bot = await repository.chat.findNotificationBot(list.chat.id)
       if (bot) {
-        const text = `${user.name} ${user.surname} ${suffixByGender(['создал', 'создала'], user.gender)} задачу «${task.name}»`
+        const text = `${event.context.user.name} ${event.context.user.surname} ${suffixByGender(['создал', 'создала'], event.context.user.gender)} задачу «${task.name}»`
 
         // Send message as bot
         await repository.chat.createMessage({
