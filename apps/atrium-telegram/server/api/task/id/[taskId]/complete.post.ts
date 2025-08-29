@@ -20,14 +20,6 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const user = event.context.user
-    if (!user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-
     // Guards:
     // If task not exist
     // If performer is not user
@@ -38,7 +30,7 @@ export default defineEventHandler(async (event) => {
         message: 'Task not found',
       })
     }
-    if (!!task.performerId && task.performerId !== user.id) {
+    if (!!task.performerId && task.performerId !== event.context.user.id) {
       throw createError({
         statusCode: 403,
         message: 'You are not the performer of this task',
@@ -57,8 +49,8 @@ export default defineEventHandler(async (event) => {
     }
 
     // Clear focus if needed
-    if (user.focusedTaskId === taskId) {
-      await repository.user.update(user.id, {
+    if (event.context.user.focusedTaskId === taskId) {
+      await repository.user.update(event.context.user.id, {
         focusedTaskId: null,
       })
     }
@@ -75,7 +67,7 @@ export default defineEventHandler(async (event) => {
     if (list.chat) {
       const bot = await repository.chat.findNotificationBot(list.chat.id)
       if (bot) {
-        const text = prepareBotMessage(user, updatedTask)
+        const text = prepareBotMessage(event.context.user, updatedTask)
 
         // Send message as bot
         await repository.chat.createMessage({
@@ -87,18 +79,18 @@ export default defineEventHandler(async (event) => {
     }
 
     // Notify all staff
-    if (user.type === 'staff') {
+    if (event.context.user.type === 'staff') {
       const users = await repository.user.list()
-      const allStaffExceptUser = users.filter((u) => u.type === 'staff' && u.id !== user.id)
+      const allStaffExceptUser = users.filter((u) => u.type === 'staff' && u.id !== event.context.user.id)
 
       for (const staff of allStaffExceptUser) {
         if (staff.notifications.includes('task_completed_atrium')) {
           await repository.notification.create({
-            authorId: user.id,
+            authorId: event.context.user.id,
             userId: staff.id,
             taskId: updatedTask.id,
             type: 'task_completed',
-            title: `${suffixByGender(['Завершил', 'Завершила'], user.gender)} задачу «${updatedTask.name}»`,
+            title: `${suffixByGender(['Завершил', 'Завершила'], event.context.user.gender)} задачу «${updatedTask.name}»`,
             description: updatedTask.report ? updatedTask.report : 'Без отчета',
           })
         }

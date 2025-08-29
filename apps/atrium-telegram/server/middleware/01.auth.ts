@@ -7,8 +7,30 @@ import { parse, validate } from '@telegram-apps/init-data-node'
 
 const logger = useLogger('middleware:auth')
 
+const routesWithoutAuth = [
+  '/api/health',
+]
+
+/**
+ * Cover all requests (except the ones without auth)
+ */
 export default defineEventHandler(async (event) => {
-  event.context.user = await getUserFromToken(event)
+  // Skip routes without auth
+  if (!event.path.startsWith('/api') || routesWithoutAuth.includes(event.path)) {
+    return
+  }
+
+  const user = await getUserFromToken(event)
+
+  // No auth?
+  if (!user) {
+    throw createError({
+      statusCode: 401,
+      message: 'Unauthorized',
+    })
+  }
+
+  event.context.user = user
 })
 
 async function getUserFromToken(event: H3Event): Promise<User | null> {

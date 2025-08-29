@@ -10,16 +10,8 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const user = event.context.user
-    if (!user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-
     // Guard: Must be user as a member
-    if (data.usersId.length === 0 && !data.usersId.includes(user.id)) {
+    if (data.usersId.length === 0 && !data.usersId.includes(event.context.user.id)) {
       throw createError({
         statusCode: 400,
         message: 'Must be user as a member',

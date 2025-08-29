@@ -10,14 +10,6 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const user = event.context.user
-    if (!user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-
     // Guard: not this user
     const commentInDB = await repository.epic.findComment(commentId)
     if (!commentInDB) {
@@ -26,7 +18,7 @@ export default defineEventHandler(async (event) => {
         message: 'Not found',
       })
     }
-    if (commentInDB.userId !== user.id) {
+    if (commentInDB.userId !== event.context.user.id) {
       throw createError({
         statusCode: 400,
         message: 'Not your comment',

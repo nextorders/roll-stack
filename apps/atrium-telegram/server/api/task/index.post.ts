@@ -11,14 +11,6 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const user = event.context.user
-    if (!user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-
     const task = await repository.task.create({
       name: data.name,
       description: data.description,
@@ -45,7 +37,7 @@ export default defineEventHandler(async (event) => {
     if (list.chat) {
       const bot = await repository.chat.findNotificationBot(list.chat.id)
       if (bot) {
-        const text = `${user.name} ${user.surname} ${suffixByGender(['создал', 'создала'], user.gender)} задачу «${task.name}»`
+        const text = `${event.context.user.name} ${event.context.user.surname} ${suffixByGender(['создал', 'создала'], event.context.user.gender)} задачу «${task.name}»`
 
         // Send message as bot
         await repository.chat.createMessage({
