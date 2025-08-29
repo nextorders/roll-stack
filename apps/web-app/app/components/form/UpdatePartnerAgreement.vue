@@ -112,7 +112,7 @@ import type { UpdatePartnerAgreement } from '#shared/services/partner'
 import type { FormSubmitEvent } from '@nuxt/ui'
 import type { AgreementPatentStatus } from '@roll-stack/database'
 import { updatePartnerAgreementSchema } from '#shared/services/partner'
-import { getPatentStatusForSelect } from '~~/shared/utils/helpers'
+import { getPatentStatusForSelect } from '#shared/utils/helpers'
 
 const { agreementId } = defineProps<{
   agreementId: string
@@ -153,7 +153,11 @@ watch(selectedLegalEntity, (newValue) => {
 
 const patentStatuses = computed(() => getPatentStatusForSelect())
 
-const selectedPatentStatus = ref<{ value: AgreementPatentStatus, label: string }>(patentStatuses.value.find((patentStatus) => patentStatus.value === agreement.value?.patentStatus) ?? { value: 'in_work', label: 'Не определено' })
+type PatentStatusSelectedValue = { value: AgreementPatentStatus, label: string }
+
+const selectedPatentStatus = ref<PatentStatusSelectedValue>(
+  patentStatuses.value.find((s) => s.value === agreement.value?.patentStatus) ?? getPatentStatusForSelect()[0] as PatentStatusSelectedValue,
+)
 
 watch(selectedPatentStatus, (newValue) => {
   state.value.patentStatus = newValue?.value
