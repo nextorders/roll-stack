@@ -69,6 +69,23 @@
       />
     </UFormField>
 
+    <UFormField
+      label="Роспатент"
+      name="patentStatus"
+      required
+    >
+      <USelectMenu
+        v-model="selectedPatentStatus"
+        :items="patentStatuses"
+        :placeholder="$t('common.select')"
+        :content="{
+          side: 'top',
+        }"
+        size="xl"
+        class="w-full"
+      />
+    </UFormField>
+
     <UFormField :label="$t('common.comment')" name="comment">
       <UInput
         v-model="state.comment"
@@ -93,7 +110,9 @@
 <script setup lang="ts">
 import type { UpdatePartnerAgreement } from '#shared/services/partner'
 import type { FormSubmitEvent } from '@nuxt/ui'
+import type { AgreementPatentStatus } from '@roll-stack/database'
 import { updatePartnerAgreementSchema } from '#shared/services/partner'
+import { getPatentStatusForSelect } from '~~/shared/utils/helpers'
 
 const { agreementId } = defineProps<{
   agreementId: string
@@ -116,6 +135,7 @@ const state = ref<Partial<UpdatePartnerAgreement>>({
   lumpSumPayment: agreement.value?.lumpSumPayment,
   comment: agreement.value?.comment ?? undefined,
   legalEntityId: agreement.value?.legalEntityId ?? undefined,
+  patentStatus: agreement.value?.patentStatus,
 })
 
 const legalEntities = computed(() => partnerStore.legalEntities.map((legalEntity) => {
@@ -129,6 +149,14 @@ const selectedLegalEntity = ref(legalEntities.value.find((legalEntity) => legalE
 
 watch(selectedLegalEntity, (newValue) => {
   state.value.legalEntityId = newValue?.value
+})
+
+const patentStatuses = computed(() => getPatentStatusForSelect())
+
+const selectedPatentStatus = ref<{ value: AgreementPatentStatus, label: string }>(patentStatuses.value.find((patentStatus) => patentStatus.value === agreement.value?.patentStatus) ?? { value: 'in_work', label: 'Не определено' })
+
+watch(selectedPatentStatus, (newValue) => {
+  state.value.patentStatus = newValue?.value
 })
 
 async function onSubmit(event: FormSubmitEvent<UpdatePartnerAgreement>) {

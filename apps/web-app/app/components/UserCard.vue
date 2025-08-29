@@ -38,6 +38,7 @@
 
 <script setup lang="ts">
 import type { User } from '@roll-stack/database'
+import { getUserTypeLabel } from '#shared/utils/helpers'
 
 defineProps<{
   user: User

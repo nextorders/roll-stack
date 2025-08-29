@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row gap-1.5 items-center">
+  <div class="flex flex-row gap-1.5 items-center motion-preset-slide-left">
     <UPopover
       v-for="file in files"
       :key="file.id"

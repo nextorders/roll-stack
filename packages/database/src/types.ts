@@ -18,6 +18,8 @@ export type UserType = 'staff'
   | 'bot'
 export type UserGender = 'male' | 'female' | 'unknown'
 
+export type AgreementPatentStatus = 'in_work' | 'on_registration' | 'registered'
+
 export type Permission = InferSelectModel<typeof tables.permissions>
 export type PermissionDraft = InferInsertModel<typeof tables.permissions>
 
