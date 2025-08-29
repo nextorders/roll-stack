@@ -1,5 +1,5 @@
 <template>
-  <div class="relative active:scale-90 duration-200" @click="vibrate()">
+  <div class="relative active:scale-95 duration-200" @click="vibrate()">
     <Section>
       <slot />
     </Section>
