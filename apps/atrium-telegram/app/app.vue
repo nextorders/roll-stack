@@ -6,7 +6,6 @@
       position: 'top-center',
       class: 'mt-20',
     }"
-    class="min-h-svh"
   >
     <NuxtLoadingIndicator :color="false" class="bg-primary h-[2px]" />
     <NuxtLayout>

@@ -28,6 +28,11 @@ export default defineNuxtConfig({
       coreApiUrl: '',
     },
   },
+  app: {
+    rootAttrs: {
+      'data-vaul-drawer-wrapper': '',
+    },
+  },
   ui: {
     colorMode: true,
     fonts: false,
