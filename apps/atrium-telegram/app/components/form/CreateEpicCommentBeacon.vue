@@ -8,24 +8,23 @@
     <div class="flex flex-row gap-3 items-center text-muted">
       <UIcon name="i-lucide-bell-plus" class="shrink-0 size-6" />
       <p class="text-sm/4">
-        Отметьте пользователей, которым хотите отправить уведомление
+        Отметьте, кому хотите отправить уведомление
       </p>
     </div>
 
     <UFormField
-      label="Получатели"
+      label="Получатель"
       name="members"
       required
     >
       <USelectMenu
-        v-model="selectedMembers"
+        v-model="selectedMember"
         :items="availableMembers"
-        :avatar="selectedMembers[0]?.avatar"
+        :avatar="selectedMember?.avatar"
         :placeholder="$t('common.select')"
         :content="{
           side: 'top',
         }"
-        multiple
         size="xl"
         class="w-full"
       />
@@ -82,14 +81,14 @@ const availableMembers = computed(() => {
     },
   }))
 })
-const selectedMembers = ref<FormMember[]>([])
+const selectedMember = ref<FormMember>()
 
-watch(selectedMembers, () => {
-  if (!selectedMembers.value) {
+watch(selectedMember, () => {
+  if (!selectedMember.value) {
     return
   }
 
-  state.value.usersId = selectedMembers.value?.map((member) => member?.value)
+  state.value.usersId = [selectedMember.value.value]
 })
 
 async function onSubmit(event: FormSubmitEvent<CreateBeacon>) {
