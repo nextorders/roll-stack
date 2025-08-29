@@ -1,6 +1,6 @@
+import { createPartnerAgreementSchema } from '#shared/services/partner'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { createPartnerAgreementSchema } from '~~/shared/services/partner'
 
 export default defineEventHandler(async (event) => {
   try {

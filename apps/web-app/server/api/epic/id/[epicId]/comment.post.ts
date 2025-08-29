@@ -1,6 +1,6 @@
+import { createEpicCommentSchema } from '#shared/services/epic'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { createEpicCommentSchema } from '~~/shared/services/epic'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -12,14 +12,6 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const session = await getUserSession(event)
-    if (!session?.user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-
     const body = await readBody(event)
     const data = createEpicCommentSchema(body)
     if (data instanceof type.errors) {
@@ -28,7 +20,7 @@ export default defineEventHandler(async (event) => {
 
     const comment = await repository.epic.createComment({
       ...data,
-      userId: session.user.id,
+      userId: event.context.user.id,
       epicId,
     })
 

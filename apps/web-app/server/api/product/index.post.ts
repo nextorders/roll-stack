@@ -1,7 +1,7 @@
+import { createProductSchema } from '#shared/services/product'
 import { createId } from '@paralleldrive/cuid2'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { createProductSchema } from '~~/shared/services/product'
 
 export default defineEventHandler(async (event) => {
   try {

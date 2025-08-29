@@ -6,7 +6,7 @@ import sharp from 'sharp'
 const POSTS_DIRECTORY = 'posts'
 const IMAGE_SIZES = [600, 1200]
 const IMAGE_FORMATS = ['jpg', 'webp'] as const
-const ACCEPTED_IMAGE_FORMATS = ['jpeg', 'jpg', 'png', 'webp']
+const ACCEPTED_IMAGE_FORMATS = ['jpeg', 'jpg', 'png', 'webp', 'heif', 'avif']
 
 export default defineEventHandler(async (event) => {
   let sharpStream

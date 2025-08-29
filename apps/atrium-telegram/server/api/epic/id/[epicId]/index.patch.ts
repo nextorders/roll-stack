@@ -12,14 +12,6 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const user = event.context.user
-    if (!user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-
     const body = await readBody(event)
     const data = updateEpicSchema(body)
     if (data instanceof type.errors) {

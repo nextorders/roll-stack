@@ -1,6 +1,6 @@
+import { createChatSchema } from '#shared/services/chat'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { createChatSchema } from '~~/shared/services/chat'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -10,16 +10,8 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const session = await getUserSession(event)
-    if (!session?.user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-
     // Guard: Must be user as a member
-    if (data.usersId.length === 0 && !data.usersId.includes(session.user.id)) {
+    if (data.usersId.length === 0 && !data.usersId.includes(event.context.user.id)) {
       throw createError({
         statusCode: 400,
         message: 'Must be user as a member',

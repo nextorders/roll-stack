@@ -7,7 +7,7 @@ const PRODUCTS_DIRECTORY = 'products'
 
 const IMAGE_SIZES = [120, 300, 600, 840, 1200]
 const IMAGE_FORMATS = ['jpg', 'webp'] as const
-const ACCEPTED_IMAGE_FORMATS = ['jpeg', 'jpg', 'png', 'webp']
+const ACCEPTED_IMAGE_FORMATS = ['jpeg', 'jpg', 'png', 'webp', 'avif', 'heif']
 
 export default defineEventHandler(async (event) => {
   let sharpStream

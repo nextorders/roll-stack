@@ -1,7 +1,7 @@
+import { createTicketMessageSchema } from '#shared/services/ticket'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
 import { useWasabiBot } from '~~/server/services/telegram/wasabi-bot'
-import { createTicketMessageSchema } from '~~/shared/services/ticket'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -21,14 +21,6 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const session = await getUserSession(event)
-    if (!session?.user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-
     const ticket = await repository.ticket.find(ticketId)
     if (!ticket) {
       throw createError({
@@ -39,7 +31,7 @@ export default defineEventHandler(async (event) => {
 
     const message = await repository.ticket.createMessage({
       ticketId,
-      userId: session.user.id,
+      userId: event.context.user.id,
       text: data.text,
     })
     if (!message) {
@@ -49,18 +41,10 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const user = await repository.user.find(session.user.id)
-    if (!user) {
-      throw createError({
-        statusCode: 404,
-        message: 'User not found',
-      })
-    }
-
     const wasabiUser = await repository.telegram.findUserByIdAndBotId(ticket.userId, telegram.wasabiBotId)
     if (wasabiUser) {
       // Send message to Telegram
-      const text = `${user.name} ${user.surname}: ${data.text}`
+      const text = `${event.context.user.name} ${event.context.user.surname}: ${data.text}`
       await useWasabiBot().api.sendMessage(wasabiUser.telegramId, text)
     }
 

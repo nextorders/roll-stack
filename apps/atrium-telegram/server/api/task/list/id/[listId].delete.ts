@@ -10,14 +10,6 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const user = event.context.user
-    if (!user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-
     const list = await repository.task.findList(listId)
     if (!list) {
       throw createError({
@@ -27,7 +19,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // Guard: if don't have access
-    const canEdit = list.chat?.members.some((member) => member.userId === user.id)
+    const canEdit = list.chat?.members.some((member) => member.userId === event.context.user.id)
     if (!canEdit) {
       throw createError({
         statusCode: 403,

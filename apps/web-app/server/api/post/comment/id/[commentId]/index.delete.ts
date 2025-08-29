@@ -10,14 +10,6 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const session = await getUserSession(event)
-    if (!session?.user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-
     // Guard: not this user
     const commentInDB = await repository.post.findComment(commentId)
     if (!commentInDB) {
@@ -26,7 +18,7 @@ export default defineEventHandler(async (event) => {
         message: 'Not found',
       })
     }
-    if (commentInDB.userId !== session.user.id) {
+    if (commentInDB.userId !== event.context.user.id) {
       throw createError({
         statusCode: 400,
         message: 'Not your comment',

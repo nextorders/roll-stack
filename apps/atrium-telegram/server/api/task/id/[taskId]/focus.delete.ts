@@ -10,14 +10,6 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const user = event.context.user
-    if (!user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-
     // Guards:
     // If task not exist
     // If performer is not user
@@ -28,14 +20,14 @@ export default defineEventHandler(async (event) => {
         message: 'Task not found',
       })
     }
-    if (task.performerId !== user.id) {
+    if (task.performerId !== event.context.user.id) {
       throw createError({
         statusCode: 403,
         message: 'You are not the performer of this task',
       })
     }
 
-    await repository.user.update(user.id, {
+    await repository.user.update(event.context.user.id, {
       focusedTaskId: null,
     })
 

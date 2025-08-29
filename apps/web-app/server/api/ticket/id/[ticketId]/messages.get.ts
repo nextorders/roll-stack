@@ -10,14 +10,6 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const session = await getUserSession(event)
-    if (!session?.user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-
     return repository.ticket.listMessages(ticketId)
   } catch (error) {
     throw errorResolver(error)

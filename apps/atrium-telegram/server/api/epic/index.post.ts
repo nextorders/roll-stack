@@ -10,17 +10,9 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const user = event.context.user
-    if (!user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
-      })
-    }
-
     const epic = await repository.epic.create({
       ...data,
-      userId: user.id,
+      userId: event.context.user.id,
     })
     if (!epic) {
       throw createError({
@@ -30,17 +22,17 @@ export default defineEventHandler(async (event) => {
     }
 
     // Notify all staff
-    if (user.type === 'staff') {
+    if (event.context.user.type === 'staff') {
       const users = await repository.user.list()
-      const allStaffExceptUser = users.filter((u) => u.type === 'staff' && u.id !== user.id)
+      const allStaffExceptUser = users.filter((u) => u.type === 'staff' && u.id !== event.context.user.id)
 
       for (const staff of allStaffExceptUser) {
         await repository.notification.create({
-          authorId: user.id,
+          authorId: event.context.user.id,
           userId: staff.id,
           epicId: epic.id,
           type: 'epic_created',
-          title: `${suffixByGender(['Создал', 'Создала'], user.gender)} эпик «${epic.title}»`,
+          title: `${suffixByGender(['Создал', 'Создала'], event.context.user.gender)} эпик «${epic.title}»`,
           description: epic.description ? epic.description : 'Без описания',
         })
       }

@@ -1,6 +1,6 @@
+import { updateActivityScheduleItemSchema } from '#shared/services/activity'
 import { repository } from '@roll-stack/database'
 import { type } from 'arktype'
-import { updateActivityScheduleItemSchema } from '~~/shared/services/activity'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -18,15 +18,6 @@ export default defineEventHandler(async (event) => {
       throw createError({
         statusCode: 404,
         message: 'Item not found',
-      })
-    }
-
-    // Guard: if not user in session
-    const session = await getUserSession(event)
-    if (!session?.user) {
-      throw createError({
-        statusCode: 401,
-        message: 'Not logged in',
       })
     }
 
