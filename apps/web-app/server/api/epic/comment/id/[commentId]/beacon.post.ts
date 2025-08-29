@@ -62,8 +62,26 @@ export default defineEventHandler(async (event) => {
 
       // Telegram - Atrium
       const atriumUser = user.telegramUsers.find((u) => u.botId === telegram.atriumBotId)
-      if (atriumUser) {
-        await useAtriumBot().api.sendMessage(atriumUser.telegramId, `👋 ${sender.name} ${sender.surname}\n${title}\n\n${description}`)
+      const bot = await repository.telegram.findBot(telegram.atriumBotId)
+
+      if (bot && atriumUser) {
+        const separator = 'zzzzz'
+        const startAppData = `epic${separator}${epic?.id}`
+
+        await useAtriumBot()
+          .api
+          .sendMessage(
+            atriumUser.telegramId,
+            `👋 ${sender.name} ${sender.surname}\n${title}\n\n${description}`,
+            {
+              reply_markup: {
+                inline_keyboard: [[{
+                  text: 'Открыть эпик',
+                  url: `https://t.me/${bot.username}/app?startapp=${startAppData}`,
+                }]],
+              },
+            },
+          )
       }
     }
 
