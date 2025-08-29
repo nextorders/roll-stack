@@ -65,6 +65,7 @@ const epicStore = useEpicStore()
 const notificationStore = useNotificationStore()
 
 const state = ref<Partial<CreateBeacon>>({
+  id: commentId,
   senderId: userStore.id,
   usersId: [],
 })
@@ -97,7 +98,7 @@ async function onSubmit(event: FormSubmitEvent<CreateBeacon>) {
   const { public: publicEnv } = useRuntimeConfig()
 
   try {
-    await $fetch(`${publicEnv.coreApiUrl}/epic/comment/id/${commentId}/beacon`, {
+    await $fetch(`${publicEnv.coreApiUrl}/beacon/epic/comment`, {
       method: 'POST',
       body: event.data,
     })
