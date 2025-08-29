@@ -42,9 +42,9 @@
 </template>
 
 <script setup lang="ts">
+import type { CreateBeacon } from '#shared/services/notification'
 import type { FormSubmitEvent } from '@nuxt/ui'
-import type { CreateBeacon } from '~~/shared/services/notification'
-import { createBeaconSchema } from '~~/shared/services/notification'
+import { createBeaconSchema } from '#shared/services/notification'
 
 const { commentId } = defineProps<{
   commentId: string
@@ -62,6 +62,7 @@ const epicStore = useEpicStore()
 const notificationStore = useNotificationStore()
 
 const state = ref<Partial<CreateBeacon>>({
+  id: commentId,
   senderId: userStore.id,
   usersId: [],
 })
@@ -93,7 +94,7 @@ async function onSubmit(event: FormSubmitEvent<CreateBeacon>) {
   emit('submitted')
 
   try {
-    await $fetch(`/api/epic/comment/id/${commentId}/beacon`, {
+    await $fetch('/api/beacon/epic/comment', {
       method: 'POST',
       body: event.data,
     })

@@ -8,6 +8,7 @@ const routesWithoutAuth = [
   '/api/health',
   '/api/agent', // token from headers
   '/api/auth/sign-in', // user from body
+  '/api/beacon/epic/comment',
   '/api/avatar', // public
   '/api/cuid', // public
   '/api/qr', // public

@@ -5,14 +5,6 @@ import { useAtriumBot } from '~~/server/services/telegram/atrium-bot'
 
 export default defineEventHandler(async (event) => {
   try {
-    const commentId = getRouterParam(event, 'commentId')
-    if (!commentId) {
-      throw createError({
-        statusCode: 400,
-        message: 'Id is required',
-      })
-    }
-
     const body = await readBody(event)
     const data = createBeaconSchema(body)
     if (data instanceof type.errors) {
@@ -21,7 +13,7 @@ export default defineEventHandler(async (event) => {
 
     const { telegram } = useRuntimeConfig()
 
-    const comment = await repository.epic.findComment(commentId)
+    const comment = await repository.epic.findComment(data.id)
     if (!comment) {
       throw createError({
         statusCode: 404,
