@@ -1,9 +1,9 @@
 <template>
-  <div class="relative active:scale-95 duration-200" @click="vibrate()">
+  <button class="relative w-full active:scale-95 duration-200 text-left cursor-pointer outline-0" @click="vibrate()">
     <Section>
       <slot />
     </Section>
-  </div>
+  </button>
 </template>
 
 <script setup lang="ts">
