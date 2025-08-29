@@ -15,6 +15,11 @@ const routesWithoutAuth = [
  * Cover all requests (except the ones without auth)
  */
 export default defineEventHandler(async (event) => {
+  // Skip if preflight
+  if (event.method === 'OPTIONS') {
+    return
+  }
+
   // Skip routes without auth
   if (!event.path.startsWith('/api') || routesWithoutAuth.includes(event.path)) {
     return
