@@ -2,22 +2,22 @@ export default defineAppConfig({
   ui: {
     input: {
       slots: {
-        base: '!ring-muted placeholder:text-muted/25',
+        base: '!ring-muted placeholder:text-muted/50',
       },
     },
     inputMenu: {
       slots: {
-        base: '!ring-muted placeholder:text-muted/25',
+        base: '!ring-muted placeholder:text-muted/50',
       },
     },
     selectMenu: {
       slots: {
-        base: '!ring-muted placeholder:text-muted/25',
+        base: '!ring-muted placeholder:text-muted/50',
       },
     },
     textarea: {
       slots: {
-        base: '!ring-muted placeholder:text-muted/25',
+        base: '!ring-muted placeholder:text-muted/50',
       },
     },
     button: {

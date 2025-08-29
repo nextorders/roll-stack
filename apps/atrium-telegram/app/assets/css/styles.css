@@ -106,7 +106,7 @@
 }
 
 html, body {
-  background: transparent !important;
+  background: var(--tg-theme-secondary-bg-color, transparent) !important;
 }
 
 ::-webkit-scrollbar {

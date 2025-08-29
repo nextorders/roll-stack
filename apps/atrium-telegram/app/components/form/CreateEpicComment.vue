@@ -5,10 +5,11 @@
     class="flex flex-col gap-3"
     @submit="onSubmit"
   >
-    <UFormField label="Комментарий" name="text">
+    <UFormField label="Ваш комментарий" name="text">
       <UTextarea
         v-model="state.text"
         placeholder="Напишите свою мысль..."
+        :rows="5"
         autoresize
         size="xl"
         class="w-full"

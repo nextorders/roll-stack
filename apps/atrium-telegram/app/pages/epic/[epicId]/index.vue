@@ -38,17 +38,28 @@
       />
     </div>
 
-    <CreateCard
-      v-if="epic?.id"
-      :label="$t('app.create.epic-comment.button')"
-      icon="i-lucide-message-circle"
-      @click="modalCreateEpicComment.open({ epicId: epic.id })"
-    />
+    <UDrawer should-scale-background :set-background-color-on-scale="false">
+      <CreateCard
+        v-if="epic?.id"
+        :label="$t('app.create.epic-comment.button')"
+        icon="i-lucide-message-circle"
+      />
+
+      <template #content>
+        <div class="p-4">
+          <FormCreateEpicComment
+            :epic-id="epic?.id ?? ''"
+            @submitted="overlay.closeAll"
+            @success="overlay.closeAll"
+          />
+        </div>
+      </template>
+    </UDrawer>
   </PageContainer>
 </template>
 
 <script setup lang="ts">
-import { ModalCreateEpicComment, ModalUpdateEpic } from '#components'
+import { ModalUpdateEpic } from '#components'
 
 const { params } = useRoute('epic-epicId')
 
@@ -58,7 +69,6 @@ const epic = computed(() => epicStore.epics.find((e) => e.id === params.epicId))
 
 const overlay = useOverlay()
 const modalUpdateEpic = overlay.create(ModalUpdateEpic)
-const modalCreateEpicComment = overlay.create(ModalCreateEpicComment)
 
 function handleEditEpic() {
   if (!epic.value?.id) {
