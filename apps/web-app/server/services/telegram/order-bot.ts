@@ -60,9 +60,12 @@ async function handleStart(ctx: Context) {
   if (!telegramUser) {
     // Get phone number
     await ctx.reply(
-      `Всего один шаг — подтвердите номер телефона 📱👇\n\n*Продолжая, вы подтверждаете своё согласие на [сбор и обработку персональных данных](https://sushi-love.ru), а также принимаете условия [Пользовательского соглашения](https://sushi-love.ru)*`,
+      `Всего один шаг — подтвердите номер телефона 📱👇\n\n_Продолжая, вы подтверждаете своё согласие на [сбор и обработку персональных данных](https://sushi-love.ru), а также принимаете условия [Пользовательского соглашения](https://sushi-love.ru)_`,
       {
         parse_mode: 'MarkdownV2',
+        link_preview_options: {
+          is_disabled: true,
+        },
         reply_markup: {
           keyboard: [[{ text: 'Подтвердить номер', request_contact: true }]],
           one_time_keyboard: true,
@@ -98,20 +101,30 @@ async function handleContact(ctx: Context) {
     surname: ctx.message.from.last_name,
   })
 
-  const telegramUser = await repository.telegram.createUser({
-    telegramUserType: ctx.message.chat.type,
-    telegramId: ctx.message.from.id.toString(),
-    firstName: ctx.message.from.first_name,
-    lastName: ctx.message.from.last_name,
-    username: ctx.message.from.username,
-    botId: telegram.orderBotId,
-    accessKey: createId(),
-    clientId: client.id,
-  })
+  const telegramUser = await repository.telegram.findClientByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.orderBotId)
+  if (!telegramUser?.id) {
+    const telegramUser = await repository.telegram.createUser({
+      telegramUserType: ctx.message.chat.type,
+      telegramId: ctx.message.from.id.toString(),
+      firstName: ctx.message.from.first_name,
+      lastName: ctx.message.from.last_name,
+      username: ctx.message.from.username,
+      botId: telegram.orderBotId,
+      accessKey: createId(),
+      clientId: client.id,
+    })
 
-  logger.log('new user', telegramUser)
+    logger.log('new user', telegramUser)
 
-  await ctx.reply('Успех! Теперь вы можете совершать заказы.')
+    await ctx.reply('Успех! Теперь вы можете совершать заказы.', {
+      reply_markup: {
+        keyboard: [],
+      },
+    })
+    return
+  }
+
+  await ctx.reply('Номер уже подтвержден.')
 }
 
 async function handleMessage(ctx: Context) {
