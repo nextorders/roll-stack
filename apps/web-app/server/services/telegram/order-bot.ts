@@ -67,8 +67,9 @@ async function handleStart(ctx: Context) {
           is_disabled: true,
         },
         reply_markup: {
-          keyboard: [[{ text: 'Подтвердить номер', request_contact: true }]],
-          one_time_keyboard: true,
+          keyboard: [
+            [{ text: 'Подтвердить номер', request_contact: true }],
+          ],
           resize_keyboard: true,
         },
       },
@@ -116,9 +117,20 @@ async function handleContact(ctx: Context) {
 
     logger.log('new user', telegramUser)
 
+    await ctx.setChatMenuButton({
+      chat_id: ctx.message.chat.id,
+      menu_button: {
+        type: 'web_app',
+        text: 'Заказать',
+        web_app: {
+          url: 'https://t.me/sushi_love_order_bot/app',
+        },
+      },
+    })
+
     await ctx.reply('Успех! Теперь вы можете совершать заказы.', {
       reply_markup: {
-        keyboard: [],
+        remove_keyboard: true,
       },
     })
     return
