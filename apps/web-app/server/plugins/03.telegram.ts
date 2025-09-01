@@ -1,5 +1,6 @@
 import process from 'node:process'
 import { useCreateAtriumBot } from '../services/telegram/atrium-bot'
+import { useCreateOrderBot } from '../services/telegram/order-bot'
 import { useCreateWasabiBot } from '../services/telegram/wasabi-bot'
 
 export default defineNitroPlugin(async () => {
@@ -21,6 +22,7 @@ export default defineNitroPlugin(async () => {
   await Promise.all([
     useCreateWasabiBot(),
     useCreateAtriumBot(),
+    useCreateOrderBot(),
   ])
 
   logger.success('Telegram bots started successfully')

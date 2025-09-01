@@ -1,0 +1,25 @@
+<template>
+  <UIcon name="i-lucide-loader" class="animate-spin" />
+</template>
+
+<script setup lang="ts">
+// Data as query param from Telegram
+const separator = 'zzzzz'
+const { query } = useRoute()
+const { tgWebAppStartParam } = query
+
+if (tgWebAppStartParam?.length && tgWebAppStartParam.includes(separator)) {
+  const data = tgWebAppStartParam.toString()
+  const params = data.split(separator)
+
+  const [key, value] = params
+
+  if (!key || !value) {
+    await navigateTo('/')
+  }
+
+  await navigateTo('/')
+} else {
+  await navigateTo('/')
+}
+</script>
