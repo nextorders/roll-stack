@@ -10,6 +10,14 @@ export class Client {
     })
   }
 
+  static async findByPhone(phone: string) {
+    const preparedPhone = phone.replace(/\D/g, '') // +79999999999
+
+    return useDatabase().query.clients.findFirst({
+      where: (clients, { eq }) => eq(clients.phone, preparedPhone),
+    })
+  }
+
   static async findReview(id: string) {
     return useDatabase().query.clientReviews.findFirst({
       where: (reviews, { eq }) => eq(reviews.id, id),

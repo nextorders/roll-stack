@@ -603,6 +603,7 @@ export const clients = pgTable('clients', {
   createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   isActive: boolean('is_active').notNull().default(true),
+  phone: varchar('phone').notNull(),
   name: varchar('name').notNull(),
   surname: varchar('surname'),
   avatarUrl: varchar('avatar_url'),
