@@ -1,9 +1,15 @@
-import type { ClientReviewDraft } from '../types'
+import type { ClientDraft, ClientReviewDraft } from '../types'
 import { eq, sql } from 'drizzle-orm'
 import { useDatabase } from '../database'
-import { clientReviews } from '../tables'
+import { clientReviews, clients } from '../tables'
 
 export class Client {
+  static async find(id: string) {
+    return useDatabase().query.clients.findFirst({
+      where: (clients, { eq }) => eq(clients.id, id),
+    })
+  }
+
   static async findReview(id: string) {
     return useDatabase().query.clientReviews.findFirst({
       where: (reviews, { eq }) => eq(reviews.id, id),
@@ -33,9 +39,26 @@ export class Client {
     })
   }
 
+  static async create(data: ClientDraft) {
+    const [client] = await useDatabase().insert(clients).values(data).returning()
+    return client
+  }
+
   static async createReview(data: ClientReviewDraft) {
     const [review] = await useDatabase().insert(clientReviews).values(data).returning()
     return review
+  }
+
+  static async update(id: string, data: Partial<ClientDraft>) {
+    const [client] = await useDatabase()
+      .update(clients)
+      .set({
+        ...data,
+        updatedAt: sql`now()`,
+      })
+      .where(eq(clients.id, id))
+      .returning()
+    return client
   }
 
   static async updateReview(id: string, data: Partial<ClientReviewDraft>) {

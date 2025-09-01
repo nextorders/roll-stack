@@ -409,6 +409,7 @@ export const checkouts = pgTable('checkouts', {
   cashAmount: integer('cash_amount'),
   kitchenId: cuid2('kitchen_id').notNull().references(() => kitchens.id),
   paymentMethodId: cuid2('payment_method_id').references(() => paymentMethods.id),
+  clientId: cuid2('client_id').references(() => clients.id),
 })
 
 export const checkoutItems = pgTable('checkout_items', {
@@ -597,6 +598,16 @@ export const feedbackPoints = pgTable('feedback_points', {
   kitchenId: cuid2('kitchen_id').notNull().references(() => kitchens.id),
 })
 
+export const clients = pgTable('clients', {
+  id: cuid2('id').defaultRandom().primaryKey(),
+  createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  isActive: boolean('is_active').notNull().default(true),
+  name: varchar('name').notNull(),
+  surname: varchar('surname'),
+  avatarUrl: varchar('avatar_url'),
+})
+
 export const clientReviews = pgTable('client_reviews', {
   id: cuid2('id').defaultRandom().primaryKey(),
   createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
@@ -642,6 +653,10 @@ export const telegramUsers = pgTable('telegram_users', {
   username: varchar('username'),
   title: varchar('title'),
   userId: cuid2('user_id').references(() => users.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
+  clientId: cuid2('client_id').references(() => clients.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',
   }),
@@ -989,6 +1004,10 @@ export const checkoutRelations = relations(checkouts, ({ many, one }) => ({
     fields: [checkouts.kitchenId],
     references: [kitchens.id],
   }),
+  client: one(clients, {
+    fields: [checkouts.clientId],
+    references: [clients.id],
+  }),
 }))
 
 export const checkoutItemRelations = relations(checkoutItems, ({ one }) => ({
@@ -1127,6 +1146,11 @@ export const feedbackPointRelations = relations(feedbackPoints, ({ one, many }) 
   reviews: many(clientReviews),
 }))
 
+export const clientRelations = relations(clients, ({ many }) => ({
+  telegramUsers: many(telegramUsers),
+  checkouts: many(checkouts),
+}))
+
 export const clientReviewRelations = relations(clientReviews, ({ one }) => ({
   feedbackPoint: one(feedbackPoints, {
     fields: [clientReviews.feedbackPointId],
@@ -1146,6 +1170,10 @@ export const telegramUserRelations = relations(telegramUsers, ({ one }) => ({
   user: one(users, {
     fields: [telegramUsers.userId],
     references: [users.id],
+  }),
+  client: one(clients, {
+    fields: [telegramUsers.clientId],
+    references: [clients.id],
   }),
   bot: one(telegramBots, {
     fields: [telegramUsers.botId],

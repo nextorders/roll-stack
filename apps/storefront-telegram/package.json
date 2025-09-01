@@ -1,0 +1,31 @@
+{
+  "name": "@roll-stack/storefront-telegram",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev --port 4300",
+    "preview": "PORT=4300 nuxt preview",
+    "clean": "rm -rf .output",
+    "clean:modules": "rm -rf .nuxt node_modules",
+    "typecheck": "nuxt typecheck",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@neoconfetti/vue": "catalog:",
+    "@pinia/nuxt": "catalog:",
+    "@roll-stack/database": "workspace:*",
+    "@roll-stack/ui": "workspace:*",
+    "@telegram-apps/init-data-node": "catalog:",
+    "@telegram-apps/sdk-vue": "catalog:",
+    "date-fns": "catalog:",
+    "libphonenumber-js": "catalog:",
+    "pinia": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "eruda": "catalog:",
+    "nuxt": "catalog:"
+  }
+}

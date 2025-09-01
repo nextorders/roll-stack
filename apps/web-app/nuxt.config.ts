@@ -23,6 +23,7 @@ export default defineNuxtConfig({
     telegram: {
       wasabiBotId: '',
       atriumBotId: '',
+      orderBotId: '',
       adminId: '',
       teamGroupId: '',
     },

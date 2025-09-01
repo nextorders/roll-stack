@@ -34,6 +34,19 @@ export class Telegram {
     })
   }
 
+  static async findClientByTelegramIdAndBotId(telegramId: string, botId: string) {
+    return useDatabase().query.telegramUsers.findFirst({
+      where: (users, { eq, and, isNotNull }) => and(
+        eq(users.telegramId, telegramId),
+        eq(users.botId, botId),
+        isNotNull(users.clientId),
+      ),
+      with: {
+        client: true,
+      },
+    })
+  }
+
   static async findUserByIdAndBotId(userId: string, botId: string) {
     return useDatabase().query.telegramUsers.findFirst({
       where: (users, { eq, and }) => and(
