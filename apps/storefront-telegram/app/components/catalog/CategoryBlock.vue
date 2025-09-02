@@ -1,6 +1,12 @@
 <template>
-  <div class="flex flex-col gap-3 mb-10">
-    <h2 :id="category?.slug" class="scroll-mt-14 text-2xl/5 font-semibold tracking-tight">
+  <div
+    v-element-visibility="[
+      (isVisible) => (isVisible && category?.slug) ? visibleCategory = category.slug : null,
+      observerOptions,
+    ]"
+    class="flex flex-col gap-3 mb-10"
+  >
+    <h2 :id="category?.slug" class="scroll-mt-22 text-2xl/5 font-semibold tracking-tight">
       {{ category?.name }}
     </h2>
 
@@ -16,9 +22,13 @@
 </template>
 
 <script setup lang="ts">
+import { vElementVisibility } from '@vueuse/components'
+
 const { categoryId } = defineProps<{
   categoryId: string
 }>()
+
+const { visibleCategory, observerOptions } = useCatalog()
 
 const menuStore = useMenuStore()
 const category = menuStore.menu?.categories.find((c) => c.id === categoryId)
