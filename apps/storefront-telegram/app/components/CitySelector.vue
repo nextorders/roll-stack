@@ -5,6 +5,10 @@
     :dismissible="false"
     should-scale-background
     :set-background-color-on-scale="false"
+    :ui="{
+      content: 'max-h-10/12 !mt-150',
+      overlay: 'tg-content-safe-area-top',
+    }"
   >
     <template #content>
       <div class="p-4 flex flex-col gap-3 overflow-y-auto">
@@ -19,6 +23,10 @@
           size="lg"
           :items="items"
           icon="i-lucide-map-pin"
+          :ui="{
+            item: 'items-center',
+            label: '!text-lg',
+          }"
         />
       </div>
     </template>

@@ -29,7 +29,6 @@ export default defineNuxtConfig({
   },
   app: {
     rootAttrs: {
-      'class': 'tg-safe-area',
       'data-vaul-drawer-wrapper': '',
     },
   },
