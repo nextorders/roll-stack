@@ -1,5 +1,5 @@
 <template>
-  <main class="tg-text tg-safe-area">
+  <main class="tg-text">
     <slot />
   </main>
 

@@ -2,6 +2,7 @@ import type { ThemeParams } from '@telegram-apps/sdk-vue'
 import {
   bindThemeParamsCssVars,
   bindViewportCssVars,
+  closingBehavior,
   emitEvent,
   exitFullscreen,
   init as initSDK,
@@ -79,7 +80,10 @@ export async function init(options: {
     bindThemeParamsCssVars()
   }
 
-  mountClosingBehavior.ifAvailable()
+  if (mountClosingBehavior.isAvailable()) {
+    mountClosingBehavior()
+    closingBehavior.enableConfirmation()
+  }
 
   // Orientation lock
   postEvent('web_app_toggle_orientation_lock', {

@@ -10,13 +10,18 @@
       </div>
 
       <div class="px-3 py-1 flex-1 flex flex-col gap-1">
-        <p class="text-sm/4">
+        <p class="text-sm/4 font-medium">
           {{ product?.name }}
         </p>
-        <div class="font-light text-muted text-sm/4">
+
+        <div class="text-muted text-sm/4">
           <span v-if="!withSingleVariant" class="pr-1 lowercase">{{ $t('app.cart.from') }}</span>
           <span>{{ weightValue }}{{ weightUnit }}</span>
         </div>
+
+        <p class="text-xs/3 font-light line-clamp-3">
+          {{ product?.description }}
+        </p>
       </div>
 
       <div class="px-3 pb-3">
