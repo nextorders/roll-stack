@@ -55,26 +55,33 @@ watch(colorMode, () => {
 
 // Init Stores
 const client = useClientStore()
+const city = useCityStore()
+const channel = useChannelStore()
+const menu = useMenuStore()
 
 // Guard
-await client.update()
+await Promise.all([
+  client.update(),
+  city.update(),
+  channel.update(),
+  menu.update(),
+])
 if (!client.id) {
   await navigateTo('/no-auth')
 }
 
-// Auto Update Online
+// Auto Update
 let interval: NodeJS.Timeout
 
 onMounted(async () => {
   await Promise.all([
-    // client.updateOnline(),
-    client.update(),
+    client.updateOnline(),
   ])
 
   interval = setInterval(async () => {
     await Promise.all([
-      // client.updateOnline(),
       client.update(),
+      client.updateOnline(),
     ])
   }, 30000)
 })

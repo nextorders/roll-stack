@@ -1,4 +1,4 @@
-import type { AgreementPatentStatus, NotificationOption, UserGender, UserType } from './types'
+import type { AgreementPatentStatus, NotificationOption, UserGender, UserType, WeightUnit } from './types'
 import { cuid2 } from 'drizzle-cuid2/postgres'
 import { relations } from 'drizzle-orm'
 import { boolean, date, integer, jsonb, numeric, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core'
@@ -14,8 +14,6 @@ type PermissionCode = 'product:view'
   | 'print:edit'
   | 'print:file:edit'
   | 'print:delete'
-
-type WeightUnit = 'G' | 'KG' | 'ML' | 'L' | 'OZ' | 'LB'
 
 type MediaFormat = 'jpg' | 'webp'
 type FileFormat = 'docx' | 'cdr' | 'zip' | 'pdf'
@@ -602,6 +600,7 @@ export const clients = pgTable('clients', {
   id: cuid2('id').defaultRandom().primaryKey(),
   createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  onlineAt: timestamp('online_at', { precision: 3, withTimezone: true, mode: 'string' }),
   isActive: boolean('is_active').notNull().default(true),
   phone: varchar('phone').notNull(),
   name: varchar('name').notNull(),

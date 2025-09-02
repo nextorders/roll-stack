@@ -69,6 +69,18 @@ export class Client {
     return client
   }
 
+  static async updateOnline(id: string) {
+    const [client] = await useDatabase()
+      .update(clients)
+      .set({
+        onlineAt: sql`now()`,
+        updatedAt: sql`now()`,
+      })
+      .where(eq(clients.id, id))
+      .returning()
+    return client
+  }
+
   static async updateReview(id: string, data: Partial<ClientReviewDraft>) {
     return useDatabase()
       .update(clientReviews)

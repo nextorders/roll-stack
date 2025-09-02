@@ -3,6 +3,7 @@
     <slot />
   </main>
 
+  <CitySelector />
   <Navigation v-if="clientStore.id" />
 </template>
 
