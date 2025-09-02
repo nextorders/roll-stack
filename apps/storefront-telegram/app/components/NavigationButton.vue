@@ -43,7 +43,7 @@ const isThisRoute = computed(() => route.exact ? router.currentRoute.value.path 
 
 const { y } = useWindowScroll()
 const isCatalogButton = computed(() => route.path === '/')
-const canScrollToTop = computed(() => isCatalogButton.value && y.value > 500)
+const canScrollToTop = computed(() => isCatalogButton.value && y.value > 650)
 
 function handleScrollToTop() {
   vibrate()

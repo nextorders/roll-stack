@@ -35,6 +35,8 @@ export function getPatentStatus(status: AgreementPatentStatus) {
   switch (status) {
     case 'in_work':
       return 'В работе'
+    case 'not_paid':
+      return 'Не оплачен'
     case 'on_registration':
       return 'На регистрации'
     case 'registered':
@@ -45,6 +47,7 @@ export function getPatentStatus(status: AgreementPatentStatus) {
 export function getPatentStatusForSelect(): { value: AgreementPatentStatus, label: string }[] {
   return [
     { value: 'in_work', label: 'В работе' },
+    { value: 'not_paid', label: 'Не оплачен' },
     { value: 'on_registration', label: 'На регистрации' },
     { value: 'registered', label: 'Зарегистрирован' },
   ]
