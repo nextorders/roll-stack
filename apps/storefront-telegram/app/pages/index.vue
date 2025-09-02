@@ -9,7 +9,6 @@
 
     <CatalogStoriesSlider />
     <CatalogRecommendedSlider />
-
     <CatalogCategoriesSliderMenu />
 
     <CatalogCategoryBlock
