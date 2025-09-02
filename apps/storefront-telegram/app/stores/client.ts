@@ -48,7 +48,7 @@ export const useClientStore = defineStore('client', () => {
         return
       }
 
-      await $fetch(`/api/user/id/${id.value}/online`, {
+      await $fetch('/api/auth/online', {
         method: 'POST',
         headers: {
           Authorization: `tma ${initDataRaw.value}`,

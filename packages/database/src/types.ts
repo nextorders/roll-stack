@@ -20,6 +20,8 @@ export type UserGender = 'male' | 'female' | 'unknown'
 
 export type AgreementPatentStatus = 'in_work' | 'on_registration' | 'registered'
 
+export type WeightUnit = 'G' | 'KG' | 'ML' | 'L' | 'OZ' | 'LB'
+
 export type Permission = InferSelectModel<typeof tables.permissions>
 export type PermissionDraft = InferInsertModel<typeof tables.permissions>
 
