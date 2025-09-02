@@ -1,13 +1,15 @@
 <template>
-  <div class="z-40 sticky top-0 h-fit tg-bg-secondary">
+  <div class="z-40 sticky top-0 h-fit tg-content-safe-area-top tg-bg-secondary">
     <div class="max-w-full overflow-x-scroll snap-x">
-      <div class="w-max flex flex-row flex-wrap gap-5">
+      <div class="py-1 w-max flex flex-row flex-wrap gap-1">
         <div
           v-for="category in menuStore.menu?.categories"
+          :id="`to-${category.slug}`"
           :key="category.id"
-          class="scroll-ml-6 snap-start"
+          class="scroll-ml-24 snap-start text-muted rounded-md"
+          :class="{ 'tg-text-button bg-primary': visibleCategory === category.slug }"
         >
-          <button class="py-2" @click="scrollToCategory(category.slug)">
+          <button class="px-3 py-1" @click="scrollToCategory(category.slug)">
             {{ category.name }}
           </button>
         </div>
@@ -18,6 +20,7 @@
 
 <script setup lang="ts">
 const { vibrate } = useFeedback()
+const { visibleCategory } = useCatalog()
 
 const menuStore = useMenuStore()
 

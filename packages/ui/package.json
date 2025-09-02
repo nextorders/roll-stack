@@ -13,6 +13,7 @@
     "@nuxtjs/i18n": "catalog:",
     "@unovis/ts": "catalog:",
     "@unovis/vue": "catalog:",
+    "@vueuse/components": "catalog:",
     "@vueuse/core": "catalog:",
     "@vueuse/integrations": "catalog:",
     "@vueuse/nuxt": "catalog:",
