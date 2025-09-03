@@ -1,14 +1,14 @@
 <template>
   <div class="relative w-full h-auto aspect-3/2 perspective-normal motion-preset-slide-down">
     <div
-      class="absolute inset-0 bg-primary rounded-lg"
+      class="absolute inset-0 bg-primary rounded-lg transition duration-200"
       :style="{
         transform: `rotateX(${x * 5}deg) rotateY(${y * 5}deg)`,
       }"
     />
 
     <div
-      class="z-10 w-full h-full p-4 flex flex-col justify-between tg-text-button"
+      class="z-10 w-full h-full p-4 flex flex-col justify-between transition duration-200 tg-text-button"
       :style="{
         transform: `rotateX(${x * 3}deg) rotateY(${y * 3}deg)`,
       }"

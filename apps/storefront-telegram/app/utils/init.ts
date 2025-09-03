@@ -92,7 +92,7 @@ export async function init(options: {
 
   // Gyroscope
   postEvent('web_app_start_gyroscope', {
-    refresh_rate: 500,
+    refresh_rate: 80,
   })
 
   if (mountViewport.isAvailable()) {
