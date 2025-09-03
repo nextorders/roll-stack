@@ -6,7 +6,7 @@
     ]"
     class="flex flex-col gap-3 mb-10"
   >
-    <h2 :id="category?.slug" class="scroll-mt-22 text-2xl/5 font-semibold tracking-tight">
+    <h2 :id="category?.slug" class="scroll-mt-28 text-2xl/5 font-semibold tracking-tight">
       {{ category?.name }}
     </h2>
 
