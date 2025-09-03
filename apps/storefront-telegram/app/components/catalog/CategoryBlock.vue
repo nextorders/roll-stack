@@ -1,12 +1,9 @@
 <template>
   <div
-    v-element-visibility="[
-      (isVisible) => (isVisible && category?.slug) ? visibleCategory = category.slug : null,
-      observerOptions,
-    ]"
+    ref="target"
     class="flex flex-col gap-3 mb-10"
   >
-    <h2 :id="category?.slug" class="scroll-mt-28 text-2xl/5 font-semibold tracking-tight">
+    <h2 :id="category?.slug" class="scroll-mt-32 text-2xl/5 font-semibold tracking-tight">
       {{ category?.name }}
     </h2>
 
@@ -22,13 +19,20 @@
 </template>
 
 <script setup lang="ts">
-import { vElementVisibility } from '@vueuse/components'
-
 const { categoryId } = defineProps<{
   categoryId: string
 }>()
 
 const { visibleCategory, observerOptions } = useCatalog()
+
+const target = useTemplateRef<HTMLDivElement>('target')
+const targetIsVisible = useElementVisibility(target, observerOptions)
+
+watch(targetIsVisible, (isVisible) => {
+  if (isVisible && category?.slug) {
+    visibleCategory.value = category.slug
+  }
+})
 
 const menuStore = useMenuStore()
 const category = menuStore.menu?.categories.find((c) => c.id === categoryId)
