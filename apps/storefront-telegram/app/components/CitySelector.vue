@@ -49,6 +49,7 @@ watch(selectedCities, () => {
   }
 
   cityStore.selected = cityStore.cities.find((c) => c.id === selectedCities.value[0])
+  selectedCities.value = []
   isCitySelectOpened.value = false
 })
 </script>
