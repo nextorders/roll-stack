@@ -64,6 +64,9 @@
       <UProgress
         v-model="progress"
         color="primary"
+        :ui="{
+          base: 'bg-primary/10',
+        }"
       />
     </div>
   </div>

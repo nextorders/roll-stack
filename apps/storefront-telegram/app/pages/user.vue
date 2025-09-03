@@ -25,6 +25,19 @@
           label="Мои адреса"
           icon="i-lucide-map-pin-house"
         />
+        <UButton
+          color="neutral"
+          variant="ghost"
+          label="Мои данные"
+          icon="i-lucide-user"
+        />
+        <UButton
+          color="neutral"
+          variant="ghost"
+          :label="cityStore.selected ? cityStore.selected.name : 'Выбрать город'"
+          icon="i-lucide-locate-fixed"
+          @click="cityStore.selected = undefined"
+        />
       </UButtonGroup>
     </div>
   </PageContainer>
@@ -32,4 +45,5 @@
 
 <script setup lang="ts">
 const clientStore = useClientStore()
+const cityStore = useCityStore()
 </script>

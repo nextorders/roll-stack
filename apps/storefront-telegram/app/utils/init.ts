@@ -3,6 +3,7 @@ import {
   bindThemeParamsCssVars,
   bindViewportCssVars,
   closingBehavior,
+  disableVerticalSwipes,
   emitEvent,
   exitFullscreen,
   init as initSDK,
@@ -83,6 +84,11 @@ export async function init(options: {
   if (mountClosingBehavior.isAvailable()) {
     mountClosingBehavior()
     closingBehavior.enableConfirmation()
+  }
+
+  // Disable vertical swipes to prevent app close
+  if (disableVerticalSwipes.isAvailable()) {
+    disableVerticalSwipes()
   }
 
   // Orientation lock
