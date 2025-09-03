@@ -90,6 +90,11 @@ export async function init(options: {
     locked: true,
   })
 
+  // Gyroscope
+  postEvent('web_app_start_gyroscope', {
+    refresh_rate: 50,
+  })
+
   if (mountViewport.isAvailable()) {
     mountViewport().then(() => {
       bindViewportCssVars()

@@ -15,13 +15,13 @@
       <UButtonGroup orientation="vertical" size="xl">
         <UButton
           color="neutral"
-          variant="subtle"
+          variant="ghost"
           label="Мои заказы"
           icon="i-lucide-shopping-basket"
         />
         <UButton
           color="neutral"
-          variant="outline"
+          variant="ghost"
           label="Мои адреса"
           icon="i-lucide-map-pin-house"
         />

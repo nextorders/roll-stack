@@ -67,6 +67,9 @@
   .tg-text {
     color: var(--tg-theme-text-color);
   }
+  .tg-text-inverted {
+    color: var(--tg-theme-bg-color);
+  }
   .tg-text-accent {
     color: var(--tg-theme-accent-text-color);
   }
