@@ -6,10 +6,10 @@
           v-for="category in menuStore.menu?.categories"
           :id="`to-${category.slug}`"
           :key="category.id"
-          class="scroll-ml-24 snap-start text-muted rounded-md"
+          class="scroll-ml-24 snap-start text-sm text-muted rounded-full"
           :class="{ 'tg-text-button bg-primary': visibleCategory === category.slug }"
         >
-          <button class="px-3 py-1" @click="scrollToCategory(category.slug)">
+          <button class="px-2.5 py-1" @click="scrollToCategory(category.slug)">
             {{ category.name }}
           </button>
         </div>

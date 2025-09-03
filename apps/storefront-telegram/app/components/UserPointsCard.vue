@@ -1,16 +1,18 @@
 <template>
+  {{ x }} / {{ y }} / {{ z }}
+
   <div ref="target" class="relative w-full h-auto aspect-3/2 perspective-normal motion-preset-slide-down">
     <div
       class="absolute inset-0 bg-primary rounded-lg"
       :style="{
-        transform: `rotateX(${parallax.roll * 3}deg) rotateY(${parallax.tilt * 3}deg)`,
+        transform: `rotateX(${x * 6}deg) rotateY(${y * 6}deg)`,
       }"
     />
 
     <div
       class="z-10 w-full h-full p-4 flex flex-col justify-between tg-text-button"
       :style="{
-        transform: `rotateX(${parallax.roll * 2}deg) rotateY(${parallax.tilt * 2}deg)`,
+        transform: `rotateX(${x * 4}deg) rotateY(${y * 4}deg)`,
       }"
     >
       <div class="flex flex-row justify-between items-center">
@@ -29,17 +31,17 @@
         <img
           src="/sushi-heart.svg"
           alt=""
-          class="w-12 opacity-20 invert-100"
+          class="w-12 opacity-35 invert-100"
         >
       </div>
 
       <div class="flex flex-row justify-between items-center">
         <div class="flex flex-row gap-2 items-center">
-          <div class="px-3.5 py-1.5 text-2xl/5 text-primary font-bold ring ring-default bg-default rounded-2xl">
+          <div class="px-3.5 py-1.5 text-2xl/5 text-primary font-bold rounded-full tg-bg-section">
             5%
           </div>
 
-          <div>
+          <div class="tg-text-inverted">
             Кешбэк
           </div>
         </div>
@@ -51,8 +53,27 @@
 </template>
 
 <script setup lang="ts">
-import { useParallax } from '@vueuse/core'
+import type { EventListener } from '@telegram-apps/sdk-vue'
+import { off, on } from '@telegram-apps/sdk-vue'
 
 const target = useTemplateRef<HTMLElement>('target')
-const parallax = reactive(useParallax(target))
+// const parallax = reactive(useParallax(target))
+
+const x = ref(0)
+const y = ref(0)
+const z = ref(0)
+
+const listener: EventListener<'gyroscope_changed'> = (payload) => {
+  x.value = payload.x
+  y.value = payload.y
+  z.value = payload.z
+}
+
+onMounted(() => {
+  on('gyroscope_changed', listener)
+})
+
+onUnmounted(() => {
+  off('gyroscope_changed', listener)
+})
 </script>
