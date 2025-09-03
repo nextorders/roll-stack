@@ -1,18 +1,16 @@
 <template>
-  {{ x }} / {{ y }} / {{ z }}
-
-  <div ref="target" class="relative w-full h-auto aspect-3/2 perspective-normal motion-preset-slide-down">
+  <div class="relative w-full h-auto aspect-3/2 perspective-normal motion-preset-slide-down">
     <div
       class="absolute inset-0 bg-primary rounded-lg"
       :style="{
-        transform: `rotateX(${x * 6}deg) rotateY(${y * 6}deg)`,
+        transform: `rotateX(${x * 5}deg) rotateY(${y * 5}deg)`,
       }"
     />
 
     <div
       class="z-10 w-full h-full p-4 flex flex-col justify-between tg-text-button"
       :style="{
-        transform: `rotateX(${x * 4}deg) rotateY(${y * 4}deg)`,
+        transform: `rotateX(${x * 3}deg) rotateY(${y * 3}deg)`,
       }"
     >
       <div class="flex flex-row justify-between items-center">
@@ -55,9 +53,6 @@
 <script setup lang="ts">
 import type { EventListener } from '@telegram-apps/sdk-vue'
 import { off, on } from '@telegram-apps/sdk-vue'
-
-const target = useTemplateRef<HTMLElement>('target')
-// const parallax = reactive(useParallax(target))
 
 const x = ref(0)
 const y = ref(0)

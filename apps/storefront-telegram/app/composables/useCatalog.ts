@@ -1,7 +1,7 @@
 function _useCatalog() {
   const visibleCategory = ref<string | null>(null)
 
-  const observerOptions = { rootMargin: '0px 0px -400px 0px' }
+  const observerOptions = { rootMargin: '0px 0px 0px 0px' }
 
   const scrollToCategory = useDebounceFn(() => {
     const category = window.document.getElementById(`to-${visibleCategory.value}`)
