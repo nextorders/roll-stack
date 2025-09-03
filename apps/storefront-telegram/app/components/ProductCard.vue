@@ -28,9 +28,9 @@
         <UButton
           variant="soft"
           color="neutral"
-          size="md"
+          size="sm"
           :trailing-icon="withSingleVariant ? 'i-lucide-plus' : 'i-lucide-arrow-right'"
-          class="w-fit hover:bg-muted active:bg-muted"
+          class="py-1 w-fit hover:bg-muted active:bg-muted"
         >
           <div class="text-base font-medium">
             <span v-if="!withSingleVariant" class="pr-1 lowercase">{{ $t('app.cart.from') }}</span>
