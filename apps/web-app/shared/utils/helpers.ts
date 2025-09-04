@@ -31,23 +31,25 @@ export function getResolutionIcon(resolution: Resolution) {
   }
 }
 
-export function getPatentStatus(status: AgreementPatentStatus) {
+export function getPatentStatus(status: AgreementPatentStatus): string {
   switch (status) {
-    case 'in_work':
-      return 'В работе'
     case 'not_paid':
       return 'Не оплачен'
+    case 'in_work':
+      return 'В работе'
     case 'on_registration':
       return 'На регистрации'
     case 'registered':
       return 'Зарегистрирован'
+    default:
+      return ''
   }
 }
 
 export function getPatentStatusForSelect(): { value: AgreementPatentStatus, label: string }[] {
   return [
-    { value: 'in_work', label: 'В работе' },
     { value: 'not_paid', label: 'Не оплачен' },
+    { value: 'in_work', label: 'В работе' },
     { value: 'on_registration', label: 'На регистрации' },
     { value: 'registered', label: 'Зарегистрирован' },
   ]

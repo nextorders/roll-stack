@@ -125,7 +125,7 @@ export const partnerAgreements = pgTable('partner_agreements', {
   minMarketingFeePerMonth: numeric('min_marketing_fee_per_month', { mode: 'number' }).notNull().default(0),
   lumpSumPayment: numeric('lump_sum_payment', { mode: 'number' }).notNull().default(0),
   comment: varchar('comment'),
-  patentStatus: varchar('patent_status').notNull().default('in_work').$type<AgreementPatentStatus>(),
+  patentStatus: varchar('patent_status').notNull().default('not_paid').$type<AgreementPatentStatus>(),
   legalEntityId: cuid2('legal_entity_id').references(() => partnerLegalEntities.id),
 })
 
