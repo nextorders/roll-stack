@@ -72,8 +72,8 @@
           :items="
             table?.tableApi
               ?.getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => ({
+              .filter((column: any) => column.getCanHide())
+              .map((column: any) => ({
                 label: upperFirst(column.id),
                 type: 'checkbox' as const,
                 checked: column.getIsVisible(),

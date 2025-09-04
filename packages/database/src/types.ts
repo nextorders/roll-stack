@@ -18,7 +18,7 @@ export type UserType = 'staff'
   | 'bot'
 export type UserGender = 'male' | 'female' | 'unknown'
 
-export type AgreementPatentStatus = 'in_work' | 'not_paid' | 'on_registration' | 'registered'
+export type AgreementPatentStatus = 'not_paid' | 'in_work' | 'on_registration' | 'registered'
 
 export type WeightUnit = 'G' | 'KG' | 'ML' | 'L' | 'OZ' | 'LB'
 
