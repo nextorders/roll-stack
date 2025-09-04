@@ -34,9 +34,9 @@
         <UButton
           color="neutral"
           variant="ghost"
-          :label="cityStore.selected ? cityStore.selected.name : 'Выбрать город'"
+          :label="clientStore.selectedCity ? clientStore.selectedCity.name : 'Выбрать город'"
           icon="i-lucide-locate-fixed"
-          @click="cityStore.selected = undefined"
+          @click="clientStore.updateCity(null)"
         />
       </UButtonGroup>
     </div>
@@ -45,5 +45,4 @@
 
 <script setup lang="ts">
 const clientStore = useClientStore()
-const cityStore = useCityStore()
 </script>
