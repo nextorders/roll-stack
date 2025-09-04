@@ -1,3 +1,4 @@
+import type { City, ClientLevel } from '@roll-stack/database'
 import { initDataRaw as _initDataRaw, initDataState as _initDataState, useSignal } from '@telegram-apps/sdk-vue'
 import { parsePhoneNumberWithError } from 'libphonenumber-js'
 
@@ -7,12 +8,57 @@ export const useClientStore = defineStore('client', () => {
   const surname = ref<string | undefined>(undefined)
   const phone = ref<string | undefined>(undefined)
   const avatarUrl = ref<string | null>(null)
+  const points = ref(0)
+  const numberOfOrders = ref(0)
+  const totalOfOrders = ref(0)
+  const selectedCityId = ref<string | null>(null)
+
+  const levelId = ref<string | null>(null)
+  const levels = ref<ClientLevel[]>([])
+
+  const cities = ref<City[]>([])
+  const isCitySelectorOpened = computed(() => !selectedCityId.value)
+  const selectedCity = computed<City | undefined>(() => cities.value.find((c) => c.id === selectedCityId.value))
+
+  // watch(selectedCityId, () => {
+  //   if (!selectedCityId.value) {
+  //     isCitySelectorOpened.value = true
+  //     return
+  //   }
+
+  //   selectedCity.value = cities.value.find((c) => c.id === selectedCityId.value)
+  //   isCitySelectorOpened.value = false
+  // }, { immediate: true })
 
   const initDataRaw = useSignal(_initDataRaw)
   const initDataState = useSignal(_initDataState)
 
-  const fullName = computed(() => {
+  const fullName = computed<string>(() => {
     return `${name.value} ${surname.value}`
+  })
+
+  const level = computed<ClientLevel | undefined>(() => levels.value.find((level) => level.id === levelId.value))
+  const nextLevel = computed<ClientLevel | undefined>(() => {
+    const levelNow = levels.value.find((level) => level.id === levelId.value)
+    if (!levelNow?.level) {
+      return
+    }
+
+    return levels.value.find((l) => l.level === levelNow.level + 1)
+  })
+  const nextLevelAmount = computed<number | undefined>(() => {
+    if (!nextLevel.value?.amountToUnlock) {
+      return
+    }
+
+    return nextLevel.value.amountToUnlock - totalOfOrders.value
+  })
+  const nextLevelProgressPercent = computed<number>(() => {
+    if (!nextLevel.value?.amountToUnlock) {
+      return 0
+    }
+
+    return (totalOfOrders.value / nextLevel.value.amountToUnlock) * 100
   })
 
   const formattedPhone = computed(() => {
@@ -41,6 +87,11 @@ export const useClientStore = defineStore('client', () => {
       name.value = data.name
       surname.value = data.surname ?? ''
       avatarUrl.value = data.avatarUrl
+      points.value = data.points
+      numberOfOrders.value = data.numberOfOrders
+      totalOfOrders.value = data.totalOfOrders
+      levelId.value = data.levelId
+      selectedCityId.value = data.selectedCityId
     } catch (error) {
       if (error instanceof Error) {
         if (error.message.includes('401')) {
@@ -77,12 +128,99 @@ export const useClientStore = defineStore('client', () => {
     }
   }
 
+  async function updateLevels() {
+    try {
+      const data = await $fetch('/api/client/level/list', {
+        headers: {
+          Authorization: `tma ${initDataRaw.value}`,
+        },
+      })
+      if (!data) {
+        return
+      }
+
+      levels.value = data
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message.includes('401')) {
+          // No session
+        }
+        if (error.message.includes('404')) {
+          // Not found
+        }
+      }
+    }
+  }
+
+  async function updateCity(id: string | null) {
+    try {
+      await $fetch('/api/auth/me', {
+        method: 'PATCH',
+        headers: {
+          Authorization: `tma ${initDataRaw.value}`,
+        },
+        body: {
+          selectedCityId: id,
+        },
+      })
+
+      await update()
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message.includes('401')) {
+          // No session
+        }
+        if (error.message.includes('404')) {
+          // Not found
+        }
+      }
+    }
+  }
+
+  async function updateCities() {
+    try {
+      const data = await $fetch('/api/city/list', {
+        headers: {
+          Authorization: `tma ${initDataRaw.value}`,
+        },
+      })
+      if (!data) {
+        return
+      }
+
+      cities.value = data
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message.includes('401')) {
+          // No
+        }
+        if (error.message.includes('404')) {
+          // Not found
+        }
+      }
+    }
+  }
+
   return {
     id,
     phone,
     name,
     surname,
     avatarUrl,
+    points,
+    numberOfOrders,
+    totalOfOrders,
+    selectedCityId,
+
+    level,
+    nextLevel,
+    nextLevelAmount,
+    nextLevelProgressPercent,
+    levels,
+
+    cities,
+    selectedCity,
+    isCitySelectorOpened,
 
     fullName,
     formattedPhone,
@@ -92,5 +230,8 @@ export const useClientStore = defineStore('client', () => {
 
     update,
     updateOnline,
+    updateLevels,
+    updateCities,
+    updateCity,
   }
 })

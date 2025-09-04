@@ -606,6 +606,11 @@ export const clients = pgTable('clients', {
   name: varchar('name').notNull(),
   surname: varchar('surname'),
   avatarUrl: varchar('avatar_url'),
+  points: integer('points').notNull().default(0),
+  numberOfOrders: integer('number_of_orders').notNull().default(0),
+  totalOfOrders: numeric('total_of_orders', { mode: 'number' }).notNull().default(0),
+  levelId: cuid2('level_id').references(() => clientLevels.id),
+  selectedCityId: cuid2('selected_city_id').references(() => cities.id),
 })
 
 export const clientReviews = pgTable('client_reviews', {
@@ -618,6 +623,15 @@ export const clientReviews = pgTable('client_reviews', {
   url: varchar('url'),
   kitchenId: cuid2('kitchen_id').references(() => kitchens.id),
   feedbackPointId: cuid2('feedback_point_id').references(() => feedbackPoints.id),
+})
+
+export const clientLevels = pgTable('client_levels', {
+  id: cuid2('id').defaultRandom().primaryKey(),
+  createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  level: integer('level').notNull(),
+  cashback: integer('cashback').notNull(),
+  amountToUnlock: numeric('amount_to_unlock', { mode: 'number' }).notNull(),
 })
 
 export const networkMetrics = pgTable('network_metrics', {

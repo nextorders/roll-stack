@@ -1,7 +1,7 @@
 <template>
   <UDrawer
-    v-if="cityStore.cities.length && !cityStore.selected"
-    :open="isCitySelectOpened"
+    v-if="clientStore.cities.length && !clientStore.selectedCityId"
+    :open="clientStore.isCitySelectorOpened"
     :dismissible="false"
     should-scale-background
     :set-background-color-on-scale="false"
@@ -15,41 +15,23 @@
           Выберите город
         </h3>
 
-        <UCheckboxGroup
-          v-model="selectedCities"
-          color="primary"
-          variant="card"
-          size="lg"
-          :items="items"
-          icon="i-lucide-map-pin"
-          :ui="{
-            item: 'items-center',
-            label: '!text-lg',
-          }"
-        />
+        <div class="flex flex-col gap-1">
+          <UButton
+            v-for="city in clientStore.cities"
+            :key="city.id"
+            variant="outline"
+            color="neutral"
+            size="xl"
+            class="ring-muted font-medium"
+            :label="city.name"
+            @click="clientStore.updateCity(city.id)"
+          />
+        </div>
       </div>
     </template>
   </UDrawer>
 </template>
 
 <script setup lang="ts">
-import type { CheckboxGroupItem } from '@nuxt/ui'
-
-const cityStore = useCityStore()
-
-const items = ref<CheckboxGroupItem[]>(cityStore.cities.map((c) => ({ label: c.name, value: c.id })))
-
-const selectedCities = ref<string[]>([])
-const isCitySelectOpened = ref(true)
-
-watch(selectedCities, () => {
-  if (!selectedCities.value.length) {
-    isCitySelectOpened.value = true
-    return
-  }
-
-  cityStore.selected = cityStore.cities.find((c) => c.id === selectedCities.value[0])
-  selectedCities.value = []
-  isCitySelectOpened.value = false
-})
+const clientStore = useClientStore()
 </script>

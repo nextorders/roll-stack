@@ -41,6 +41,12 @@ export class Client {
     })
   }
 
+  static async listLevels() {
+    return useDatabase().query.clientLevels.findMany({
+      orderBy: (levels, { asc }) => asc(levels.level),
+    })
+  }
+
   static async listReviewsOfKitchen(kitchenId: string) {
     return useDatabase().query.clientReviews.findMany({
       where: (reviews, { eq }) => eq(reviews.kitchenId, kitchenId),

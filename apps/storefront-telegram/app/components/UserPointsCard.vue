@@ -13,16 +13,16 @@
         :style="{
           transform: `rotateX(${x * 3}deg) rotateY(${y * 3}deg)`,
         }"
-        @click="isDrawerOpened = true"
+        @click="handleCardClick"
       >
         <div class="flex flex-row justify-between items-center">
           <div class="flex flex-col gap-3">
-            <div class="text-lg/5 font-medium">
-              Клиент {{ level }} уровня
+            <div v-if="clientStore?.level" class="text-lg/5 font-medium">
+              Клиент {{ clientStore.level.level }} уровня
             </div>
             <div class="flex flex-row gap-1.5 items-center">
-              <p class="text-3xl/5 font-semibold">
-                {{ points }}
+              <p class="text-4xl/6 font-semibold">
+                {{ clientStore.points }}
               </p>
               <UIcon name="fluent:heart-circle-24-filled" class="size-7" />
             </div>
@@ -36,9 +36,9 @@
         </div>
 
         <div class="flex flex-row justify-between items-center">
-          <div class="flex flex-row gap-2 items-center">
+          <div v-if="clientStore.level?.cashback" class="flex flex-row gap-2 items-center">
             <div class="px-3.5 py-1.5 text-2xl/5 text-primary font-bold rounded-full tg-bg-section">
-              5%
+              {{ clientStore.level.cashback }}%
             </div>
 
             <div class="tg-text-inverted">
@@ -51,18 +51,18 @@
       </div>
     </div>
 
-    <div class="-mt-8 px-4 pt-12 pb-4 flex flex-col gap-3 tg-bg-section rounded-lg motion-preset-slide-up">
+    <div v-if="clientStore.nextLevel && clientStore.nextLevelAmount" class="-mt-8 px-4 pt-12 pb-4 flex flex-col gap-3 tg-bg-section rounded-lg motion-preset-slide-up">
       <div>
         <h3 class="font-semibold">
-          Повысьте кешбэк до 10%
+          Повысьте кешбэк до {{ clientStore.nextLevel.cashback }}%
         </h3>
         <p class="text-sm/4">
-          Закажите еще на {{ Intl.NumberFormat('ru').format(nextLevelAmount) }} {{ channelStore.currencySign }}
+          Закажите еще на {{ Intl.NumberFormat('ru').format(clientStore.nextLevelAmount) }} {{ channelStore.currencySign }}
         </p>
       </div>
 
       <UProgress
-        v-model="progress"
+        v-model="clientStore.nextLevelProgressPercent"
         color="primary"
         :ui="{
           base: 'bg-primary/10',
@@ -82,7 +82,7 @@
     <template #content>
       <div class="p-4 pb-20 flex flex-col gap-5 overflow-y-auto">
         <h2 class="text-xl font-semibold">
-          У вас есть {{ points }} «Лавчиков»
+          У вас есть {{ clientStore.points }} «Лавчиков»
         </h2>
 
         <div class="flex flex-col gap-2">
@@ -92,9 +92,7 @@
 
           <p class="text-base/5">
             Позволяет клиентам накапливать бонусные баллы под названием «Лавчики»
-            за каждую совершённую покупку. Система включает три уровня участия с
-            разными процентами возврата: базовый уровень даёт 5% кешбэка,
-            средний — 10%, а максимальный — 15% от суммы заказа.
+            за каждую совершённую покупку.
           </p>
         </div>
 
@@ -104,9 +102,9 @@
           </h3>
 
           <p class="text-base/5">
-            Кешбэк определяется по сумме заказов. Система включает три уровня
-            с разными процентами возврата: базовый уровень даёт 5% кешбэка,
-            средний — 10%, а максимальный — 15% от суммы заказа.
+            Кешбэк определяется по сумме заказов за все время. Система включает разные уровни
+            с разными процентами возврата: базовый уровень даёт 5% кешбэка, а максимальный — 15%
+            от суммы заказа.
           </p>
         </div>
 
@@ -126,14 +124,13 @@
         <p class="text-sm">
           Передавая данные, вы соглашаетесь с
           <ULink to="https://sushi-love.ru" target="_blank">
-            условиями программы лояльности
-          </ULink>,
+            условиями программы лояльности,
+          </ULink>
           <ULink to="https://sushi-love.ru" target="_blank">
             политикой конфиденциальности
-          </ULink> и
-          <ULink to="https://sushi-love.ru" target="_blank">
-            условиями обработки персональных данных
-          </ULink>.
+          </ULink> и <ULink to="https://sushi-love.ru" target="_blank">
+            условиями обработки персональных данных.
+          </ULink>
         </p>
       </div>
     </template>
@@ -144,12 +141,10 @@
 import type { EventListener } from '@telegram-apps/sdk-vue'
 import { off, on } from '@telegram-apps/sdk-vue'
 
-const channelStore = useChannelStore()
+const { vibrate } = useFeedback()
 
-const points = 680
-const level = 1
-const nextLevelAmount = 6815
-const progress = 65
+const clientStore = useClientStore()
+const channelStore = useChannelStore()
 
 const isDrawerOpened = ref(false)
 
@@ -170,4 +165,9 @@ onMounted(() => {
 onUnmounted(() => {
   off('gyroscope_changed', listener)
 })
+
+function handleCardClick() {
+  vibrate()
+  isDrawerOpened.value = !isDrawerOpened.value
+}
 </script>
