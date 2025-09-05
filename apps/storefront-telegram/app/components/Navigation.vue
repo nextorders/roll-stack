@@ -32,8 +32,8 @@ const mainRoutes = computed<NavigationRoute[]>(() => [
     icon: 'i-lucide-user',
   },
   {
-    path: '/navigation',
-    name: 'navigation',
+    path: '/menu',
+    name: 'menu',
     title: 'Меню',
     icon: 'i-lucide-menu',
   },

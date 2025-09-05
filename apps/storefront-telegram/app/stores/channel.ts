@@ -12,7 +12,7 @@ export const useChannelStore = defineStore('channel', () => {
   const currencySign = ref('₽')
   const kitchens = ref<KitchenWithData[]>([])
 
-  const selectedKitchenId = ref<string | undefined>()
+  const selectedKitchenId = ref<string | undefined>('m68foq9qtpsxd69eayom7bjn') // Фрунзе
   const selectedKitchen = computed(() => kitchens.value.find((kitchen) => kitchen.id === selectedKitchenId.value))
 
   const initDataRaw = useSignal(_initDataRaw)
