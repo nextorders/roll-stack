@@ -51,37 +51,18 @@
       </div>
     </div>
 
-    <div v-if="clientStore.nextLevel && clientStore.nextLevelAmount" class="-mt-8 px-4 pt-12 pb-4 flex flex-col gap-3 tg-bg-section rounded-lg motion-preset-slide-up">
-      <div>
-        <h3 class="font-semibold">
-          Повысьте кешбэк до {{ clientStore.nextLevel.cashback }}%
-        </h3>
-        <p class="text-sm/4">
-          Закажите еще на {{ Intl.NumberFormat('ru').format(clientStore.nextLevelAmount) }} {{ channelStore.currencySign }}
-        </p>
-      </div>
-
-      <UProgress
-        v-model="clientStore.nextLevelProgressPercent"
-        color="primary"
-        :ui="{
-          base: 'bg-primary/10',
-        }"
-      />
-    </div>
+    <ClientBonusProgramRegistration v-if="!clientStore.isBonusProgramParticipant" />
+    <ClientLevelIncreaseProgress v-else />
   </div>
 
   <UDrawer
     v-model:open="isDrawerOpened"
     should-scale-background
     :set-background-color-on-scale="false"
-    :ui="{
-      content: 'max-h-10/12',
-    }"
   >
     <template #content>
       <div class="p-4 pb-20 flex flex-col gap-5 overflow-y-auto">
-        <h2 class="text-xl font-semibold">
+        <h2 class="text-xl/6 font-semibold">
           У вас есть {{ clientStore.points }} «Лавчиков»
         </h2>
 
@@ -102,8 +83,8 @@
           </h3>
 
           <p class="text-base/5">
-            Кешбэк определяется по сумме заказов за все время. Система включает разные уровни
-            с разными процентами возврата: базовый уровень даёт 5% кешбэка, а максимальный — 15%
+            Кешбэк определяется по сумме заказов за все время. Система включает уровни
+            с разными процентами возврата: базовый уровень даёт 5%, а максимальный — 15%
             от суммы заказа.
           </p>
         </div>
@@ -138,33 +119,12 @@
 </template>
 
 <script setup lang="ts">
-import type { EventListener } from '@telegram-apps/sdk-vue'
-import { off, on } from '@telegram-apps/sdk-vue'
-
 const { vibrate } = useFeedback()
+const { x, y } = useGyroscope()
 
 const clientStore = useClientStore()
-const channelStore = useChannelStore()
 
 const isDrawerOpened = ref(false)
-
-const x = ref(0)
-const y = ref(0)
-const z = ref(0)
-
-const listener: EventListener<'gyroscope_changed'> = (payload) => {
-  x.value = payload.x
-  y.value = payload.y
-  z.value = payload.z
-}
-
-onMounted(() => {
-  on('gyroscope_changed', listener)
-})
-
-onUnmounted(() => {
-  off('gyroscope_changed', listener)
-})
 
 function handleCardClick() {
   vibrate()

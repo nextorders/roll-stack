@@ -75,6 +75,19 @@ export class Client {
     return client
   }
 
+  static async updateBonusProgram(id: string, data: Pick<ClientDraft, 'name' | 'surname' | 'email' | 'birthDate'>) {
+    const [client] = await useDatabase()
+      .update(clients)
+      .set({
+        ...data,
+        bonusProgramParticipantFrom: sql`now()`,
+        updatedAt: sql`now()`,
+      })
+      .where(eq(clients.id, id))
+      .returning()
+    return client
+  }
+
   static async updateOnline(id: string) {
     const [client] = await useDatabase()
       .update(clients)

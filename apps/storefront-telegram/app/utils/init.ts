@@ -11,6 +11,7 @@ import {
   mountBackButton,
   mountClosingBehavior,
   mountMiniAppSync,
+  mountSwipeBehavior,
   mountViewport,
   postEvent,
   requestFullscreen,
@@ -76,20 +77,15 @@ export async function init(options: {
   mountBackButton.ifAvailable()
   restoreInitData()
 
-  if (mountMiniAppSync.isAvailable()) {
-    mountMiniAppSync()
-    bindThemeParamsCssVars()
-  }
+  mountMiniAppSync.ifAvailable()
+  bindThemeParamsCssVars.ifAvailable()
 
-  if (mountClosingBehavior.isAvailable()) {
-    mountClosingBehavior()
-    closingBehavior.enableConfirmation()
-  }
+  mountClosingBehavior.ifAvailable()
+  closingBehavior.enableConfirmation.ifAvailable()
 
   // Disable vertical swipes to prevent app close
-  if (disableVerticalSwipes.isAvailable()) {
-    disableVerticalSwipes()
-  }
+  mountSwipeBehavior.ifAvailable()
+  disableVerticalSwipes.ifAvailable()
 
   // Orientation lock
   postEvent('web_app_toggle_orientation_lock', {

@@ -51,6 +51,11 @@ export default defineAppConfig({
         title: 'font-semibold',
       },
     },
+    drawer: {
+      slots: {
+        content: '!max-h-10/12',
+      },
+    },
     navigationMenu: {
       slots: {
         link: 'text-sm',

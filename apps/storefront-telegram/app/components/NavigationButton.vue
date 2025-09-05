@@ -15,6 +15,11 @@
         class="size-6 motion-preset-shake"
       />
       <UIcon
+        v-else-if="canReturn"
+        name="i-lucide-undo-2"
+        class="size-6 motion-preset-shake"
+      />
+      <UIcon
         v-else
         :name="route.icon"
         class="size-6 motion-preset-shake"
@@ -42,8 +47,11 @@ const router = useRouter()
 const isThisRoute = computed(() => route.exact ? router.currentRoute.value.path === route.path : router.currentRoute.value.path.startsWith(route.path))
 
 const { y } = useWindowScroll()
-const isCatalogButton = computed(() => route.path === '/')
+const isCatalogButton = computed(() => route.path === '/' && router.currentRoute.value.path === '/')
 const canScrollToTop = computed(() => isCatalogButton.value && y.value > 650)
+
+const isClientButton = computed(() => route.path === '/client' && router.currentRoute.value.path.startsWith('/client'))
+const canReturn = computed(() => isClientButton.value && router.currentRoute.value.path !== '/client')
 
 function handleScrollToTop() {
   vibrate()

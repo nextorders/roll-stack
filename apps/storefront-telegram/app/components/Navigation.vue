@@ -26,13 +26,13 @@ const mainRoutes = computed<NavigationRoute[]>(() => [
     exact: true,
   },
   {
-    path: '/user',
-    name: 'user',
+    path: '/client',
+    name: 'client',
     title: 'Кабинет',
     icon: 'i-lucide-user',
   },
   {
-    path: '/secret1',
+    path: '/navigation',
     name: 'navigation',
     title: 'Меню',
     icon: 'i-lucide-menu',
