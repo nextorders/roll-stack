@@ -21,7 +21,7 @@
             size="xl"
             class="ring-muted font-medium"
             :label="city.name"
-            @click="clientStore.updateCity(city.id)"
+            @click="handleClick(city.id)"
           />
         </div>
       </div>
@@ -30,5 +30,11 @@
 </template>
 
 <script setup lang="ts">
+const { vibrate } = useFeedback()
 const clientStore = useClientStore()
+
+function handleClick(id: string) {
+  vibrate('success')
+  clientStore.updateCity(id)
+}
 </script>
