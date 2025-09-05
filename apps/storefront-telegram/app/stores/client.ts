@@ -20,15 +20,8 @@ export const useClientStore = defineStore('client', () => {
   const isCitySelectorOpened = computed(() => !selectedCityId.value)
   const selectedCity = computed<City | undefined>(() => cities.value.find((c) => c.id === selectedCityId.value))
 
-  // watch(selectedCityId, () => {
-  //   if (!selectedCityId.value) {
-  //     isCitySelectorOpened.value = true
-  //     return
-  //   }
-
-  //   selectedCity.value = cities.value.find((c) => c.id === selectedCityId.value)
-  //   isCitySelectorOpened.value = false
-  // }, { immediate: true })
+  const bonusProgramParticipantFrom = ref<string | null>(null)
+  const isBonusProgramParticipant = computed(() => !!bonusProgramParticipantFrom.value)
 
   const initDataRaw = useSignal(_initDataRaw)
   const initDataState = useSignal(_initDataState)
@@ -61,14 +54,12 @@ export const useClientStore = defineStore('client', () => {
     return (totalOfOrders.value / nextLevel.value.amountToUnlock) * 100
   })
 
-  const formattedPhone = computed(() => {
+  const formattedPhone = computed<string>(() => {
     if (!phone.value) {
       return ''
     }
 
-    const phoneNumber = parsePhoneNumberWithError(phone.value, 'RU')
-
-    return phoneNumber?.format('INTERNATIONAL')
+    return parsePhoneNumberWithError(phone.value, 'RU').format('INTERNATIONAL')
   })
 
   async function update() {
@@ -91,6 +82,7 @@ export const useClientStore = defineStore('client', () => {
       numberOfOrders.value = data.numberOfOrders
       totalOfOrders.value = data.totalOfOrders
       levelId.value = data.levelId
+      bonusProgramParticipantFrom.value = data.bonusProgramParticipantFrom
       selectedCityId.value = data.selectedCityId
     } catch (error) {
       if (error instanceof Error) {
@@ -221,6 +213,9 @@ export const useClientStore = defineStore('client', () => {
     cities,
     selectedCity,
     isCitySelectorOpened,
+
+    bonusProgramParticipantFrom,
+    isBonusProgramParticipant,
 
     fullName,
     formattedPhone,

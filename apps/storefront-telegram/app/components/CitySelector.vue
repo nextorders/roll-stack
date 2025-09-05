@@ -5,9 +5,6 @@
     :dismissible="false"
     should-scale-background
     :set-background-color-on-scale="false"
-    :ui="{
-      content: 'max-h-10/12',
-    }"
   >
     <template #content>
       <div class="p-4 pb-20 flex flex-col gap-3 overflow-y-auto">
