@@ -1,7 +1,7 @@
 <template>
   <button
     class="flex flex-col items-center justify-center gap-1 px-4 cursor-pointer tg-text-subtitle"
-    @click="canScrollToTop ? handleScrollToTop() : handleRedirect(route.path)"
+    @click="(isCatalogPage && canScrollToTop && isThisRoute) ? handleScrollToTop() : handleRedirect(route.path)"
   >
     <div
       class="relative py-1 w-full rounded-2xl flex flex-row items-center justify-center"
@@ -10,12 +10,12 @@
       ]"
     >
       <UIcon
-        v-if="canScrollToTop"
+        v-if="isCatalogPage && canScrollToTop && isThisRoute"
         name="i-lucide-arrow-up"
         class="size-6 motion-preset-shake"
       />
       <UIcon
-        v-else-if="canReturn"
+        v-else-if="isClientInnerPage && canReturnToCabinet && isThisRoute"
         name="i-lucide-undo-2"
         class="size-6 motion-preset-shake"
       />
@@ -42,16 +42,10 @@ import type { NavigationRoute } from '#shared/types/index'
 const { route } = defineProps<{ route: NavigationRoute }>()
 
 const { vibrate } = useFeedback()
+const { canScrollToTop, isCatalogPage, isClientInnerPage, canReturnToCabinet } = useNavigation()
 const router = useRouter()
 
 const isThisRoute = computed(() => route.exact ? router.currentRoute.value.path === route.path : router.currentRoute.value.path.startsWith(route.path))
-
-const { y } = useWindowScroll()
-const isCatalogButton = computed(() => route.path === '/' && router.currentRoute.value.path === '/')
-const canScrollToTop = computed(() => isCatalogButton.value && y.value > 650)
-
-const isClientButton = computed(() => route.path === '/client' && router.currentRoute.value.path.startsWith('/client'))
-const canReturn = computed(() => isClientButton.value && router.currentRoute.value.path !== '/client')
 
 function handleScrollToTop() {
   vibrate()

@@ -1,16 +1,17 @@
 <template>
-  <div v-if="clientStore.id" class="z-50 touch-pan-x sticky inset-0 h-38">
-    <div class="w-full h-14 px-4 py-0 flex flex-row gap-2 items-start">
+  <div v-if="clientStore.id" class="z-50 touch-pan-x sticky inset-0 h-40">
+    <div class="w-full h-16 px-4 py-0 flex flex-row gap-2 items-start">
       <CartButton v-if="isCartButtonShown" />
 
       <UButton
-        variant="soft"
+        v-if="isCategoriesButtonShown"
+        variant="outline"
         color="neutral"
         size="xl"
         icon="i-lucide-logs"
         block
         :ui="{
-          base: 'size-12 aspect-square',
+          base: 'size-14 aspect-square motion-preset-slide-left motion-duration-500',
         }"
       />
     </div>
@@ -31,34 +32,12 @@
 </template>
 
 <script setup lang="ts">
-import type { NavigationRoute } from '#shared/types/index'
+const {
+  isNavigationShown,
+  isCartButtonShown,
+  isCategoriesButtonShown,
+  mainRoutes,
+} = useNavigation()
 
-const router = useRouter()
-const { t } = useI18n()
-const { isNavigationShown } = useCatalog()
 const clientStore = useClientStore()
-
-const isCartButtonShown = computed(() => router.currentRoute.value.path === '/')
-
-const mainRoutes = computed<NavigationRoute[]>(() => [
-  {
-    path: '/',
-    name: 'home',
-    title: t('app.home'),
-    icon: 'i-lucide-layout-dashboard',
-    exact: true,
-  },
-  {
-    path: '/client',
-    name: 'client',
-    title: 'Кабинет',
-    icon: 'i-lucide-user',
-  },
-  {
-    path: '/menu',
-    name: 'menu',
-    title: 'Меню',
-    icon: 'i-lucide-menu',
-  },
-])
 </script>

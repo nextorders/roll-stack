@@ -4,13 +4,14 @@
       <UButton
         v-for="item in items"
         :key="item.label"
-        active
         size="xl"
         color="neutral"
         variant="ghost"
-        class="px-0 pt-0 text-xl/5 font-semibold"
         :label="item.label"
         :to="item.to"
+        :ui="{
+          base: 'px-0 pt-0 text-2xl/6 font-semibold',
+        }"
         @click="item.onClick"
       />
     </div>
@@ -26,12 +27,11 @@
 
     <div class="flex flex-col gap-1">
       <UButton
-        :to="formattedToCall"
-        external
         variant="ghost"
         color="primary"
         class="p-0 text-lg font-medium"
         :label="formatted"
+        @click="handleCall"
       />
     </div>
 
@@ -39,6 +39,7 @@
       <UButton
         variant="ghost"
         to="https://vk.com/sushiloveru"
+        target="_blank"
         color="neutral"
         size="xl"
         icon="simple-icons:vk"
@@ -60,6 +61,12 @@ const channelStore = useChannelStore()
 const tel = '79959999999'
 const formatted = parsePhoneNumberWithError(tel, 'RU').format('INTERNATIONAL')
 const formattedToCall = `tel:+${tel}`
+
+function handleCall() {
+  vibrate()
+  // Call phone number on click
+  window.location.href = formattedToCall
+}
 
 const items = ref([
   {

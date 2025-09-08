@@ -1,6 +1,5 @@
 function _useCatalog() {
   const visibleCategory = ref<string | null>(null)
-  const isNavigationShown = ref(true)
 
   const observerOptions = { rootMargin: '0px 0px -150px 0px' }
 
@@ -14,7 +13,6 @@ function _useCatalog() {
   return {
     visibleCategory,
     observerOptions,
-    isNavigationShown,
   }
 }
 
