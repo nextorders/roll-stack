@@ -1,10 +1,6 @@
 <template>
   <PageContainer>
-    <h1 class="text-2xl/5 font-bold tracking-tight">
-      Меню
-    </h1>
-
-    <div class="flex flex-col gap-1">
+    <div class="flex flex-col gap-2">
       <UButton
         v-for="item in items"
         :key="item.label"
@@ -12,7 +8,7 @@
         size="xl"
         color="neutral"
         variant="ghost"
-        class="px-0 text-xl/5 font-semibold"
+        class="px-0 pt-0 text-xl/5 font-semibold"
         :label="item.label"
         :to="item.to"
         @click="item.onClick"
@@ -31,16 +27,26 @@
     <div class="flex flex-col gap-1">
       <UButton
         :to="formattedToCall"
-        color="neutral"
+        external
         variant="ghost"
-        class="px-0 text-lg font-medium"
-      >
-        {{ formatted }}
-      </UButton>
+        color="primary"
+        class="p-0 text-lg font-medium"
+        :label="formatted"
+      />
     </div>
 
     <div class="flex flex-row gap-2">
-      <UIcon name="simple-icons:vk" class="size-8" />
+      <UButton
+        variant="ghost"
+        to="https://vk.com/sushiloveru"
+        color="neutral"
+        size="xl"
+        icon="simple-icons:vk"
+        class="p-0"
+        :ui="{
+          leadingIcon: 'size-8',
+        }"
+      />
     </div>
   </PageContainer>
 </template>
@@ -51,9 +57,9 @@ import { parsePhoneNumberWithError } from 'libphonenumber-js'
 const { vibrate } = useFeedback()
 const channelStore = useChannelStore()
 
-const tel = '79999999999'
+const tel = '79959999999'
 const formatted = parsePhoneNumberWithError(tel, 'RU').format('INTERNATIONAL')
-const formattedToCall = parsePhoneNumberWithError(tel, 'RU').format('RFC3966')
+const formattedToCall = `tel:+${tel}`
 
 const items = ref([
   {

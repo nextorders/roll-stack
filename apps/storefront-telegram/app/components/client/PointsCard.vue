@@ -121,10 +121,15 @@
 <script setup lang="ts">
 const { vibrate } = useFeedback()
 const { x, y } = useGyroscope()
+const { isNavigationShown } = useCatalog()
 
 const clientStore = useClientStore()
 
 const isDrawerOpened = ref(false)
+
+watch(isDrawerOpened, () => {
+  isNavigationShown.value = !isDrawerOpened.value
+})
 
 function handleCardClick() {
   vibrate()

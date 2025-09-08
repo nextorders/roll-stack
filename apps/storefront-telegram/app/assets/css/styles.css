@@ -110,9 +110,21 @@
 
 html, body {
   background: var(--tg-theme-secondary-bg-color, transparent) !important;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
-::-webkit-scrollbar {
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+}
+
+.hide-scroll {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scroll::-webkit-scrollbar {
   display: none;
   width: 0;
 }
