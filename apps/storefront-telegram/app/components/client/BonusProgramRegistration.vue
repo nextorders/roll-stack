@@ -74,7 +74,7 @@
 
 <script setup lang="ts">
 const { vibrate } = useFeedback()
-const { isNavigationShown } = useCatalog()
+const { isNavigationShown } = useNavigation()
 
 const isDrawerOpened = ref(false)
 

@@ -121,7 +121,7 @@
 <script setup lang="ts">
 const { vibrate } = useFeedback()
 const { x, y } = useGyroscope()
-const { isNavigationShown } = useCatalog()
+const { isNavigationShown } = useNavigation()
 
 const clientStore = useClientStore()
 

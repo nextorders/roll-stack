@@ -2,7 +2,9 @@
   <PageContainer :back="false">
     <div class="flex flex-row gap-3.5 items-center">
       <div class="flex flex-col gap-1">
-        <p>{{ channelStore.name }}</p>
+        <h1 class="text-2xl/6 font-bold tracking-tight">
+          Суши Love
+        </h1>
       </div>
     </div>
 
@@ -19,7 +21,6 @@
 </template>
 
 <script setup lang="ts">
-const channelStore = useChannelStore()
 const menuStore = useMenuStore()
 
 useHead({

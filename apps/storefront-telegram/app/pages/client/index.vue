@@ -1,7 +1,7 @@
 <template>
   <PageContainer>
     <div class="flex flex-col gap-2">
-      <h1 class="text-2xl/5 font-bold tracking-tight">
+      <h1 class="text-2xl/6 font-bold tracking-tight">
         {{ clientStore.fullName }}
       </h1>
       <p class="text-muted text-base/5 font-medium">
