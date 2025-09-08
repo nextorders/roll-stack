@@ -118,3 +118,13 @@ body::-webkit-scrollbar {
   display: none;
   width: 0;
 }
+
+.hide-scroll {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+  width: 0;
+}

@@ -6,9 +6,5 @@
   </main>
 
   <CitySelector />
-  <Navigation v-if="clientStore.id" />
+  <Navigation />
 </template>
-
-<script setup lang="ts">
-const clientStore = useClientStore()
-</script>

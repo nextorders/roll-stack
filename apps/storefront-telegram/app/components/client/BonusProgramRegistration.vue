@@ -74,8 +74,13 @@
 
 <script setup lang="ts">
 const { vibrate } = useFeedback()
+const { isNavigationShown } = useCatalog()
 
 const isDrawerOpened = ref(false)
+
+watch(isDrawerOpened, () => {
+  isNavigationShown.value = !isDrawerOpened.value
+})
 
 function handleClick() {
   vibrate()

@@ -1,21 +1,44 @@
 <template>
-  <nav class="z-50 touch-pan-x fixed bottom-0 left-0 right-0 w-full h-25 tg-bg-bottom-bar border-t border-default rounded-t-lg motion-preset-slide-up">
-    <div class="max-w-[28rem] mx-auto">
-      <div class="mt-3 grid grid-cols-3">
+  <div v-if="clientStore.id" class="z-50 touch-pan-x sticky inset-0 h-38">
+    <div class="w-full h-14 px-4 py-0 flex flex-row gap-2 items-start">
+      <CartButton v-if="isCartButtonShown" />
+
+      <UButton
+        variant="soft"
+        color="neutral"
+        size="xl"
+        icon="i-lucide-logs"
+        block
+        :ui="{
+          base: 'size-12 aspect-square',
+        }"
+      />
+    </div>
+
+    <nav
+      v-if="isNavigationShown"
+      class="w-full h-24 tg-bg-bottom-bar border-t border-default rounded-t-lg motion-preset-slide-up"
+    >
+      <div class="mt-3 max-w-[28rem] mx-auto grid grid-cols-3">
         <NavigationButton
           v-for="route in mainRoutes"
           :key="route.path"
           :route="route"
         />
       </div>
-    </div>
-  </nav>
+    </nav>
+  </div>
 </template>
 
 <script setup lang="ts">
 import type { NavigationRoute } from '#shared/types/index'
 
+const router = useRouter()
 const { t } = useI18n()
+const { isNavigationShown } = useCatalog()
+const clientStore = useClientStore()
+
+const isCartButtonShown = computed(() => router.currentRoute.value.path === '/')
 
 const mainRoutes = computed<NavigationRoute[]>(() => [
   {

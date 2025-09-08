@@ -1,6 +1,6 @@
 <template>
   <div class="z-40 sticky -top-0.5 h-fit tg-safe-area tg-bg-secondary">
-    <div class="max-w-full overflow-x-scroll snap-x tg-content-safe-area-top">
+    <div class="max-w-full overflow-x-scroll hide-scroll snap-x tg-content-safe-area-top">
       <div class="py-1 w-max flex flex-row flex-wrap gap-1">
         <div
           v-for="category in menuStore.menu?.categories"
