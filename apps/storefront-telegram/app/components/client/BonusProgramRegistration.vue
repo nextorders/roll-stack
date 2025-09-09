@@ -15,7 +15,7 @@
       block
       size="lg"
       label="Активировать"
-      @click="handleClick"
+      @click="handleClick()"
     />
   </ClientPointsCardBottomBlock>
 
@@ -48,7 +48,7 @@
         <div class="flex flex-row gap-2 items-start text-base/5">
           <UIcon name="i-lucide-cake" class="shrink-0 size-6 text-primary" />
           <p>
-            К дню рождения будем присылать вкусные подарки.
+            Ко дню рождения будем присылать вкусные подарки.
           </p>
         </div>
 

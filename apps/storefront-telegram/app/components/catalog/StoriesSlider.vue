@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-full overflow-x-scroll snap-x">
+  <div class="max-w-full overflow-x-scroll snap-x hide-scroll">
     <div class="w-max flex flex-row flex-wrap gap-2">
       <div class="min-w-36 scroll-ml-6 snap-start border border-primary aspect-2/3 rounded-lg">
         <div class="p-2 max-w-36">

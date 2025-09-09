@@ -1,8 +1,9 @@
 <template>
   <UButton
-    block
+    v-if="isCartButtonShown"
     variant="solid"
     color="secondary"
+    class="flex-1 transition-all duration-200 ease-in-out"
     :ui="{
       base: 'px-4 py-2 h-14',
     }"
@@ -18,3 +19,7 @@
     </div>
   </UButton>
 </template>
+
+<script setup lang="ts">
+const { isCartButtonShown } = useNavigation()
+</script>

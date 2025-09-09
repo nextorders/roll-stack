@@ -7,7 +7,7 @@
     :set-background-color-on-scale="false"
   >
     <template #content>
-      <div class="p-4 pb-20 flex flex-col gap-3 overflow-y-auto">
+      <div class="p-4 pb-20 flex flex-col gap-3 overflow-y-auto hide-scroll">
         <h3 class="text-lg font-semibold">
           Выберите город
         </h3>
