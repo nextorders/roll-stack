@@ -31,7 +31,7 @@
         color="primary"
         class="p-0 text-lg font-medium"
         :label="formatted"
-        @click="handleCall"
+        @click="handleCall()"
       />
     </div>
 
@@ -53,6 +53,7 @@
 </template>
 
 <script setup lang="ts">
+import { openLink } from '@telegram-apps/sdk-vue'
 import { parsePhoneNumberWithError } from 'libphonenumber-js'
 
 const { vibrate } = useFeedback()
@@ -60,12 +61,17 @@ const channelStore = useChannelStore()
 
 const tel = '79959999999'
 const formatted = parsePhoneNumberWithError(tel, 'RU').format('INTERNATIONAL')
-const formattedToCall = `tel:+${tel}`
+const formattedToCall = `tel:${tel}`
 
-function handleCall() {
+async function handleCall() {
   vibrate()
+
   // Call phone number on click
-  window.location.href = formattedToCall
+  if (openLink.isAvailable()) {
+    openLink(formattedToCall, {
+      tryInstantView: true,
+    })
+  }
 }
 
 const items = ref([

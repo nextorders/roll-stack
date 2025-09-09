@@ -9,7 +9,7 @@
           class="scroll-ml-24 snap-start text-sm text-muted font-medium rounded-full"
           :class="{ 'tg-text-button bg-primary': visibleCategory === category.slug }"
         >
-          <button class="px-2.5 py-1.25" @click="scrollToCategory(category.slug)">
+          <button class="px-2.5 py-1.25" @click="handleScroll(category.slug)">
             {{ category.name }}
           </button>
         </div>
@@ -20,14 +20,12 @@
 
 <script setup lang="ts">
 const { vibrate } = useFeedback()
-const { visibleCategory } = useCatalog()
+const { visibleCategory, scrollToCategory } = useCatalog()
 
 const menuStore = useMenuStore()
 
-function scrollToCategory(id: string) {
+function handleScroll(slug: string) {
   vibrate()
-
-  const category = window.document.getElementById(id)
-  category?.scrollIntoView({ behavior: 'smooth' })
+  scrollToCategory(slug)
 }
 </script>
