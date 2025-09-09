@@ -53,7 +53,7 @@ export default defineAppConfig({
     },
     drawer: {
       slots: {
-        content: '!max-h-10/12',
+        content: '!max-h-10/12 ring-default',
       },
     },
     navigationMenu: {

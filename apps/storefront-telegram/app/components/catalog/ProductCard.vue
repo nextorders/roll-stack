@@ -10,7 +10,7 @@
       </div>
 
       <div class="px-3 py-1 flex-1 flex flex-col gap-1">
-        <p class="text-sm/4 font-medium">
+        <p class="text-sm/4 font-semibold">
           {{ product?.name }}
         </p>
 

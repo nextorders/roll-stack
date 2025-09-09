@@ -33,8 +33,8 @@
             :key="category.id"
             variant="ghost"
             color="neutral"
-            size="lg"
-            class="px-0 motion-preset-slide-left"
+            size="xl"
+            class="-ml-2 px-2 py-1.5 font-medium motion-preset-slide-left"
             :class="[
               visibleCategory === category.slug
                 ? 'font-semibold text-primary'
