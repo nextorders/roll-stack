@@ -1,8 +1,9 @@
 <template>
   <div v-if="clientStore.id" class="z-50 touch-pan-x sticky inset-0 h-40">
     <div class="w-full h-16 px-4 py-0 flex flex-row flex-nowrap gap-0 items-start transition-all duration-200 ease-in-out">
-      <CartButton />
-      <CatalogCategoriesNavigator />
+      <CatalogCartButton />
+      <CatalogAverageProgressButton />
+      <CatalogCategoriesButton />
     </div>
 
     <nav

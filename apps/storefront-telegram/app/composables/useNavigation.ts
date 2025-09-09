@@ -35,12 +35,14 @@ function _useNavigation() {
 
   const isCartButtonShown = computed(() => isCatalogPage.value)
   const isCategoriesButtonShown = computed(() => isCatalogPage.value && canScrollToTop.value)
+  const isAverageProgressButtonShown = computed(() => isCatalogPage.value)
 
   return {
     isNavigationShown,
 
     isCartButtonShown,
     isCategoriesButtonShown,
+    isAverageProgressButtonShown,
 
     isClientInnerPage,
     canReturnToCabinet,
