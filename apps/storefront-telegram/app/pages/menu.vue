@@ -29,7 +29,7 @@
       <UButton
         variant="ghost"
         color="primary"
-        class="p-0 text-lg font-medium"
+        class="p-0 text-lg font-semibold"
         :label="formatted"
         @click="handleCall()"
       />
@@ -40,13 +40,14 @@
         variant="ghost"
         to="https://vk.com/sushiloveru"
         target="_blank"
-        color="neutral"
+        color="primary"
         size="xl"
         icon="simple-icons:vk"
         class="p-0"
         :ui="{
           leadingIcon: 'size-8',
         }"
+        @click="vibrate()"
       />
     </div>
   </PageContainer>
@@ -61,7 +62,7 @@ const channelStore = useChannelStore()
 
 const tel = '79959999999'
 const formatted = parsePhoneNumberWithError(tel, 'RU').format('INTERNATIONAL')
-const formattedToCall = `tel:${tel}`
+const formattedToCall = `tel:+${tel}`
 
 async function handleCall() {
   vibrate()

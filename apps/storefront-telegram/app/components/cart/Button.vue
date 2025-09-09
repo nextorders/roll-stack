@@ -3,7 +3,7 @@
     v-if="isCartButtonShown"
     variant="solid"
     color="secondary"
-    class="flex-1 transition-all duration-200 ease-in-out"
+    class="flex-1 transition-all duration-200 ease-in-out motion-preset-slide-down motion-duration-500"
     :ui="{
       base: 'px-4 py-2 h-14',
     }"
