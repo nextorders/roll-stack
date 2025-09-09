@@ -54,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import { openLink } from '@telegram-apps/sdk-vue'
+import { showPopup } from '@telegram-apps/sdk-vue'
 import { parsePhoneNumberWithError } from 'libphonenumber-js'
 
 const { vibrate } = useFeedback()
@@ -67,11 +67,33 @@ const formattedToCall = `tel:+${tel}`
 async function handleCall() {
   vibrate()
 
-  // Call phone number on click
-  if (openLink.isAvailable()) {
-    openLink(formattedToCall, {
-      tryInstantView: true,
+  if (showPopup.isAvailable()) {
+    const buttonId = await showPopup({
+      title: formatted,
+      message: 'Выберите действие',
+      buttons: [
+        {
+          id: 'copy',
+          type: 'default',
+          text: 'Скопировать',
+        },
+        {
+          id: 'recall',
+          type: 'default',
+          text: 'Нужен обратный звонок',
+        },
+        {
+          type: 'close',
+        },
+      ],
     })
+
+    if (buttonId === 'copy') {
+      navigator.clipboard.writeText(formatted)
+    }
+    if (buttonId === 'recall') {
+      window.open(formattedToCall)
+    }
   }
 }
 
