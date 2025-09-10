@@ -16,7 +16,7 @@
       }"
       @click="handleClick()"
     >
-      <div class="relative size-14">
+      <div class="relative size-14 transition-all duration-200 ease-in-out">
         <VisSingleContainer :data="data" class="size-14">
           <VisDonut
             :value="value"
@@ -28,13 +28,24 @@
         </VisSingleContainer>
 
         <div class="w-full h-full absolute inset-0 flex flex-col justify-center items-center">
-          <UIcon name="i-lucide-gift" class="size-6" />
+          <UIcon name="i-lucide-gift" class="size-6 tg-text-accent" />
         </div>
       </div>
 
-      <div class="pr-2 w-12 text-center text-sm/4 font-medium">
-        <p>Еще</p>
-        <p>{{ progress * 10 }} ₽</p>
+      <div
+        class="transition-all duration-600 ease-in-out"
+        :class="[
+          isTextShown ? 'w-14 pr-2.5' : 'w-0',
+        ]"
+      >
+        <div v-if="isTextShown" class="flex flex-col text-center text-sm/4 font-medium motion-preset-pop">
+          <p class="min-w-12">
+            Еще
+          </p>
+          <p class="min-w-12">
+            {{ progress * 10 }} ₽
+          </p>
+        </div>
       </div>
     </UButton>
   </div>
@@ -67,7 +78,12 @@ const color = (_: number, i: number) => ['var(--tg-theme-button-color)', 'var(--
 onMounted(() => {
   setInterval(() => {
     progress.value = Math.floor(Math.random() * 100)
-  }, 4000)
+    isTextShown.value = true
+
+    setTimeout(() => {
+      isTextShown.value = false
+    }, 4000)
+  }, 12000)
 })
 
 const isDrawerOpened = ref(false)
@@ -80,4 +96,6 @@ function handleClick() {
   vibrate()
   isDrawerOpened.value = !isDrawerOpened.value
 }
+
+const isTextShown = ref(false)
 </script>
