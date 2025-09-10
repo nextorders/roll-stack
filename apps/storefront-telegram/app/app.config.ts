@@ -27,7 +27,7 @@ export default defineAppConfig({
     },
     button: {
       slots: {
-        base: 'font-semibold',
+        base: 'font-semibold font-headers',
       },
       variants: {
         size: {
@@ -58,7 +58,9 @@ export default defineAppConfig({
     },
     drawer: {
       slots: {
-        content: '!max-h-10/12 ring-default',
+        header: 'text-xl/6 font-bold font-headers',
+        body: 'mb-12 hide-scroll',
+        content: '!max-h-10/12 ring-default hide-scroll',
       },
     },
     navigationMenu: {

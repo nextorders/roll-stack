@@ -53,7 +53,7 @@
   <UDrawer v-model:open="isDrawerOpened">
     <template #content>
       <div class="p-4 pb-20 flex flex-col gap-5 overflow-y-auto hide-scroll">
-        <h2 class="text-xl/6 font-semibold">
+        <h2 class="text-xl/6 font-bold">
           Увеличим чек?
         </h2>
 

@@ -3,7 +3,7 @@
     ref="target"
     class="flex flex-col gap-3 mb-10"
   >
-    <h2 :id="category?.slug" class="scroll-mt-36 text-2xl/5 font-semibold tracking-tight">
+    <h2 :id="category?.slug" class="scroll-mt-36 text-2xl/5 font-bold tracking-tight">
       {{ category?.name }}
     </h2>
 

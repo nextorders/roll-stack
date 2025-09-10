@@ -20,30 +20,24 @@
     />
   </div>
 
-  <UDrawer v-model:open="isDrawerOpened">
-    <template #content>
-      <div class="p-4 pb-20 flex flex-col gap-5 overflow-y-auto hide-scroll">
-        <h2 class="text-xl/6 font-semibold">
-          Категории
-        </h2>
-
-        <div class="flex flex-col gap-0">
-          <UButton
-            v-for="category in menuStore.menu?.categories"
-            :key="category.id"
-            variant="ghost"
-            color="neutral"
-            size="xl"
-            class="-ml-2 px-2 py-1.5 font-medium motion-preset-slide-left"
-            :class="[
-              visibleCategory === category.slug
-                ? 'font-semibold text-primary'
-                : '',
-            ]"
-            :label="category.name"
-            @click="handleScroll(category.slug)"
-          />
-        </div>
+  <UDrawer v-model:open="isDrawerOpened" title="Категории">
+    <template #body>
+      <div class="-ml-2 flex flex-col gap-0">
+        <UButton
+          v-for="category in menuStore.menu?.categories"
+          :key="category.id"
+          variant="ghost"
+          color="neutral"
+          size="xl"
+          class="px-2 py-1.5 font-medium motion-preset-slide-left"
+          :class="[
+            visibleCategory === category.slug
+              ? 'font-semibold text-primary'
+              : '',
+          ]"
+          :label="category.name"
+          @click="handleScroll(category.slug)"
+        />
       </div>
     </template>
   </UDrawer>
