@@ -165,9 +165,12 @@ async function findOrCreateClient(phone: string, user: { name: string, surname: 
   const client = await repository.client.findByPhone(phone)
   if (!client) {
     const id = createId()
+    const baseLevelId = 'hvccipw6t467rw3kxkujj1j8'
+
     return repository.client.create({
       id,
       phone,
+      levelId: baseLevelId,
       name: user.name,
       surname: user.surname,
       avatarUrl: `https://atrium.sushi-love.ru/api/avatar/${id}.svg?emotion=7&gender=female`,

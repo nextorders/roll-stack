@@ -11,7 +11,7 @@
       color="neutral"
       size="xl"
       class="motion-preset-slide-left motion-duration-500"
-      icon="i-lucide-list-end"
+      icon="i-lucide-text-align-start"
       :ui="{
         base: 'size-14 ring-default',
         leadingIcon: 'size-6 mx-auto',

@@ -70,17 +70,17 @@ async function handleCall() {
   if (showPopup.isAvailable()) {
     const buttonId = await showPopup({
       title: formatted,
-      message: 'Выберите действие',
+      message: 'Телефон кухни. Выберите действие',
       buttons: [
         {
-          id: 'copy',
+          id: 'call',
           type: 'default',
-          text: 'Скопировать',
+          text: 'Позвонить',
         },
         {
           id: 'recall',
           type: 'default',
-          text: 'Нужен обратный звонок',
+          text: 'Заказать обратный звонок',
         },
         {
           type: 'close',
@@ -88,11 +88,11 @@ async function handleCall() {
       ],
     })
 
-    if (buttonId === 'copy') {
-      navigator.clipboard.writeText(formatted)
+    if (buttonId === 'call') {
+      window.open(formattedToCall)
     }
     if (buttonId === 'recall') {
-      window.open(formattedToCall)
+      //
     }
   }
 }
