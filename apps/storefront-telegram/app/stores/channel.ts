@@ -15,6 +15,8 @@ export const useChannelStore = defineStore('channel', () => {
   const selectedKitchenId = ref<string | undefined>('m68foq9qtpsxd69eayom7bjn') // Фрунзе
   const selectedKitchen = computed(() => kitchens.value.find((kitchen) => kitchen.id === selectedKitchenId.value))
 
+  const isKitchenOpened = computed(() => false)
+
   const initDataRaw = useSignal(_initDataRaw)
 
   async function update() {
@@ -53,6 +55,7 @@ export const useChannelStore = defineStore('channel', () => {
 
     selectedKitchenId,
     selectedKitchen,
+    isKitchenOpened,
 
     update,
   }
