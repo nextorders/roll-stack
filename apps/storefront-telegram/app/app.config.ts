@@ -2,22 +2,27 @@ export default defineAppConfig({
   ui: {
     input: {
       slots: {
-        base: '!ring-muted placeholder:text-muted/50',
+        base: '!ring-default placeholder:text-muted/50',
       },
     },
     inputMenu: {
       slots: {
-        base: '!ring-muted placeholder:text-muted/50',
+        base: '!ring-default placeholder:text-muted/50',
+      },
+    },
+    select: {
+      slots: {
+        base: '!ring-default placeholder:text-muted/50',
       },
     },
     selectMenu: {
       slots: {
-        base: '!ring-muted placeholder:text-muted/50',
+        base: '!ring-default placeholder:text-muted/50',
       },
     },
     textarea: {
       slots: {
-        base: '!ring-muted placeholder:text-muted/50',
+        base: '!ring-default placeholder:text-muted/50',
       },
     },
     button: {
@@ -46,7 +51,7 @@ export default defineAppConfig({
     },
     modal: {
       slots: {
-        content: 'divide-y-0 !ring-muted/50',
+        content: 'divide-y-0 !ring-default',
         header: 'pb-0 min-h-12',
         title: 'font-semibold',
       },
