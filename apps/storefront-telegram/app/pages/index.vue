@@ -1,9 +1,14 @@
 <template>
   <PageContainer :back="false">
-    <div class="flex flex-row gap-3.5 items-center">
+    <div class="flex flex-col gap-4">
+      <CatalogDeliveryTypeSelector />
+
       <div class="flex flex-col gap-1">
-        <h1 class="text-2xl/6 font-bold tracking-tight">
-          Суши Love
+        <p class="text-muted">
+          Суши Love, Калининград-1
+        </p>
+        <h1 class="text-xl/6 font-semibold">
+          улица Фрунзе, 6В
         </h1>
       </div>
     </div>
