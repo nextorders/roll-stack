@@ -8,7 +8,7 @@
         <UIcon name="i-lucide-moon" class="size-12 motion-preset-oscillate-sm motion-preset-seesaw motion-duration-3000" />
 
         <div class="flex flex-col">
-          <h3 class="text-lg font-semibold">
+          <h3 class="text-lg font-bold">
             Мы сейчас закрыты
           </h3>
           <p>Работаем с 10:00 до 22:00</p>

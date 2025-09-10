@@ -10,7 +10,7 @@
       </div>
 
       <div class="px-3 py-1 flex-1 flex flex-col gap-1">
-        <p class="text-sm/4 font-semibold">
+        <p class="text-sm/4 font-bold">
           {{ product?.name }}
         </p>
 
@@ -35,7 +35,7 @@
           <div class="text-base font-medium">
             <span v-if="!withSingleVariant" class="pr-1 lowercase">{{ $t('app.cart.from') }}</span>
             <span>{{ price }}</span>
-            <span class="pl-1 text-lg">{{ channelStore.currencySign }}</span>
+            <span class="pl-1">{{ channelStore.currencySign }}</span>
           </div>
         </UButton>
       </div>

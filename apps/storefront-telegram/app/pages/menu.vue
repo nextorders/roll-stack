@@ -10,7 +10,7 @@
         :label="item.label"
         :to="item.to"
         :ui="{
-          base: 'px-0 pt-0 text-2xl/6 font-semibold',
+          base: 'px-0 pt-0 text-2xl/6 font-bold',
         }"
         @click="item.onClick"
       />

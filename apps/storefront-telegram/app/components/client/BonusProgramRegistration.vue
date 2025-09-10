@@ -26,7 +26,7 @@
   >
     <template #content>
       <div class="p-4 pb-20 flex flex-col gap-5 overflow-y-auto">
-        <h2 class="text-xl/6 font-semibold">
+        <h2 class="text-xl/6 font-bold">
           Регистрация в программе лояльности
         </h2>
 

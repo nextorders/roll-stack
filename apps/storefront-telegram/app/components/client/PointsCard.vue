@@ -21,10 +21,10 @@
               Клиент {{ clientStore.level.level }} уровня
             </div>
             <div class="flex flex-row gap-1.5 items-center">
-              <p class="text-4xl/6 font-semibold">
+              <h3 class="text-4xl/8 font-bold">
                 {{ clientStore.points }}
-              </p>
-              <UIcon name="fluent:heart-circle-24-filled" class="size-7" />
+              </h3>
+              <UIcon name="fluent:heart-circle-24-filled" class="size-6" />
             </div>
           </div>
 
@@ -41,9 +41,9 @@
               {{ clientStore.level.cashback }}%
             </div>
 
-            <div class="tg-text-inverted">
+            <p class="tg-text-inverted font-medium">
               Ваш кешбэк
-            </div>
+            </p>
           </div>
 
           <UIcon name="i-lucide-info" class="size-6 tg-text-inverted" />
@@ -62,7 +62,7 @@
   >
     <template #content>
       <div class="p-4 pb-20 flex flex-col gap-5 overflow-y-auto">
-        <h2 class="text-xl/6 font-semibold">
+        <h2 class="text-xl/6 font-bold">
           У вас есть {{ clientStore.points }} «Лавчиков»
         </h2>
 

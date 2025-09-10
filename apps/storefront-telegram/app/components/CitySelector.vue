@@ -8,7 +8,7 @@
   >
     <template #content>
       <div class="p-4 pb-20 flex flex-col gap-3 overflow-y-auto hide-scroll">
-        <h3 class="text-lg font-semibold">
+        <h3 class="text-lg font-bold">
           Выберите город
         </h3>
 
