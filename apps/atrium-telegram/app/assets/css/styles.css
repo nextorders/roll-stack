@@ -67,6 +67,9 @@
   .tg-text {
     color: var(--tg-theme-text-color);
   }
+  .tg-text-inverted {
+    color: var(--tg-theme-bg-color);
+  }
   .tg-text-accent {
     color: var(--tg-theme-accent-text-color);
   }
@@ -107,9 +110,25 @@
 
 html, body {
   background: var(--tg-theme-secondary-bg-color, transparent) !important;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
-::-webkit-scrollbar {
+body::-webkit-scrollbar {
   display: none;
   width: 0;
+}
+
+.hide-scroll {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+  width: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headers);
 }

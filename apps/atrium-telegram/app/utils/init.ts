@@ -2,6 +2,8 @@ import type { ThemeParams } from '@telegram-apps/sdk-vue'
 import {
   bindThemeParamsCssVars,
   bindViewportCssVars,
+  closingBehavior,
+  disableVerticalSwipes,
   emitEvent,
   exitFullscreen,
   init as initSDK,
@@ -9,6 +11,7 @@ import {
   mountBackButton,
   mountClosingBehavior,
   mountMiniAppSync,
+  mountSwipeBehavior,
   mountViewport,
   postEvent,
   requestFullscreen,
@@ -74,16 +77,24 @@ export async function init(options: {
   mountBackButton.ifAvailable()
   restoreInitData()
 
-  if (mountMiniAppSync.isAvailable()) {
-    mountMiniAppSync()
-    bindThemeParamsCssVars()
-  }
+  mountMiniAppSync.ifAvailable()
+  bindThemeParamsCssVars.ifAvailable()
 
   mountClosingBehavior.ifAvailable()
+  closingBehavior.enableConfirmation.ifAvailable()
+
+  // Disable vertical swipes to prevent app close
+  mountSwipeBehavior.ifAvailable()
+  disableVerticalSwipes.ifAvailable()
 
   // Orientation lock
   postEvent('web_app_toggle_orientation_lock', {
     locked: true,
+  })
+
+  // Gyroscope
+  postEvent('web_app_start_gyroscope', {
+    refresh_rate: 80,
   })
 
   if (mountViewport.isAvailable()) {

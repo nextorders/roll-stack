@@ -35,10 +35,32 @@ export default defineNuxtConfig({
   },
   ui: {
     colorMode: true,
-    fonts: false,
+    fonts: true,
   },
   colorMode: {
     storageKey: 'color-mode',
+  },
+  fonts: {
+    defaults: {
+      weights: [400, 500, 600, 700, 800, 900],
+      styles: ['normal', 'italic'],
+      subsets: [
+        'cyrillic-ext',
+        'cyrillic',
+        'latin-ext',
+        'latin',
+      ],
+    },
+    families: [
+      {
+        name: 'Nunito',
+        provider: 'google',
+      },
+      {
+        name: 'Nunito Sans',
+        provider: 'google',
+      },
+    ],
   },
   css: ['~/assets/css/styles.css'],
   i18n: {

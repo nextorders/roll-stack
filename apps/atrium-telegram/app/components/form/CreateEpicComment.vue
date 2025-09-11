@@ -9,7 +9,6 @@
       <UTextarea
         v-model="state.text"
         placeholder="Напишите свою мысль..."
-        :rows="5"
         autoresize
         size="xl"
         class="w-full"

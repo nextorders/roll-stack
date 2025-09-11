@@ -13,6 +13,6 @@ export const updateEpicSchema = type({
 export type UpdateEpic = typeof updateEpicSchema.infer
 
 export const createEpicCommentSchema = type({
-  text: type('1 <= string <= 1500').describe('error.length.invalid'),
+  text: type('1 <= string <= 3000').describe('error.length.invalid'),
 })
 export type CreateEpicComment = typeof createEpicCommentSchema.infer
