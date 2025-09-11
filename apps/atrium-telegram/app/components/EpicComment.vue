@@ -7,7 +7,7 @@
       <UDropdownMenu
         :items="items"
         :ui="{
-          content: 'w-48',
+          content: 'w-56',
           item: 'p-2 motion-preset-slide-left motion-duration-200',
         }"
         :content="{
@@ -64,15 +64,23 @@ const user = computed(() => userStore.find(comment.value?.userId ?? ''))
 const items = computed<DropdownMenuItem[]>(() => {
   const menuItems: DropdownMenuItem[] = [
     {
-      label: 'Маякнуть',
-      icon: 'i-lucide-users-round',
+      label: 'Скопировать сообщение',
+      icon: 'i-lucide-copy',
       color: 'neutral',
       disabled: false,
+      onSelect: () => navigator.clipboard.writeText(comment.value?.text ?? ''),
+      condition: true,
+    },
+    {
+      label: 'Маякнуть (будет позже)',
+      icon: 'i-lucide-users-round',
+      color: 'neutral',
+      disabled: true,
       onSelect: () => modalCreateEpicCommentBeacon.open({ commentId }),
       condition: true,
     },
     {
-      label: 'Поставить лайк',
+      label: 'Лайкнуть (будет позже)',
       icon: 'i-lucide-thumbs-up',
       color: 'neutral',
       disabled: true,

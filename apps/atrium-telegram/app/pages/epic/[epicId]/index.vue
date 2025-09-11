@@ -38,21 +38,19 @@
       />
     </div>
 
-    <UDrawer should-scale-background :set-background-color-on-scale="false">
+    <UDrawer v-model:open="isDrawerOpened">
       <CreateCard
         v-if="epic?.id"
         :label="$t('app.create.epic-comment.button')"
         icon="i-lucide-message-circle"
       />
 
-      <template #content>
-        <div class="p-4">
-          <FormCreateEpicComment
-            :epic-id="epic?.id ?? ''"
-            @submitted="overlay.closeAll"
-            @success="overlay.closeAll"
-          />
-        </div>
+      <template #body>
+        <FormCreateEpicComment
+          :epic-id="epic?.id ?? ''"
+          @submitted="isDrawerOpened = false"
+          @success="isDrawerOpened = false"
+        />
       </template>
     </UDrawer>
   </PageContainer>
@@ -66,6 +64,8 @@ const { params } = useRoute('epic-epicId')
 const { vibrate } = useFeedback()
 const epicStore = useEpicStore()
 const epic = computed(() => epicStore.epics.find((e) => e.id === params.epicId))
+
+const isDrawerOpened = ref(false)
 
 const overlay = useOverlay()
 const modalUpdateEpic = overlay.create(ModalUpdateEpic)

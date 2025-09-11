@@ -1,7 +1,7 @@
 <template>
-  <nav class="z-50 touch-pan-x fixed bottom-0 left-0 right-0 w-full h-25 tg-bg-bottom-bar border-t border-default rounded-t-lg motion-preset-slide-up">
-    <div class="max-w-[28rem] mx-auto">
-      <div class="mt-3 grid grid-cols-4">
+  <div class="z-50 touch-pan-x sticky inset-0 h-24">
+    <nav class="w-full h-24 tg-bg-bottom-bar border-t border-default rounded-t-lg motion-preset-slide-up">
+      <div class="mt-3 max-w-[28rem] mx-auto grid grid-cols-3">
         <button
           v-for="route in mainRoutes"
           :key="route.path"
@@ -26,8 +26,8 @@
           </p>
         </button>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -52,12 +52,6 @@ const mainRoutes = computed(() => [
   {
     path: '/secret1',
     name: 'shop',
-    title: 'Секрет',
-    icon: 'i-lucide-lock',
-  },
-  {
-    path: '/secret2',
-    name: 'top',
     title: 'Секрет',
     icon: 'i-lucide-lock',
   },

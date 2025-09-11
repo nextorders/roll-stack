@@ -68,7 +68,7 @@ if (!user.id) {
   await navigateTo('/no-auth')
 }
 
-// Auto Update Online
+// Auto Update
 let interval: NodeJS.Timeout
 
 onMounted(async () => {
