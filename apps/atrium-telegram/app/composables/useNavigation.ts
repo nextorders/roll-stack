@@ -6,20 +6,20 @@ function _useNavigation() {
   const mainRoutes = computed<NavigationRoute[]>(() => [
     {
       path: '/',
-      name: 'flow',
+      names: ['index', 'flow-itemId'],
       title: t('app.flow'),
       icon: 'i-lucide-waves',
       exact: true,
     },
     {
       path: '/epic',
-      name: 'epic',
+      names: ['epic', 'epic-epicId'],
       title: t('app.epics'),
       icon: 'i-lucide-crown',
     },
     {
       path: '/tasks',
-      name: 'tasks',
+      names: ['tasks'],
       title: t('app.my-tasks'),
       icon: 'i-lucide-layout-dashboard',
     },
@@ -30,14 +30,8 @@ function _useNavigation() {
   const isMainPage = computed(() => router.currentRoute.value.path === '/')
   const canScrollToTop = computed(() => y.value > 650)
 
-  const isFlowInnerPage = computed(() => router.currentRoute.value.path.startsWith('/flow'))
-  const canReturnToMain = computed(() => isFlowInnerPage.value && router.currentRoute.value.path !== '/')
-
   return {
     isNavigationShown,
-
-    isFlowInnerPage,
-    canReturnToMain,
 
     isMainPage,
     canScrollToTop,

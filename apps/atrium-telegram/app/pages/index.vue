@@ -10,7 +10,7 @@
       <FlowFeedbackAverage />
     </div>
 
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-4">
       <NuxtLink
         v-for="item in flowStore.items"
         :key="item.id"
@@ -24,6 +24,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  name: 'index',
+})
+
 const flowStore = useFlowStore()
 
 useHead({

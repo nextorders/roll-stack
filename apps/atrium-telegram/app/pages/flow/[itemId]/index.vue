@@ -5,7 +5,7 @@
         <UIcon name="i-lucide-clipboard-check" class="size-10 text-primary" />
       </div>
 
-      <h2 class="text-xl font-bold">
+      <h2 class="text-2xl/6 font-bold">
         {{ item?.title }}
       </h2>
 
@@ -17,6 +17,11 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  name: 'flow-itemId',
+  canReturn: true,
+})
+
 const { params } = useRoute('flow-itemId')
 
 const flowStore = useFlowStore()

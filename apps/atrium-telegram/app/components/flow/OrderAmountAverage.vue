@@ -1,5 +1,5 @@
 <template>
-  <Section>
+  <Section class="motion-preset-slide-down motion-delay-400">
     <div class="flex flex-col gap-2">
       <div class="flex flex-row gap-2 items-center">
         <UIcon name="i-lucide-receipt-text" class="size-8 text-primary" />

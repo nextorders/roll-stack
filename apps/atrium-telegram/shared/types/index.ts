@@ -14,7 +14,7 @@ export type FlowItemWithData = FlowItem & {
 
 export type NavigationRoute = {
   path: string
-  name: string
+  names: string[]
   title: string
   icon: string
   exact?: boolean

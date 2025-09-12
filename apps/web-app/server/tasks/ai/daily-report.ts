@@ -57,7 +57,7 @@ export default defineTask({
       const date = format(new Date(), 'd MMMM', { locale: ru })
       await repository.flow.createItem({
         type: 'daily_task_report',
-        title: date,
+        title: `Задачи ${date}`,
         description: finalMessage,
       })
 

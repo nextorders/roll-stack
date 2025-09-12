@@ -59,6 +59,11 @@
 <script setup lang="ts">
 import { ModalUpdateEpic } from '#components'
 
+definePageMeta({
+  name: 'epic-epicId',
+  canReturn: true,
+})
+
 const { params } = useRoute('epic-epicId')
 
 const { vibrate } = useFeedback()
