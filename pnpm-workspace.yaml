@@ -3,33 +3,33 @@ packages:
   - packages/*
 
 catalog:
-  '@antfu/eslint-config': ^5.2.2
+  '@antfu/eslint-config': ^5.3.0
   '@commitlint/cli': ^19.8.1
   '@commitlint/config-conventional': ^19.8.1
   '@date-fns/tz': ^1.4.1
-  '@dicebear/collection': ^9.2.3
-  '@dicebear/core': ^9.2.3
+  '@dicebear/collection': ^9.2.4
+  '@dicebear/core': ^9.2.4
   '@iconify-json/circle-flags': ^1.2.8
-  '@iconify-json/fluent': ^1.2.28
+  '@iconify-json/fluent': ^1.2.30
   '@iconify-json/fluent-emoji-flat': ^1.2.5
-  '@iconify-json/lucide': ^1.2.62
-  '@iconify-json/simple-icons': ^1.2.48
-  '@internationalized/date': ^3.8.2
+  '@iconify-json/lucide': ^1.2.67
+  '@iconify-json/simple-icons': ^1.2.51
+  '@internationalized/date': ^3.9.0
   '@neoconfetti/vue': ^2.2.1
-  '@nuxt/devtools': ^2.6.2
+  '@nuxt/devtools': ^2.6.3
   '@nuxt/image': ^1.11.0
   '@nuxt/ui': ^3.3.3
-  '@nuxtjs/i18n': ^10.0.5
-  '@openai/agents': ^0.0.17
+  '@nuxtjs/i18n': ^10.1.0
+  '@openai/agents': ^0.1.1
   '@paralleldrive/cuid2': ^2.2.2
   '@pinia/nuxt': ^0.11.2
   '@tailwindcss/typography': ^0.5.16
   '@telegram-apps/init-data-node': ^2.0.10
-  '@telegram-apps/sdk-vue': ^2.0.30
-  '@types/node': ^24.3.0
+  '@telegram-apps/sdk-vue': ^2.0.31
+  '@types/node': ^24.3.1
   '@types/pg': ^8.15.5
-  '@unovis/ts': ^1.6.0
-  '@unovis/vue': ^1.6.0
+  '@unovis/ts': ^1.6.1
+  '@unovis/vue': ^1.6.1
   '@vitejs/plugin-vue': ^6.0.1
   '@vitest/browser': ^3.2.4
   '@vitest/coverage-v8': ^3.2.4
@@ -37,42 +37,42 @@ catalog:
   '@vueuse/core': ^13.9.0
   '@vueuse/integrations': ^13.9.0
   '@vueuse/nuxt': ^13.9.0
-  arktype: ^2.1.20
+  arktype: ^2.1.22
   aws4fetch: ^1.0.20
   changelogen-monorepo: ^0.5.0
   date-fns: ^4.1.0
-  dotenv: ^17.2.1
+  dotenv: ^17.2.2
   drizzle-cuid2: ^2.1.0
   drizzle-kit: ^0.31.4
-  drizzle-orm: ^0.44.4
+  drizzle-orm: ^0.44.5
   eruda: ^3.4.3
-  eslint: ^9.33.0
-  grammy: ^1.38.1
+  eslint: ^9.35.0
+  grammy: ^1.38.2
   husky: ^9.1.7
   ioredis: ^5.7.0
-  libphonenumber-js: ^1.12.12
-  lint-staged: ^16.1.5
+  libphonenumber-js: ^1.12.16
+  lint-staged: ^16.1.6
   nitropack: latest
   node-xlsx: ^0.24.0
   nuxt: ^4.1.0
   nuxt-auth-utils: ^0.5.23
   nuxt-tiptap-editor: ^2.3.1
   nuxt-zod-i18n: ^1.12.1
-  openai: ^5.12.2
+  openai: ^5.20.1
   pg: ^8.16.3
   pinia: ^3.0.3
-  playwright: ^1.54.2
+  playwright: ^1.55.0
   ru-nalog-fias-gar: ^1.0.4
   sharp: ^0.34.3
   sortablejs: ^1.15.6
   tailwindcss-motion: ^1.1.1
   typescript: ^5.9.2
   uqr: ^0.1.2
-  vite: ^7.1.2
+  vite: ^7.1.5
   vite-tsconfig-paths: ^5.1.4
   vitest: ^3.2.4
   vitest-browser-vue: ^1.1.0
-  vue-tsc: ^3.0.5
+  vue-tsc: ^3.0.7
   zod: ^3.25.76
 
 ignoredBuiltDependencies:
