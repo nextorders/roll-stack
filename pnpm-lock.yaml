@@ -211,8 +211,8 @@ catalogs:
       specifier: ^3.0.7
       version: 3.0.7
     zod:
-      specifier: ^3.25.76
-      version: 3.25.76
+      specifier: ^4.1.8
+      version: 4.1.8
 
 overrides:
   unimport: 4.1.1
@@ -397,7 +397,7 @@ importers:
         version: 2.2.1
       '@openai/agents':
         specifier: 'catalog:'
-        version: 0.1.1(ws@8.18.3)(zod@3.25.76)
+        version: 0.1.1(ws@8.18.3)(zod@4.1.8)
       '@pinia/nuxt':
         specifier: 'catalog:'
         version: 0.11.2(magicast@0.3.5)(pinia@3.0.3(typescript@5.9.2)(vue@3.5.21(typescript@5.9.2)))
@@ -433,7 +433,7 @@ importers:
         version: 2.3.1(@tiptap/core@2.24.2(@tiptap/pm@2.24.2))(@tiptap/extension-code-block@2.24.2(@tiptap/core@2.24.2(@tiptap/pm@2.24.2))(@tiptap/pm@2.24.2))(highlight.js@11.11.1)(magicast@0.3.5)(vue@3.5.21(typescript@5.9.2))
       openai:
         specifier: 'catalog:'
-        version: 5.20.1(ws@8.18.3)(zod@3.25.76)
+        version: 5.20.1(ws@8.18.3)(zod@4.1.8)
       pinia:
         specifier: 'catalog:'
         version: 3.0.3(typescript@5.9.2)(vue@3.5.21(typescript@5.9.2))
@@ -576,7 +576,7 @@ importers:
         version: 3.9.0
       '@nuxt/ui':
         specifier: 'catalog:'
-        version: 3.3.3(@babel/parser@7.28.3)(@netlify/blobs@9.1.2)(aws4fetch@1.0.20)(change-case@5.4.4)(db0@0.3.2(drizzle-orm@0.44.5(@types/pg@8.15.5)(pg@8.16.3)))(embla-carousel@8.6.0)(ioredis@5.7.0)(jwt-decode@4.0.0)(magicast@0.3.5)(sortablejs@1.15.6)(typescript@5.9.2)(valibot@1.0.0(typescript@5.9.2))(vite@7.1.5(@types/node@24.3.1)(jiti@2.5.1)(lightningcss@1.30.1)(terser@5.39.1)(yaml@2.8.1))(vue-router@4.5.1(vue@3.5.21(typescript@5.9.2)))(vue@3.5.21(typescript@5.9.2))(zod@3.25.76)
+        version: 3.3.3(@babel/parser@7.28.3)(@netlify/blobs@9.1.2)(aws4fetch@1.0.20)(change-case@5.4.4)(db0@0.3.2(drizzle-orm@0.44.5(@types/pg@8.15.5)(pg@8.16.3)))(embla-carousel@8.6.0)(ioredis@5.7.0)(jwt-decode@4.0.0)(magicast@0.3.5)(sortablejs@1.15.6)(typescript@5.9.2)(valibot@1.0.0(typescript@5.9.2))(vite@7.1.5(@types/node@24.3.1)(jiti@2.5.1)(lightningcss@1.30.1)(terser@5.39.1)(yaml@2.8.1))(vue-router@4.5.1(vue@3.5.21(typescript@5.9.2)))(vue@3.5.21(typescript@5.9.2))(zod@4.1.8)
       '@nuxtjs/i18n':
         specifier: 'catalog:'
         version: 10.1.0(@netlify/blobs@9.1.2)(@vue/compiler-dom@3.5.21)(aws4fetch@1.0.20)(db0@0.3.2(drizzle-orm@0.44.5(@types/pg@8.15.5)(pg@8.16.3)))(eslint@9.35.0(jiti@2.5.1))(ioredis@5.7.0)(magicast@0.3.5)(rollup@4.50.1)(vue@3.5.21(typescript@5.9.2))
@@ -606,7 +606,7 @@ importers:
         version: 1.15.6
       zod:
         specifier: 'catalog:'
-        version: 3.25.76
+        version: 4.1.8
     devDependencies:
       '@iconify-json/circle-flags':
         specifier: 'catalog:'
@@ -8708,6 +8708,9 @@ packages:
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
+  zod@4.1.8:
+    resolution: {integrity: sha512-5R1P+WwQqmmMIEACyzSvo4JXHY5WiAFHRMg+zBZKgKS+Q1viRa0C1hmUKtHltoIFKtIdki3pRxkmpP74jnNYHQ==}
+
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
@@ -10254,7 +10257,7 @@ snapshots:
     transitivePeerDependencies:
       - magicast
 
-  '@nuxt/ui@3.3.3(@babel/parser@7.28.3)(@netlify/blobs@9.1.2)(aws4fetch@1.0.20)(change-case@5.4.4)(db0@0.3.2(drizzle-orm@0.44.5(@types/pg@8.15.5)(pg@8.16.3)))(embla-carousel@8.6.0)(ioredis@5.7.0)(jwt-decode@4.0.0)(magicast@0.3.5)(sortablejs@1.15.6)(typescript@5.9.2)(valibot@1.0.0(typescript@5.9.2))(vite@7.1.5(@types/node@24.3.1)(jiti@2.5.1)(lightningcss@1.30.1)(terser@5.39.1)(yaml@2.8.1))(vue-router@4.5.1(vue@3.5.21(typescript@5.9.2)))(vue@3.5.21(typescript@5.9.2))(zod@3.25.76)':
+  '@nuxt/ui@3.3.3(@babel/parser@7.28.3)(@netlify/blobs@9.1.2)(aws4fetch@1.0.20)(change-case@5.4.4)(db0@0.3.2(drizzle-orm@0.44.5(@types/pg@8.15.5)(pg@8.16.3)))(embla-carousel@8.6.0)(ioredis@5.7.0)(jwt-decode@4.0.0)(magicast@0.3.5)(sortablejs@1.15.6)(typescript@5.9.2)(valibot@1.0.0(typescript@5.9.2))(vite@7.1.5(@types/node@24.3.1)(jiti@2.5.1)(lightningcss@1.30.1)(terser@5.39.1)(yaml@2.8.1))(vue-router@4.5.1(vue@3.5.21(typescript@5.9.2)))(vue@3.5.21(typescript@5.9.2))(zod@4.1.8)':
     dependencies:
       '@iconify/vue': 5.0.0(vue@3.5.21(typescript@5.9.2))
       '@internationalized/date': 3.9.0
@@ -10303,7 +10306,7 @@ snapshots:
     optionalDependencies:
       valibot: 1.0.0(typescript@5.9.2)
       vue-router: 4.5.1(vue@3.5.21(typescript@5.9.2))
-      zod: 3.25.76
+      zod: 4.1.8
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -10527,47 +10530,47 @@ snapshots:
 
   '@one-ini/wasm@0.1.1': {}
 
-  '@openai/agents-core@0.1.1(ws@8.18.3)(zod@3.25.76)':
+  '@openai/agents-core@0.1.1(ws@8.18.3)(zod@4.1.8)':
     dependencies:
       debug: 4.4.1
-      openai: 5.20.1(ws@8.18.3)(zod@3.25.76)
+      openai: 5.20.1(ws@8.18.3)(zod@4.1.8)
     optionalDependencies:
       '@modelcontextprotocol/sdk': 1.17.3
-      zod: 3.25.76
+      zod: 4.1.8
     transitivePeerDependencies:
       - supports-color
       - ws
 
-  '@openai/agents-openai@0.1.1(ws@8.18.3)(zod@3.25.76)':
+  '@openai/agents-openai@0.1.1(ws@8.18.3)(zod@4.1.8)':
     dependencies:
-      '@openai/agents-core': 0.1.1(ws@8.18.3)(zod@3.25.76)
+      '@openai/agents-core': 0.1.1(ws@8.18.3)(zod@4.1.8)
       debug: 4.4.1
-      openai: 5.20.1(ws@8.18.3)(zod@3.25.76)
-      zod: 3.25.76
+      openai: 5.20.1(ws@8.18.3)(zod@4.1.8)
+      zod: 4.1.8
     transitivePeerDependencies:
       - supports-color
       - ws
 
-  '@openai/agents-realtime@0.1.1(zod@3.25.76)':
+  '@openai/agents-realtime@0.1.1(zod@4.1.8)':
     dependencies:
-      '@openai/agents-core': 0.1.1(ws@8.18.3)(zod@3.25.76)
+      '@openai/agents-core': 0.1.1(ws@8.18.3)(zod@4.1.8)
       '@types/ws': 8.18.1
       debug: 4.4.1
       ws: 8.18.3
-      zod: 3.25.76
+      zod: 4.1.8
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@openai/agents@0.1.1(ws@8.18.3)(zod@3.25.76)':
+  '@openai/agents@0.1.1(ws@8.18.3)(zod@4.1.8)':
     dependencies:
-      '@openai/agents-core': 0.1.1(ws@8.18.3)(zod@3.25.76)
-      '@openai/agents-openai': 0.1.1(ws@8.18.3)(zod@3.25.76)
-      '@openai/agents-realtime': 0.1.1(zod@3.25.76)
+      '@openai/agents-core': 0.1.1(ws@8.18.3)(zod@4.1.8)
+      '@openai/agents-openai': 0.1.1(ws@8.18.3)(zod@4.1.8)
+      '@openai/agents-realtime': 0.1.1(zod@4.1.8)
       debug: 4.4.1
-      openai: 5.20.1(ws@8.18.3)(zod@3.25.76)
-      zod: 3.25.76
+      openai: 5.20.1(ws@8.18.3)(zod@4.1.8)
+      zod: 4.1.8
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -15969,10 +15972,10 @@ snapshots:
       is-docker: 2.2.1
       is-wsl: 2.2.0
 
-  openai@5.20.1(ws@8.18.3)(zod@3.25.76):
+  openai@5.20.1(ws@8.18.3)(zod@4.1.8):
     optionalDependencies:
       ws: 8.18.3
-      zod: 3.25.76
+      zod: 4.1.8
 
   openid-client@6.6.4:
     dependencies:
@@ -18134,6 +18137,9 @@ snapshots:
       zod: 3.25.76
     optional: true
 
-  zod@3.25.76: {}
+  zod@3.25.76:
+    optional: true
+
+  zod@4.1.8: {}
 
   zwitch@2.0.4: {}
