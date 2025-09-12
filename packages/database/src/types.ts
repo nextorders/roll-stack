@@ -36,6 +36,8 @@ export type TimeZone = '+00:00'
   | '+11:00'
   | '+12:00'
 
+export type FlowItemType = 'daily_task_report'
+
 export type Permission = InferSelectModel<typeof tables.permissions>
 export type PermissionDraft = InferInsertModel<typeof tables.permissions>
 
@@ -197,3 +199,9 @@ export type LockerItemDraft = InferInsertModel<typeof tables.lockerItems>
 
 export type LockerItemDuplicate = InferSelectModel<typeof tables.lockerItemDuplicates>
 export type LockerItemDuplicateDraft = InferInsertModel<typeof tables.lockerItemDuplicates>
+
+export type FlowItem = InferSelectModel<typeof tables.flowItems>
+export type FlowItemDraft = InferInsertModel<typeof tables.flowItems>
+
+export type FlowItemComment = InferSelectModel<typeof tables.flowItemComments>
+export type FlowItemCommentDraft = InferInsertModel<typeof tables.flowItemComments>

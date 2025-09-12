@@ -62,6 +62,7 @@ const user = useUserStore()
 const task = useTaskStore()
 const epic = useEpicStore()
 const kitchen = useKitchenStore()
+const flow = useFlowStore()
 
 // Guard
 await user.update()
@@ -79,6 +80,7 @@ onMounted(async () => {
     task.update(),
     epic.update(),
     kitchen.update(),
+    flow.update(),
   ])
 
   interval = setInterval(async () => {
@@ -88,6 +90,7 @@ onMounted(async () => {
       task.update(),
       epic.update(),
       kitchen.update(),
+      flow.update(),
     ])
   }, 30000)
 })

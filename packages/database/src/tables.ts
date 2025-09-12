@@ -1,4 +1,4 @@
-import type { AgreementPatentStatus, NotificationOption, TimeZone, UserGender, UserType, WeightUnit } from './types'
+import type { AgreementPatentStatus, FlowItemType, NotificationOption, TimeZone, UserGender, UserType, WeightUnit } from './types'
 import { cuid2 } from 'drizzle-cuid2/postgres'
 import { relations } from 'drizzle-orm'
 import { boolean, date, integer, jsonb, numeric, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core'
@@ -794,6 +794,30 @@ export const lockerItemDuplicates = pgTable('locker_item_duplicates', {
   }),
 })
 
+export const flowItems = pgTable('flow_items', {
+  id: cuid2('id').defaultRandom().primaryKey(),
+  createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  title: varchar('title').notNull(),
+  description: text('description'),
+  type: varchar('type').notNull().$type<FlowItemType>(),
+})
+
+export const flowItemComments = pgTable('flow_item_comments', {
+  id: cuid2('id').defaultRandom().primaryKey(),
+  createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  text: varchar('text').notNull(),
+  userId: cuid2('user_id').notNull().references(() => users.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
+  itemId: cuid2('item_id').notNull().references(() => flowItems.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
+})
+
 export const userRelations = relations(users, ({ many, one }) => ({
   chatMessages: many(chatMessages),
   chatMembers: many(chatMembers),
@@ -1266,5 +1290,20 @@ export const lockerItemDuplicateRelations = relations(lockerItemDuplicates, ({ o
   user: one(users, {
     fields: [lockerItemDuplicates.userId],
     references: [users.id],
+  }),
+}))
+
+export const flowItemRelations = relations(flowItems, ({ many }) => ({
+  comments: many(flowItemComments),
+}))
+
+export const flowItemCommentRelations = relations(flowItemComments, ({ one }) => ({
+  user: one(users, {
+    fields: [flowItemComments.userId],
+    references: [users.id],
+  }),
+  item: one(flowItems, {
+    fields: [flowItemComments.itemId],
+    references: [flowItems.id],
   }),
 }))
