@@ -1,5 +1,7 @@
 import process from 'node:process'
 import { repository } from '@roll-stack/database'
+import { format } from 'date-fns'
+import { ru } from 'date-fns/locale/ru'
 import OpenAI from 'openai'
 import { useAtriumBot } from '~~/server/services/telegram/atrium-bot'
 
@@ -50,6 +52,14 @@ export default defineTask({
       if (!finalMessage) {
         return { result: true }
       }
+
+      // Flow item
+      const date = format(new Date(), 'd MMMM', { locale: ru })
+      await repository.flow.createItem({
+        type: 'daily_task_report',
+        title: date,
+        description: finalMessage,
+      })
 
       await useAtriumBot().api.sendMessage(telegram.teamGroupId, finalMessage)
     } catch (error) {
