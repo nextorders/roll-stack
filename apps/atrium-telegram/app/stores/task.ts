@@ -1,4 +1,5 @@
 import type { Chat, ChatMember, Task, TaskList, User } from '@roll-stack/database'
+import { getLocalTimeZone, isToday, parseDate } from '@internationalized/date'
 import { initDataRaw as _initDataRaw, useSignal } from '@telegram-apps/sdk-vue'
 
 type ChatWithData = Chat & {
@@ -14,6 +15,15 @@ export const useTaskStore = defineStore('task', () => {
   const lists = ref<TaskListWithData[]>([])
   const isTodayOnly = ref(false)
   const isInitialized = ref(false)
+
+  const userStore = useUserStore()
+
+  const myLists = computed(() =>
+    lists.value.filter(
+      (taskList) => taskList.chat?.members.some((member) => member.userId === userStore.id),
+    ).filter((taskList) => isTodayOnly.value ? taskList.tasks.filter((task) => !task.completedAt && task.date && isToday(parseDate(task.date), getLocalTimeZone())).length : true),
+  )
+  const myTodayTasks = computed(() => myLists.value.flatMap((taskList) => taskList.tasks.filter((task) => !task.completedAt && task.date && isToday(parseDate(task.date), getLocalTimeZone()))))
 
   const initDataRaw = useSignal(_initDataRaw)
 
@@ -81,6 +91,9 @@ export const useTaskStore = defineStore('task', () => {
     lists,
     isTodayOnly,
     isInitialized,
+
+    myLists,
+    myTodayTasks,
 
     update,
     setAsFocused,

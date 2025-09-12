@@ -18,4 +18,5 @@ export type NavigationRoute = {
   title: string
   icon: string
   exact?: boolean
+  badge?: string
 }

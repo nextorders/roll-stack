@@ -19,11 +19,20 @@
         name="i-lucide-undo-2"
         class="size-6 motion-preset-shake"
       />
-      <UIcon
+      <UChip
         v-else
-        :name="route.icon"
-        class="size-6 motion-preset-shake"
-      />
+        size="3xl"
+        :show="!!route.badge"
+        :text="route.badge"
+        :ui="{
+          base: '-right-1 px-1.5 py-2 ring-2 tg-text-button font-bold motion-translate-y-loop-25 motion-duration-3500',
+        }"
+      >
+        <UIcon
+          :name="route.icon"
+          class="size-6 motion-preset-shake"
+        />
+      </UChip>
     </div>
     <p
       class="text-xs font-medium"

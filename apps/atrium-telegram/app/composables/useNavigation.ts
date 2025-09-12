@@ -3,6 +3,8 @@ function _useNavigation() {
   const { t } = useI18n()
   const { y } = useWindowScroll()
 
+  const taskStore = useTaskStore()
+
   const mainRoutes = computed<NavigationRoute[]>(() => [
     {
       path: '/',
@@ -22,6 +24,7 @@ function _useNavigation() {
       names: ['tasks'],
       title: t('app.my-tasks'),
       icon: 'i-lucide-layout-dashboard',
+      badge: taskStore.myTodayTasks.length.toString(),
     },
   ])
 
