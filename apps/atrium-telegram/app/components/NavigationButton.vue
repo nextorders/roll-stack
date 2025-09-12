@@ -6,7 +6,7 @@
     <div
       class="relative py-1 w-full rounded-2xl flex flex-row items-center justify-center"
       :class="[
-        isThisRoute && 'tg-bg-button tg-text-button motion-translate-y-in',
+        (isThisRoute || isThisName) && 'tg-bg-button tg-text-button motion-translate-y-in',
       ]"
     >
       <UIcon
@@ -15,20 +15,29 @@
         class="size-6 motion-preset-shake"
       />
       <UIcon
-        v-else-if="isFlowInnerPage && canReturnToMain && route.name === 'flow'"
+        v-else-if="router.currentRoute.value.meta.canReturn && isThisName"
         name="i-lucide-undo-2"
         class="size-6 motion-preset-shake"
       />
-      <UIcon
+      <UChip
         v-else
-        :name="route.icon"
-        class="size-6 motion-preset-shake"
-      />
+        size="3xl"
+        :show="!!route.badge"
+        :text="route.badge"
+        :ui="{
+          base: '-right-1 px-1.5 py-2 ring-2 tg-text-button font-bold motion-translate-y-loop-25 motion-duration-3500',
+        }"
+      >
+        <UIcon
+          :name="route.icon"
+          class="size-6 motion-preset-shake"
+        />
+      </UChip>
     </div>
     <p
       class="text-xs font-medium"
       :class="[
-        isThisRoute && 'tg-text',
+        (isThisRoute || isThisName) && 'tg-text',
       ]"
     >
       {{ route.title }}
@@ -40,10 +49,11 @@
 const { route } = defineProps<{ route: NavigationRoute }>()
 
 const { vibrate } = useFeedback()
-const { canScrollToTop, isMainPage, isFlowInnerPage, canReturnToMain } = useNavigation()
+const { canScrollToTop, isMainPage } = useNavigation()
 const router = useRouter()
 
 const isThisRoute = computed(() => route.exact ? router.currentRoute.value.path === route.path : router.currentRoute.value.path.startsWith(route.path))
+const isThisName = computed(() => route.names.includes(router.currentRoute.value.name))
 
 function handleScrollToTop() {
   vibrate()

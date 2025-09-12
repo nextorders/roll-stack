@@ -12,7 +12,7 @@
           {{ userStore.name }}, привет!
         </h2>
         <p class="text-base/5">
-          <template v-if="myTodayTasks.length">
+          <template v-if="taskStore.myTodayTasks.length">
             Сегодня по плану еще
             <ULink
               as="button"
@@ -22,7 +22,7 @@
               ]"
               @click="taskStore.isTodayOnly = !taskStore.isTodayOnly"
             >
-              {{ myTodayTasks.length }} {{ pluralizationRu(myTodayTasks.length, ['задача', 'задачи', 'задач']) }}
+              {{ taskStore.myTodayTasks.length }} {{ pluralizationRu(taskStore.myTodayTasks.length, ['задача', 'задачи', 'задач']) }}
             </ULink>.
           </template>
           <span>
@@ -38,7 +38,7 @@
       </Section>
 
       <TaskList
-        v-for="taskList in myLists"
+        v-for="taskList in taskStore.myLists"
         :key="taskList.id"
         :list-id="taskList.id"
         :current-user-id="userStore.id as string"
@@ -61,7 +61,6 @@
 
 <script setup lang="ts">
 import { ModalCreateTaskList, ModalUploadUserAvatar } from '#components'
-import { getLocalTimeZone, isToday, parseDate } from '@internationalized/date'
 
 const { vibrate } = useFeedback()
 
@@ -71,13 +70,6 @@ const modalUploadUserAvatar = overlay.create(ModalUploadUserAvatar)
 
 const userStore = useUserStore()
 const taskStore = useTaskStore()
-
-const myLists = computed(() =>
-  taskStore.lists.filter(
-    (taskList) => taskList.chat?.members.some((member) => member.userId === userStore.id),
-  ).filter((taskList) => taskStore.isTodayOnly ? taskList.tasks.filter((task) => !task.completedAt && task.date && isToday(parseDate(task.date), getLocalTimeZone())).length : true),
-)
-const myTodayTasks = computed(() => myLists.value.flatMap((taskList) => taskList.tasks.filter((task) => !task.completedAt && task.date && isToday(parseDate(task.date), getLocalTimeZone()))))
 
 function handleUploadUserAvatar() {
   vibrate()

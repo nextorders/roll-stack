@@ -1,5 +1,5 @@
 <template>
-  <Section v-if="kitchensOnline">
+  <Section v-if="kitchensOnline" class="motion-preset-slide-down motion-delay-100">
     <div class="flex flex-col gap-2">
       <div class="flex flex-row gap-2 items-center">
         <UChip
@@ -20,7 +20,7 @@
     </div>
   </Section>
 
-  <Section v-else>
+  <Section v-else class="motion-preset-slide-down motion-delay-100">
     <div class="flex flex-col gap-2">
       <div class="flex flex-row gap-2 items-center">
         <UIcon name="i-lucide-store" class="size-8 text-primary" />

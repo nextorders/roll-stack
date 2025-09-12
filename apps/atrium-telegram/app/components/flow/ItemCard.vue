@@ -2,11 +2,11 @@
   <ActiveCard>
     <UIcon name="i-lucide-clipboard-check" class="size-8 text-primary" />
 
-    <h3 class="text-lg/5 font-bold">
+    <h3 class="text-2xl/5 font-bold">
       {{ item.title }}
     </h3>
 
-    <div class="w-full text-sm/4 font-normal whitespace-pre-wrap break-words line-clamp-16">
+    <div class="w-full text-base/5 font-normal whitespace-pre-wrap break-words line-clamp-12">
       {{ item.description }}
     </div>
 
