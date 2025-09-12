@@ -22,6 +22,20 @@ export type AgreementPatentStatus = 'not_paid' | 'in_work' | 'on_registration' |
 
 export type WeightUnit = 'G' | 'KG' | 'ML' | 'L' | 'OZ' | 'LB'
 
+export type TimeZone = '+00:00'
+  | '+01:00'
+  | '+02:00'
+  | '+03:00'
+  | '+04:00'
+  | '+05:00'
+  | '+06:00'
+  | '+07:00'
+  | '+08:00'
+  | '+09:00'
+  | '+10:00'
+  | '+11:00'
+  | '+12:00'
+
 export type Permission = InferSelectModel<typeof tables.permissions>
 export type PermissionDraft = InferInsertModel<typeof tables.permissions>
 

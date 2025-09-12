@@ -13,6 +13,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@date-fns/tz": "catalog:",
     "@neoconfetti/vue": "catalog:",
     "@pinia/nuxt": "catalog:",
     "@roll-stack/database": "workspace:*",
