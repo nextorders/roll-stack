@@ -68,7 +68,7 @@ catalog:
   tailwindcss-motion: ^1.1.1
   typescript: ^5.9.2
   uqr: ^0.1.2
-  vite: ^7.1.2
+  vite: ^7.1.5
   vite-tsconfig-paths: ^5.1.4
   vitest: ^3.2.4
   vitest-browser-vue: ^1.1.0
