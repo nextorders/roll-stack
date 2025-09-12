@@ -1,4 +1,4 @@
-import type { AgreementPatentStatus, NotificationOption, UserGender, UserType, WeightUnit } from './types'
+import type { AgreementPatentStatus, NotificationOption, TimeZone, UserGender, UserType, WeightUnit } from './types'
 import { cuid2 } from 'drizzle-cuid2/postgres'
 import { relations } from 'drizzle-orm'
 import { boolean, date, integer, jsonb, numeric, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core'
@@ -432,6 +432,7 @@ export const kitchens = pgTable('kitchens', {
   description: varchar('description'),
   address: varchar('address'),
   city: varchar('city'),
+  timezone: varchar('timezone').$type<TimeZone>().notNull().default('+00:00'),
   latitude: numeric('latitude', { mode: 'number' }),
   longitude: numeric('longitude', { mode: 'number' }),
   minAmountForDelivery: numeric('min_amount_for_delivery', { mode: 'number' }),

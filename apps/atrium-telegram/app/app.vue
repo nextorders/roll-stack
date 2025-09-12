@@ -61,6 +61,7 @@ watch(colorMode, () => {
 const user = useUserStore()
 const task = useTaskStore()
 const epic = useEpicStore()
+const kitchen = useKitchenStore()
 
 // Guard
 await user.update()
@@ -77,6 +78,7 @@ onMounted(async () => {
     user.update(),
     task.update(),
     epic.update(),
+    kitchen.update(),
   ])
 
   interval = setInterval(async () => {
@@ -85,6 +87,7 @@ onMounted(async () => {
       user.update(),
       task.update(),
       epic.update(),
+      kitchen.update(),
     ])
   }, 30000)
 })

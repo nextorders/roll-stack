@@ -38,22 +38,22 @@ const router = useRouter()
 const mainRoutes = computed(() => [
   {
     path: '/',
-    name: 'home',
-    title: t('app.home'),
-    icon: 'i-lucide-layout-dashboard',
+    name: 'flow',
+    title: t('app.flow'),
+    icon: 'i-lucide-waves',
     exact: true,
   },
   {
     path: '/epic',
-    name: 'quests',
-    title: 'Эпики',
+    name: 'epic',
+    title: t('app.epics'),
     icon: 'i-lucide-crown',
   },
   {
-    path: '/secret1',
-    name: 'shop',
-    title: 'Секрет',
-    icon: 'i-lucide-lock',
+    path: '/tasks',
+    name: 'tasks',
+    title: t('app.my-tasks'),
+    icon: 'i-lucide-layout-dashboard',
   },
 ])
 
