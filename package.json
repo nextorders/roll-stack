@@ -2,15 +2,15 @@
   "name": "roll-stack",
   "version": "",
   "private": true,
-  "packageManager": "pnpm@10.15.0",
+  "packageManager": "pnpm@10.16.1",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nextorders/roll-stack.git"
   },
   "engines": {
-    "node": ">=22.18.0",
-    "pnpm": ">=10.15.0"
+    "node": ">=22.19.0",
+    "pnpm": ">=10.16.1"
   },
   "scripts": {
     "release": "changelogen-monorepo --release --push",
@@ -46,7 +46,7 @@
     "vitest-browser-vue": "catalog:"
   },
   "resolutions": {
-    "unimport": "4.1.1"
+    "unimport": "4.2.0"
   },
   "lint-staged": {
     "*.ts": "eslint ."
