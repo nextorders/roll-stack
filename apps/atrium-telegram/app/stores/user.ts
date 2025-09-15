@@ -1,8 +1,9 @@
-import type { Task, User } from '@roll-stack/database'
+import type { Task, TelegramUser, User } from '@roll-stack/database'
 import { initDataRaw as _initDataRaw, initDataState as _initDataState, useSignal } from '@telegram-apps/sdk-vue'
 
 type UserWithData = User & {
   focusedTask: Task | null
+  telegramUsers: TelegramUser[]
 }
 
 export const useUserStore = defineStore('user', () => {
@@ -89,7 +90,7 @@ export const useUserStore = defineStore('user', () => {
         return
       }
 
-      await $fetch(`/api/user/id/${id.value}/online`, {
+      await $fetch('/api/auth/online', {
         method: 'POST',
         headers: {
           Authorization: `tma ${initDataRaw.value}`,
@@ -99,9 +100,6 @@ export const useUserStore = defineStore('user', () => {
       if (error instanceof Error) {
         if (error.message.includes('401')) {
           // No session
-        }
-        if (error.message.includes('404')) {
-          // Not found
         }
       }
     }
