@@ -46,6 +46,7 @@
     "vitest-browser-vue": "catalog:"
   },
   "resolutions": {
+    "rollup": "^4.50.2",
     "unimport": "4.1.1"
   },
   "lint-staged": {

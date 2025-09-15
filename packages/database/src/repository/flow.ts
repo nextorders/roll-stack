@@ -1,12 +1,15 @@
-import type { FlowItemDraft } from '../types'
+import type { FlowItemDraft, FlowItemViewDraft } from '../types'
 import { eq, sql } from 'drizzle-orm'
 import { useDatabase } from '../database'
-import { flowItems } from '../tables'
+import { flowItems, flowItemViews } from '../tables'
 
 export class Flow {
   static async findItem(id: string) {
     return useDatabase().query.flowItems.findFirst({
       where: (item, { eq }) => eq(item.id, id),
+      with: {
+        views: true,
+      },
     })
   }
 
@@ -18,6 +21,7 @@ export class Flow {
         comments: {
           orderBy: (comments, { desc }) => desc(comments.createdAt),
         },
+        views: true,
       },
     })
   }
@@ -25,6 +29,11 @@ export class Flow {
   static async createItem(data: FlowItemDraft) {
     const [item] = await useDatabase().insert(flowItems).values(data).returning()
     return item
+  }
+
+  static async createItemView(data: FlowItemViewDraft) {
+    const [view] = await useDatabase().insert(flowItemViews).values(data).returning()
+    return view
   }
 
   static async updateItem(id: string, data: Partial<FlowItemDraft>) {

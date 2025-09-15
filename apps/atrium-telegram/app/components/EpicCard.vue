@@ -2,11 +2,11 @@
   <ActiveCard>
     <UIcon name="i-lucide-crown" class="size-8 text-primary" />
 
-    <h3 class="text-lg/5 font-bold">
+    <h3 class="text-xl/5 font-bold">
       {{ epic.title }}
     </h3>
 
-    <div class="w-full text-sm/4 text-muted font-normal whitespace-pre-wrap break-words line-clamp-4">
+    <div class="w-full text-base/5 font-normal whitespace-pre-wrap break-words line-clamp-5">
       {{ epic.description }}
     </div>
 

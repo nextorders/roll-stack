@@ -22,7 +22,8 @@
       <UChip
         v-else
         size="3xl"
-        :show="!!route.badge"
+        color="error"
+        :show="!!route.badge && route.badge !== '0'"
         :text="route.badge"
         :ui="{
           base: '-right-1 px-1.5 py-2 ring-2 tg-text-button font-bold motion-translate-y-loop-25 motion-duration-3500',

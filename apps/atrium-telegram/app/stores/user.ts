@@ -111,6 +111,11 @@ export const useUserStore = defineStore('user', () => {
     return users.value.find((user) => user.id === userId)
   }
 
+  function getAvatarUrl(userId: string): string | undefined {
+    const user = users.value.find((user) => user.id === userId)
+    return user?.avatarUrl ?? undefined
+  }
+
   return {
     id,
     name,
@@ -131,5 +136,6 @@ export const useUserStore = defineStore('user', () => {
     update,
     updateOnline,
     find,
+    getAvatarUrl,
   }
 })

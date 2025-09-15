@@ -8,9 +8,9 @@
       />
 
       <div class="flex flex-col gap-1">
-        <h2 class="text-lg/5 font-bold">
+        <h1 class="text-2xl/6 font-bold tracking-tight">
           {{ userStore.name }}, привет!
-        </h2>
+        </h1>
         <p class="text-base/5">
           <template v-if="taskStore.myTodayTasks.length">
             Сегодня по плану еще

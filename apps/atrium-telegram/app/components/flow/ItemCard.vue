@@ -1,8 +1,20 @@
 <template>
   <ActiveCard>
-    <UIcon name="i-lucide-clipboard-check" class="size-8 text-primary" />
+    <div class="flex flex-row gap-2 items-center">
+      <UIcon name="i-lucide-clipboard-check" class="size-8 text-primary" />
 
-    <h3 class="text-2xl/5 font-bold">
+      <div v-if="!isViewed" class="flex flex-row items-center gap-1.5 text-error">
+        <UIcon
+          name="i-lucide-pointer"
+          class="size-8 motion-translate-y-loop-25 motion-preset-seesaw motion-duration-2000"
+        />
+        <p class="max-w-22 text-sm/4 font-bold">
+          Не просмотрено
+        </p>
+      </div>
+    </div>
+
+    <h3 class="text-xl/5 font-bold">
       {{ item.title }}
     </h3>
 
@@ -31,7 +43,10 @@
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale/ru'
 
-defineProps<{
+const { item } = defineProps<{
   item: FlowItemWithData
 }>()
+
+const userStore = useUserStore()
+const isViewed = computed(() => item.views.some((view) => view.userId === userStore?.id))
 </script>

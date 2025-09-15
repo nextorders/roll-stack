@@ -4,6 +4,7 @@ function _useNavigation() {
   const { y } = useWindowScroll()
 
   const taskStore = useTaskStore()
+  const flowStore = useFlowStore()
 
   const mainRoutes = computed<NavigationRoute[]>(() => [
     {
@@ -12,6 +13,7 @@ function _useNavigation() {
       title: t('app.flow'),
       icon: 'i-lucide-waves',
       exact: true,
+      badge: flowStore.nowViewedItemsCount.toString(),
     },
     {
       path: '/epic',

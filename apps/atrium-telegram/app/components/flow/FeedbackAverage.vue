@@ -5,10 +5,10 @@
         <UIcon name="i-lucide-users-round" class="size-8 text-primary" />
 
         <div class="flex flex-row items-end gap-1 font-bold">
-          <h3 class="text-3xl/5">
+          <h3 class="text-2xl/5 font-bold">
             {{ averageFeedback }}
           </h3>
-          <p class="text-xl/4">
+          <p class="text-lg/4">
             из 5
           </p>
         </div>

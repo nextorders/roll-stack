@@ -10,7 +10,7 @@
         >
           <UIcon name="i-lucide-store" class="size-8 text-primary" />
         </UChip>
-        <h3 class="text-3xl/5 font-bold">
+        <h3 class="text-2xl/5 font-bold">
           {{ kitchensOnline }}
         </h3>
       </div>
