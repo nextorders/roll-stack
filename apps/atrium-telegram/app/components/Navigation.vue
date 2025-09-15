@@ -6,7 +6,7 @@
         variant="solid"
         color="secondary"
         size="xl"
-        class="transition-all duration-200 ease-in-out motion-preset-slide-down motion-duration-200"
+        class="transition-all duration-200 ease-in-out motion-preset-slide-up motion-duration-1000"
         icon="i-lucide-plus"
         :ui="{
           base: 'size-12 font-bold rounded-full',
