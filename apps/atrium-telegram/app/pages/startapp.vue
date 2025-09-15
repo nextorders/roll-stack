@@ -1,5 +1,5 @@
 <template>
-  <UIcon name="i-lucide-loader" class="animate-spin" />
+  <UIcon name="i-lucide-loader" class="size-8 text-primary animate-spin" />
 </template>
 
 <script setup lang="ts">
@@ -20,6 +20,10 @@ if (tgWebAppStartParam?.length && tgWebAppStartParam.includes(separator)) {
 
   if (key === 'epic') {
     await navigateTo(`/epic/${value}`)
+  }
+
+  if (key === 'flow') {
+    await navigateTo(`/flow/${value}`)
   }
 } else {
   await navigateTo('/')
