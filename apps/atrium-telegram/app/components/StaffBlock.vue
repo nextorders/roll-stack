@@ -1,10 +1,10 @@
 <template>
   <div class="max-w-full overflow-x-scroll overflow-y-hidden snap-x hide-scroll">
-    <div class="w-max flex flex-row flex-wrap gap-3.5">
+    <div class="w-max flex flex-row flex-wrap gap-1">
       <div
         v-for="user in allUsers"
         :key="user.id"
-        class="w-14 flex flex-col gap-1 justify-start items-center scroll-ml-6 snap-start motion-preset-slide-right"
+        class="w-18 flex flex-col gap-1 justify-start items-center scroll-ml-6 snap-start motion-preset-slide-right"
         @click="handleClick(user.id)"
       >
         <div class="relative">
@@ -26,7 +26,11 @@
           </div>
         </div>
 
-        <p class="text-xs/3 text-muted text-center">
+        <p class="text-xs/3 font-bold text-center line-clamp-2">
+          {{ user.name }}
+        </p>
+
+        <p class="text-xs/3 text-muted text-center line-clamp-2">
           {{ user.isOnline ? 'Онлайн' : useTimeAgoIntl(new Date(user.onlineAt ?? '')) }}
         </p>
       </div>
