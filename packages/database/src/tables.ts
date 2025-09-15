@@ -818,6 +818,20 @@ export const flowItemComments = pgTable('flow_item_comments', {
   }),
 })
 
+export const flowItemViews = pgTable('flow_item_views', {
+  id: cuid2('id').defaultRandom().primaryKey(),
+  createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  userId: cuid2('user_id').notNull().references(() => users.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
+  itemId: cuid2('item_id').notNull().references(() => flowItems.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
+})
+
 export const userRelations = relations(users, ({ many, one }) => ({
   chatMessages: many(chatMessages),
   chatMembers: many(chatMembers),
@@ -1295,6 +1309,7 @@ export const lockerItemDuplicateRelations = relations(lockerItemDuplicates, ({ o
 
 export const flowItemRelations = relations(flowItems, ({ many }) => ({
   comments: many(flowItemComments),
+  views: many(flowItemViews),
 }))
 
 export const flowItemCommentRelations = relations(flowItemComments, ({ one }) => ({
@@ -1304,6 +1319,17 @@ export const flowItemCommentRelations = relations(flowItemComments, ({ one }) =>
   }),
   item: one(flowItems, {
     fields: [flowItemComments.itemId],
+    references: [flowItems.id],
+  }),
+}))
+
+export const flowItemViewRelations = relations(flowItemViews, ({ one }) => ({
+  user: one(users, {
+    fields: [flowItemViews.userId],
+    references: [users.id],
+  }),
+  item: one(flowItems, {
+    fields: [flowItemViews.itemId],
     references: [flowItems.id],
   }),
 }))

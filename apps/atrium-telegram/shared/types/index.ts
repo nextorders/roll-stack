@@ -1,4 +1,4 @@
-import type { FeedbackPoint, FlowItem, FlowItemComment, Kitchen, PartnerAgreement } from '@roll-stack/database'
+import type { FeedbackPoint, FlowItem, FlowItemComment, FlowItemView, Kitchen, PartnerAgreement } from '@roll-stack/database'
 
 export type KitchenWithData = Kitchen & {
   openTime: number
@@ -10,6 +10,7 @@ export type KitchenWithData = Kitchen & {
 
 export type FlowItemWithData = FlowItem & {
   comments: FlowItemComment[]
+  views: FlowItemView[]
 }
 
 export type NavigationRoute = {

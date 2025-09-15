@@ -13,9 +13,9 @@
         />
       </div>
 
-      <h2 class="text-xl font-bold">
+      <h1 class="text-2xl/6 font-bold">
         {{ epic?.title }}
-      </h2>
+      </h1>
 
       <div class="w-full text-base/5 whitespace-pre-wrap break-words">
         {{ epic?.description }}
