@@ -15,7 +15,7 @@
         </h3>
       </div>
       <p class="text-sm/4">
-        {{ pluralizationRu(kitchensOnline, ['Кухня', 'Кухни', 'Кухонь']) }} сейчас {{ pluralizationRu(kitchensOnline, ['работает', 'работают', 'работают']) }}
+        {{ pluralizationRu(kitchensOnline, ['Кухня', 'Кухни', 'Кухонь']) }} сейчас {{ pluralizationRu(kitchensOnline, ['открыта', 'открыты', 'открыто']) }}
       </p>
     </div>
   </Section>
