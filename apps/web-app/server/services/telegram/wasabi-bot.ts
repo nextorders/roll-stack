@@ -4,8 +4,10 @@ import { repository } from '@roll-stack/database'
 import { Bot } from 'grammy'
 import { generateAccessCode } from './common'
 
+const S3_TELEGRAM_DIRECTORY = 'telegram/files'
+
 const logger = useLogger('telegram:wasabi-bot')
-const { telegram } = useRuntimeConfig()
+const { telegram, public: { mediaUrl } } = useRuntimeConfig()
 
 let bot: Bot | null = null
 
@@ -131,21 +133,36 @@ async function handlePhoto(ctx: Context) {
     return
   }
 
+  const fileId = bestQuality.file_id
+
   const botToken = await getBotToken()
   if (!botToken) {
     return null
   }
 
-  const downloadUrl = await getFileDownloadUrl({ ctx, fileId: bestQuality.file_id, botToken })
+  const downloadUrl = await getFileDownloadUrl({ ctx, fileId, botToken })
+  if (!downloadUrl) {
+    return
+  }
+
+  const extension = downloadUrl.split('.').pop()
+  const buffer = await fetch(downloadUrl).then((res) => res.arrayBuffer())
+
+  const fileUri = `/${S3_TELEGRAM_DIRECTORY}/${fileId}.${extension}`
+  const fileUrl = `${mediaUrl}${fileUri}`
+
+  const storage = useStorage('s3')
+  await storage.setItemRaw(fileUri, buffer)
 
   await repository.ticket.createMessage({
     ticketId: data.ticket.id,
     userId: data.user.id,
-    text: JSON.stringify({ downloadUrl, photo: ctx.message.photo }),
+    telegramFileId: fileId,
+    fileUrl,
+    text: ctx.message.caption ?? '',
   })
 
-  // Save photo?
-  logger.log('photo', data.user.id, ctx.message.from.id, ctx.message.text, ctx.message.photo, downloadUrl)
+  logger.log('photo', data.user.id, ctx.message.from.id, ctx.message.caption, ctx.message.photo, downloadUrl)
   ctx.reply('Фото передано в службу поддержки.')
 }
 
@@ -159,14 +176,21 @@ async function handleVideo(ctx: Context) {
     return
   }
 
+  const botToken = await getBotToken()
+  if (!botToken) {
+    return null
+  }
+
+  const downloadUrl = await getFileDownloadUrl({ ctx, fileId: ctx.message.video.file_id, botToken })
+
   await repository.ticket.createMessage({
     ticketId: data.ticket.id,
     userId: data.user.id,
-    text: JSON.stringify(ctx.message.video),
+    telegramFileId: ctx.message.video.file_id,
+    text: ctx.message.caption ?? '',
   })
 
-  // Save video?
-  logger.log('video', data.user.id, ctx.message.from.id, ctx.message.text, ctx.message.video)
+  logger.log('video', data.user.id, ctx.message.from.id, ctx.message.text, ctx.message.caption, ctx.message.video, downloadUrl)
   ctx.reply('Видео передано в службу поддержки.')
 }
 
@@ -180,14 +204,21 @@ async function handleFile(ctx: Context) {
     return
   }
 
+  const botToken = await getBotToken()
+  if (!botToken) {
+    return null
+  }
+
+  const downloadUrl = await getFileDownloadUrl({ ctx, fileId: ctx.message.document.file_id, botToken })
+
   await repository.ticket.createMessage({
     ticketId: data.ticket.id,
     userId: data.user.id,
-    text: JSON.stringify(ctx.message.document),
+    telegramFileId: ctx.message.document.file_id,
+    text: `${ctx.message.caption ?? ''} ${ctx.message.document?.file_name ?? ''} ${ctx.message.document?.mime_type ?? ''}`,
   })
 
-  // Save file?
-  logger.log('file', data.user.id, ctx.message.from.id, ctx.message.text, ctx.message.document)
+  logger.log('file', data.user.id, ctx.message.from.id, ctx.message.text, ctx.message.caption, ctx.message.document, downloadUrl)
   ctx.reply('Файл передан в службу поддержки.')
 }
 
