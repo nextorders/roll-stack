@@ -1,3 +1,4 @@
+import type { Ticket, User } from '@roll-stack/database'
 import type { Context } from 'grammy'
 import { repository } from '@roll-stack/database'
 import { Bot } from 'grammy'
@@ -9,12 +10,12 @@ const { telegram } = useRuntimeConfig()
 let bot: Bot | null = null
 
 export async function useCreateWasabiBot() {
-  const botInDb = await repository.telegram.findBot(telegram.wasabiBotId)
-  if (!botInDb?.token) {
+  const token = await getBotToken()
+  if (!token) {
     throw new Error('Wasabi bot is not configured')
   }
 
-  bot = new Bot(botInDb.token)
+  bot = new Bot(token)
 
   bot.on('message:text', async (ctx) => {
     if (ctx.hasCommand('start')) {
@@ -22,6 +23,22 @@ export async function useCreateWasabiBot() {
     }
 
     return handleMessage(ctx)
+  })
+
+  bot.on('message:photo', async (ctx) => {
+    return handlePhoto(ctx)
+  })
+
+  bot.on('message:video', async (ctx) => {
+    return handleVideo(ctx)
+  })
+
+  bot.on('message:document', async (ctx) => {
+    return handleFile(ctx)
+  })
+
+  bot.on('message:file', async (ctx) => {
+    return handleFile(ctx)
   })
 
   // Somebody invited bot to a group
@@ -84,9 +101,100 @@ async function handleMessage(ctx: Context) {
     return
   }
 
-  const telegramUser = await repository.telegram.findUserByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.wasabiBotId)
-  if (!telegramUser?.user) {
+  const data = await getUserAndTicket(ctx.message.from.id.toString())
+  if (!data) {
     return
+  }
+
+  await repository.ticket.createMessage({
+    ticketId: data.ticket.id,
+    userId: data.user.id,
+    text: ctx.message.text,
+  })
+
+  logger.log('message', data.user.id, ctx.message.from.id, ctx.message.text)
+  ctx.reply('Сообщение передано в службу поддержки.')
+}
+
+async function handlePhoto(ctx: Context) {
+  if (!ctx.message?.photo?.length) {
+    return
+  }
+
+  const data = await getUserAndTicket(ctx.message.from.id.toString())
+  if (!data) {
+    return
+  }
+
+  const bestQuality = ctx.message.photo.pop()
+  if (!bestQuality) {
+    return
+  }
+
+  const botToken = await getBotToken()
+  if (!botToken) {
+    return null
+  }
+
+  const downloadUrl = await getFileDownloadUrl({ ctx, fileId: bestQuality.file_id, botToken })
+
+  await repository.ticket.createMessage({
+    ticketId: data.ticket.id,
+    userId: data.user.id,
+    text: JSON.stringify({ downloadUrl, photo: ctx.message.photo }),
+  })
+
+  // Save photo?
+  logger.log('photo', data.user.id, ctx.message.from.id, ctx.message.text, ctx.message.photo, downloadUrl)
+  ctx.reply('Фото передано в службу поддержки.')
+}
+
+async function handleVideo(ctx: Context) {
+  if (!ctx.message?.video) {
+    return
+  }
+
+  const data = await getUserAndTicket(ctx.message.from.id.toString())
+  if (!data) {
+    return
+  }
+
+  await repository.ticket.createMessage({
+    ticketId: data.ticket.id,
+    userId: data.user.id,
+    text: JSON.stringify(ctx.message.video),
+  })
+
+  // Save video?
+  logger.log('video', data.user.id, ctx.message.from.id, ctx.message.text, ctx.message.video)
+  ctx.reply('Видео передано в службу поддержки.')
+}
+
+async function handleFile(ctx: Context) {
+  if (!ctx.message?.document) {
+    return
+  }
+
+  const data = await getUserAndTicket(ctx.message.from.id.toString())
+  if (!data) {
+    return
+  }
+
+  await repository.ticket.createMessage({
+    ticketId: data.ticket.id,
+    userId: data.user.id,
+    text: JSON.stringify(ctx.message.document),
+  })
+
+  // Save file?
+  logger.log('file', data.user.id, ctx.message.from.id, ctx.message.text, ctx.message.document)
+  ctx.reply('Файл передан в службу поддержки.')
+}
+
+async function getUserAndTicket(telegramId: string): Promise<{ user: User, ticket: Ticket } | null> {
+  const telegramUser = await repository.telegram.findUserByTelegramIdAndBotId(telegramId, telegram.wasabiBotId)
+  if (!telegramUser?.user) {
+    return null
   }
 
   // Get last ticket
@@ -102,17 +210,29 @@ async function handleMessage(ctx: Context) {
     })
   }
   if (!ticket) {
-    return
+    return null
   }
 
-  await repository.ticket.createMessage({
-    ticketId: ticket.id,
-    userId: telegramUser.user.id,
-    text: ctx.message.text,
-  })
+  return { user: telegramUser.user, ticket }
+}
 
-  logger.log('message', telegramUser.user.id, ctx.message.from.id, ctx.message.text)
-  ctx.reply('Сообщение передано в службу поддержки.')
+async function getFileDownloadUrl(data: { ctx: Context, fileId: string, botToken: string }) {
+  // https://api.telegram.org/file/bot<token>/<file_path>
+  const file = await data.ctx.api.getFile(data.fileId)
+  if (!file) {
+    return null
+  }
+
+  return `https://api.telegram.org/file/bot${data.botToken}/${file.file_path}`
+}
+
+async function getBotToken(): Promise<string | null> {
+  const botInDb = await repository.telegram.findBot(telegram.wasabiBotId)
+  if (!botInDb?.token) {
+    return null
+  }
+
+  return botInDb.token
 }
 
 export function useWasabiBot(): Bot {
