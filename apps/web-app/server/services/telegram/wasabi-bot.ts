@@ -149,7 +149,9 @@ async function handlePhoto(ctx: Context) {
     fileUrl = uploaded.fileUrl
   }
 
-  await ctx.api.forwardMessage(TELEGRAM_FILES_GROUP_ID, ctx.message.chat.id, ctx.message.message_id)
+  // Forward messages with file to group
+  const message = await ctx.reply(`Фото #${data.ticket.id} передано в службу поддержки.`)
+  await ctx.api.forwardMessages(TELEGRAM_FILES_GROUP_ID, ctx.message.chat.id, [message.message_id, ctx.message.message_id])
 
   await repository.ticket.createMessage({
     ticketId: data.ticket.id,
@@ -161,7 +163,6 @@ async function handlePhoto(ctx: Context) {
   })
 
   logger.log('photo', data.user.id, ctx.message.from.id, ctx.message.caption, ctx.message.photo, downloadUrl)
-  ctx.reply('Фото передано в службу поддержки.')
 }
 
 async function handleVideo(ctx: Context) {
