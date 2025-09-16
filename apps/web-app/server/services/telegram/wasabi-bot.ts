@@ -140,12 +140,13 @@ async function handlePhoto(ctx: Context) {
     return null
   }
 
-  const downloadUrl = await getFileDownloadUrl({ ctx, fileId, botToken })
-  if (!downloadUrl) {
-    return
-  }
+  let fileUrl
 
-  const { fileUrl } = await uploadToStorage(downloadUrl, fileId)
+  const downloadUrl = await getFileDownloadUrl({ ctx, fileId, botToken })
+  if (downloadUrl) {
+    const uploaded = await uploadToStorage(downloadUrl, fileId)
+    fileUrl = uploaded.fileUrl
+  }
 
   await repository.ticket.createMessage({
     ticketId: data.ticket.id,
@@ -177,12 +178,13 @@ async function handleVideo(ctx: Context) {
     return null
   }
 
-  const downloadUrl = await getFileDownloadUrl({ ctx, fileId, botToken })
-  if (!downloadUrl) {
-    return
-  }
+  let fileUrl
 
-  const { fileUrl } = await uploadToStorage(downloadUrl, fileId)
+  const downloadUrl = await getFileDownloadUrl({ ctx, fileId, botToken })
+  if (downloadUrl) {
+    const uploaded = await uploadToStorage(downloadUrl, fileId)
+    fileUrl = uploaded.fileUrl
+  }
 
   await repository.ticket.createMessage({
     ticketId: data.ticket.id,
@@ -214,12 +216,13 @@ async function handleFile(ctx: Context) {
     return null
   }
 
-  const downloadUrl = await getFileDownloadUrl({ ctx, fileId, botToken })
-  if (!downloadUrl) {
-    return
-  }
+  let fileUrl
 
-  const { fileUrl } = await uploadToStorage(downloadUrl, fileId)
+  const downloadUrl = await getFileDownloadUrl({ ctx, fileId, botToken })
+  if (downloadUrl) {
+    const uploaded = await uploadToStorage(downloadUrl, fileId)
+    fileUrl = uploaded.fileUrl
+  }
 
   await repository.ticket.createMessage({
     ticketId: data.ticket.id,
@@ -230,7 +233,7 @@ async function handleFile(ctx: Context) {
     text: `${ctx.message.caption ?? ''} ${ctx.message.document?.file_name ?? ''}`,
   })
 
-  logger.log('file', data.user.id, ctx.message.from.id, ctx.message.text, ctx.message.caption, ctx.message.document, downloadUrl)
+  logger.log('file', data.user.id, ctx.message.from.id, ctx.message.caption, ctx.message.document, downloadUrl)
   ctx.reply('Файл передан в службу поддержки.')
 }
 
@@ -259,14 +262,18 @@ async function getUserAndTicket(telegramId: string): Promise<{ user: User, ticke
   return { user: telegramUser.user, ticket }
 }
 
-async function getFileDownloadUrl(data: { ctx: Context, fileId: string, botToken: string }) {
-  // https://api.telegram.org/file/bot<token>/<file_path>
-  const file = await data.ctx.api.getFile(data.fileId)
-  if (!file) {
+async function getFileDownloadUrl(data: { ctx: Context, fileId: string, botToken: string }): Promise<string | null> {
+  try {
+    const file = await data.ctx.api.getFile(data.fileId)
+    if (!file) {
+      return null
+    }
+
+    return `https://api.telegram.org/file/bot${data.botToken}/${file.file_path}`
+  } catch (e) {
+    logger.error('getFileDownloadUrl', e)
     return null
   }
-
-  return `https://api.telegram.org/file/bot${data.botToken}/${file.file_path}`
 }
 
 async function getBotToken(): Promise<string | null> {
