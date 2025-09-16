@@ -703,6 +703,8 @@ export const ticketMessages = pgTable('ticket_messages', {
   createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   text: varchar('text').notNull(),
+  telegramFileId: varchar('telegram_file_id'),
+  fileUrl: varchar('file_url'),
   userId: cuid2('user_id').notNull().references(() => users.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',
