@@ -151,7 +151,7 @@ async function handlePhoto(ctx: Context) {
 
   // Forward messages with file to group
   const message = await ctx.reply(`Фото #${data.ticket.id} передано в службу поддержки.`)
-  await ctx.api.forwardMessages(TELEGRAM_FILES_GROUP_ID, ctx.message.chat.id, [message.message_id, ctx.message.message_id])
+  await ctx.api.forwardMessages(TELEGRAM_FILES_GROUP_ID, ctx.message.chat.id, [ctx.message.message_id, message.message_id])
 
   await repository.ticket.createMessage({
     ticketId: data.ticket.id,
