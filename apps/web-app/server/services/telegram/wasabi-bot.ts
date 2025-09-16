@@ -145,20 +145,14 @@ async function handlePhoto(ctx: Context) {
     return
   }
 
-  const extension = downloadUrl.split('.').pop()
-  const buffer = await fetch(downloadUrl).then((res) => res.arrayBuffer())
-
-  const fileUri = `/${S3_TELEGRAM_DIRECTORY}/${fileId}.${extension}`
-  const fileUrl = `${mediaUrl}${fileUri}`
-
-  const storage = useStorage('s3')
-  await storage.setItemRaw(fileUri, buffer)
+  const { fileUrl } = await uploadToStorage(downloadUrl, fileId)
 
   await repository.ticket.createMessage({
     ticketId: data.ticket.id,
     userId: data.user.id,
     telegramFileId: fileId,
     fileUrl,
+    fileType: 'image',
     text: ctx.message.caption ?? '',
   })
 
@@ -176,21 +170,30 @@ async function handleVideo(ctx: Context) {
     return
   }
 
+  const fileId = ctx.message.video.file_id
+
   const botToken = await getBotToken()
   if (!botToken) {
     return null
   }
 
-  const downloadUrl = await getFileDownloadUrl({ ctx, fileId: ctx.message.video.file_id, botToken })
+  const downloadUrl = await getFileDownloadUrl({ ctx, fileId, botToken })
+  if (!downloadUrl) {
+    return
+  }
+
+  const { fileUrl } = await uploadToStorage(downloadUrl, fileId)
 
   await repository.ticket.createMessage({
     ticketId: data.ticket.id,
     userId: data.user.id,
-    telegramFileId: ctx.message.video.file_id,
+    telegramFileId: fileId,
+    fileUrl,
+    fileType: 'video',
     text: ctx.message.caption ?? '',
   })
 
-  logger.log('video', data.user.id, ctx.message.from.id, ctx.message.text, ctx.message.caption, ctx.message.video, downloadUrl)
+  logger.log('video', data.user.id, ctx.message.from.id, ctx.message.caption, ctx.message.video, downloadUrl)
   ctx.reply('Видео передано в службу поддержки.')
 }
 
@@ -204,18 +207,27 @@ async function handleFile(ctx: Context) {
     return
   }
 
+  const fileId = ctx.message.document.file_id
+
   const botToken = await getBotToken()
   if (!botToken) {
     return null
   }
 
-  const downloadUrl = await getFileDownloadUrl({ ctx, fileId: ctx.message.document.file_id, botToken })
+  const downloadUrl = await getFileDownloadUrl({ ctx, fileId, botToken })
+  if (!downloadUrl) {
+    return
+  }
+
+  const { fileUrl } = await uploadToStorage(downloadUrl, fileId)
 
   await repository.ticket.createMessage({
     ticketId: data.ticket.id,
     userId: data.user.id,
-    telegramFileId: ctx.message.document.file_id,
-    text: `${ctx.message.caption ?? ''} ${ctx.message.document?.file_name ?? ''} ${ctx.message.document?.mime_type ?? ''}`,
+    telegramFileId: fileId,
+    fileUrl,
+    fileType: 'document',
+    text: `${ctx.message.caption ?? ''} ${ctx.message.document?.file_name ?? ''}`,
   })
 
   logger.log('file', data.user.id, ctx.message.from.id, ctx.message.text, ctx.message.caption, ctx.message.document, downloadUrl)
@@ -264,6 +276,19 @@ async function getBotToken(): Promise<string | null> {
   }
 
   return botInDb.token
+}
+
+async function uploadToStorage(downloadUrl: string, fileId: string) {
+  const extension = downloadUrl.split('.').pop()
+  const buffer = await fetch(downloadUrl).then((res) => res.arrayBuffer())
+
+  const fileInnerUri = `/${S3_TELEGRAM_DIRECTORY}/${fileId}.${extension}`
+  const fileUrl = `${mediaUrl}${fileInnerUri}`
+
+  const storage = useStorage('s3')
+  await storage.setItemRaw(fileInnerUri, buffer)
+
+  return { fileUrl }
 }
 
 export function useWasabiBot(): Bot {

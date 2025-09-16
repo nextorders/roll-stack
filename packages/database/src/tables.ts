@@ -47,6 +47,8 @@ type TelegramUserType = 'private' | 'group' | 'supergroup' | 'channel'
 
 type TicketStatus = 'opened' | 'closed'
 
+type TicketFileType = 'image' | 'document' | 'video'
+
 type CommunicationChannel = 'telegram'
   | 'vk'
   | 'website'
@@ -705,6 +707,7 @@ export const ticketMessages = pgTable('ticket_messages', {
   text: varchar('text').notNull(),
   telegramFileId: varchar('telegram_file_id'),
   fileUrl: varchar('file_url'),
+  fileType: varchar('file_type').$type<TicketFileType>(),
   userId: cuid2('user_id').notNull().references(() => users.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',
