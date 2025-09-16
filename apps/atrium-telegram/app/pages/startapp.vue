@@ -18,12 +18,17 @@ if (tgWebAppStartParam?.length && tgWebAppStartParam.includes(separator)) {
     await navigateTo('/')
   }
 
-  if (key === 'epic') {
-    await navigateTo(`/epic/${value}`)
-  }
+  const query = { from: 'startapp' }
 
-  if (key === 'flow') {
-    await navigateTo(`/flow/${value}`)
+  switch (key) {
+    case 'flow':
+      await navigateTo({ path: `/flow/${value}`, query })
+      break
+    case 'epic':
+      await navigateTo({ path: `/epic/${value}`, query })
+      break
+    default:
+      await navigateTo('/')
   }
 } else {
   await navigateTo('/')

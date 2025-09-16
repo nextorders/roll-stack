@@ -83,12 +83,17 @@ async function handleClick(userId: string) {
   if (showPopup.isAvailable()) {
     const buttonId = await showPopup({
       title: `${user.name} ${user.surname}`,
-      message: 'Выберите действие',
+      message: user.caption,
       buttons: [
         {
           id: 'open',
           type: 'default',
           text: 'Открыть Telegram',
+        },
+        {
+          id: 'call',
+          type: 'default',
+          text: 'Позвонить',
         },
         {
           type: 'close',
@@ -98,6 +103,10 @@ async function handleClick(userId: string) {
 
     if (buttonId === 'open') {
       openTelegramLink(`https://t.me/+${user.phone}?profile`)
+    }
+
+    if (buttonId === 'call') {
+      window.open(`tel:+${user.phone}`)
     }
   }
 }
