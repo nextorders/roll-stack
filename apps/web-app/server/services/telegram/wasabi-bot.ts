@@ -149,9 +149,7 @@ async function handlePhoto(ctx: Context) {
     fileUrl = uploaded.fileUrl
   }
 
-  if (!fileUrl) {
-    await ctx.api.forwardMessage(TELEGRAM_FILES_GROUP_ID, ctx.message.chat.id, ctx.message.message_id)
-  }
+  await ctx.api.forwardMessage(TELEGRAM_FILES_GROUP_ID, ctx.message.chat.id, ctx.message.message_id)
 
   await repository.ticket.createMessage({
     ticketId: data.ticket.id,
@@ -191,9 +189,7 @@ async function handleVideo(ctx: Context) {
     fileUrl = uploaded.fileUrl
   }
 
-  if (!fileUrl) {
-    await ctx.api.forwardMessage(TELEGRAM_FILES_GROUP_ID, ctx.message.chat.id, ctx.message.message_id)
-  }
+  await ctx.api.forwardMessage(TELEGRAM_FILES_GROUP_ID, ctx.message.chat.id, ctx.message.message_id)
 
   await repository.ticket.createMessage({
     ticketId: data.ticket.id,
@@ -233,9 +229,7 @@ async function handleFile(ctx: Context) {
     fileUrl = uploaded.fileUrl
   }
 
-  if (!fileUrl) {
-    await ctx.api.forwardMessage(TELEGRAM_FILES_GROUP_ID, ctx.message.chat.id, ctx.message.message_id)
-  }
+  await ctx.api.forwardMessage(TELEGRAM_FILES_GROUP_ID, ctx.message.chat.id, ctx.message.message_id)
 
   await repository.ticket.createMessage({
     ticketId: data.ticket.id,
