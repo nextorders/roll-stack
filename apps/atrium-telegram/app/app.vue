@@ -66,6 +66,7 @@ const flow = useFlowStore()
 
 // Guard
 await user.update()
+await user.updateOnline()
 if (!user.id) {
   await navigateTo('/no-auth')
 }

@@ -15,7 +15,13 @@ function _useBackButton() {
     }
   })
 
-  function onBackButtonClick(): void {
+  async function onBackButtonClick(): Promise<void> {
+    // If have query "from=startapp" go to index
+    if (router.currentRoute.value.query.from === 'startapp') {
+      await navigateTo('/')
+      return
+    }
+
     router.go(-1)
   }
 }
