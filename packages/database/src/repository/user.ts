@@ -70,6 +70,7 @@ export class User {
   static async list() {
     return useDatabase().query.users.findMany({
       where: (users, { eq }) => eq(users.isActive, true),
+      orderBy: (users, { asc }) => asc(users.surname),
       with: {
         focusedTask: true,
         telegramUsers: true,

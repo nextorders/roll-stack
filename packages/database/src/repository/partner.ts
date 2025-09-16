@@ -32,7 +32,7 @@ export class Partner {
   }
 
   static async listWithData() {
-    return useDatabase().query.partners.findMany({
+    const partners = await useDatabase().query.partners.findMany({
       where: (partners, { eq }) => eq(partners.isActive, true),
       with: {
         kitchens: true,
@@ -47,6 +47,13 @@ export class Partner {
         },
         users: true,
       },
+    })
+
+    // Order by name of legal entity
+    return partners.sort((a, b) => {
+      const aName = a.legalEntity?.name || ''
+      const bName = b.legalEntity?.name || ''
+      return aName.localeCompare(bName)
     })
   }
 
