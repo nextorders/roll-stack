@@ -5,6 +5,7 @@ import { Bot } from 'grammy'
 import { generateAccessCode } from './common'
 
 const S3_TELEGRAM_DIRECTORY = 'telegram/files'
+const TELEGRAM_FILES_GROUP_ID = '-1003028298232'
 
 const logger = useLogger('telegram:wasabi-bot')
 const { telegram, public: { mediaUrl } } = useRuntimeConfig()
@@ -148,6 +149,10 @@ async function handlePhoto(ctx: Context) {
     fileUrl = uploaded.fileUrl
   }
 
+  if (!fileUrl) {
+    await ctx.api.forwardMessage(TELEGRAM_FILES_GROUP_ID, ctx.message.chat.id, ctx.message.message_id)
+  }
+
   await repository.ticket.createMessage({
     ticketId: data.ticket.id,
     userId: data.user.id,
@@ -186,6 +191,10 @@ async function handleVideo(ctx: Context) {
     fileUrl = uploaded.fileUrl
   }
 
+  if (!fileUrl) {
+    await ctx.api.forwardMessage(TELEGRAM_FILES_GROUP_ID, ctx.message.chat.id, ctx.message.message_id)
+  }
+
   await repository.ticket.createMessage({
     ticketId: data.ticket.id,
     userId: data.user.id,
@@ -222,6 +231,10 @@ async function handleFile(ctx: Context) {
   if (downloadUrl) {
     const uploaded = await uploadToStorage(downloadUrl, fileId)
     fileUrl = uploaded.fileUrl
+  }
+
+  if (!fileUrl) {
+    await ctx.api.forwardMessage(TELEGRAM_FILES_GROUP_ID, ctx.message.chat.id, ctx.message.message_id)
   }
 
   await repository.ticket.createMessage({
