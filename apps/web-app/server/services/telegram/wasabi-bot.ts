@@ -18,7 +18,9 @@ export async function useCreateWasabiBot() {
     throw new Error('Wasabi bot is not configured')
   }
 
-  bot = new Bot(token)
+  bot = new Bot(token, {
+    client: { apiRoot: telegram.localBotApiServerUrl },
+  })
 
   bot.on('message:text', async (ctx) => {
     if (ctx.hasCommand('start')) {
