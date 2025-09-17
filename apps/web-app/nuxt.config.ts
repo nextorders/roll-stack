@@ -21,6 +21,7 @@ export default defineNuxtConfig({
       dailyReportPrompt: '',
     },
     telegram: {
+      localBotApiServerUrl: '',
       wasabiBotId: '',
       atriumBotId: '',
       orderBotId: '',
