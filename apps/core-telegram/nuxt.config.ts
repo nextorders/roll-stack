@@ -23,6 +23,5 @@ export default defineNuxtConfig({
       mediaUrl: '',
     },
   },
-  css: ['~/assets/css/styles.css'],
   compatibilityDate: '2025-02-20',
 })
