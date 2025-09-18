@@ -35,7 +35,7 @@ async function handleTicketMessageCreated(msg: EventMessage['TicketMessageCreate
     // Send Telegram message to Owner user via Wasabi Bot
     const wasabiUser = await repository.telegram.findUserByIdAndBotId(msg.data.ticketOwnerId, telegram.wasabiBotId)
     if (wasabiUser) {
-      const text = `${wasabiUser.user?.name} ${wasabiUser.user?.surname}: ${msg.data.userText}`
+      const text = `${msg.data.userName} ${msg.data.userSurname}: ${msg.data.userText}`
       await useWasabiBot().api.sendMessage(wasabiUser.telegramId, text)
     }
 

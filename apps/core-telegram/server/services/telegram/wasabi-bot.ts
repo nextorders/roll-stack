@@ -1,5 +1,6 @@
 import type { Ticket, User } from '@roll-stack/database'
 import type { Context } from 'grammy'
+import fs from 'node:fs/promises'
 import { repository } from '@roll-stack/database'
 import { Bot } from 'grammy'
 import { generateAccessCode } from './common'
@@ -147,7 +148,9 @@ async function handlePhoto(ctx: Context) {
   const downloadUrl = await getFileDownloadUrl({ ctx, fileId, botToken })
   if (downloadUrl) {
     const uploaded = await uploadToStorage(downloadUrl, fileId)
-    fileUrl = uploaded.fileUrl
+    if (uploaded?.fileUrl) {
+      fileUrl = uploaded.fileUrl
+    }
   }
 
   // Forward messages with file to group
@@ -188,7 +191,9 @@ async function handleVideo(ctx: Context) {
   const downloadUrl = await getFileDownloadUrl({ ctx, fileId, botToken })
   if (downloadUrl) {
     const uploaded = await uploadToStorage(downloadUrl, fileId)
-    fileUrl = uploaded.fileUrl
+    if (uploaded?.fileUrl) {
+      fileUrl = uploaded.fileUrl
+    }
   }
 
   await ctx.api.forwardMessage(telegram.filesGroupId, ctx.message.chat.id, ctx.message.message_id)
@@ -228,7 +233,9 @@ async function handleFile(ctx: Context) {
   const downloadUrl = await getFileDownloadUrl({ ctx, fileId, botToken })
   if (downloadUrl) {
     const uploaded = await uploadToStorage(downloadUrl, fileId)
-    fileUrl = uploaded.fileUrl
+    if (uploaded?.fileUrl) {
+      fileUrl = uploaded.fileUrl
+    }
   }
 
   await ctx.api.forwardMessage(telegram.filesGroupId, ctx.message.chat.id, ctx.message.message_id)
@@ -278,7 +285,8 @@ async function getFileDownloadUrl(data: { ctx: Context, fileId: string, botToken
       return null
     }
 
-    return `${data.botToken}/${file.file_path}`
+    // /var/lib/bot/token/documents/file_id.ext
+    return file.file_path ?? null
   } catch (e) {
     logger.error('getFileDownloadUrl', e)
     return null
@@ -295,16 +303,25 @@ async function getBotToken(): Promise<string | null> {
 }
 
 async function uploadToStorage(downloadUrl: string, fileId: string) {
-  const extension = downloadUrl.split('.').pop()
-  const buffer = await fetch(downloadUrl).then((res) => res.arrayBuffer())
+  try {
+    const extension = downloadUrl.split('.').pop()
 
-  const fileInnerUri = `/${S3_TELEGRAM_DIRECTORY}/${fileId}.${extension}`
-  const fileUrl = `${mediaUrl}${fileInnerUri}`
+    const buffer = await fs.readFile(downloadUrl)
+    if (!buffer) {
+      return null
+    }
 
-  const storage = useStorage('s3')
-  await storage.setItemRaw(fileInnerUri, buffer)
+    const fileInnerUri = `/${S3_TELEGRAM_DIRECTORY}/${fileId}.${extension}`
+    const fileUrl = `${mediaUrl}${fileInnerUri}`
 
-  return { fileUrl }
+    const storage = useStorage('s3')
+    await storage.setItemRaw(fileInnerUri, buffer)
+
+    return { fileUrl }
+  } catch (e) {
+    logger.error('uploadToStorage', e)
+    return null
+  }
 }
 
 export function useWasabiBot(): Bot {
