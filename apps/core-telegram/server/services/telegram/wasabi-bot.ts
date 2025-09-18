@@ -5,7 +5,6 @@ import { Bot } from 'grammy'
 import { generateAccessCode } from './common'
 
 const S3_TELEGRAM_DIRECTORY = 'telegram/files'
-const TELEGRAM_FILES_GROUP_ID = '-1003028298232'
 
 const logger = useLogger('telegram:wasabi-bot')
 const { telegram, public: { mediaUrl } } = useRuntimeConfig()
@@ -153,7 +152,7 @@ async function handlePhoto(ctx: Context) {
 
   // Forward messages with file to group
   const message = await ctx.reply(`Фото #${data.ticket.id} передано в службу поддержки.`)
-  await ctx.api.forwardMessages(TELEGRAM_FILES_GROUP_ID, ctx.message.chat.id, [ctx.message.message_id, message.message_id])
+  await ctx.api.forwardMessages(telegram.filesGroupId, ctx.message.chat.id, [ctx.message.message_id, message.message_id])
 
   await repository.ticket.createMessage({
     ticketId: data.ticket.id,
@@ -192,7 +191,7 @@ async function handleVideo(ctx: Context) {
     fileUrl = uploaded.fileUrl
   }
 
-  await ctx.api.forwardMessage(TELEGRAM_FILES_GROUP_ID, ctx.message.chat.id, ctx.message.message_id)
+  await ctx.api.forwardMessage(telegram.filesGroupId, ctx.message.chat.id, ctx.message.message_id)
 
   await repository.ticket.createMessage({
     ticketId: data.ticket.id,
@@ -232,7 +231,7 @@ async function handleFile(ctx: Context) {
     fileUrl = uploaded.fileUrl
   }
 
-  await ctx.api.forwardMessage(TELEGRAM_FILES_GROUP_ID, ctx.message.chat.id, ctx.message.message_id)
+  await ctx.api.forwardMessage(telegram.filesGroupId, ctx.message.chat.id, ctx.message.message_id)
 
   await repository.ticket.createMessage({
     ticketId: data.ticket.id,
@@ -279,7 +278,7 @@ async function getFileDownloadUrl(data: { ctx: Context, fileId: string, botToken
       return null
     }
 
-    return `https://api.telegram.org/file/bot${data.botToken}/${file.file_path}`
+    return `${data.botToken}/${file.file_path}`
   } catch (e) {
     logger.error('getFileDownloadUrl', e)
     return null

@@ -1,7 +1,7 @@
 import { createTicketMessageSchema } from '#shared/services/ticket'
 import { repository } from '@roll-stack/database'
+import { repository as queue } from '@roll-stack/queue'
 import { type } from 'arktype'
-import { useWasabiBot } from '~~/server/services/telegram/wasabi-bot'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -12,8 +12,6 @@ export default defineEventHandler(async (event) => {
         message: 'Id is required',
       })
     }
-
-    const { telegram } = useRuntimeConfig()
 
     const body = await readBody(event)
     const data = createTicketMessageSchema(body)
@@ -41,12 +39,16 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const wasabiUser = await repository.telegram.findUserByIdAndBotId(ticket.userId, telegram.wasabiBotId)
-    if (wasabiUser) {
-      // Send message to Telegram
-      const text = `${event.context.user.name} ${event.context.user.surname}: ${data.text}`
-      await useWasabiBot().api.sendMessage(wasabiUser.telegramId, text)
-    }
+    // Event
+    await queue.ticket.messageCreated({
+      ticketId: message.ticketId,
+      ticketOwnerId: ticket.userId,
+      messageId: message.id,
+      userId: message.userId,
+      userName: event.context.user.name,
+      userSurname: event.context.user.surname,
+      userText: message.text,
+    })
 
     return {
       ok: true,
