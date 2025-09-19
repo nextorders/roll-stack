@@ -3,11 +3,11 @@
     <div class="px-4 py-2 max-w-[28rem] mx-auto mb-20 flex flex-col gap-y-6" :class="className">
       <slot />
 
-      <div class="mt-16 flex flex-row justify-center">
+      <div class="mt-18 flex flex-row justify-center">
         <img
           src="/sushi-heart.svg"
           alt=""
-          class="w-10 opacity-25 invert-50"
+          class="w-14 opacity-25 invert-50"
         >
       </div>
     </div>

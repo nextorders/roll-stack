@@ -6,7 +6,7 @@
         variant="solid"
         color="secondary"
         size="xl"
-        class="transition-all duration-200 ease-in-out motion-preset-slide-up motion-duration-1000"
+        class="z-60 absolute top-8 transition-all duration-200 ease-in-out motion-preset-slide-up motion-duration-1000"
         icon="i-lucide-plus"
         :ui="{
           base: 'size-12 font-bold rounded-full',
@@ -19,7 +19,12 @@
       v-if="isNavigationShown"
       class="w-full h-24 tg-bg-bottom-bar border-t border-default rounded-t-lg motion-preset-slide-up"
     >
-      <div class="mt-3 max-w-[28rem] mx-auto grid grid-cols-3">
+      <div
+        class="mt-3 max-w-[28rem] mx-auto grid"
+        :class="[
+          mainRoutes.length > 3 ? 'grid-cols-4' : 'grid-cols-3',
+        ]"
+      >
         <NavigationButton
           v-for="route in mainRoutes"
           :key="route.path"

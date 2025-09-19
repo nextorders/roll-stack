@@ -30,6 +30,12 @@ function _useNavigation() {
       icon: 'i-lucide-layout-dashboard',
       badge: taskStore.myTodayTasks.length.toString(),
     },
+    {
+      path: '/navigation',
+      names: ['navigation'],
+      title: t('app.navigation'),
+      icon: 'i-lucide-menu',
+    },
   ])
 
   const isNavigationShown = ref(true)

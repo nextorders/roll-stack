@@ -1,5 +1,9 @@
 <template>
-  <div v-if="message.fileUrl" class="w-2/3 relative flex flex-col justify-between gap-1.5">
+  <div
+    v-if="message.fileUrl"
+    class="w-2/3 relative flex flex-col justify-between gap-1.5"
+    @click="vibrate()"
+  >
     <img
       :src="message.fileUrl"
       alt=""
@@ -19,4 +23,6 @@ import { ru } from 'date-fns/locale/ru'
 const { message } = defineProps<{
   message: TicketMessage
 }>()
+
+const { vibrate } = useFeedback()
 </script>

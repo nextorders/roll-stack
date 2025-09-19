@@ -21,6 +21,10 @@
         {{ ticket?.description }}
       </div>
 
+      <div class="w-full text-base/5 whitespace-pre-wrap break-words">
+        {{ user?.name }} {{ user?.surname }}, {{ user?.caption }}
+      </div>
+
       <div class="mt-6 flex justify-between items-center">
         <div class="flex flex-row gap-4">
           <div class="flex flex-row gap-1.5 items-center text-muted text-sm">
@@ -47,6 +51,7 @@
         class="items-center justify-center"
         icon="i-lucide-message-circle"
         label="Написать сообщение"
+        @click="vibrate()"
       />
 
       <template #body>
@@ -92,8 +97,11 @@ definePageMeta({
 const { params } = useRoute('ticket-ticketId')
 const { vibrate } = useFeedback()
 
+const partnerStore = usePartnerStore()
 const ticketStore = useTicketStore()
-const ticket = computed(() => ticketStore.tickets.find((e) => e.id === params.ticketId))
+const ticket = computed(() => ticketStore.tickets.find((t) => t.id === params.ticketId))
+const partner = computed(() => partnerStore.partners.find((p) => p.id === ticket.value?.user.partnerId))
+const user = computed(() => partner.value?.users.find((user) => user.id === ticket.value?.userId))
 
 // On load show last 10 messages. On button click = show more 10 messages
 const shownMessages = ref(10)
