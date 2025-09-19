@@ -282,6 +282,9 @@ importers:
       '@roll-stack/database':
         specifier: workspace:*
         version: link:../../packages/database
+      '@roll-stack/queue':
+        specifier: workspace:*
+        version: link:../../packages/queue
       '@roll-stack/ui':
         specifier: workspace:*
         version: link:../../packages/ui

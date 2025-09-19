@@ -10,6 +10,8 @@ export type TicketWithData = Ticket & {
 export const useTicketStore = defineStore('ticket', () => {
   const tickets = ref<TicketWithData[]>([])
 
+  const ticketsWithoutAnswer = computed(() => tickets.value.filter((ticket) => ticket.lastMessage?.userId === ticket.userId))
+
   const initDataRaw = useSignal(_initDataRaw)
 
   async function update() {
@@ -38,6 +40,7 @@ export const useTicketStore = defineStore('ticket', () => {
 
   return {
     tickets,
+    ticketsWithoutAnswer,
 
     update,
   }

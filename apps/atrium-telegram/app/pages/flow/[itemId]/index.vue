@@ -12,6 +12,22 @@
       <div class="w-full text-base/5 whitespace-pre-wrap break-words">
         {{ item?.description }}
       </div>
+
+      <div class="mt-6 flex justify-between items-center">
+        <div class="flex flex-row gap-4">
+          <div class="flex flex-row gap-1.5 items-center text-muted text-sm">
+            <UIcon name="i-lucide-message-circle" class="size-5" />
+            <p>0</p>
+          </div>
+        </div>
+
+        <time
+          v-if="item?.createdAt"
+          :datetime="item.createdAt"
+          class="text-sm text-muted"
+          v-text="format(new Date(item.createdAt), 'd MMMM yyyy в HH:mm', { locale: ru })"
+        />
+      </div>
     </Section>
 
     <Section class="flex flex-col">
@@ -24,6 +40,7 @@
           v-for="view in item?.views"
           :key="view.id"
           :src="userStore.getAvatarUrl(view.userId)"
+          size="lg"
         />
       </div>
     </Section>
@@ -31,6 +48,9 @@
 </template>
 
 <script setup lang="ts">
+import { format } from 'date-fns'
+import { ru } from 'date-fns/locale/ru'
+
 definePageMeta({
   name: 'flow-itemId',
   canReturn: true,

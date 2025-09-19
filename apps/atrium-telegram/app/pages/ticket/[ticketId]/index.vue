@@ -30,7 +30,23 @@
       </div>
     </Section>
 
-    <div class="w-full flex flex-col gap-3.5 flex-1 last-of-type:mb-20">
+    <div class="w-full flex flex-col gap-3.5 flex-1">
+      <UDrawer v-model:open="isDrawerOpened">
+        <CreateCard
+          label="Написать сообщение"
+          icon="i-lucide-message-circle"
+          class="mb-4"
+        />
+
+        <template #body>
+          <FormCreateTicketMessage
+            :ticket-id="ticket?.id ?? ''"
+            @submitted="isDrawerOpened = false"
+            @success="isDrawerOpened = false"
+          />
+        </template>
+      </UDrawer>
+
       <TicketMessage
         v-for="message in messages"
         :key="message.id"
@@ -40,31 +56,15 @@
 
       <UButton
         v-if="isShowMore"
-        variant="solid"
-        color="secondary"
+        variant="soft"
+        color="primary"
         size="xl"
-        class="w-full items-center justify-center"
-        icon="i-lucide-message-circle"
+        class="mt-6 mx-auto w-fit items-center justify-center"
+        icon="i-lucide-message-circle-more"
         :label="$t('common.show-more')"
         @click="handleClickShowMore()"
       />
     </div>
-
-    <!-- <UDrawer v-model:open="isDrawerOpened">
-      <CreateCard
-        v-if="epic?.id"
-        :label="$t('app.create.epic-comment.button')"
-        icon="i-lucide-message-circle"
-      />
-
-      <template #body>
-        <FormCreateEpicComment
-          :epic-id="epic?.id ?? ''"
-          @submitted="isDrawerOpened = false"
-          @success="isDrawerOpened = false"
-        />
-      </template>
-    </UDrawer> -->
   </PageContainer>
 </template>
 
@@ -88,7 +88,7 @@ const shownMessages = ref(10)
 const messages = computed(() => ticket.value?.messages.slice(0, shownMessages.value))
 const isShowMore = computed<boolean>(() => messages.value?.length && ticket.value?.messages.length ? messages.value.length < ticket.value.messages.length : false)
 
-// const isDrawerOpened = ref(false)
+const isDrawerOpened = ref(false)
 
 function handleClickShowMore() {
   vibrate('success')

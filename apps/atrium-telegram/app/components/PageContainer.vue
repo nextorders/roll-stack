@@ -2,6 +2,14 @@
   <div class="z-30 overflow-hidden h-full min-h-dvh w-full tg-content-safe-area">
     <div class="px-4 py-2 max-w-[28rem] mx-auto mb-20 flex flex-col gap-y-6" :class="className">
       <slot />
+
+      <div class="mt-16 flex flex-row justify-center">
+        <img
+          src="/sushi-heart.svg"
+          alt=""
+          class="w-10 opacity-25 invert-50"
+        >
+      </div>
     </div>
   </div>
 </template>

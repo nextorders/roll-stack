@@ -1,6 +1,18 @@
 <template>
   <ActiveCard>
-    <UIcon name="i-lucide-mail-question-mark" class="size-8 text-primary" />
+    <div class="flex flex-row gap-2 items-center">
+      <UIcon name="i-lucide-mail-question-mark" class="size-8 text-primary" />
+
+      <div v-if="hasAnswerFromUser" class="flex flex-row items-center gap-1.5 text-error">
+        <UIcon
+          name="i-lucide-pointer"
+          class="size-8 motion-translate-y-loop-25 motion-preset-seesaw motion-duration-2000"
+        />
+        <p class="max-w-22 text-sm/4 font-bold">
+          Есть ответ от партнера
+        </p>
+      </div>
+    </div>
 
     <h3 class="text-xl/5 font-bold">
       {{ ticket.title }}
@@ -21,7 +33,7 @@
       <time
         :datetime="ticket.updatedAt"
         class="text-sm text-muted"
-        v-text="format(new Date(ticket.updatedAt), 'обновлен d MMMM yyyy', { locale: ru })"
+        v-text="format(new Date(ticket.updatedAt), 'd MMMM yyyy в HH:mm', { locale: ru })"
       />
     </div>
   </ActiveCard>
@@ -32,7 +44,9 @@ import type { TicketWithData } from '~/stores/ticket'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale/ru'
 
-defineProps<{
+const { ticket } = defineProps<{
   ticket: TicketWithData
 }>()
+
+const hasAnswerFromUser = computed(() => ticket.lastMessage?.userId === ticket.userId)
 </script>
