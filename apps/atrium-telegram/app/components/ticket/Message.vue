@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row gap-2 items-start">
     <div class="mt-2.5">
-      <UAvatar :src="user?.avatarUrl ?? undefined" />
+      <UAvatar :src="user?.avatarUrl ?? undefined" size="lg" />
     </div>
     <div class="relative w-full flex flex-col gap-1.5">
       <UDropdownMenu

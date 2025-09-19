@@ -5,6 +5,7 @@ function _useNavigation() {
 
   const taskStore = useTaskStore()
   const flowStore = useFlowStore()
+  const ticketStore = useTicketStore()
 
   const mainRoutes = computed<NavigationRoute[]>(() => [
     {
@@ -20,6 +21,7 @@ function _useNavigation() {
       names: ['ticket', 'ticket-ticketId'],
       title: t('app.tickets'),
       icon: 'i-lucide-mail-question-mark',
+      badge: ticketStore.ticketsWithoutAnswer.length.toString(),
     },
     {
       path: '/tasks',

@@ -4,7 +4,7 @@
       <UIcon :name="getFileData(message.fileType).icon" class="size-10 text-primary" />
 
       <UButton
-        variant="solid"
+        variant="soft"
         color="secondary"
         :label="getFileData(message.fileType).label"
       />
