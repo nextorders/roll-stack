@@ -60,7 +60,7 @@ export default defineAppConfig({
       slots: {
         header: 'text-xl/6 font-bold font-headers',
         body: 'mb-12 hide-scroll',
-        content: '!max-h-10/12 ring-default hide-scroll',
+        content: '!max-h-10/12 ring-default/50 hide-scroll',
       },
     },
     navigationMenu: {

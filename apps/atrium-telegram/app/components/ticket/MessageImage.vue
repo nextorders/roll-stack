@@ -3,7 +3,7 @@
     <img
       :src="message.fileUrl"
       alt=""
-      class="w-full h-full object-contain rounded-lg"
+      class="w-full h-full object-contain rounded-lg active:scale-95 duration-200"
     >
     <div v-if="message?.createdAt" class="flex justify-end text-xs text-muted">
       {{ format(new Date(message.createdAt), 'dd MMMM в HH:mm', { locale: ru }) }}

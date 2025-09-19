@@ -1,5 +1,5 @@
 <template>
-  <ActiveCard>
+  <ActiveCard class="!w-fit min-w-2/3">
     <div class="w-full relative flex flex-col justify-between gap-2">
       <div class="flex flex-col gap-1">
         <div class="text-base/5 whitespace-break-spaces text-default font-medium">

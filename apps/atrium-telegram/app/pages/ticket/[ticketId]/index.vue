@@ -3,6 +3,14 @@
     <Section>
       <div class="flex flex-row items-start justify-between gap-2.5">
         <UIcon name="i-lucide-mail-question-mark" class="size-10 text-primary" />
+
+        <UButton
+          variant="soft"
+          color="primary"
+          size="xl"
+          icon="i-lucide-pencil"
+          @click="handleEdit()"
+        />
       </div>
 
       <h1 class="text-2xl/6 font-bold">
@@ -30,23 +38,27 @@
       </div>
     </Section>
 
-    <div class="w-full flex flex-col gap-3.5 flex-1">
-      <UDrawer v-model:open="isDrawerOpened">
-        <CreateCard
-          label="Написать сообщение"
-          icon="i-lucide-message-circle"
-          class="mb-4"
+    <UDrawer v-model:open="isDrawerOpened">
+      <UButton
+        variant="solid"
+        color="secondary"
+        size="xl"
+        block
+        class="items-center justify-center"
+        icon="i-lucide-message-circle"
+        label="Написать сообщение"
+      />
+
+      <template #body>
+        <FormCreateTicketMessage
+          :ticket-id="ticket?.id ?? ''"
+          @submitted="isDrawerOpened = false"
+          @success="isDrawerOpened = false"
         />
+      </template>
+    </UDrawer>
 
-        <template #body>
-          <FormCreateTicketMessage
-            :ticket-id="ticket?.id ?? ''"
-            @submitted="isDrawerOpened = false"
-            @success="isDrawerOpened = false"
-          />
-        </template>
-      </UDrawer>
-
+    <div class="w-full flex flex-col gap-3.5 flex-1">
       <TicketMessage
         v-for="message in messages"
         :key="message.id"
@@ -56,10 +68,10 @@
 
       <UButton
         v-if="isShowMore"
-        variant="soft"
-        color="primary"
+        variant="solid"
+        color="secondary"
         size="xl"
-        class="mt-6 mx-auto w-fit items-center justify-center"
+        class="mt-6 mx-auto px-8 w-fit items-center justify-center"
         icon="i-lucide-message-circle-more"
         :label="$t('common.show-more')"
         @click="handleClickShowMore()"
@@ -93,5 +105,9 @@ const isDrawerOpened = ref(false)
 function handleClickShowMore() {
   vibrate('success')
   shownMessages.value += 10
+}
+
+function handleEdit() {
+  vibrate()
 }
 </script>
