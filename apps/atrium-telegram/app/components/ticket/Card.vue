@@ -10,9 +10,9 @@
       {{ ticket.description }}
     </div>
 
-    <div class="flex justify-between items-center">
+    <div class="mt-6 flex justify-between items-center">
       <div class="flex flex-row gap-4">
-        <div class="flex flex-row gap-1.5 items-center text-muted">
+        <div class="flex flex-row gap-1.5 items-center text-sm text-muted">
           <UIcon name="i-lucide-message-circle" class="size-5" />
           <p>{{ ticket?.messages.length }}</p>
         </div>
