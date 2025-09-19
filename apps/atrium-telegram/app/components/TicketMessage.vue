@@ -21,7 +21,7 @@
                 {{ message?.text }}
               </div>
 
-              <div v-if="message?.fileUrl">
+              <div v-if="message?.fileUrl && message.fileType !== 'image'">
                 <UButton
                   variant="solid"
                   color="secondary"
@@ -30,6 +30,14 @@
                 >
                   Прикрепленный файл
                 </UButton>
+              </div>
+              <div v-else-if="message?.fileUrl && message.fileType === 'image'">
+                <img
+                  :src="message.fileUrl"
+                  alt=""
+                  class="w-full h-full object-contain rounded-lg"
+                  @click="handleFileClick(message.fileUrl)"
+                >
               </div>
 
               <div v-if="message?.createdAt" class="mt-1 flex justify-end text-xs text-muted">
@@ -53,6 +61,7 @@
 
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
+import type { TicketMessage } from '@roll-stack/database'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale/ru'
 
@@ -116,7 +125,7 @@ const items = computed<DropdownMenuItem[]>(() => {
   return menuItems.filter((item) => item.condition)
 })
 
-function getFileIcon(type: 'image' | 'video' | 'document' | null) {
+function getFileIcon(type: TicketMessage['fileType']) {
   switch (type) {
     case 'image':
       return 'i-lucide-image'
