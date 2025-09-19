@@ -3,7 +3,7 @@
     <div class="mt-2.5">
       <UAvatar :src="user?.avatarUrl ?? undefined" />
     </div>
-    <div class="w-full flex flex-col gap-1.5">
+    <div class="relative w-full flex flex-col gap-1.5">
       <UDropdownMenu
         :items="items"
         :ui="{
@@ -14,38 +14,18 @@
           sideOffset: -32,
         }"
       >
-        <ActiveCard>
-          <div class="w-full relative flex flex-col justify-between gap-2">
-            <div class="flex flex-col gap-1">
-              <div class="text-base/5 whitespace-break-spaces text-default font-medium">
-                {{ message?.text }}
-              </div>
-
-              <div v-if="message?.fileUrl && message.fileType !== 'image'">
-                <UButton
-                  variant="solid"
-                  color="secondary"
-                  :icon="getFileIcon(message.fileType)"
-                  @click="handleFileClick(message.fileUrl)"
-                >
-                  Прикрепленный файл
-                </UButton>
-              </div>
-              <div v-else-if="message?.fileUrl && message.fileType === 'image'">
-                <img
-                  :src="message.fileUrl"
-                  alt=""
-                  class="w-full h-full object-contain rounded-lg"
-                  @click="handleFileClick(message.fileUrl)"
-                >
-              </div>
-
-              <div v-if="message?.createdAt" class="mt-1 flex justify-end text-xs text-muted">
-                {{ format(new Date(message.createdAt), 'dd MMMM в HH:mm', { locale: ru }) }}
-              </div>
-            </div>
-          </div>
-        </ActiveCard>
+        <TicketMessageText
+          v-if="isMessageWithText && message"
+          :message="message"
+        />
+        <TicketMessageImage
+          v-else-if="isMessageWithImage && message"
+          :message="message"
+        />
+        <TicketMessageFile
+          v-else-if="isMessageWithFile && message"
+          :message="message"
+        />
       </UDropdownMenu>
 
       <!-- <div v-if="message?.notifications?.length" class="-mt-4 ml-4 flex flex-row flex-wrap gap-1">
@@ -61,9 +41,6 @@
 
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
-import type { TicketMessage } from '@roll-stack/database'
-import { format } from 'date-fns'
-import { ru } from 'date-fns/locale/ru'
 
 const { ticketId, messageId } = defineProps<{
   ticketId: string
@@ -80,15 +57,27 @@ const ticket = computed(() => ticketStore.tickets.find((t) => t.id === ticketId)
 const message = computed(() => ticket.value?.messages.find((m) => m.id === messageId))
 const user = computed(() => userStore.find(message.value?.userId ?? ''))
 
+const isMessageWithText = computed(() => !message.value?.fileUrl)
+const isMessageWithImage = computed(() => message.value?.fileUrl && message.value?.fileType === 'image')
+const isMessageWithFile = computed(() => message.value?.fileUrl && message.value?.fileType !== 'image')
+
 const items = computed<DropdownMenuItem[]>(() => {
   const menuItems: DropdownMenuItem[] = [
+    {
+      label: 'Открыть',
+      icon: 'i-lucide-external-link',
+      color: 'neutral',
+      disabled: false,
+      onSelect: () => handleFileClick(message.value?.fileUrl),
+      condition: message.value?.fileUrl,
+    },
     {
       label: 'Скопировать сообщение',
       icon: 'i-lucide-copy',
       color: 'neutral',
       disabled: false,
       onSelect: () => navigator.clipboard.writeText(message.value?.text ?? ''),
-      condition: true,
+      condition: isMessageWithText.value,
     },
     // {
     //   label: 'Маякнуть (будет позже)',
@@ -125,20 +114,10 @@ const items = computed<DropdownMenuItem[]>(() => {
   return menuItems.filter((item) => item.condition)
 })
 
-function getFileIcon(type: TicketMessage['fileType']) {
-  switch (type) {
-    case 'image':
-      return 'i-lucide-image'
-    case 'video':
-      return 'i-lucide-video'
-    case 'document':
-      return 'i-lucide-file'
-    default:
-      return 'i-lucide-file'
+function handleFileClick(fileUrl: string | null | undefined) {
+  if (!fileUrl) {
+    return
   }
-}
-
-function handleFileClick(fileUrl: string) {
   window.open(fileUrl, '_blank')
 }
 </script>

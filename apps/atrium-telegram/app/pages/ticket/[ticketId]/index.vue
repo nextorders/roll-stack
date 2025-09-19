@@ -12,12 +12,21 @@
       <div class="w-full text-base/5 whitespace-pre-wrap break-words">
         {{ ticket?.description }}
       </div>
-    </Section>
 
-    <Section class="flex flex-row justify-between items-center">
-      <div class="flex flex-row items-center gap-2">
-        <UIcon name="i-lucide-message-circle" class="size-5" />
-        {{ ticket?.messages.length }} {{ pluralizationRu(ticket?.messages.length ?? 0, ['сообщение', 'сообщения', 'сообщений']) }}
+      <div class="mt-6 flex justify-between items-center">
+        <div class="flex flex-row gap-4">
+          <div class="flex flex-row gap-1.5 items-center text-muted text-sm">
+            <UIcon name="i-lucide-message-circle" class="size-5" />
+            <p>{{ ticket?.messages.length }} {{ pluralizationRu(ticket?.messages.length ?? 0, ['сообщение', 'сообщения', 'сообщений']) }}</p>
+          </div>
+        </div>
+
+        <time
+          v-if="ticket?.createdAt"
+          :datetime="ticket.createdAt"
+          class="text-sm text-muted"
+          v-text="format(new Date(ticket.createdAt), 'от d MMMM yyyy', { locale: ru })"
+        />
       </div>
     </Section>
 
@@ -60,6 +69,9 @@
 </template>
 
 <script setup lang="ts">
+import { format } from 'date-fns'
+import { ru } from 'date-fns/locale/ru'
+
 definePageMeta({
   name: 'ticket-ticketId',
   canReturn: true,
@@ -79,7 +91,7 @@ const isShowMore = computed<boolean>(() => messages.value?.length && ticket.valu
 // const isDrawerOpened = ref(false)
 
 function handleClickShowMore() {
-  vibrate()
+  vibrate('success')
   shownMessages.value += 10
 }
 </script>
