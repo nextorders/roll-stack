@@ -63,6 +63,7 @@ const task = useTaskStore()
 const ticket = useTicketStore()
 const kitchen = useKitchenStore()
 const flow = useFlowStore()
+const partner = usePartnerStore()
 
 // Guard
 await user.update()
@@ -82,6 +83,7 @@ onMounted(async () => {
     ticket.update(),
     kitchen.update(),
     flow.update(),
+    partner.update(),
   ])
 
   interval = setInterval(async () => {
@@ -92,6 +94,7 @@ onMounted(async () => {
       ticket.update(),
       kitchen.update(),
       flow.update(),
+      partner.update(),
     ])
   }, 20000)
 })

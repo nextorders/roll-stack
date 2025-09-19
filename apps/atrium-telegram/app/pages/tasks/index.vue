@@ -1,5 +1,5 @@
 <template>
-  <PageContainer :back="false">
+  <PageContainer>
     <div class="flex flex-row gap-3.5 items-center">
       <UAvatar
         :src="userStore?.avatarUrl ?? undefined"
@@ -75,8 +75,4 @@ function handleUploadUserAvatar() {
   vibrate()
   modalUploadUserAvatar.open()
 }
-
-useHead({
-  title: 'Суши Атриум',
-})
 </script>

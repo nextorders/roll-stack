@@ -64,13 +64,6 @@
           </div>
 
           <div class="flex flex-row gap-y-1 gap-x-2 items-center">
-            <UAvatar
-              v-if="performer"
-              :src="performer?.avatarUrl ?? ''"
-              size="xs"
-              class="shrink-0"
-            />
-
             <UBadge
               v-if="task?.date"
               size="md"
