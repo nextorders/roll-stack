@@ -3,7 +3,7 @@
     <div class="flex flex-row gap-3.5 items-center">
       <UAvatar
         :src="userStore?.avatarUrl ?? undefined"
-        class="size-14 cursor-pointer hover:scale-95 active:scale-90 duration-200"
+        class="size-14 border-2 border-primary hover:scale-95 active:scale-90 duration-200"
         @click="handleUploadUserAvatar"
       />
 
@@ -16,7 +16,7 @@
             Сегодня по плану еще
             <ULink
               as="button"
-              class="font-semibold underline underline-offset-4 decoration-dashed decoration-1 cursor-pointer"
+              class="font-semibold underline underline-offset-4 decoration-dashed decoration-1"
               :class="[
                 taskStore.isTodayOnly ? 'tg-text' : 'text-secondary',
               ]"
