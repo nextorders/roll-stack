@@ -16,10 +16,10 @@ function _useNavigation() {
       badge: flowStore.nowViewedItemsCount.toString(),
     },
     {
-      path: '/epic',
-      names: ['epic', 'epic-epicId'],
-      title: t('app.epics'),
-      icon: 'i-lucide-crown',
+      path: '/ticket',
+      names: ['ticket', 'ticket-ticketId'],
+      title: t('app.tickets'),
+      icon: 'i-lucide-mail-question-mark',
     },
     {
       path: '/tasks',

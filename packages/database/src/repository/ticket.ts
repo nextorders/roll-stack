@@ -17,8 +17,11 @@ export class Ticket {
   static async listOpened() {
     return useDatabase().query.tickets.findMany({
       where: (tickets, { eq }) => eq(tickets.status, 'opened'),
+      orderBy: (tickets, { desc }) => desc(tickets.updatedAt),
       with: {
-        messages: true,
+        messages: {
+          orderBy: (ticketMessages, { desc }) => desc(ticketMessages.createdAt),
+        },
         lastMessage: true,
         user: true,
       },
