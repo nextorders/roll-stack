@@ -27,6 +27,9 @@ if (tgWebAppStartParam?.length && tgWebAppStartParam.includes(separator)) {
     case 'epic':
       await navigateTo({ path: `/epic/${value}`, query })
       break
+    case 'ticket':
+      await navigateTo({ path: `/ticket/${value}`, query })
+      break
     default:
       await navigateTo('/')
   }

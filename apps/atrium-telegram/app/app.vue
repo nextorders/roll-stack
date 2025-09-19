@@ -60,7 +60,7 @@ watch(colorMode, () => {
 // Init Stores
 const user = useUserStore()
 const task = useTaskStore()
-const epic = useEpicStore()
+const ticket = useTicketStore()
 const kitchen = useKitchenStore()
 const flow = useFlowStore()
 
@@ -79,7 +79,7 @@ onMounted(async () => {
     user.updateOnline(),
     user.update(),
     task.update(),
-    epic.update(),
+    ticket.update(),
     kitchen.update(),
     flow.update(),
   ])
@@ -89,11 +89,11 @@ onMounted(async () => {
       user.updateOnline(),
       user.update(),
       task.update(),
-      epic.update(),
+      ticket.update(),
       kitchen.update(),
       flow.update(),
     ])
-  }, 30000)
+  }, 20000)
 })
 
 onUnmounted(() => {
