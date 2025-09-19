@@ -37,7 +37,7 @@
         class="w-full items-center justify-center"
         icon="i-lucide-message-circle"
         :label="$t('common.show-more')"
-        @click="shownMessages += 10"
+        @click="handleClickShowMore()"
       />
     </div>
 
@@ -66,6 +66,7 @@ definePageMeta({
 })
 
 const { params } = useRoute('ticket-ticketId')
+const { vibrate } = useFeedback()
 
 const ticketStore = useTicketStore()
 const ticket = computed(() => ticketStore.tickets.find((e) => e.id === params.ticketId))
@@ -76,4 +77,9 @@ const messages = computed(() => ticket.value?.messages.slice(0, shownMessages.va
 const isShowMore = computed<boolean>(() => messages.value?.length && ticket.value?.messages.length ? messages.value.length < ticket.value.messages.length : false)
 
 // const isDrawerOpened = ref(false)
+
+function handleClickShowMore() {
+  vibrate()
+  shownMessages.value += 10
+}
 </script>
