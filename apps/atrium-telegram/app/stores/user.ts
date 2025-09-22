@@ -88,7 +88,7 @@ export const useUserStore = defineStore('user', () => {
 
   async function updateOnline() {
     try {
-      if (!id.value || !idle.value) {
+      if (!id.value || idle.value) {
         return
       }
 
