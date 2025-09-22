@@ -20,6 +20,8 @@ export const useUserStore = defineStore('user', () => {
   const initDataRaw = useSignal(_initDataRaw)
   const initDataState = useSignal(_initDataState)
 
+  const { idle } = useIdle(30 * 1000) // 30 sec
+
   const fullName = computed(() => {
     return `${name.value} ${surname.value}`
   })
@@ -86,7 +88,7 @@ export const useUserStore = defineStore('user', () => {
 
   async function updateOnline() {
     try {
-      if (!id.value) {
+      if (!id.value || !idle.value) {
         return
       }
 

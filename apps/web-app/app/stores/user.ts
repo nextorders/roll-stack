@@ -24,6 +24,8 @@ export const useUserStore = defineStore('user', () => {
   const staff = ref<UserWithData[]>([])
   const users = ref<UserWithData[]>([])
 
+  const { idle } = useIdle(30 * 1000) // 30 sec
+
   async function update() {
     try {
       const data = await $fetch('/api/auth/me')
@@ -76,7 +78,7 @@ export const useUserStore = defineStore('user', () => {
 
   async function updateOnline() {
     try {
-      if (!id.value) {
+      if (!id.value || !idle.value) {
         return
       }
 
