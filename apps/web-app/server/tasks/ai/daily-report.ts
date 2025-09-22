@@ -9,7 +9,7 @@ const logger = useLogger('task:ai:daily-report')
 export default defineTask({
   meta: {
     name: 'ai:daily-report',
-    description: 'Prepare and post daily report to Telegram group',
+    description: 'Prepare and post daily report',
   },
   async run() {
     if (process.env.NODE_ENV !== 'production') {
