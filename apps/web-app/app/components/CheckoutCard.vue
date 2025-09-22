@@ -4,7 +4,7 @@
       <div class="mb-2 flex flex-row justify-between items-center">
         <div class="flex flex-row gap-3 items-center">
           <img
-            :src="`https://avatar.nextorders.ru/${checkout?.phone}?emotion=8`"
+            :src="`https://avatar.nextorders.ru/${checkout?.clientId}?emotion=8`"
             width="40"
             height="40"
             alt=""
