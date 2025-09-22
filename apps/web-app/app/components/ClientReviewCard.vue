@@ -3,7 +3,7 @@
     <div class="flex flex-col gap-3">
       <div class="flex flex-row gap-3 items-center">
         <img
-          :src="`/api/avatar/${review.id}.svg?emotion=${emotion}`"
+          :src="`https://avatar.nextorders.ru/${review.id}?emotion=${emotion}`"
           width="40"
           height="40"
           alt=""

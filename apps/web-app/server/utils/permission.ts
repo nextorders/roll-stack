@@ -1,16 +1,6 @@
-import type { H3Event } from 'h3'
-import { repository } from '@roll-stack/database'
+import type { User } from '@roll-stack/database'
 
-export async function hasPermission(event: H3Event, permission: PermissionCode) {
-  const session = await getUserSession(event)
-  if (!session?.user) {
-    throw createError({
-      statusCode: 401,
-      message: 'Not logged in',
-    })
-  }
-
-  const user = await repository.user.find(session.user.id)
+export function hasPermission(user: User, permission: PermissionCode): boolean {
   if (!user) {
     throw createError({
       statusCode: 404,
@@ -24,4 +14,6 @@ export async function hasPermission(event: H3Event, permission: PermissionCode) 
       message: 'Forbidden',
     })
   }
+
+  return true
 }

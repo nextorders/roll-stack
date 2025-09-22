@@ -173,7 +173,7 @@ async function findOrCreateClient(phone: string, user: { name: string, surname: 
       levelId: baseLevelId,
       name: user.name,
       surname: user.surname,
-      avatarUrl: `https://atrium.sushi-love.ru/api/avatar/${id}.svg?emotion=7&gender=female`,
+      avatarUrl: `https://avatar.nextorders.ru/${id}?emotion=7&gender=female`,
     })
   }
 
