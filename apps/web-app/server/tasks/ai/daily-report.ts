@@ -31,6 +31,8 @@ export default defineTask({
       const client = new OpenAI({
         apiKey: ai.apiKey,
         baseURL: ai.baseUrl,
+        timeout: 120000,
+        maxRetries: 2,
       })
 
       const response = await client.chat.completions.create({
