@@ -19,6 +19,7 @@ export default defineNuxtConfig({
       apiKey: '',
       serviceToken: '',
       dailyReportPrompt: '',
+      weeklyReportPrompt: '',
     },
     telegram: {
       localBotApiServerUrl: '',
@@ -81,6 +82,7 @@ export default defineNuxtConfig({
       '0 * * * *': ['kitchen:revenue-update'], // Every hour
       '0 0 * * *': ['kitchen:rating-update'], // Every day
       '0 17 * * 1-5': ['ai:daily-report'], // Mon-Fri 17:00
+      '30 17 * * 5': ['ai:weekly-report'], // Friday 17:30
     },
   },
   tiptap: {

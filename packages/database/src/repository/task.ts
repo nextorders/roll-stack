@@ -74,6 +74,13 @@ export class Task {
     })
   }
 
+  static async listCompletedThisWeek() {
+    return useDatabase().query.tasks.findMany({
+      where: (tasks, { gte }) => gte(tasks.completedAt, sql`now() - interval '6 day'`),
+      orderBy: (tasks, { desc }) => desc(tasks.updatedAt),
+    })
+  }
+
   static async autoCreatorsList() {
     return useDatabase().query.taskAutoCreators.findMany()
   }

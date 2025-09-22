@@ -9,7 +9,7 @@ const logger = useLogger('task:ai:daily-report')
 export default defineTask({
   meta: {
     name: 'ai:daily-report',
-    description: 'Prepare and post daily report to Telegram group',
+    description: 'Prepare and post daily report',
   },
   async run() {
     if (process.env.NODE_ENV !== 'production') {
@@ -31,6 +31,8 @@ export default defineTask({
       const client = new OpenAI({
         apiKey: ai.apiKey,
         baseURL: ai.baseUrl,
+        timeout: 120000,
+        maxRetries: 2,
       })
 
       const response = await client.chat.completions.create({
