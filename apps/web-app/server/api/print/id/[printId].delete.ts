@@ -2,7 +2,7 @@ import { repository } from '@roll-stack/database'
 
 export default defineEventHandler(async (event) => {
   try {
-    await hasPermission(event, 'print:delete')
+    hasPermission(event.context.user, 'print:delete')
 
     const printId = getRouterParam(event, 'printId')
     if (!printId) {

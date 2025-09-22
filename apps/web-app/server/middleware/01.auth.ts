@@ -9,7 +9,6 @@ const routesWithoutAuth = [
   '/api/agent', // token from headers
   '/api/auth/sign-in', // user from body
   '/api/beacon/epic/comment',
-  '/api/avatar', // public
   '/api/cuid', // public
   '/api/qr', // public
 ]
@@ -24,7 +23,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // Skip routes without auth
-  if (!event.path.startsWith('/api') || event.path.startsWith('/api/avatar') || routesWithoutAuth.includes(event.path)) {
+  if (!event.path.startsWith('/api') || routesWithoutAuth.includes(event.path)) {
     return
   }
 

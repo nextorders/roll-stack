@@ -2,7 +2,7 @@ import { repository } from '@roll-stack/database'
 
 export default defineEventHandler(async (event) => {
   try {
-    await hasPermission(event, 'product:delete')
+    hasPermission(event.context.user, 'product:delete')
 
     const variantId = getRouterParam(event, 'variantId')
     if (!variantId) {

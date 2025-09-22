@@ -13,8 +13,6 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@dicebear/collection": "catalog:",
-    "@dicebear/core": "catalog:",
     "@neoconfetti/vue": "catalog:",
     "@openai/agents": "catalog:",
     "@pinia/nuxt": "catalog:",

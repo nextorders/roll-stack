@@ -5,7 +5,7 @@ import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
   try {
-    await hasPermission(event, 'product:edit')
+    hasPermission(event.context.user, 'product:edit')
 
     const body = await readBody(event)
     const data = createProductSchema(body)

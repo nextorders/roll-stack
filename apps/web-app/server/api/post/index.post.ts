@@ -4,7 +4,7 @@ import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
   try {
-    await hasPermission(event, 'post:edit')
+    hasPermission(event.context.user, 'post:edit')
 
     const body = await readBody(event)
     const data = createPostSchema(body)

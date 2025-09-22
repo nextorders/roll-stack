@@ -4,7 +4,7 @@ import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
   try {
-    await hasPermission(event, 'print:edit')
+    hasPermission(event.context.user, 'print:edit')
 
     const body = await readBody(event)
     const data = createPrintSchema(body)

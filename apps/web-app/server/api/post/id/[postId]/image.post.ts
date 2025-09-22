@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
   let sharpStream
 
   try {
-    await hasPermission(event, 'post:image:edit')
+    hasPermission(event.context.user, 'post:image:edit')
 
     const { public: { mediaUrl } } = useRuntimeConfig()
     const storage = useStorage('s3')
