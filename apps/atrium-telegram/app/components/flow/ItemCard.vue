@@ -1,7 +1,16 @@
 <template>
   <ActiveCard>
     <div class="flex flex-row gap-2 items-center">
-      <UIcon name="i-lucide-clipboard-check" class="size-8 text-primary" />
+      <UAvatar
+        v-if="item.userId"
+        :src="userAvatarUrl"
+        class="size-8"
+      />
+      <UIcon
+        v-else
+        name="i-lucide-clipboard-check"
+        class="size-8 text-primary"
+      />
 
       <div v-if="!isViewed" class="flex flex-row items-center gap-1.5 text-error">
         <UIcon
@@ -49,4 +58,5 @@ const { item } = defineProps<{
 
 const userStore = useUserStore()
 const isViewed = computed(() => item.views.some((view) => view.userId === userStore?.id))
+const userAvatarUrl = computed(() => userStore.users.find((user) => user.id === item.userId)?.avatarUrl ?? undefined)
 </script>

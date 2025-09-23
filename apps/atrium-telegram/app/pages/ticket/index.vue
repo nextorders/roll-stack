@@ -1,9 +1,7 @@
 <template>
   <PageContainer>
     <div class="flex flex-col gap-2.5">
-      <div class="text-2xl/6 font-bold tracking-tight">
-        Активные тикеты
-      </div>
+      <SectionTitle title="Активные тикеты" />
       <div class="flex flex-col gap-4">
         <NuxtLink
           v-for="ticket of ticketStore.tickets"

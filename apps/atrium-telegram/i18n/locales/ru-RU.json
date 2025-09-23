@@ -132,6 +132,7 @@
     "epic-created": "Эпик создан",
     "epic-updated": "Эпик обновлен",
     "epic-deleted": "Эпик удален",
-    "beacon-created": "Маяк создан"
+    "beacon-created": "Маяк создан",
+    "flow-item-created": "Пост создан"
   }
 }

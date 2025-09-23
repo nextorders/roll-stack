@@ -8,9 +8,7 @@
       />
 
       <div class="flex flex-col gap-1">
-        <h1 class="text-2xl/6 font-bold tracking-tight">
-          {{ userStore.name }}, привет!
-        </h1>
+        <SectionTitle :title="`${userStore.name}, привет!`" />
         <p class="text-base/5">
           <template v-if="taskStore.myTodayTasks.length">
             Сегодня по плану еще

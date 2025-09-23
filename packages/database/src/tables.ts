@@ -806,6 +806,10 @@ export const flowItems = pgTable('flow_items', {
   title: varchar('title').notNull(),
   description: text('description'),
   type: varchar('type').notNull().$type<FlowItemType>(),
+  userId: cuid2('user_id').references(() => users.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
 })
 
 export const flowItemComments = pgTable('flow_item_comments', {
@@ -1312,9 +1316,13 @@ export const lockerItemDuplicateRelations = relations(lockerItemDuplicates, ({ o
   }),
 }))
 
-export const flowItemRelations = relations(flowItems, ({ many }) => ({
+export const flowItemRelations = relations(flowItems, ({ many, one }) => ({
   comments: many(flowItemComments),
   views: many(flowItemViews),
+  user: one(users, {
+    fields: [flowItems.userId],
+    references: [users.id],
+  }),
 }))
 
 export const flowItemCommentRelations = relations(flowItemComments, ({ one }) => ({
