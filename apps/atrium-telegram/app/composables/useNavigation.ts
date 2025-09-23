@@ -10,7 +10,7 @@ function _useNavigation() {
   const mainRoutes = computed<NavigationRoute[]>(() => [
     {
       path: '/',
-      names: ['index', 'flow-itemId'],
+      names: ['index', 'flow-itemId', 'flow-new'],
       title: t('app.flow'),
       icon: 'i-lucide-waves',
       exact: true,

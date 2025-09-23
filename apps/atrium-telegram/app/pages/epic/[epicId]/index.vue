@@ -13,9 +13,7 @@
         />
       </div>
 
-      <h1 class="text-2xl/6 font-bold">
-        {{ epic?.title }}
-      </h1>
+      <SectionTitle :title="epic?.title ?? ''" />
 
       <div class="w-full text-base/5 whitespace-pre-wrap break-words">
         {{ epic?.description }}

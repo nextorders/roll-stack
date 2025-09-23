@@ -38,6 +38,14 @@
           />
         </UDropdownMenu>
 
+        <UButton
+          variant="outline"
+          color="neutral"
+          size="md"
+          icon="i-lucide-copy"
+          @click="handleCopyDataClick()"
+        />
+
         <UDropdownMenu
           :items="itemsForCreateButton"
           :content="{ align: 'end' }"
@@ -339,6 +347,27 @@ const itemsForCreateButton = computed<DropdownMenuItem[]>(() => [
 ])
 
 const table = useTemplateRef('table')
+
+function convertJsonToCSV() {
+  const csvRows = partnerStore.agreements.map((row) => {
+    // Remove unnecessary data
+    const { kitchens, files, createdAt, updatedAt, legalEntity, legalEntityId, id, ...rest } = row as any
+
+    // Take only name from legalEntity
+    rest.legalEntityName = legalEntity?.name
+
+    rest.files = files.map((file: any) => file.name).join(',')
+
+    return Object.values(rest).join(';')
+  })
+
+  return csvRows.join('\n')
+}
+
+function handleCopyDataClick() {
+  const csvData = convertJsonToCSV()
+  navigator.clipboard.writeText(csvData)
+}
 
 useHead({
   title: t('app.menu.agreements'),

@@ -1,16 +1,12 @@
 <template>
   <PageContainer :back="false" class="flex flex-col gap-y-8">
     <div class="flex flex-col gap-2.5">
-      <div class="text-2xl/6 font-bold tracking-tight">
-        Команда
-      </div>
+      <SectionTitle title="Команда" />
       <StaffBlock />
     </div>
 
     <div class="flex flex-col gap-2.5">
-      <h1 class="text-2xl/6 font-bold tracking-tight">
-        Данные на сегодня
-      </h1>
+      <SectionTitle title="Данные на сегодня" />
       <div class="grid grid-cols-2 gap-2">
         <FlowKitchensOnline />
         <FlowOrdersOnline />
@@ -20,8 +16,16 @@
     </div>
 
     <div class="flex flex-col gap-2.5">
-      <div class="text-2xl/6 font-bold tracking-tight">
-        Поток
+      <div class="flex flex-row justify-between items-center">
+        <SectionTitle title="Поток" />
+
+        <UButton
+          to="/flow/new"
+          variant="solid"
+          color="secondary"
+          icon="i-lucide-plus"
+          label="Создать пост"
+        />
       </div>
       <div class="flex flex-col gap-4">
         <NuxtLink

@@ -36,7 +36,7 @@ export type TimeZone = '+00:00'
   | '+11:00'
   | '+12:00'
 
-export type FlowItemType = 'daily_task_report' | 'weekly_task_report'
+export type FlowItemType = 'daily_task_report' | 'weekly_task_report' | 'user_post'
 
 export type Permission = InferSelectModel<typeof tables.permissions>
 export type PermissionDraft = InferInsertModel<typeof tables.permissions>

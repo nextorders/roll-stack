@@ -2,12 +2,19 @@
   <PageContainer>
     <Section>
       <div class="flex flex-row items-start justify-between gap-2.5">
-        <UIcon name="i-lucide-clipboard-check" class="size-10 text-primary" />
+        <UAvatar
+          v-if="item?.userId"
+          :src="userAvatarUrl"
+          class="size-10"
+        />
+        <UIcon
+          v-else
+          name="i-lucide-clipboard-check"
+          class="size-10 text-primary"
+        />
       </div>
 
-      <h1 class="text-2xl/6 font-bold">
-        {{ item?.title }}
-      </h1>
+      <SectionTitle :title="item?.title ?? ''" />
 
       <div class="w-full text-base/5 whitespace-pre-wrap break-words">
         {{ item?.description }}
@@ -61,6 +68,7 @@ const { params } = useRoute('flow-itemId')
 const userStore = useUserStore()
 const flowStore = useFlowStore()
 const item = computed(() => flowStore.items.find((item) => item.id === params.itemId))
+const userAvatarUrl = computed(() => userStore.users.find((user) => user.id === item.value?.userId)?.avatarUrl ?? undefined)
 
 const isViewed = computed(() => item.value?.views.some((view) => view.userId === userStore?.id))
 
