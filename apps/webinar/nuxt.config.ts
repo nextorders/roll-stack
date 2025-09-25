@@ -35,7 +35,6 @@ export default defineNuxtConfig({
     ],
   },
   colorMode: {
-    storageKey: 'color-mode',
     fallback: 'light',
   },
   i18n: {
