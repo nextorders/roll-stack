@@ -1,0 +1,30 @@
+{
+  "name": "@roll-stack/webinar",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev --port 3501",
+    "preview": "PORT=3501 nuxt preview",
+    "clean": "rm -rf .output",
+    "clean:modules": "rm -rf .nuxt node_modules",
+    "typecheck": "nuxt typecheck",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@neoconfetti/vue": "catalog:",
+    "@pinia/nuxt": "catalog:",
+    "@roll-stack/ui": "workspace:*",
+    "arktype": "catalog:",
+    "date-fns": "catalog:",
+    "libphonenumber-js": "catalog:",
+    "pinia": "catalog:",
+    "sharp": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "nuxt": "catalog:",
+    "nuxt-auth-utils": "catalog:"
+  }
+}
