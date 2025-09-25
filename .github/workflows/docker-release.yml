@@ -33,7 +33,7 @@ jobs:
       - name: Set package in env
         id: set-package
         run: |
-          APPS=("web-app" "web-storefront" "web-parser" "atrium-telegram" "storefront-telegram" "core-telegram")
+          APPS=("web-app" "web-storefront" "web-parser" "atrium-telegram" "storefront-telegram" "core-telegram" "webinar")
           MATCH="${{ steps.regex-match.outputs.match }}"
 
           if [ -z "$MATCH" ]; then

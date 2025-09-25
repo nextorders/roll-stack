@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
       type: data.type,
       title: data.title,
       description: data.description,
-      userId: data.userId,
+      userId: event.context.user.id,
     })
     if (!item) {
       throw createError({

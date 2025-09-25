@@ -57,7 +57,6 @@ const state = ref<Partial<CreateFlowItem>>({
   title: undefined,
   description: undefined,
   type: 'user_post',
-  userId: userStore.id,
 })
 
 async function onSubmit(event: FormSubmitEvent<CreateFlowItem>) {

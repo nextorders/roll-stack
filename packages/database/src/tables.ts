@@ -1,68 +1,7 @@
-import type { AgreementPatentStatus, FlowItemType, NotificationOption, TimeZone, UserGender, UserType, WeightUnit } from './types'
+import type * as entities from './types/entities'
 import { cuid2 } from 'drizzle-cuid2/postgres'
 import { relations } from 'drizzle-orm'
 import { boolean, date, integer, jsonb, numeric, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core'
-
-type PermissionCode = 'product:view'
-  | 'product:edit'
-  | 'product:delete'
-  | 'product:image:edit'
-  | 'post:view'
-  | 'post:edit'
-  | 'post:delete'
-  | 'post:image:edit'
-  | 'print:edit'
-  | 'print:file:edit'
-  | 'print:delete'
-
-type MediaFormat = 'jpg' | 'webp'
-type FileFormat = 'docx' | 'cdr' | 'zip' | 'pdf'
-
-type NotificationType = 'task_completed'
-  | 'epic_created'
-  | 'user_beacon_on_epic_comment_created'
-
-type ResolutionType = 'success' | 'failure' | 'unknown'
-
-type CheckoutStatus = 'forming'
-  | 'canceled'
-  | 'created'
-  | 'confirmed'
-  | 'cooking'
-  | 'prepared'
-  | 'on_delivery'
-  | 'at_client'
-type CheckoutDeliveryMethod = 'delivery' | 'pickup'
-
-type PostType = 'telegram' | 'vk'
-type PostStatus = 'draft' | 'scheduled' | 'published'
-
-type ChannelType = 'website'
-
-type PaymentMethodType = 'card' | 'cash' | 'online'
-
-type FeedbackPointType = 'yandex_map' | '2gis_map' | 'vk_group'
-
-type TelegramUserType = 'private' | 'group' | 'supergroup' | 'channel'
-
-type TicketStatus = 'opened' | 'closed'
-
-type TicketFileType = 'image' | 'document' | 'video'
-
-type CommunicationChannel = 'telegram'
-  | 'vk'
-  | 'website'
-  | 'mobile_app'
-  | 'uds'
-  | 'store_administrator'
-  | 'table_tent'
-  | 'contextual_advertising'
-  | 'calendar'
-
-type ActivityScheduleTag = 'permanent'
-  | 'temporary'
-  | 'optional'
-  | 'advertising'
 
 export const permissions = pgTable('permissions', {
   id: cuid2('id').defaultRandom().primaryKey(),
@@ -77,9 +16,9 @@ export const users = pgTable('users', {
   createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   onlineAt: timestamp('online_at', { precision: 3, withTimezone: true, mode: 'string' }),
-  type: varchar('type').notNull().$type<UserType>(),
+  type: varchar('type').notNull().$type<entities.UserType>(),
   isActive: boolean('is_active').notNull().default(true),
-  gender: varchar('gender').notNull().default('unknown').$type<UserGender>(),
+  gender: varchar('gender').notNull().default('unknown').$type<entities.UserGender>(),
   name: varchar('name').notNull(),
   surname: varchar('surname').notNull().default(''),
   caption: varchar('caption').notNull().default(''),
@@ -87,8 +26,8 @@ export const users = pgTable('users', {
   phone: varchar('phone').unique(),
   avatarUrl: varchar('avatar_url'),
   focusedTaskId: cuid2('focused_task_id'),
-  permissions: jsonb('permissions').notNull().default([]).$type<PermissionCode[]>(),
-  notifications: jsonb('notifications').notNull().default([]).$type<NotificationOption[]>(),
+  permissions: jsonb('permissions').notNull().default([]).$type<entities.PermissionCode[]>(),
+  notifications: jsonb('notifications').notNull().default([]).$type<entities.NotificationOption[]>(),
   partnerId: cuid2('partner_id').references(() => partners.id),
 })
 
@@ -127,7 +66,7 @@ export const partnerAgreements = pgTable('partner_agreements', {
   minMarketingFeePerMonth: numeric('min_marketing_fee_per_month', { mode: 'number' }).notNull().default(0),
   lumpSumPayment: numeric('lump_sum_payment', { mode: 'number' }).notNull().default(0),
   comment: varchar('comment'),
-  patentStatus: varchar('patent_status').notNull().default('not_paid').$type<AgreementPatentStatus>(),
+  patentStatus: varchar('patent_status').notNull().default('not_paid').$type<entities.AgreementPatentStatus>(),
   legalEntityId: cuid2('legal_entity_id').references(() => partnerLegalEntities.id),
 })
 
@@ -220,7 +159,7 @@ export const productVariants = pgTable('product_variants', {
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   name: varchar('name').notNull(),
   weightValue: numeric('weight_value', { mode: 'number' }).notNull(),
-  weightUnit: varchar('weight_unit').notNull().$type<WeightUnit>(),
+  weightUnit: varchar('weight_unit').notNull().$type<entities.WeightUnit>(),
   gross: numeric('gross', { mode: 'number' }).notNull(),
   net: numeric('net', { mode: 'number' }),
   calories: numeric('calories', { mode: 'number' }),
@@ -316,7 +255,7 @@ export const mediaItems = pgTable('media_items', {
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   url: varchar('url').notNull(),
   size: integer('size').notNull(),
-  format: varchar('format').notNull().$type<MediaFormat>(),
+  format: varchar('format').notNull().$type<entities.MediaFormat>(),
   mediaId: cuid2('media_id').notNull().references(() => media.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',
@@ -331,7 +270,7 @@ export const tasks = pgTable('tasks', {
   name: varchar('name').notNull(),
   description: varchar('description'),
   date: date('date', { mode: 'string' }),
-  resolution: varchar('resolution').$type<ResolutionType>(),
+  resolution: varchar('resolution').$type<entities.ResolutionType>(),
   report: varchar('report'),
   performerId: cuid2('performer_id').references(() => users.id),
   listId: cuid2('list_id').notNull().references(() => taskLists.id),
@@ -363,7 +302,7 @@ export const notifications = pgTable('notifications', {
   createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   viewedAt: timestamp('viewed_at', { precision: 3, withTimezone: true, mode: 'string' }),
-  type: varchar('type').notNull().$type<NotificationType>(),
+  type: varchar('type').notNull().$type<entities.NotificationType>(),
   title: varchar('title').notNull(),
   description: varchar('description'),
   authorId: cuid2('author_id').notNull().references(() => users.id, {
@@ -392,8 +331,8 @@ export const checkouts = pgTable('checkouts', {
   id: cuid2('id').defaultRandom().primaryKey(),
   createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
-  status: varchar('status').notNull().$type<CheckoutStatus>(),
-  deliveryMethod: varchar('delivery_method').notNull().$type<CheckoutDeliveryMethod>(),
+  status: varchar('status').notNull().$type<entities.CheckoutStatus>(),
+  deliveryMethod: varchar('delivery_method').notNull().$type<entities.CheckoutDeliveryMethod>(),
   itemsPrice: numeric('items_price', { mode: 'number' }).notNull().default(0),
   deliveryPrice: numeric('delivery_price', { mode: 'number' }).notNull().default(0),
   totalPrice: numeric('total_price', { mode: 'number' }).notNull().default(0),
@@ -434,7 +373,7 @@ export const kitchens = pgTable('kitchens', {
   description: varchar('description'),
   address: varchar('address'),
   city: varchar('city'),
-  timezone: varchar('timezone').$type<TimeZone>().notNull().default('+00:00'),
+  timezone: varchar('timezone').$type<entities.TimeZone>().notNull().default('+00:00'),
   latitude: numeric('latitude', { mode: 'number' }),
   longitude: numeric('longitude', { mode: 'number' }),
   minAmountForDelivery: numeric('min_amount_for_delivery', { mode: 'number' }),
@@ -467,7 +406,7 @@ export const channels = pgTable('channels', {
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   name: varchar('name').notNull(),
   description: varchar('description'),
-  type: varchar('type').notNull().$type<ChannelType>(),
+  type: varchar('type').notNull().$type<entities.ChannelType>(),
 })
 
 export const channelKitchens = pgTable('channel_kitchens', {
@@ -484,7 +423,7 @@ export const paymentMethods = pgTable('payment_methods', {
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   name: varchar('name').notNull(),
   description: varchar('description'),
-  type: varchar('type').notNull().$type<PaymentMethodType>(),
+  type: varchar('type').notNull().$type<entities.PaymentMethodType>(),
 })
 
 export const paymentMethodsOnKitchens = pgTable('payment_methods_on_kitchens', {
@@ -511,8 +450,8 @@ export const posts = pgTable('posts', {
   createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   publishAt: timestamp('publish_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull(),
-  status: varchar('status').notNull().$type<PostStatus>(),
-  type: varchar('type').notNull().$type<PostType>(),
+  status: varchar('status').notNull().$type<entities.PostStatus>(),
+  type: varchar('type').notNull().$type<entities.PostType>(),
   url: varchar('url'),
   description: varchar('description'),
   content: text('content'),
@@ -556,7 +495,7 @@ export const files = pgTable('files', {
   name: varchar('name').notNull(),
   url: varchar('url').notNull(),
   size: integer('size').notNull(),
-  format: varchar('format').notNull().$type<FileFormat>(),
+  format: varchar('format').notNull().$type<entities.FileFormat>(),
 })
 
 export const prints = pgTable('prints', {
@@ -591,7 +530,7 @@ export const feedbackPoints = pgTable('feedback_points', {
   id: cuid2('id').defaultRandom().primaryKey(),
   createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
-  type: varchar('type').notNull().$type<FeedbackPointType>(),
+  type: varchar('type').notNull().$type<entities.FeedbackPointType>(),
   rating: numeric('rating', { mode: 'number' }).notNull().default(0),
   ratings: integer('ratings').notNull().default(0),
   reviews: integer('reviews').notNull().default(0),
@@ -667,7 +606,7 @@ export const telegramUsers = pgTable('telegram_users', {
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   accessKey: varchar('access_key').notNull().unique(),
   telegramId: varchar('telegram_id').notNull(),
-  telegramUserType: varchar('type').notNull().$type<TelegramUserType>(),
+  telegramUserType: varchar('type').notNull().$type<entities.TelegramUserType>(),
   firstName: varchar('first_name'),
   lastName: varchar('last_name'),
   username: varchar('username'),
@@ -692,7 +631,7 @@ export const tickets = pgTable('tickets', {
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   title: varchar('title').notNull(),
   description: varchar('description'),
-  status: varchar('status').notNull().default('opened').$type<TicketStatus>(),
+  status: varchar('status').notNull().default('opened').$type<entities.TicketStatus>(),
   lastMessageId: cuid2('last_message_id'),
   userId: cuid2('user_id').notNull().references(() => users.id, {
     onDelete: 'cascade',
@@ -707,7 +646,7 @@ export const ticketMessages = pgTable('ticket_messages', {
   text: varchar('text').notNull(),
   telegramFileId: varchar('telegram_file_id'),
   fileUrl: varchar('file_url'),
-  fileType: varchar('file_type').$type<TicketFileType>(),
+  fileType: varchar('file_type').$type<entities.TicketFileType>(),
   userId: cuid2('user_id').notNull().references(() => users.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',
@@ -736,8 +675,8 @@ export const activityScheduleItems = pgTable('activity_schedule_items', {
   isOptional: boolean('is_optional').notNull().default(false),
   terms: varchar('terms'),
   goal: varchar('goal'),
-  communicationChannels: jsonb('communication_channels').notNull().default([]).$type<CommunicationChannel[]>(),
-  tags: jsonb('tags').notNull().default([]).$type<ActivityScheduleTag[]>(),
+  communicationChannels: jsonb('communication_channels').notNull().default([]).$type<entities.CommunicationChannel[]>(),
+  tags: jsonb('tags').notNull().default([]).$type<entities.ActivityScheduleTag[]>(),
   activityScheduleId: cuid2('activity_schedule_id').notNull().references(() => activitySchedules.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',
@@ -805,7 +744,7 @@ export const flowItems = pgTable('flow_items', {
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   title: varchar('title').notNull(),
   description: text('description'),
-  type: varchar('type').notNull().$type<FlowItemType>(),
+  type: varchar('type').notNull().$type<entities.FlowItemType>(),
   userId: cuid2('user_id').references(() => users.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',

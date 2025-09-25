@@ -8,15 +8,15 @@ catalog:
   '@commitlint/config-conventional': ^19.8.1
   '@date-fns/tz': ^1.4.1
   '@iconify-json/circle-flags': ^1.2.8
-  '@iconify-json/fluent': ^1.2.30
+  '@iconify-json/fluent': ^1.2.31
   '@iconify-json/fluent-emoji-flat': ^1.2.5
-  '@iconify-json/lucide': ^1.2.67
-  '@iconify-json/simple-icons': ^1.2.51
+  '@iconify-json/lucide': ^1.2.68
+  '@iconify-json/simple-icons': ^1.2.53
   '@internationalized/date': ^3.9.0
   '@neoconfetti/vue': ^2.2.1
   '@nuxt/devtools': ^2.6.3
   '@nuxt/image': ^1.11.0
-  '@nuxt/ui': ^3.3.3
+  '@nuxt/ui': ^4.0.0
   '@nuxtjs/i18n': ^10.1.0
   '@openai/agents': ^0.1.1
   '@paralleldrive/cuid2': ^2.2.2

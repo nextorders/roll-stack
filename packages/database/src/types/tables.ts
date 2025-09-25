@@ -1,42 +1,5 @@
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm'
-import type * as tables from './tables'
-
-export type { Database } from './connection'
-
-export type NotificationOption
-  = | 'task_completed_atrium'
-    | 'task_completed_telegram'
-
-export type UserType = 'staff'
-  | 'head'
-  | 'partner'
-  | 'partner_head'
-  | 'partner_admin'
-  | 'partner_cook'
-  | 'partner_courier'
-  | 'guest'
-  | 'bot'
-export type UserGender = 'male' | 'female' | 'unknown'
-
-export type AgreementPatentStatus = 'not_paid' | 'in_work' | 'on_registration' | 'registered'
-
-export type WeightUnit = 'G' | 'KG' | 'ML' | 'L' | 'OZ' | 'LB'
-
-export type TimeZone = '+00:00'
-  | '+01:00'
-  | '+02:00'
-  | '+03:00'
-  | '+04:00'
-  | '+05:00'
-  | '+06:00'
-  | '+07:00'
-  | '+08:00'
-  | '+09:00'
-  | '+10:00'
-  | '+11:00'
-  | '+12:00'
-
-export type FlowItemType = 'daily_task_report' | 'weekly_task_report' | 'user_post'
+import type * as tables from '../tables'
 
 export type Permission = InferSelectModel<typeof tables.permissions>
 export type PermissionDraft = InferInsertModel<typeof tables.permissions>
