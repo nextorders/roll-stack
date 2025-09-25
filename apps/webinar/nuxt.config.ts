@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   },
   css: ['~/assets/css/styles.css'],
   routeRules: {
-    '/**': { swr: true },
+    '/**': { prerender: true },
   },
   ui: {
     colorMode: true,
