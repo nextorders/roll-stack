@@ -1,27 +1,6 @@
 <template>
-  <div class="mt-10">
-    <HeaderLogo />
-  </div>
-
-  <UPageHero
-    orientation="horizontal"
-    title="Мечтаете о своем заведении? Готовый алгоритм действий для новичков"
-    description="Бесплатный вебинар: «Как открыть ресторан, кофейню или суши-бар с нуля и избежать ошибок». Получите пошаговую инструкцию и ответы на все вопросы, от поиска помещения до первого заработка."
-    headline="Поторопись!"
-    :links="links"
-    :ui="{
-      headline: 'py-2 px-4 w-fit bg-secondary text-white rounded-lg motion-preset-seesaw',
-    }"
-  >
-    <video
-      controls
-      class="max-h-160 w-auto mx-auto rounded-xl"
-    >
-      <source src="https://storage.yandexcloud.net/sushi-love-test/telegram/files/BAACAgIAAxkBAAOFaMwda7U9ddiws5ZJ4oIbaeSlw0YAAvWDAAJt32BKU94XDWZ9cCg2BA.mp4" type="video/mp4">
-      Ваш браузер не поддерживает видео
-    </video>
-  </UPageHero>
-
+  <Header />
+  <Hero />
   <InfiniteTitlesDivider />
 
   <UPageSection
@@ -42,22 +21,16 @@
   >
     Тут фото?
   </UPageSection>
+
+  <Countdown />
+
+  <div class="mt-6">
+    И все что-ли?
+  </div>
 </template>
 
 <script setup lang="ts">
 import type { PageFeatureProps } from '@nuxt/ui'
-
-const links = ref([
-  {
-    label: 'Записаться',
-    to: 'https://t.me/SLFranchiseBot',
-    target: '_blank',
-    trailingIcon: 'i-lucide-arrow-right',
-    ui: {
-      base: 'px-6 text-xl',
-    },
-  },
-])
 
 const firstSectionItems: PageFeatureProps[] = [
   {

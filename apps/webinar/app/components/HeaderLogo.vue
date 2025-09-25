@@ -2,6 +2,6 @@
   <img
     src="/sushi-main-logo.png"
     alt=""
-    class="mx-auto h-20 w-auto motion-preset-pop"
+    class="h-12 w-fit motion-preset-pop"
   >
 </template>
