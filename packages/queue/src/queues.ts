@@ -1,5 +1,4 @@
 import type { Cmd, MethodParams } from 'rabbitmq-client'
-import { useConnection } from './connection'
 import { EXCHANGES } from './exchanges'
 
 export const QUEUES = {
@@ -48,22 +47,3 @@ export const BINDINGS = [
     routingKey: ROUTING_KEYS.ticket.messageCreated,
   },
 ] satisfies MethodParams[Cmd.QueueBind][]
-
-export async function declareQueuesAndBindings() {
-  for (const [queue, config] of Object.entries(QUEUES)) {
-    await useConnection().queueDeclare({
-      queue,
-      arguments: config.arguments,
-      autoDelete: config.autoDelete,
-      durable: config.durable,
-    })
-  }
-
-  for (const { exchange, queue, routingKey } of BINDINGS) {
-    await useConnection().queueBind({
-      exchange,
-      queue,
-      routingKey,
-    })
-  }
-}

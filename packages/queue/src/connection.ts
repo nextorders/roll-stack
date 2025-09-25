@@ -1,7 +1,7 @@
 import type { ConsumerStatus, Publisher } from 'rabbitmq-client'
 import { Connection } from 'rabbitmq-client'
-import { declareExchanges } from './exchanges'
-import { declareQueuesAndBindings } from './queues'
+import { EXCHANGES } from './exchanges'
+import { BINDINGS, QUEUES } from './queues'
 
 let instance: Connection | null = null
 let publisher: Publisher | null = null
@@ -10,6 +10,36 @@ export const CONSUMER_ANSWER = {
   SUCCESS: 0 as ConsumerStatus.ACK,
   IGNORE: 1 as ConsumerStatus.REQUEUE,
   FAIL: 2 as ConsumerStatus.DROP,
+}
+
+async function declareExchanges() {
+  for (const [name, config] of Object.entries(EXCHANGES)) {
+    await useConnection().exchangeDeclare({
+      exchange: name,
+      type: config.type,
+      autoDelete: config.autoDelete,
+      durable: config.durable,
+    })
+  }
+}
+
+async function declareQueuesAndBindings() {
+  for (const [queue, config] of Object.entries(QUEUES)) {
+    await useConnection().queueDeclare({
+      queue,
+      arguments: config.arguments,
+      autoDelete: config.autoDelete,
+      durable: config.durable,
+    })
+  }
+
+  for (const { exchange, queue, routingKey } of BINDINGS) {
+    await useConnection().queueBind({
+      exchange,
+      queue,
+      routingKey,
+    })
+  }
 }
 
 export async function useCreateConnection(connectionString: string) {

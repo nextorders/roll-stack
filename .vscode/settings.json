@@ -69,5 +69,6 @@
   "sonarlint.connectedMode.project": {
     "connectionId": "sushi-love",
     "projectKey": "sushi-love_roll-stack"
-  }
+  },
+  "findUnusedExports.detectCircularImports": true
 }
