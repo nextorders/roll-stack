@@ -27,10 +27,8 @@
   </UPageSection>
 
   <Countdown />
-
-  <div class="mt-6">
-    И все что-ли?
-  </div>
+  <Speakers />
+  <Footer />
 </template>
 
 <script setup lang="ts">
