@@ -1,26 +1,28 @@
 <template>
-  <div class="bg-[#ffed00]">
-    <UCarousel
-      v-slot="{ item }"
-      loop
-      :auto-scroll="{
-        speed: 1,
-      }"
-      :items="items"
-      :ui="{
-        item: 'shrink-0 basis-full md:basis-1/3 min-w-120 h-full min-h-16 flex flex-row gap-4 items-center justify-around',
-      }"
-    >
-      <h4 class="text-2xl text-neutral-950 font-black uppercase">
-        {{ item }}
-      </h4>
-
-      <img
-        src="/sushi-heart.svg"
-        alt=""
-        class="w-10 h-auto opacity-90"
+  <div class="w-full h-46 overflow-x-hidden">
+    <div class="bg-[#ffed00] -rotate-3 -ml-6 -mr-6 mt-16">
+      <UCarousel
+        v-slot="{ item }"
+        loop
+        :auto-scroll="{
+          speed: 1,
+        }"
+        :items="items"
+        :ui="{
+          item: 'shrink-0 basis-full md:basis-1/3 min-w-120 h-full min-h-16 flex flex-row gap-4 items-center justify-around',
+        }"
       >
-    </UCarousel>
+        <h4 class="text-2xl text-neutral-950 font-black uppercase">
+          {{ item }}
+        </h4>
+
+        <img
+          src="/sushi-heart.svg"
+          alt=""
+          class="w-10 h-auto opacity-90"
+        >
+      </UCarousel>
+    </div>
   </div>
 </template>
 
