@@ -8,7 +8,7 @@
       headline: 'py-2 px-4 mx-auto w-fit bg-secondary text-white rounded-md motion-preset-stretch-sm',
     }"
   >
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
       <SpeakerCard
         v-for="speaker in speakers"
         :key="speaker.name"
