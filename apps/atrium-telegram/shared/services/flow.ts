@@ -8,3 +8,8 @@ export const createFlowItemSchema = type({
   type: flowTypeSchema.describe('error.length.invalid'),
 })
 export type CreateFlowItem = typeof createFlowItemSchema.infer
+
+export const createFlowItemCommentSchema = type({
+  text: type('string <= 2500').describe('error.length.invalid'),
+})
+export type CreateFlowItemComment = typeof createFlowItemCommentSchema.infer

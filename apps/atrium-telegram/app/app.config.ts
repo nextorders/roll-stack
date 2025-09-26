@@ -1,5 +1,12 @@
 export default defineAppConfig({
   ui: {
+    badge: {
+      variants: {
+        color: {
+          neutral: '',
+        },
+      },
+    },
     input: {
       slots: {
         base: '!ring-default placeholder:text-muted/50',

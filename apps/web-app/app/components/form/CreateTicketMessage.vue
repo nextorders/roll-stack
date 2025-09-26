@@ -17,34 +17,33 @@
         <UTextarea
           v-model="state.text"
           color="neutral"
-          variant="none"
           required
-          autoresize
           placeholder="Напишите свое сообщение..."
-          :rows="3"
+          size="xl"
+          :rows="5"
           :disabled="loading"
           class="w-full"
-          :ui="{ base: 'p-0 resize-none text-lg leading-6' }"
+          :ui="{ base: 'text-lg leading-6' }"
         />
       </UFormField>
 
-      <div class="flex items-center justify-between gap-2">
-        <div class="flex items-center gap-2">
-          <UAvatar
-            :src="userStore.avatarUrl ?? undefined"
-            alt=""
-            class="size-8"
+      <div class="flex items-start justify-between gap-2">
+        <!-- <UFormField name="files">
+          <UFileUpload
+            v-model="state.files"
+            multiple
+            :disabled="loading"
+            class="w-full"
+            label="Прикрепить файлы"
           />
-          <p class="text-sm font-semibold">
-            {{ userStore.fullName }}
-          </p>
-        </div>
+        </UFormField> -->
 
         <UButton
           type="submit"
           color="secondary"
-          size="lg"
+          size="xl"
           icon="i-lucide-send"
+          class="px-6"
           :loading="loading"
           :disabled="!state.text"
           :label="$t('common.send')"
@@ -55,8 +54,8 @@
 </template>
 
 <script setup lang="ts">
+import type { CreateTicketMessage } from '#shared/services/ticket'
 import type { FormSubmitEvent } from '@nuxt/ui'
-import type { CreateTicketMessage } from '~~/shared/services/ticket'
 
 const { id } = defineProps<{
   id: string

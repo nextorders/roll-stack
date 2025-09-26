@@ -21,12 +21,7 @@
       </div>
 
       <div class="mt-6 flex justify-between items-center">
-        <div class="flex flex-row gap-4">
-          <div class="flex flex-row gap-1.5 items-center text-muted text-sm">
-            <UIcon name="i-lucide-message-circle" class="size-5" />
-            <p>0</p>
-          </div>
-        </div>
+        <div class="flex flex-row gap-4" />
 
         <time
           v-if="item?.createdAt"
@@ -51,6 +46,41 @@
         />
       </div>
     </Section>
+
+    <div class="flex flex-col gap-2.5">
+      <div class="flex flex-row gap-2.5 items-center">
+        <SectionTitle title="Комментарии" />
+        <UBadge
+          v-if="item?.comments.length"
+          size="sm"
+          color="primary"
+          variant="soft"
+          class="min-w-6 justify-center"
+        >
+          {{ item?.comments.length }}
+        </UBadge>
+      </div>
+
+      <UButton
+        variant="solid"
+        color="secondary"
+        size="xl"
+        block
+        class="items-center justify-center"
+        icon="i-lucide-message-circle"
+        label="Написать сообщение"
+        @click="vibrate()"
+      />
+
+      <div v-if="item?.comments.length" class="w-full flex flex-col gap-3.5 flex-1 last-of-type:mb-20">
+        <FlowItemComment
+          v-for="comment in item?.comments"
+          :key="comment.id"
+          :item-id="comment.itemId"
+          :comment-id="comment.id"
+        />
+      </div>
+    </div>
   </PageContainer>
 </template>
 
@@ -64,6 +94,7 @@ definePageMeta({
 })
 
 const { params } = useRoute('flow-itemId')
+const { vibrate } = useFeedback()
 
 const userStore = useUserStore()
 const flowStore = useFlowStore()
