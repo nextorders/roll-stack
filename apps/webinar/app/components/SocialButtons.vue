@@ -1,18 +1,26 @@
 <template>
   <div class="flex flex-row gap-2">
     <UButton
-      to="https://t.me/SLFranchiseBot"
+      v-for="item in items"
+      :key="item.to"
+      :to="item.to"
       size="xl"
       color="neutral"
       variant="ghost"
-      icon="simple-icons:telegram"
-    />
-    <UButton
-      to="https://vk.com/franshizasushi"
-      size="xl"
-      color="neutral"
-      variant="ghost"
-      icon="simple-icons:vk"
+      :icon="item.icon"
     />
   </div>
 </template>
+
+<script setup lang="ts">
+const items = ref([
+  {
+    to: 'https://t.me/SLFranchiseBot',
+    icon: 'simple-icons:telegram',
+  },
+  {
+    to: 'https://vk.com/franshizasushi',
+    icon: 'simple-icons:vk',
+  },
+])
+</script>

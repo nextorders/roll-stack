@@ -1,9 +1,4 @@
 <template>
-  <!-- <USeparator
-    icon="lucide-chef-hat"
-    class="h-px mt-12"
-  /> -->
-
   <UFooter :ui="{ top: 'border-b border-muted/50' }">
     <template #top>
       <UContainer>
@@ -13,33 +8,15 @@
           </div>
 
           <UButton
-            to="tel:79951234567"
-            size="xl"
-            color="neutral"
-            variant="soft"
-            icon="i-lucide-phone"
-            label="+7 (995) 123-45-67"
-            block
-          />
-
-          <UButton
-            to="mailto:test@sushi-love.ru"
-            size="xl"
-            color="neutral"
-            variant="soft"
-            icon="i-lucide-mail"
-            label="test@sushi-love.ru"
-            block
-          />
-
-          <UButton
-            to="https://fransh.sushi-love.ru"
-            target="_blank"
+            v-for="item in items"
+            :key="item.to"
+            :to="item.to"
+            :target="item.target"
             size="xl"
             color="neutral"
             variant="soft"
             icon="i-lucide-briefcase"
-            label="Франшиза"
+            :label="item.label"
             block
           />
         </div>
@@ -57,3 +34,24 @@
     </template>
   </UFooter>
 </template>
+
+<script setup lang="ts">
+const items = ref([
+  {
+    to: 'tel:79951234567',
+    label: '+7 (995) 123-45-67',
+    icon: 'i-lucide-phone',
+  },
+  {
+    to: 'mailto:test@sushi-love.ru',
+    label: 'test@sushi-love.ru',
+    icon: 'i-lucide-mail',
+  },
+  {
+    to: 'https://fransh.sushi-love.ru',
+    target: '_blank',
+    label: 'Франшиза',
+    icon: 'i-lucide-briefcase',
+  },
+])
+</script>

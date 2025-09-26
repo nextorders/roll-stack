@@ -1,11 +1,5 @@
 <template>
   <div class="flex flex-col gap-2 motion-preset-slide-up">
-    <!-- <img
-      :src="speaker.image"
-      alt=""
-      class="w-full"
-    > -->
-
     <div class="shrink-0 p-4 w-full h-auto text-muted bg-muted rounded-lg aspect-square">
       Фото?
     </div>
