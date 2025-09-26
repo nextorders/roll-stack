@@ -2,13 +2,14 @@
   <div class="w-full">
     <div
       v-if="!isVideoShown"
-      class="shrink-0 w-full h-full bg-muted rounded-lg aspect-square flex flex-col items-center justify-center hover:scale-98 active:scale-95 duration-200 cursor-pointer motion-preset-slide-left"
+      class="shrink-0 p-4 w-full h-full bg-secondary-500 rounded-lg aspect-square bg-cover flex flex-col items-end justify-start hover:scale-98 active:scale-95 duration-200 cursor-pointer motion-preset-slide-left"
+      style="background-image: url('/video-preview.jpg')"
       @click="isVideoShown = true"
     >
-      <div class="py-4 px-6 flex flex-col gap-2 items-center justify-center text-muted bg-accented/25 rounded-lg">
-        <UIcon name="i-lucide-play" class="size-18" />
-        <h3 class="text-xl font-semibold">
-          Посмотреть видео
+      <div class="py-4 px-4 flex flex-col gap-2 items-center justify-center text-secondary bg-white rounded-lg motion-preset-oscillate-sm motion-duration-2000">
+        <UIcon name="i-lucide-play" class="size-14" />
+        <h3 class="text-lg font-semibold">
+          Посмотреть
         </h3>
       </div>
     </div>

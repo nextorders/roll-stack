@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     '/**': { prerender: true },
   },
   ui: {
-    colorMode: true,
+    colorMode: false,
     fonts: true,
   },
   fonts: {
@@ -33,9 +33,6 @@ export default defineNuxtConfig({
         provider: 'google',
       },
     ],
-  },
-  colorMode: {
-    fallback: 'light',
   },
   i18n: {
     locales: [
