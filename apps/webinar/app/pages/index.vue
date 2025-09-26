@@ -10,7 +10,9 @@
     :reverse="true"
     :features="firstSectionItems"
   >
-    Тут фото?
+    <div class="p-4 w-full h-full min-h-56 text-muted bg-accented rounded-lg">
+      Тут фото?
+    </div>
   </UPageSection>
 
   <UPageSection
@@ -19,7 +21,9 @@
     orientation="horizontal"
     :features="secondSectionItems"
   >
-    Тут фото?
+    <div class="p-4 w-full h-full min-h-56 text-muted bg-accented rounded-lg">
+      Тут фото?
+    </div>
   </UPageSection>
 
   <Countdown />
