@@ -1,6 +1,6 @@
 <template>
   <div ref="block" class="flex-1 py-4 sm:p-6 overflow-y-auto scroll-pt-8">
-    <div class="w-full mx-auto px-2 sm:px-6 lg:px-8 max-w-2xl">
+    <div class="w-full mx-auto px-2 sm:px-6 lg:px-8 max-w-xl">
       <div class="w-full flex flex-col gap-2 flex-1 px-2.5 last-of-type:mb-20">
         <div
           v-for="message in ticket?.messages"
@@ -8,9 +8,7 @@
           :key="message.id"
         >
           <TicketMessage
-            :created-at="message.createdAt"
-            :user-id="message.userId"
-            :text="message.text"
+            :message="message"
             :side="userStore.id === message.userId ? 'right' : 'left'"
             :is-first-message-of-day="messagesWithIsFirstMessageOfDay.some((item) => item.id === message.id)"
           />
@@ -40,7 +38,7 @@ function recalculate() {
     return
   }
 
-  targetMessageId.value = targetId as string ?? ticket.value.messages[ticket.value?.messages.length - 1]?.id
+  targetMessageId.value = targetId as string // ?? ticket.value.messages[ticket.value?.messages.length - 1]?.id
   scrollToMessage()
 
   messagesWithIsFirstMessageOfDay.value = []
