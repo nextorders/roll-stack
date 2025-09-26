@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-accented">
+  <div class="bg-elevated">
     <UPageSection
       title="Получить готовый план"
       description="И ответы на все свои вопросы, от поиска помещения до первого заработка. Мероприятие будет доступно через:"
@@ -18,9 +18,13 @@
           <UButton
             to="https://t.me/SLFranchiseBot"
             variant="solid"
+            color="orange"
             size="xl"
             label="Зарегистрироваться"
             icon="i-lucide-calendar-plus"
+            :ui="{
+              base: 'bg-[#f57e20] text-white',
+            }"
             class="mt-12 w-full justify-center"
           />
           <p class="px-6 mt-2 text-center text-sm">

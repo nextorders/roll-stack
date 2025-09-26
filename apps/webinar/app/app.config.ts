@@ -15,6 +15,7 @@ export default defineAppConfig({
         },
         color: {
           secondary: '!text-white disabled:!bg-inverted/25',
+          orange: '!bg-[#f57e20] hover:!bg-orange-500 !text-white disabled:!bg-inverted/25',
         },
       },
     },
