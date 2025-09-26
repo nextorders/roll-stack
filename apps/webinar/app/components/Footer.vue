@@ -9,7 +9,7 @@
       <UContainer>
         <div class="w-full grid grid-cols-1 lg:grid-cols-4 gap-4 items-center justify-center">
           <div class="mx-auto md:mx-0 mb-2 md:mb-0">
-            <HeaderLogo />
+            <Logo />
           </div>
 
           <UButton
