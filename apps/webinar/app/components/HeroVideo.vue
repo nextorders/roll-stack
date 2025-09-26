@@ -6,7 +6,7 @@
       style="background-image: url('/video-preview.jpg')"
       @click="isVideoShown = true"
     >
-      <div class="py-4 px-4 flex flex-col gap-2 items-center justify-center text-secondary bg-white rounded-lg motion-preset-oscillate-sm motion-duration-2000">
+      <div class="py-4 px-4 flex flex-col gap-2 items-center justify-center text-secondary bg-white rounded-lg motion-preset-oscillate-sm motion-duration-3000">
         <UIcon name="i-lucide-play" class="size-14" />
         <h3 class="text-lg font-semibold">
           Посмотреть
