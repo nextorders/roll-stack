@@ -10,7 +10,7 @@
     :reverse="true"
     :features="firstSectionItems"
   >
-    <div class="p-4 w-full h-full min-h-56 text-muted bg-accented rounded-lg">
+    <div class="p-4 w-full h-full min-h-56 text-muted bg-accented rounded-lg motion-preset-slide-right">
       Тут фото?
     </div>
   </UPageSection>
@@ -21,7 +21,7 @@
     orientation="horizontal"
     :features="secondSectionItems"
   >
-    <div class="p-4 w-full h-full min-h-56 text-muted bg-accented rounded-lg">
+    <div class="p-4 w-full h-full min-h-56 text-muted bg-accented rounded-lg motion-preset-slide-left">
       Тут фото?
     </div>
   </UPageSection>
