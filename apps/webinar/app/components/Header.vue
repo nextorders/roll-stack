@@ -1,5 +1,5 @@
 <template>
-  <UContainer class="mt-10 flex flex-col md:flex-row gap-y-6 items-center justify-between">
+  <UContainer class="mt-4 md:mt-10 flex flex-row gap-2 items-center justify-between">
     <Logo />
     <SocialButtons />
   </UContainer>

@@ -6,7 +6,7 @@
       class="w-full"
     > -->
 
-    <div class="shrink-0 p-4 w-full h-auto text-muted bg-accented rounded-lg aspect-square">
+    <div class="shrink-0 p-4 w-full h-auto text-muted bg-muted rounded-lg aspect-square">
       Фото?
     </div>
 
