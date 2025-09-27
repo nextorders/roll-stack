@@ -14,17 +14,17 @@ catalog:
   '@iconify-json/simple-icons': ^1.2.53
   '@internationalized/date': ^3.9.0
   '@neoconfetti/vue': ^2.2.1
-  '@nuxt/devtools': ^2.6.3
+  '@nuxt/devtools': ^2.6.5
   '@nuxt/image': ^1.11.0
   '@nuxt/ui': ^4.0.0
   '@nuxtjs/i18n': ^10.1.0
-  '@openai/agents': ^0.1.1
+  '@openai/agents': ^0.1.6
   '@paralleldrive/cuid2': ^2.2.2
   '@pinia/nuxt': ^0.11.2
-  '@tailwindcss/typography': ^0.5.16
+  '@tailwindcss/typography': ^0.5.19
   '@telegram-apps/init-data-node': ^2.0.10
   '@telegram-apps/sdk-vue': ^2.0.31
-  '@types/node': ^24.3.1
+  '@types/node': ^24.5.2
   '@types/pg': ^8.15.5
   '@unovis/ts': ^1.6.1
   '@unovis/vue': ^1.6.1
@@ -41,37 +41,37 @@ catalog:
   date-fns: ^4.1.0
   dotenv: ^17.2.2
   drizzle-cuid2: ^2.1.0
-  drizzle-kit: ^0.31.4
+  drizzle-kit: ^0.31.5
   drizzle-orm: ^0.44.5
   eruda: ^3.4.3
-  eslint: ^9.35.0
+  eslint: ^9.36.0
   grammy: ^1.38.2
   husky: ^9.1.7
-  ioredis: ^5.7.0
-  libphonenumber-js: ^1.12.16
-  lint-staged: ^16.1.6
+  ioredis: ^5.8.0
+  libphonenumber-js: ^1.12.23
+  lint-staged: ^16.2.1
   nitropack: latest
   node-xlsx: ^0.24.0
   nuxt: ^4.1.2
-  nuxt-auth-utils: ^0.5.24
+  nuxt-auth-utils: ^0.5.25
   nuxt-tiptap-editor: ^2.3.1
   nuxt-zod-i18n: ^1.12.1
-  openai: ^5.20.1
+  openai: ^5.23.1
   pg: ^8.16.3
   pinia: ^3.0.3
-  playwright: ^1.55.0
+  playwright: ^1.55.1
   rabbitmq-client: ^5.0.5
   ru-nalog-fias-gar: ^1.0.4
-  sharp: ^0.34.3
+  sharp: ^0.34.4
   sortablejs: ^1.15.6
   tailwindcss-motion: ^1.1.1
   typescript: ^5.9.2
   uqr: ^0.1.2
-  vite: ^7.1.5
+  vite: ^7.1.7
   vite-tsconfig-paths: ^5.1.4
   vitest: ^3.2.4
   vitest-browser-vue: ^1.1.0
-  vue-tsc: ^3.0.7
+  vue-tsc: ^3.0.8
   zod: ^3.25.76
 
 ignoredBuiltDependencies:
