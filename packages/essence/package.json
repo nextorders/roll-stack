@@ -1,5 +1,5 @@
 {
-  "name": "@roll-stack/queue",
+  "name": "@roll-stack/essence",
   "type": "module",
   "version": "0.0.0",
   "private": true,
@@ -11,8 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@paralleldrive/cuid2": "catalog:",
-    "rabbitmq-client": "catalog:"
+    "@nextorders/queue": "catalog:"
   },
   "devDependencies": {
     "@types/node": "catalog:",

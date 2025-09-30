@@ -1,6 +1,6 @@
 import { createTicketMessageSchema } from '#shared/services/ticket'
-import { repository } from '@roll-stack/database'
-import { repository as queue } from '@roll-stack/queue'
+import { db } from '@roll-stack/database'
+import { queue } from '@roll-stack/essence'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const ticket = await repository.ticket.find(ticketId)
+    const ticket = await db.ticket.find(ticketId)
     if (!ticket) {
       throw createError({
         statusCode: 404,
@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const message = await repository.ticket.createMessage({
+    const message = await db.ticket.createMessage({
       ticketId,
       userId: event.context.user.id,
       text: data.text,

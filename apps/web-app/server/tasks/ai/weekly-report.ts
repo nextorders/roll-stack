@@ -1,5 +1,5 @@
 import process from 'node:process'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale/ru'
 import OpenAI from 'openai'
@@ -20,8 +20,8 @@ export default defineTask({
     try {
       const { ai } = useRuntimeConfig()
 
-      const tasks = await repository.task.listCompletedThisWeek()
-      const staff = await repository.user.findStaff()
+      const tasks = await db.task.listCompletedThisWeek()
+      const staff = await db.user.findStaff()
 
       function preparePerformer(performerId: string | null) {
         const user = staff.find((user) => user.id === performerId)
@@ -77,7 +77,7 @@ export default defineTask({
 
       // Flow item
       const week = format(new Date(), 'w', { locale: ru })
-      await repository.flow.createItem({
+      await db.flow.createItem({
         type: 'weekly_task_report',
         title: `Задачи за неделю ${week}`,
         description: finalMessage,

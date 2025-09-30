@@ -1,6 +1,6 @@
 import type { NotificationOption } from '@roll-stack/database'
 import { updateUserSchema } from '#shared/services/user'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // Guard: if no user
-    const user = await repository.user.find(userId)
+    const user = await db.user.find(userId)
     if (!user?.id) {
       throw createError({
         statusCode: 404,
@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const updatedUser = await repository.user.update(userId, {
+    const updatedUser = await db.user.update(userId, {
       ...data,
       notifications: data.notifications as NotificationOption[],
     })

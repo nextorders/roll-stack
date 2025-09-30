@@ -1,4 +1,4 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
     // Guards:
     // If not exist
     // If already viewed
-    const item = await repository.flow.findItem(itemId)
+    const item = await db.flow.findItem(itemId)
     if (!item) {
       throw createError({
         statusCode: 404,
@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    await repository.flow.createItemView({
+    await db.flow.createItemView({
       itemId,
       userId: event.context.user.id,
     })

@@ -1,7 +1,7 @@
 import type { Task, User } from '@roll-stack/database'
 import { completeTaskSchema } from '#shared/services/task'
 import { getLocalizedResolution } from '#shared/utils/helpers'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const user = await repository.user.find(event.context.user.id)
+    const user = await db.user.find(event.context.user.id)
     if (!user) {
       throw createError({
         statusCode: 404,
@@ -31,7 +31,7 @@ export default defineEventHandler(async (event) => {
     // Guards:
     // If task not exist
     // If performer is not user
-    const task = await repository.task.find(taskId)
+    const task = await db.task.find(taskId)
     if (!task) {
       throw createError({
         statusCode: 404,
@@ -45,7 +45,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const updatedTask = await repository.task.complete(taskId, {
+    const updatedTask = await db.task.complete(taskId, {
       resolution: data.resolution,
       report: data.report,
     })
@@ -58,12 +58,12 @@ export default defineEventHandler(async (event) => {
 
     // Clear focus if needed
     if (user.focusedTaskId === taskId) {
-      await repository.user.update(user.id, {
+      await db.user.update(user.id, {
         focusedTaskId: null,
       })
     }
 
-    const list = await repository.task.findList(task.listId)
+    const list = await db.task.findList(task.listId)
     if (!list) {
       throw createError({
         statusCode: 500,
@@ -73,12 +73,12 @@ export default defineEventHandler(async (event) => {
 
     // Bot notification in chat
     if (list.chat) {
-      const bot = await repository.chat.findNotificationBot(list.chat.id)
+      const bot = await db.chat.findNotificationBot(list.chat.id)
       if (bot) {
         const text = prepareBotMessage(user, updatedTask)
 
         // Send message as bot
-        await repository.chat.createMessage({
+        await db.chat.createMessage({
           chatId: list.chat.id,
           userId: bot.user.id,
           text,
@@ -88,12 +88,12 @@ export default defineEventHandler(async (event) => {
 
     // Notify all staff
     if (user.type === 'staff') {
-      const users = await repository.user.list()
+      const users = await db.user.list()
       const allStaffExceptUser = users.filter((u) => u.type === 'staff' && u.id !== user.id)
 
       for (const staff of allStaffExceptUser) {
         if (staff.notifications.includes('task_completed_atrium')) {
-          await repository.notification.create({
+          await db.notification.create({
             authorId: user.id,
             userId: staff.id,
             taskId: updatedTask.id,

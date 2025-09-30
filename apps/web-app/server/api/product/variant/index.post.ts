@@ -1,5 +1,5 @@
 import { createProductVariantSchema } from '#shared/services/product'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const variant = await repository.product.createVariant(data)
+    const variant = await db.product.createVariant(data)
 
     return {
       ok: true,

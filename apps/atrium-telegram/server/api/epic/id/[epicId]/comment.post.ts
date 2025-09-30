@@ -1,5 +1,5 @@
 import { createEpicCommentSchema } from '#shared/services/epic'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const comment = await repository.epic.createComment({
+    const comment = await db.epic.createComment({
       text: data.text.trim(),
       userId: event.context.user.id,
       epicId,

@@ -1,10 +1,10 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 const channelId = 'wl0g90in5guj03zr7xo701tz'
 
 export default defineEventHandler(async () => {
   try {
-    const channel = await repository.channel.find(channelId)
+    const channel = await db.channel.find(channelId)
     if (!channel) {
       throw createError({
         statusCode: 404,

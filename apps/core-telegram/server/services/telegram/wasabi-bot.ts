@@ -1,7 +1,7 @@
 import type { Ticket, User } from '@roll-stack/database'
 import type { Context } from 'grammy'
 import fs from 'node:fs/promises'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { Bot } from 'grammy'
 import { generateAccessCode } from './common'
 
@@ -72,11 +72,11 @@ async function handleStart(ctx: Context) {
   }
 
   // Find user
-  const telegramUser = await repository.telegram.findUserByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.wasabiBotId)
+  const telegramUser = await db.telegram.findUserByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.wasabiBotId)
   if (!telegramUser) {
     const accessKey = await generateAccessCode()
 
-    const createdUser = await repository.telegram.createUser({
+    const createdUser = await db.telegram.createUser({
       telegramUserType: ctx.message.chat.type,
       telegramId: ctx.message.from.id.toString(),
       firstName: ctx.message.from.first_name,
@@ -111,7 +111,7 @@ async function handleMessage(ctx: Context) {
     return
   }
 
-  await repository.ticket.createMessage({
+  await db.ticket.createMessage({
     ticketId: data.ticket.id,
     userId: data.user.id,
     text: ctx.message.text,
@@ -157,7 +157,7 @@ async function handlePhoto(ctx: Context) {
   const message = await ctx.reply(`Фото #${data.ticket.id} передано в службу поддержки.`)
   await ctx.api.forwardMessages(telegram.filesGroupId, ctx.message.chat.id, [ctx.message.message_id, message.message_id])
 
-  await repository.ticket.createMessage({
+  await db.ticket.createMessage({
     ticketId: data.ticket.id,
     userId: data.user.id,
     telegramFileId: fileId,
@@ -198,7 +198,7 @@ async function handleVideo(ctx: Context) {
 
   await ctx.api.forwardMessage(telegram.filesGroupId, ctx.message.chat.id, ctx.message.message_id)
 
-  await repository.ticket.createMessage({
+  await db.ticket.createMessage({
     ticketId: data.ticket.id,
     userId: data.user.id,
     telegramFileId: fileId,
@@ -240,7 +240,7 @@ async function handleFile(ctx: Context) {
 
   await ctx.api.forwardMessage(telegram.filesGroupId, ctx.message.chat.id, ctx.message.message_id)
 
-  await repository.ticket.createMessage({
+  await db.ticket.createMessage({
     ticketId: data.ticket.id,
     userId: data.user.id,
     telegramFileId: fileId,
@@ -254,17 +254,17 @@ async function handleFile(ctx: Context) {
 }
 
 async function getUserAndTicket(telegramId: string): Promise<{ user: User, ticket: Ticket } | null> {
-  const telegramUser = await repository.telegram.findUserByTelegramIdAndBotId(telegramId, telegram.wasabiBotId)
+  const telegramUser = await db.telegram.findUserByTelegramIdAndBotId(telegramId, telegram.wasabiBotId)
   if (!telegramUser?.user) {
     return null
   }
 
   // Get last ticket
-  const tickets = await repository.ticket.listOpenedByUser(telegramUser.user.id)
+  const tickets = await db.ticket.listOpenedByUser(telegramUser.user.id)
   let ticket = tickets?.[0]
   if (!tickets.length || !ticket) {
     // Create ticket
-    ticket = await repository.ticket.create({
+    ticket = await db.ticket.create({
       title: `${telegramUser.user.name} ${telegramUser.user.surname}`,
       description: 'Создано автоматически',
       userId: telegramUser.user.id,
@@ -294,7 +294,7 @@ async function getFileDownloadUrl(data: { ctx: Context, fileId: string, botToken
 }
 
 async function getBotToken(): Promise<string | null> {
-  const botInDb = await repository.telegram.findBot(telegram.wasabiBotId)
+  const botInDb = await db.telegram.findBot(telegram.wasabiBotId)
   if (!botInDb?.token) {
     return null
   }

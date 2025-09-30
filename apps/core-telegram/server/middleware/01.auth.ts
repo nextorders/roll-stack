@@ -1,6 +1,6 @@
 import type { User } from '@roll-stack/database'
 import type { H3Event } from 'h3'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 const logger = useLogger('middleware:auth')
 
@@ -47,7 +47,7 @@ async function getUserFromToken(event: H3Event): Promise<User | null> {
       return null
     }
 
-    const user = await repository.user.find(token)
+    const user = await db.user.find(token)
     if (!user?.id) {
       return null
     }

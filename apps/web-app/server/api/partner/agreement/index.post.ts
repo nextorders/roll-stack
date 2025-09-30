@@ -1,5 +1,5 @@
 import { createPartnerAgreementSchema } from '#shared/services/partner'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const agreement = await repository.partner.createAgreement(data)
+    const agreement = await db.partner.createAgreement(data)
     if (!agreement?.id) {
       throw createError({
         statusCode: 400,

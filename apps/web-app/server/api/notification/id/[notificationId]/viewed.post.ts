@@ -1,4 +1,4 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // Guard: already viewed
-    const notification = await repository.notification.find(notificationId)
+    const notification = await db.notification.find(notificationId)
     if (!notification) {
       throw createError({
         statusCode: 404,
@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    await repository.notification.markAsViewed(notificationId)
+    await db.notification.markAsViewed(notificationId)
 
     return { ok: true }
   } catch (error) {

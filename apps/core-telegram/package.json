@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@roll-stack/database": "workspace:*",
-    "@roll-stack/queue": "workspace:*",
+    "@roll-stack/essence": "workspace:*",
     "@roll-stack/ui": "workspace:*",
     "arktype": "catalog:",
     "aws4fetch": "catalog:",

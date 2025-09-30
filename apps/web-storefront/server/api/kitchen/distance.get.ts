@@ -1,4 +1,4 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const kitchens = await repository.kitchen.list()
+    const kitchens = await db.kitchen.list()
 
     const res: any[] = []
 

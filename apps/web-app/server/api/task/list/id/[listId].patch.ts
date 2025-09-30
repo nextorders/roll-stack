@@ -1,5 +1,5 @@
 import { updateTaskListSchema } from '#shared/services/task'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const list = await repository.task.findList(listId)
+    const list = await db.task.findList(listId)
     if (!list) {
       throw createError({
         statusCode: 404,
@@ -35,11 +35,11 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const updatedList = await repository.task.updateList(listId, data)
+    const updatedList = await db.task.updateList(listId, data)
 
     // Data in chat
     if (updatedList?.chatId) {
-      await repository.chat.update(updatedList.chatId, {
+      await db.chat.update(updatedList.chatId, {
         name: data.name,
         description: data.description,
       })
@@ -51,7 +51,7 @@ export default defineEventHandler(async (event) => {
       for (const userId of data.usersId) {
         const member = list.chat?.members.find((member) => member.userId === userId)
         if (!member?.id) {
-          await repository.chat.createMember({
+          await db.chat.createMember({
             chatId: list.chat.id,
             userId,
           })
@@ -66,7 +66,7 @@ export default defineEventHandler(async (event) => {
         }
 
         if (!data.usersId.includes(member.userId)) {
-          await repository.chat.deleteMember(member.id)
+          await db.chat.deleteMember(member.id)
         }
       }
     }

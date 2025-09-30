@@ -1,5 +1,5 @@
 import { updatePostSchema } from '#shared/services/post'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const post = await repository.post.update(postId, data)
+    const post = await db.post.update(postId, data)
 
     return {
       ok: true,

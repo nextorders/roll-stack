@@ -1,5 +1,5 @@
 import { createPostSchema } from '#shared/services/post'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const post = await repository.post.create({
+    const post = await db.post.create({
       ...data,
       authorId: event.context.user.id,
     })

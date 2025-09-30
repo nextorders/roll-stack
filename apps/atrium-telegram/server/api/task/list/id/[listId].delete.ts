@@ -1,4 +1,4 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const list = await repository.task.findList(listId)
+    const list = await db.task.findList(listId)
     if (!list) {
       throw createError({
         statusCode: 404,
@@ -28,13 +28,13 @@ export default defineEventHandler(async (event) => {
     }
 
     // Archive, not delete
-    await repository.task.updateList(listId, {
+    await db.task.updateList(listId, {
       isArchived: true,
     })
 
     // Archive chat
     if (list.chatId) {
-      await repository.chat.update(list.chatId, {
+      await db.chat.update(list.chatId, {
         isArchived: true,
       })
     }

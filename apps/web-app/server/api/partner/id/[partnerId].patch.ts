@@ -1,5 +1,5 @@
 import { updatePartnerSchema } from '#shared/services/partner'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const partner = await repository.partner.find(partnerId)
+    const partner = await db.partner.find(partnerId)
     if (!partner) {
       throw createError({
         statusCode: 404,
@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    await repository.partner.update(partnerId, data)
+    await db.partner.update(partnerId, data)
 
     return {
       ok: true,

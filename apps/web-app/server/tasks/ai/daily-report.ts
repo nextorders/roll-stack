@@ -1,5 +1,5 @@
 import process from 'node:process'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale/ru'
 import OpenAI from 'openai'
@@ -20,7 +20,7 @@ export default defineTask({
     try {
       const { ai } = useRuntimeConfig()
 
-      const tasks = await repository.task.listCompletedToday()
+      const tasks = await db.task.listCompletedToday()
       const preparedTasks = tasks.map((task) => ({
         completedAt: task.completedAt,
         name: task.name,
@@ -56,7 +56,7 @@ export default defineTask({
 
       // Flow item
       const date = format(new Date(), 'd MMMM', { locale: ru })
-      await repository.flow.createItem({
+      await db.flow.createItem({
         type: 'daily_task_report',
         title: `Задачи ${date}`,
         description: finalMessage,

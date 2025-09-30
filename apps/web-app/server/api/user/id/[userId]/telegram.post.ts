@@ -1,5 +1,5 @@
 import { attachTelegramSchema } from '#shared/services/telegram'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const user = await repository.telegram.findUserByKey(data.accessKey)
+    const user = await db.telegram.findUserByKey(data.accessKey)
     if (!user || user.botId !== data.botId) {
       throw createError({
         statusCode: 404,
@@ -34,7 +34,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    await repository.telegram.updateUser(user.id, {
+    await db.telegram.updateUser(user.id, {
       userId,
     })
 

@@ -1,7 +1,7 @@
 import type { Client } from '@roll-stack/database'
 import type { Context } from 'grammy'
 import { createId } from '@paralleldrive/cuid2'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { Bot } from 'grammy'
 
 const logger = useLogger('telegram:order-bot')
@@ -10,7 +10,7 @@ const { telegram } = useRuntimeConfig()
 let bot: Bot | null = null
 
 export async function useCreateOrderBot() {
-  const botInDb = await repository.telegram.findBot(telegram.orderBotId)
+  const botInDb = await db.telegram.findBot(telegram.orderBotId)
   if (!botInDb?.token) {
     throw new Error('Order bot is not configured')
   }
@@ -56,7 +56,7 @@ async function handleStart(ctx: Context) {
   }
 
   // Find user
-  const telegramUser = await repository.telegram.findClientByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.orderBotId)
+  const telegramUser = await db.telegram.findClientByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.orderBotId)
   if (!telegramUser) {
     // Get phone number
     await ctx.reply(
@@ -102,9 +102,9 @@ async function handleContact(ctx: Context) {
     surname: ctx.message.from.last_name,
   })
 
-  const telegramUser = await repository.telegram.findClientByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.orderBotId)
+  const telegramUser = await db.telegram.findClientByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.orderBotId)
   if (!telegramUser?.id) {
-    const telegramUser = await repository.telegram.createUser({
+    const telegramUser = await db.telegram.createUser({
       telegramUserType: ctx.message.chat.type,
       telegramId: ctx.message.from.id.toString(),
       firstName: ctx.message.from.first_name,
@@ -144,7 +144,7 @@ async function handleMessage(ctx: Context) {
     return
   }
 
-  const telegramUser = await repository.telegram.findClientByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.orderBotId)
+  const telegramUser = await db.telegram.findClientByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.orderBotId)
   if (!telegramUser?.client) {
     return
   }
@@ -162,12 +162,12 @@ export function useOrderBot(): Bot {
 }
 
 async function findOrCreateClient(phone: string, user: { name: string, surname: string | undefined }): Promise<Client> {
-  const client = await repository.client.findByPhone(phone)
+  const client = await db.client.findByPhone(phone)
   if (!client) {
     const id = createId()
     const baseLevelId = 'hvccipw6t467rw3kxkujj1j8'
 
-    return repository.client.create({
+    return db.client.create({
       id,
       phone,
       levelId: baseLevelId,

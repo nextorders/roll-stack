@@ -1,4 +1,4 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    await repository.print.delete(printId)
+    await db.print.delete(printId)
 
     return { ok: true }
   } catch (error) {

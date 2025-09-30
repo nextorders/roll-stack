@@ -1,4 +1,4 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async (event) => {
   const kitchenId = getRouterParam(event, 'kitchenId')
@@ -19,5 +19,5 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  return repository.kitchen.listRevenuesByKitchenForPeriod(kitchenId, start, end)
+  return db.kitchen.listRevenuesByKitchenForPeriod(kitchenId, start, end)
 })

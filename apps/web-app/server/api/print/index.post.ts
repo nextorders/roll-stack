@@ -1,5 +1,5 @@
 import { createPrintSchema } from '#shared/services/print'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const print = await repository.print.create(data)
+    const print = await db.print.create(data)
 
     return {
       ok: true,

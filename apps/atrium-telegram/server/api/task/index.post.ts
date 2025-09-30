@@ -1,6 +1,6 @@
 import { createTaskSchema } from '#shared/services/task'
 import { suffixByGender } from '#shared/utils/helpers'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const task = await repository.task.create({
+    const task = await db.task.create({
       name: data.name,
       description: data.description,
       date: data.date,
@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const list = await repository.task.findList(task.listId)
+    const list = await db.task.findList(task.listId)
     if (!list) {
       throw createError({
         statusCode: 500,
@@ -35,12 +35,12 @@ export default defineEventHandler(async (event) => {
 
     // Bot notification in chat
     if (list.chat) {
-      const bot = await repository.chat.findNotificationBot(list.chat.id)
+      const bot = await db.chat.findNotificationBot(list.chat.id)
       if (bot) {
         const text = `${event.context.user.name} ${event.context.user.surname} ${suffixByGender(['создал', 'создала'], event.context.user.gender)} задачу «${task.name}»`
 
         // Send message as bot
-        await repository.chat.createMessage({
+        await db.chat.createMessage({
           chatId: list.chat.id,
           userId: bot.user.id,
           text,

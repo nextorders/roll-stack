@@ -1,7 +1,7 @@
 import type { Task, User } from '@roll-stack/database'
 import { updateTaskSchema } from '#shared/services/task'
 import { suffixByGender } from '#shared/utils/gender'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const task = await repository.task.find(taskId)
+    const task = await db.task.find(taskId)
     if (!task) {
       throw createError({
         statusCode: 404,
@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const list = await repository.task.findList(task.listId)
+    const list = await db.task.findList(task.listId)
     if (!list) {
       throw createError({
         statusCode: 404,
@@ -46,7 +46,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const updatedTask = await repository.task.update(taskId, data)
+    const updatedTask = await db.task.update(taskId, data)
     if (!updatedTask) {
       throw createError({
         statusCode: 404,
@@ -54,16 +54,16 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const updatedPerformer = updatedTask.performerId ? await repository.user.find(updatedTask.performerId) : undefined
+    const updatedPerformer = updatedTask.performerId ? await db.user.find(updatedTask.performerId) : undefined
 
     // Bot notification in chat
     if (list.chat) {
-      const bot = await repository.chat.findNotificationBot(list.chat.id)
+      const bot = await db.chat.findNotificationBot(list.chat.id)
       if (bot) {
         const text = prepareBotMessage(event.context.user, task, updatedTask, updatedPerformer)
 
         // Send message as bot
-        await repository.chat.createMessage({
+        await db.chat.createMessage({
           chatId: list.chat.id,
           userId: bot.user.id,
           text,

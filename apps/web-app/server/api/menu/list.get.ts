@@ -1,5 +1,5 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async () => {
-  return repository.menu.list()
+  return db.menu.list()
 })

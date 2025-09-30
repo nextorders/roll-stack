@@ -1,4 +1,4 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // Guard: not this user
-    const commentInDB = await repository.epic.findComment(commentId)
+    const commentInDB = await db.epic.findComment(commentId)
     if (!commentInDB) {
       throw createError({
         statusCode: 404,
@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    await repository.epic.deleteComment(commentInDB.id)
+    await db.epic.deleteComment(commentInDB.id)
 
     return {
       ok: true,

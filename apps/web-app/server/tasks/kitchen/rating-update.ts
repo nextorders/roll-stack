@@ -1,5 +1,5 @@
 import process from 'node:process'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 const logger = useLogger('kitchen:rating-update')
 
@@ -15,7 +15,7 @@ export default defineTask({
         return { result: true }
       }
 
-      const kitchens = await repository.kitchen.list()
+      const kitchens = await db.kitchen.list()
 
       for (const kitchen of kitchens) {
         const points = kitchen.feedbackPoints.filter((point) => point.rating > 0 && point.reviews >= 5)
@@ -27,7 +27,7 @@ export default defineTask({
           continue
         }
 
-        await repository.kitchen.update(kitchen.id, {
+        await db.kitchen.update(kitchen.id, {
           rating: updatedRating,
         })
 

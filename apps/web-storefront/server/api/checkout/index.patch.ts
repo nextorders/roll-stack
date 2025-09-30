@@ -1,4 +1,4 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 import { updateCheckoutSchema } from '~~/shared/services/checkout'
 
@@ -18,9 +18,9 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    await repository.checkout.recalculate(secure.checkoutId)
+    await db.checkout.recalculate(secure.checkoutId)
 
-    const actualCheckout = await repository.checkout.find(secure.checkoutId)
+    const actualCheckout = await db.checkout.find(secure.checkoutId)
 
     const needToBecomeCreated: boolean = !!data.phone && !!data.name
 
@@ -37,7 +37,7 @@ export default defineEventHandler(async (event) => {
         }
       }
 
-      await repository.checkout.update(secure.checkoutId, {
+      await db.checkout.update(secure.checkoutId, {
         status: 'created',
       })
 
@@ -51,7 +51,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const updatedCheckout = await repository.checkout.update(secure.checkoutId, {
+    const updatedCheckout = await db.checkout.update(secure.checkoutId, {
       ...data,
       // change: data.change?.toString(),
       // time: data.time ? new Date(data.time).toISOString() : new Date().toISOString(),
@@ -64,7 +64,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    await repository.checkout.recalculate(secure.checkoutId)
+    await db.checkout.recalculate(secure.checkoutId)
 
     return {
       ok: true,

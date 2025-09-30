@@ -1,5 +1,5 @@
 import { createEpicSchema } from '#shared/services/epic'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const epic = await repository.epic.create({
+    const epic = await db.epic.create({
       ...data,
       userId: event.context.user.id,
     })
@@ -23,11 +23,11 @@ export default defineEventHandler(async (event) => {
 
     // Notify all staff
     if (event.context.user.type === 'staff') {
-      const users = await repository.user.list()
+      const users = await db.user.list()
       const allStaffExceptUser = users.filter((u) => u.type === 'staff' && u.id !== event.context.user.id)
 
       for (const staff of allStaffExceptUser) {
-        await repository.notification.create({
+        await db.notification.create({
           authorId: event.context.user.id,
           userId: staff.id,
           epicId: epic.id,

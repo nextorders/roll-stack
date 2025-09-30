@@ -1,5 +1,5 @@
 import { createFlowItemCommentSchema } from '#shared/services/flow'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
 
     // Guards:
     // If not exist
-    const item = await repository.flow.findItem(itemId)
+    const item = await db.flow.findItem(itemId)
     if (!item) {
       throw createError({
         statusCode: 404,
@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    await repository.flow.createItemComment({
+    await db.flow.createItemComment({
       text: data.text,
       itemId,
       userId: event.context.user.id,

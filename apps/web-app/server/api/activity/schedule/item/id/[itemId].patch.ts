@@ -1,5 +1,5 @@
 import { updateActivityScheduleItemSchema } from '#shared/services/activity'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // Guard: if no item
-    const item = await repository.activity.findScheduleItem(itemId)
+    const item = await db.activity.findScheduleItem(itemId)
     if (!item?.id) {
       throw createError({
         statusCode: 404,
@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const updatedItem = await repository.activity.updateScheduleItem(itemId, data)
+    const updatedItem = await db.activity.updateScheduleItem(itemId, data)
 
     return {
       ok: true,

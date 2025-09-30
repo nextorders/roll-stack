@@ -1,5 +1,5 @@
 import type { Browser } from 'playwright'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { chromium } from 'playwright'
 
 const logger = useLogger('yandex:update-data')
@@ -15,7 +15,7 @@ export default defineTask({
 
     const browser = await chromium.launch()
 
-    let points = await repository.feedback.listFeedbackPointsToUpdate()
+    let points = await db.feedback.listFeedbackPointsToUpdate()
 
     // Update only one point
     points = points.filter((point) => point.type === 'yandex_map').slice(0, 1)
@@ -33,7 +33,7 @@ export default defineTask({
           data.reviews[0],
         )
 
-        await repository.feedback.updateFeedbackPoint(point.id, {
+        await db.feedback.updateFeedbackPoint(point.id, {
           reviews: data.aggregateRating.reviews,
           rating: data.aggregateRating.rating,
           ratings: data.aggregateRating.ratings,
@@ -42,7 +42,7 @@ export default defineTask({
         // Check and update reviews
         for (const review of data.reviews) {
           // Already exist?
-          const existReview = await repository.client.findReviewIfExists({
+          const existReview = await db.client.findReviewIfExists({
             kitchenId: point.kitchenId,
             name: review.name,
             date: review.date,
@@ -51,7 +51,7 @@ export default defineTask({
             continue
           }
 
-          await repository.client.createReview({
+          await db.client.createReview({
             createdAt: review.date,
             feedbackPointId: point.id,
             kitchenId: point.kitchenId,

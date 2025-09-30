@@ -1,5 +1,5 @@
 import process from 'node:process'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { endOfWeek, startOfWeek } from 'date-fns'
 
 const logger = useLogger('kitchen:revenue-update')
@@ -16,7 +16,7 @@ export default defineTask({
         return { result: true }
       }
 
-      const kitchens = await repository.kitchen.list()
+      const kitchens = await db.kitchen.list()
 
       // From this monday to sunday (use UTC+0 time zone)
       const now = new Date()
@@ -31,8 +31,8 @@ export default defineTask({
       const prevSunday = endOfWeek(utcWeekAgo, { weekStartsOn: 1 })
 
       for (const kitchen of kitchens) {
-        const revenuesThisWeek = await repository.kitchen.listRevenuesByKitchenForPeriod(kitchen.id, thisMonday, thisSunday)
-        const revenuesPrevWeek = await repository.kitchen.listRevenuesByKitchenForPeriod(kitchen.id, prevMonday, prevSunday)
+        const revenuesThisWeek = await db.kitchen.listRevenuesByKitchenForPeriod(kitchen.id, thisMonday, thisSunday)
+        const revenuesPrevWeek = await db.kitchen.listRevenuesByKitchenForPeriod(kitchen.id, prevMonday, prevSunday)
 
         const revenueForThisWeek = Math.round(revenuesThisWeek.reduce((acc, curr) => acc + curr.total, 0))
         const revenueForPreviousWeek = Math.round(revenuesPrevWeek.reduce((acc, curr) => acc + curr.total, 0))
@@ -41,7 +41,7 @@ export default defineTask({
           continue
         }
 
-        await repository.kitchen.update(kitchen.id, {
+        await db.kitchen.update(kitchen.id, {
           revenueForThisWeek,
           revenueForPreviousWeek,
         })

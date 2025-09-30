@@ -1,5 +1,5 @@
 import { updateProductVariantSchema } from '#shared/services/product'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const variant = await repository.product.findVariant(variantId)
+    const variant = await db.product.findVariant(variantId)
     if (!variant) {
       throw createError({
         statusCode: 404,
@@ -28,11 +28,11 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const updatedVariant = await repository.product.updateVariant(variantId, data)
+    const updatedVariant = await db.product.updateVariant(variantId, data)
 
     // Update all tags
     if (data.tagsId) {
-      await repository.product.updateTagsOnVariant(variantId, data.tagsId)
+      await db.product.updateTagsOnVariant(variantId, data.tagsId)
     }
 
     return {

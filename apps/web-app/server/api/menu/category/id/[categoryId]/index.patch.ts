@@ -1,5 +1,5 @@
 import { updateMenuCategorySchema } from '#shared/services/menu'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const category = await repository.menu.updateCategory(categoryId, data)
+    const category = await db.menu.updateCategory(categoryId, data)
 
     return {
       ok: true,

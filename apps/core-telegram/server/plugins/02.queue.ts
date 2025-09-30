@@ -1,16 +1,23 @@
 import process from 'node:process'
-import { useCreateConnection } from '@roll-stack/queue'
+import { queue } from '@roll-stack/essence'
 import { setupConsumers } from '../services/queue'
 
 /**
  * Queue init
  */
 export default defineNitroPlugin(async () => {
+  const logger = useLogger('plugin:start-queue')
+
+  if (process.env.NODE_ENV !== 'production' && !process.env.QUEUE_URL) {
+    logger.info('Skipping Queue in non-production environment')
+    return
+  }
+
   if (!process.env.QUEUE_URL) {
     throw new Error('QUEUE_URL is not defined')
   }
 
-  await useCreateConnection(process.env.QUEUE_URL)
+  await queue.connect(process.env.QUEUE_URL)
 
   await setupConsumers()
 })

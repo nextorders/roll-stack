@@ -1,5 +1,5 @@
 import { updateProductSchema } from '#shared/services/product'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -20,11 +20,11 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const product = await repository.product.update(productId, data)
+    const product = await db.product.update(productId, data)
 
     // Update all product tags
     if (data.tagsId) {
-      await repository.product.updateTags(productId, data.tagsId)
+      await db.product.updateTags(productId, data.tagsId)
     }
 
     return {

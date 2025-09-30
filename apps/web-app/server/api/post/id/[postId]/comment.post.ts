@@ -1,5 +1,5 @@
 import { createPostCommentSchema } from '#shared/services/post'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const comment = await repository.post.createComment({
+    const comment = await db.post.createComment({
       ...data,
       userId: event.context.user.id,
       postId,

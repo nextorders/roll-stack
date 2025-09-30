@@ -1,5 +1,5 @@
 import { updateEpicSchema } from '#shared/services/epic'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const epic = await repository.epic.update(epicId, data)
+    const epic = await db.epic.update(epicId, data)
 
     return {
       ok: true,
