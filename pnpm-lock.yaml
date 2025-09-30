@@ -40,8 +40,8 @@ catalogs:
       specifier: ^2.2.1
       version: 2.2.1
     '@nextorders/queue':
-      specifier: ^0.1.0
-      version: 0.1.0
+      specifier: ^0.1.2
+      version: 0.1.2
     '@nuxt/devtools':
       specifier: ^2.6.3
       version: 2.6.3
@@ -451,9 +451,6 @@ importers:
       date-fns:
         specifier: 'catalog:'
         version: 4.1.0
-      grammy:
-        specifier: 'catalog:'
-        version: 1.38.2
       ioredis:
         specifier: 'catalog:'
         version: 5.7.0
@@ -608,7 +605,7 @@ importers:
     dependencies:
       '@nextorders/queue':
         specifier: 'catalog:'
-        version: 0.1.0
+        version: 0.1.2
     devDependencies:
       '@types/node':
         specifier: 'catalog:'
@@ -1830,8 +1827,8 @@ packages:
     resolution: {integrity: sha512-7/vIJlMYrPJPlEW84V2yeRuG3QBu66dmlv9neTmZ5nXzwylhBEOhy11ai+34A8mHCSZI4mKns25w3HM9kaDdJg==}
     engines: {node: '>=16.0.0'}
 
-  '@nextorders/queue@0.1.0':
-    resolution: {integrity: sha512-Brlm9OSXA1tba6AeOEIt3q8CRM9H6yZ88WV8jE9cj5EcE1jhq6zALAV49hWBGJT4VD90acKulj5rROfXPTW89Q==}
+  '@nextorders/queue@0.1.2':
+    resolution: {integrity: sha512-dGZAtYJn5ni7nm3fuD909IRPHFx44XK0u/AX45VoVnzEsNcU97Xs76kgYdRuzJBeR0EZhw6Px5kFw5KXpuhgeg==}
 
   '@noble/hashes@1.8.0':
     resolution: {integrity: sha512-jCs9ldd7NwzpgXDIf6P3+NrHh9/sD6CQdxHyjQI+h/6rDNo88ypBxxz45UDuZHz9r3tNz7N/VInSVoVdtXEI4A==}
@@ -9601,7 +9598,7 @@ snapshots:
   '@netlify/runtime-utils@1.3.1':
     optional: true
 
-  '@nextorders/queue@0.1.0':
+  '@nextorders/queue@0.1.2':
     dependencies:
       rabbitmq-client: 5.0.5
 

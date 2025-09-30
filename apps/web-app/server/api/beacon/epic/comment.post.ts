@@ -1,7 +1,7 @@
 import { createBeaconSchema } from '#shared/services/notification'
 import { db } from '@roll-stack/database'
+import { queue } from '@roll-stack/essence'
 import { type } from 'arktype'
-import { useAtriumBot } from '~~/server/services/telegram/atrium-bot'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -10,8 +10,6 @@ export default defineEventHandler(async (event) => {
     if (data instanceof type.errors) {
       throw data
     }
-
-    const { telegram } = useRuntimeConfig()
 
     const comment = await db.epic.findComment(data.id)
     if (!comment) {
@@ -52,29 +50,16 @@ export default defineEventHandler(async (event) => {
         description,
       })
 
-      // Telegram - Atrium
-      const atriumUser = user.telegramUsers.find((u) => u.botId === telegram.atriumBotId)
-      const bot = await db.telegram.findBot(telegram.atriumBotId)
-
-      if (bot && atriumUser) {
-        const separator = 'zzzzz'
-        const startAppData = `epic${separator}${epic?.id}`
-
-        await useAtriumBot()
-          .api
-          .sendMessage(
-            atriumUser.telegramId,
-            `👋 ${sender.name} ${sender.surname}\n${title}\n\n${description}`,
-            {
-              reply_markup: {
-                inline_keyboard: [[{
-                  text: 'Открыть эпик',
-                  url: `https://t.me/${bot.username}/app?startapp=${startAppData}`,
-                }]],
-              },
-            },
-          )
-      }
+      // Queue
+      await queue.notification.userBeaconOnEpicCommentCreated({
+        userId,
+        senderName: sender.name,
+        senderSurname: sender.surname,
+        title,
+        description,
+        epicId: comment.epicId,
+        epicCommentId: comment.id,
+      })
     }
 
     return {

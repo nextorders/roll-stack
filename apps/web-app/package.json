@@ -22,7 +22,6 @@
     "arktype": "catalog:",
     "aws4fetch": "catalog:",
     "date-fns": "catalog:",
-    "grammy": "catalog:",
     "ioredis": "catalog:",
     "libphonenumber-js": "catalog:",
     "node-xlsx": "catalog:",

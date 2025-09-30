@@ -2,7 +2,7 @@ import type { BaseEventMessage } from '@nextorders/queue'
 
 export enum Events {
   TICKET_MESSAGE_CREATED = 'ticketMessageCreated',
-  OTHER_ACTION = 'otherAction',
+  NOTIFICATION_USER_BEACON_ON_EPIC_COMMENT_CREATED = 'notificationUserBeaconOnEpicCommentCreated',
 }
 
 export type EventMessage = BaseEventMessage<Events>
@@ -17,5 +17,18 @@ export interface TicketMessageCreated extends EventMessage {
     userName: string
     userSurname: string | undefined
     userText: string
+  }
+}
+
+export interface NotificationUserBeaconOnEpicCommentCreated extends EventMessage {
+  type: typeof Events.NOTIFICATION_USER_BEACON_ON_EPIC_COMMENT_CREATED
+  data: {
+    userId: string
+    senderName: string
+    senderSurname: string
+    title: string
+    description: string
+    epicId: string
+    epicCommentId: string
   }
 }

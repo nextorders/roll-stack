@@ -17,8 +17,4 @@ export default defineNitroPlugin(async () => {
   }
 
   await queue.connect(process.env.QUEUE_URL)
-
-  queue.connection.on('connection', () => {
-    logger.info('Connected to Queue')
-  })
 })
