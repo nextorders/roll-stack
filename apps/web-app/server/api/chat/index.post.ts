@@ -1,5 +1,5 @@
 import { createChatSchema } from '#shared/services/chat'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const chat = await repository.chat.create(data)
+    const chat = await db.chat.create(data)
     if (!chat) {
       throw createError({
         statusCode: 500,
@@ -27,26 +27,26 @@ export default defineEventHandler(async (event) => {
     }
 
     // Add all bots as members too
-    const bots = await repository.user.findBots()
+    const bots = await db.user.findBots()
     const botIds = bots.map((bot) => bot.id)
     data.usersId.push(...botIds)
 
     // Create members
     for (const userId of data.usersId) {
-      await repository.chat.createMember({
+      await db.chat.createMember({
         chatId: chat.id,
         userId,
       })
     }
 
     // Create default task list
-    const list = await repository.task.createList({
+    const list = await db.task.createList({
       name: 'Общий список',
       chatId: chat.id,
     })
 
     // Update
-    await repository.chat.update(chat.id, {
+    await db.chat.update(chat.id, {
       taskListId: list?.id,
     })
 

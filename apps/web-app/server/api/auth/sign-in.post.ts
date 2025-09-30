@@ -1,4 +1,4 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
       throw createError({ statusCode: 400, message: 'Invalid phone' })
     }
 
-    const userInDB = await repository.user.findByPhone(preparedPhone)
+    const userInDB = await db.user.findByPhone(preparedPhone)
     if (!userInDB) {
       throw createError({ statusCode: 404, message: 'User not found' })
     }

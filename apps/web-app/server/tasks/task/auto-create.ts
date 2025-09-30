@@ -1,5 +1,5 @@
 import process from 'node:process'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 const logger = useLogger('task:auto-create')
 
@@ -18,7 +18,7 @@ export default defineTask({
     await new Promise((resolve) => setTimeout(resolve, 5000))
 
     try {
-      const autoCreators = await repository.task.autoCreatorsList()
+      const autoCreators = await db.task.autoCreatorsList()
 
       for (const creator of autoCreators) {
         if (!isCronDue(creator.cron)) {
@@ -30,7 +30,7 @@ export default defineTask({
         // Date should be in 2025-05-21 format, without time
         const date = creator.templateDate ? new Date(new Date().getTime() + Number(creator.templateDate) * 24 * 60 * 60 * 1000).toISOString().split('T')[0] : null
 
-        const task = await repository.task.create({
+        const task = await db.task.create({
           name: creator.templateTitle,
           description: creator.templateDescription,
           performerId: creator.performerId,

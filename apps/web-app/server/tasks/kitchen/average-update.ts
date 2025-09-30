@@ -1,5 +1,5 @@
 import process from 'node:process'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 const logger = useLogger('kitchen:average-update')
 
@@ -15,10 +15,10 @@ export default defineTask({
         return { result: true }
       }
 
-      const metrics = await repository.network.listMetrics()
+      const metrics = await db.network.listMetrics()
 
       for (const m of metrics) {
-        const allRevenuesThisPeriod = await repository.kitchen.listRevenuesForDate(m.date)
+        const allRevenuesThisPeriod = await db.kitchen.listRevenuesForDate(m.date)
         if (!allRevenuesThisPeriod.length) {
           continue
         }
@@ -26,7 +26,7 @@ export default defineTask({
         const checks = allRevenuesThisPeriod.reduce((acc, curr) => acc + curr.checks, 0)
         const total = Math.round(allRevenuesThisPeriod.reduce((acc, curr) => acc + curr.total, 0))
 
-        await repository.network.updateMetrics(m.id, {
+        await db.network.updateMetrics(m.id, {
           checks,
           total,
         })

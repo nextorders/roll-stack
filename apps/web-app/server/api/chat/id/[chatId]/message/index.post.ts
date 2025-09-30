@@ -1,5 +1,5 @@
 import { createChatMessageSchema } from '#shared/services/chat'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const chat = await repository.chat.findWithEntities(chatId)
+    const chat = await db.chat.findWithEntities(chatId)
     if (!chat) {
       throw createError({
         statusCode: 404,
@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const message = await repository.chat.createMessage({
+    const message = await db.chat.createMessage({
       chatId,
       userId: event.context.user.id,
       text: data.text,
@@ -39,7 +39,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // Last message in chat
-    await repository.chat.update(chat.id, {
+    await db.chat.update(chat.id, {
       lastMessageId: message.id,
     })
 

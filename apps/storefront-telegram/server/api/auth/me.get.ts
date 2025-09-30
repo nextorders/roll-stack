@@ -1,5 +1,5 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async (event) => {
-  return repository.client.find(event.context.client.id)
+  return db.client.find(event.context.client.id)
 })

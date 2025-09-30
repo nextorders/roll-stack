@@ -1,5 +1,5 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async (event) => {
-  return repository.notification.listByUser(event.context.user.id)
+  return db.notification.listByUser(event.context.user.id)
 })

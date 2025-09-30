@@ -1,8 +1,8 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async () => {
   try {
-    await repository.checkHealth()
+    await db.checkHealth()
 
     return { ok: true }
   } catch (error) {

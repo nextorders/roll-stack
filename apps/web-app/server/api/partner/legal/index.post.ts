@@ -1,5 +1,5 @@
 import { createPartnerLegalEntitySchema } from '#shared/services/partner'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const entity = await repository.partner.createLegalEntity(data)
+    const entity = await db.partner.createLegalEntity(data)
     if (!entity?.id) {
       throw createError({
         statusCode: 400,

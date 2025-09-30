@@ -1,6 +1,6 @@
 import type { MediaItemDraft } from '@roll-stack/database'
 import { createId } from '@paralleldrive/cuid2'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import sharp from 'sharp'
 
 const POSTS_DIRECTORY = 'posts'
@@ -71,29 +71,29 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    await repository.media.create({
+    await db.media.create({
       id: mediaId,
     })
 
     for (const item of items) {
-      await repository.media.createItem(item)
+      await db.media.createItem(item)
     }
 
-    const post = await repository.post.find(postId)
+    const post = await db.post.find(postId)
     if (post?.id && post?.mediaId) {
-      const media = await repository.media.find(post.mediaId)
+      const media = await db.media.find(post.mediaId)
       if (media) {
         // Remove old images
         for (const item of media.items) {
           await storage.removeItem(`/${POSTS_DIRECTORY}/${item.mediaId}/${item.id}.${item.format}`)
         }
 
-        await repository.post.update(post.id, { mediaId: null })
-        await repository.media.delete(media.id)
+        await db.post.update(post.id, { mediaId: null })
+        await db.media.delete(media.id)
       }
     }
 
-    await repository.post.update(postId, { mediaId })
+    await db.post.update(postId, { mediaId })
 
     return { ok: true }
   } catch (error) {

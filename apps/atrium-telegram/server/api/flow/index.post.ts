@@ -1,5 +1,5 @@
 import { createFlowItemSchema } from '#shared/services/flow'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const item = await repository.flow.createItem({
+    const item = await db.flow.createItem({
       type: data.type,
       title: data.title,
       description: data.description,

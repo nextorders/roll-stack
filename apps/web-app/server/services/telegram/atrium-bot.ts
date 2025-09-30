@@ -1,5 +1,5 @@
 import type { Context } from 'grammy'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { Bot } from 'grammy'
 import { generateAccessCode } from './common'
 
@@ -9,7 +9,7 @@ const { telegram } = useRuntimeConfig()
 let bot: Bot | null = null
 
 export async function useCreateAtriumBot() {
-  const botInDb = await repository.telegram.findBot(telegram.atriumBotId)
+  const botInDb = await db.telegram.findBot(telegram.atriumBotId)
   if (!botInDb?.token) {
     throw new Error('Atrium bot is not configured')
   }
@@ -50,11 +50,11 @@ async function handleStart(ctx: Context) {
   }
 
   // Find user
-  const telegramUser = await repository.telegram.findUserByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.atriumBotId)
+  const telegramUser = await db.telegram.findUserByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.atriumBotId)
   if (!telegramUser) {
     const accessKey = await generateAccessCode()
 
-    const createdUser = await repository.telegram.createUser({
+    const createdUser = await db.telegram.createUser({
       telegramUserType: ctx.message.chat.type,
       telegramId: ctx.message.from.id.toString(),
       firstName: ctx.message.from.first_name,
@@ -83,7 +83,7 @@ async function handleMessage(ctx: Context) {
     return
   }
 
-  const telegramUser = await repository.telegram.findUserByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.atriumBotId)
+  const telegramUser = await db.telegram.findUserByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.atriumBotId)
   if (!telegramUser?.user) {
     return
   }

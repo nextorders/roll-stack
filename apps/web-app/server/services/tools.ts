@@ -1,5 +1,5 @@
 import { tool } from '@openai/agents'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { z } from 'zod'
 
 export const getPartnersCountTool = tool({
@@ -8,7 +8,7 @@ export const getPartnersCountTool = tool({
   needsApproval: false,
   parameters: z.object({}),
   execute: async () => {
-    const partners = await repository.partner.list()
+    const partners = await db.partner.list()
     return partners.length
   },
 })
@@ -21,7 +21,7 @@ export const getPartnersByCityTool = tool({
     city: z.string(),
   }),
   execute: async ({ city }) => {
-    const partners = await repository.partner.list()
+    const partners = await db.partner.list()
     return partners.filter((partner) => partner.city?.toLowerCase().includes(city.toLowerCase()))
   },
 })
@@ -34,7 +34,7 @@ export const getPartnersBySurnameTool = tool({
     surname: z.string(),
   }),
   execute: async ({ surname }) => {
-    const users = await repository.user.list()
+    const users = await db.user.list()
     const partners = users.filter((user) => user.type === 'partner')
     return partners.filter((p) => p.surname?.toLowerCase().includes(surname.toLowerCase()))
   },

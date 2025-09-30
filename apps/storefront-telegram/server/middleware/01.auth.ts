@@ -2,7 +2,7 @@ import type { Client } from '@roll-stack/database'
 import type { InitData } from '@telegram-apps/init-data-node'
 import type { H3Event } from 'h3'
 import process from 'node:process'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { parse, validate } from '@telegram-apps/init-data-node'
 
 const logger = useLogger('middleware:auth')
@@ -58,7 +58,7 @@ async function getClientFromToken(event: H3Event): Promise<Client | null> {
       return null
     }
 
-    const clientInDB = await repository.telegram.findClientByTelegramIdAndBotId(telegramData.user.id.toString(), telegram.orderBotId)
+    const clientInDB = await db.telegram.findClientByTelegramIdAndBotId(telegramData.user.id.toString(), telegram.orderBotId)
     if (!clientInDB?.client) {
       return null
     }

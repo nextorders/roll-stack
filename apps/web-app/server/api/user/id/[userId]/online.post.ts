@@ -1,4 +1,4 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // Guard: if no user
-    const user = await repository.user.find(userId)
+    const user = await db.user.find(userId)
     if (!user?.id) {
       throw createError({
         statusCode: 404,
@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    await repository.user.updateOnline(userId)
+    await db.user.updateOnline(userId)
 
     return {
       ok: true,

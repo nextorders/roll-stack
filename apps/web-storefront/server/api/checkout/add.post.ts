@@ -1,6 +1,6 @@
 import type { Checkout } from '@roll-stack/database'
 import type { H3Event } from 'h3'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 const MAX_LINES_PER_CHECKOUT = 20
 
@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
     // Check if checkout already exists
     const checkoutId = session.secure?.checkoutId ?? await createCheckout(event)
 
-    const checkoutInDB = await repository.checkout.find(checkoutId)
+    const checkoutInDB = await db.checkout.find(checkoutId)
     if (!checkoutInDB?.id) {
       // Clear session
       await replaceUserSession(event, {
@@ -58,7 +58,7 @@ export default defineEventHandler(async (event) => {
       }
 
       // Create new
-      await repository.checkout.createItem({
+      await db.checkout.createItem({
         checkoutId,
         productVariantId: body.productVariantId,
         quantity: 1,
@@ -70,12 +70,12 @@ export default defineEventHandler(async (event) => {
       })
     } else {
       // Add +1
-      await repository.checkout.updateItem(item.id, {
+      await db.checkout.updateItem(item.id, {
         quantity: item.quantity + 1,
       })
     }
 
-    await repository.checkout.recalculate(checkoutId)
+    await db.checkout.recalculate(checkoutId)
 
     return { ok: true }
   } catch (error) {
@@ -87,7 +87,7 @@ async function createCheckout(event: H3Event) {
   // Create new checkout
   const deliveryMethod: Checkout['deliveryMethod'] = isDeliveryAvailable ? 'delivery' : 'pickup'
 
-  const createdCheckout = await repository.checkout.create({
+  const createdCheckout = await db.checkout.create({
     status: 'forming',
     deliveryMethod,
     itemsPrice: 0,

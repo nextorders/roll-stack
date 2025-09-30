@@ -1,5 +1,5 @@
 import { detachProductFromMenuCategorySchema } from '#shared/services/menu'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const category = await repository.menu.findCategory(categoryId)
+    const category = await db.menu.findCategory(categoryId)
     if (!category) {
       throw createError({
         statusCode: 404,
@@ -34,7 +34,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    await repository.menu.detachProduct(categoryId, data.productId)
+    await db.menu.detachProduct(categoryId, data.productId)
 
     return { ok: true }
   } catch (error) {

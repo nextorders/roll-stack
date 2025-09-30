@@ -1,5 +1,5 @@
 import process from 'node:process'
-import { useCreateConnection } from '@roll-stack/queue'
+import { queue } from '@roll-stack/essence'
 import { setupConsumers } from '../services/queue'
 
 /**
@@ -10,7 +10,7 @@ export default defineNitroPlugin(async () => {
     throw new Error('QUEUE_URL is not defined')
   }
 
-  await useCreateConnection(process.env.QUEUE_URL)
+  await queue.connect(process.env.QUEUE_URL)
 
   await setupConsumers()
 })

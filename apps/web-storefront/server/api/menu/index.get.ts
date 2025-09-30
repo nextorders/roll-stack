@@ -1,4 +1,4 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 const menuId = 'qfsjfayy69dojc208jkjvswz'
 
@@ -24,7 +24,7 @@ class MenuCache {
    * @returns true if cache should be invalidated, false otherwise
    */
   async shouldInvalidateCache(): Promise<boolean> {
-    const menu = await repository.menu.checkIfUpdated(menuId)
+    const menu = await db.menu.checkIfUpdated(menuId)
     if (!menu) {
       return true
     }
@@ -41,7 +41,7 @@ class MenuCache {
 const cache = new MenuCache()
 
 export default defineCachedEventHandler(async () => {
-  return repository.menu.find(menuId)
+  return db.menu.find(menuId)
 }, {
   swr: cache.swr,
   maxAge: cache.maxAge,

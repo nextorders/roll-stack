@@ -1,4 +1,4 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const chat = await repository.chat.findWithEntities(chatId)
+    const chat = await db.chat.findWithEntities(chatId)
     if (!chat) {
       throw createError({
         statusCode: 404,

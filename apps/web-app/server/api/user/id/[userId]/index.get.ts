@@ -1,4 +1,4 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const user = await repository.user.find(userId)
+    const user = await db.user.find(userId)
     if (!user) {
       throw createError({
         statusCode: 404,

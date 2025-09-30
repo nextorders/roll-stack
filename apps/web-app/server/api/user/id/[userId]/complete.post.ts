@@ -1,5 +1,5 @@
 import { completeUserSchema } from '#shared/services/user'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // Guard: if user already have phone
-    const user = await repository.user.find(userId)
+    const user = await db.user.find(userId)
     if (user?.phone) {
       throw createError({
         statusCode: 400,
@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const updatedUser = await repository.user.update(userId, {
+    const updatedUser = await db.user.update(userId, {
       ...data,
     })
 

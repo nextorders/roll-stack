@@ -1,8 +1,8 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async (event) => {
   try {
-    await repository.user.updateOnline(event.context.user.id)
+    await db.user.updateOnline(event.context.user.id)
 
     return {
       ok: true,

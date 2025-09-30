@@ -1,6 +1,6 @@
 import type { Buffer } from 'node:buffer'
 import { ACCEPTED_FILE_TYPES, MAX_FILE_SIZE } from '#shared/services/file'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import xlsx from 'node-xlsx'
 
 interface MultiPartData {
@@ -149,10 +149,10 @@ async function parseFileAndUpdateData(file: MultiPartData) {
   const total = Math.round(parsedKitchens.reduce((acc, curr) => acc + curr.total, 0))
 
   // Create or update metrics
-  const metrics = await repository.network.listMetrics()
+  const metrics = await db.network.listMetrics()
   const existingMetrics = metrics.find((metric) => metric.date === dateOnly)
   if (!existingMetrics) {
-    await repository.network.createMetrics({
+    await db.network.createMetrics({
       date: dateOnly,
       checks,
       total,
@@ -160,7 +160,7 @@ async function parseFileAndUpdateData(file: MultiPartData) {
       averageTotal,
     })
   } else {
-    await repository.network.updateMetrics(existingMetrics.id, {
+    await db.network.updateMetrics(existingMetrics.id, {
       checks,
       total,
       averageCheck,
@@ -169,7 +169,7 @@ async function parseFileAndUpdateData(file: MultiPartData) {
   }
 
   // Every kitchen: find in DB and add amount for this day
-  const kitchens = await repository.kitchen.list()
+  const kitchens = await db.kitchen.list()
   let rowsUpdated = 0
   const errors: string[] = []
 
@@ -177,9 +177,9 @@ async function parseFileAndUpdateData(file: MultiPartData) {
     const found = kitchens.find((k) => k.iikoAlias === kitchen.name)
     if (found) {
       // Create or update
-      const revenue = await repository.kitchen.findRevenueByKitchenAndDate(found.id, date)
+      const revenue = await db.kitchen.findRevenueByKitchenAndDate(found.id, date)
       if (!revenue) {
-        await repository.kitchen.createRevenue({
+        await db.kitchen.createRevenue({
           kitchenId: found.id,
           date: dateOnly,
           total: kitchen.total,
@@ -187,7 +187,7 @@ async function parseFileAndUpdateData(file: MultiPartData) {
           averageCheck: kitchen.averageCheck,
         })
       } else {
-        await repository.kitchen.updateRevenue(revenue.id, {
+        await db.kitchen.updateRevenue(revenue.id, {
           total: kitchen.total,
           checks: kitchen.checks,
           averageCheck: kitchen.averageCheck,

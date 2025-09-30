@@ -1,6 +1,6 @@
 import { createMenuCategorySchema } from '#shared/services/menu'
 import { createId } from '@paralleldrive/cuid2'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
 
     const id = createId()
 
-    const category = await repository.menu.createCategory({
+    const category = await db.menu.createCategory({
       id,
       slug: id,
       name: data.name,

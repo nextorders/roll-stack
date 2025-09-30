@@ -1,5 +1,5 @@
 import { createBeaconSchema } from '#shared/services/notification'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 import { useAtriumBot } from '~~/server/services/telegram/atrium-bot'
 
@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
 
     const { telegram } = useRuntimeConfig()
 
-    const comment = await repository.epic.findComment(data.id)
+    const comment = await db.epic.findComment(data.id)
     if (!comment) {
       throw createError({
         statusCode: 404,
@@ -21,8 +21,8 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const epic = await repository.epic.find(comment.epicId)
-    const users = await repository.user.list()
+    const epic = await db.epic.find(comment.epicId)
+    const users = await db.user.list()
     const commentAuthor = users.find((user) => user.id === comment.userId)
     const sender = users.find((user) => user.id === data.senderId)
     if (!sender) {
@@ -42,7 +42,7 @@ export default defineEventHandler(async (event) => {
       const title = `${suffixByGender(['Создал', 'Создала'], sender?.gender)} маяк в эпике «${epic?.title}»`
       const description = `${commentAuthor?.name} ${commentAuthor?.surname} ${suffixByGender(['оставил', 'оставила'], commentAuthor?.gender)} комментарий: ${comment.text}`
 
-      await repository.notification.create({
+      await db.notification.create({
         type: 'user_beacon_on_epic_comment_created',
         userId,
         authorId: sender.id,
@@ -54,7 +54,7 @@ export default defineEventHandler(async (event) => {
 
       // Telegram - Atrium
       const atriumUser = user.telegramUsers.find((u) => u.botId === telegram.atriumBotId)
-      const bot = await repository.telegram.findBot(telegram.atriumBotId)
+      const bot = await db.telegram.findBot(telegram.atriumBotId)
 
       if (bot && atriumUser) {
         const separator = 'zzzzz'

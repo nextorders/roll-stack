@@ -1,4 +1,4 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // Guard: already have like on this post
-    const likeInDB = await repository.post.findLike(postId, event.context.user.id)
+    const likeInDB = await db.post.findLike(postId, event.context.user.id)
     if (likeInDB) {
       throw createError({
         statusCode: 400,
@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const like = await repository.post.createLike(postId, event.context.user.id)
+    const like = await db.post.createLike(postId, event.context.user.id)
 
     return {
       ok: true,

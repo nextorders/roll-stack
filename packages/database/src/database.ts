@@ -5,11 +5,11 @@ import { createConnection } from './connection'
 
 let instance: Database | null = null
 
-export function useCreateDatabase(databaseURL: string) {
+export function useCreateDatabase(databaseURL: string): void {
   instance = createConnection(databaseURL)
 }
 
-export async function useMigrateDatabase(migrationFolder: string) {
+export async function useMigrateDatabase(migrationFolder: string): Promise<void> {
   if (!instance) {
     throw new Error('Database is not created')
   }

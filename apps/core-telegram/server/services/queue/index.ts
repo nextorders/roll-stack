@@ -1,47 +1,32 @@
-import type { EventMessage } from '@roll-stack/queue'
-import { repository } from '@roll-stack/database'
-import { CONSUMER_ANSWER, repository as queue, QUEUES, useConnection } from '@roll-stack/queue'
+import type { TicketMessageCreated } from '@roll-stack/essence'
+import { db } from '@roll-stack/database'
+import { queue } from '@roll-stack/essence'
 import { useWasabiBot } from '../telegram/wasabi-bot'
 
 const { telegram } = useRuntimeConfig()
 
 export async function setupConsumers() {
-  const sub = useConnection().createConsumer({
-    queue: QUEUES.telegram.queue,
-    queueOptions: {
-      passive: true,
-    },
-    noAck: false,
-    qos: {
-      prefetchCount: 1,
-    },
-  }, async (msg) => {
-    if (msg.body.type === queue.ticket.types.messageCreated) {
-      return handleTicketMessageCreated(msg.body as EventMessage['TicketMessageCreated'])
+  return queue.telegram.consume(async (msg) => {
+    if (msg.type === 'ticketMessageCreated') {
+      return handleTicketMessageCreated(msg as TicketMessageCreated)
     }
 
-    return CONSUMER_ANSWER.IGNORE
-  })
-
-  sub.on('error', (err) => {
-    // Maybe the consumer was cancelled, or the connection was reset before a
-    // message could be acknowledged.
-    console.error('consumer error (user-events)', err)
+    return queue.ignore()
   })
 }
 
-async function handleTicketMessageCreated(msg: EventMessage['TicketMessageCreated']) {
+async function handleTicketMessageCreated(msg: TicketMessageCreated) {
   try {
     // Send Telegram message to Owner user via Wasabi Bot
-    const wasabiUser = await repository.telegram.findUserByIdAndBotId(msg.data.ticketOwnerId, telegram.wasabiBotId)
+    const wasabiUser = await db.telegram.findUserByIdAndBotId(msg.data.ticketOwnerId, telegram.wasabiBotId)
     if (wasabiUser) {
       const text = `${msg.data.userName} ${msg.data.userSurname}: ${msg.data.userText}`
       await useWasabiBot().api.sendMessage(wasabiUser.telegramId, text)
     }
 
-    return CONSUMER_ANSWER.SUCCESS
+    return queue.success()
   } catch (error) {
     console.error(error)
-    return CONSUMER_ANSWER.FAIL
+    return queue.fail()
   }
 }

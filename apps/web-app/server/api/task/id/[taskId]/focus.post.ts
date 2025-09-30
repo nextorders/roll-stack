@@ -1,4 +1,4 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const user = await repository.user.find(event.context.user.id)
+    const user = await db.user.find(event.context.user.id)
     if (!user) {
       throw createError({
         statusCode: 404,
@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
     // If task not exist
     // If performer is not user
     // If already focused
-    const task = await repository.task.find(taskId)
+    const task = await db.task.find(taskId)
     if (!task) {
       throw createError({
         statusCode: 404,
@@ -42,12 +42,12 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    await repository.user.update(user.id, {
+    await db.user.update(user.id, {
       focusedTaskId: taskId,
     })
 
     // Updating time
-    await repository.task.update(task.id, {})
+    await db.task.update(task.id, {})
 
     return { ok: true }
   } catch (error) {

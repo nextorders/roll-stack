@@ -15,7 +15,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@paralleldrive/cuid2": "catalog:",
     "drizzle-cuid2": "catalog:",
     "drizzle-orm": "catalog:",
     "pg": "catalog:"

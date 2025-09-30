@@ -1,4 +1,4 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 const MAX_QUANTITY_PER_LINE = 99
 
@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const checkoutInDB = await repository.checkout.find(secure.checkoutId)
+    const checkoutInDB = await db.checkout.find(secure.checkoutId)
     if (!checkoutInDB?.id) {
       throw createError({
         statusCode: 404,
@@ -49,12 +49,12 @@ export default defineEventHandler(async (event) => {
         })
       }
 
-      await repository.checkout.updateItem(item.id, { quantity: item.quantity + 1 })
+      await db.checkout.updateItem(item.id, { quantity: item.quantity + 1 })
     } else if (method === 'decrement') {
-      await repository.checkout.updateItem(item.id, { quantity: item.quantity - 1 })
+      await db.checkout.updateItem(item.id, { quantity: item.quantity - 1 })
     }
 
-    await repository.checkout.recalculate(checkoutInDB.id)
+    await db.checkout.recalculate(checkoutInDB.id)
 
     return {
       ok: true,

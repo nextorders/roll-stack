@@ -1,4 +1,4 @@
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    return repository.checkout.find(checkoutId)
+    return db.checkout.find(checkoutId)
   } catch (error) {
     throw errorResolver(error)
   }

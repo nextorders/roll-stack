@@ -1,8 +1,8 @@
 import { TZDate } from '@date-fns/tz'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 
 export default defineEventHandler(async () => {
-  const kitchens: KitchenWithData[] = await repository.kitchen.list() as KitchenWithData[]
+  const kitchens: KitchenWithData[] = await db.kitchen.list() as KitchenWithData[]
 
   for (const kitchen of kitchens) {
     // const time = new TZDate(new Date(), kitchen.timezone).toLocaleString(locale, { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })

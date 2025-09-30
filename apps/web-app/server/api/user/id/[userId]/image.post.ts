@@ -1,6 +1,6 @@
 import type { MediaItemDraft } from '@roll-stack/database'
 import { createId } from '@paralleldrive/cuid2'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import sharp from 'sharp'
 
 const USER_AVATARS_DIRECTORY = 'users'
@@ -98,17 +98,17 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    await repository.media.create({
+    await db.media.create({
       id: mediaId,
     })
 
     for (const item of items) {
-      await repository.media.createItem(item)
+      await db.media.createItem(item)
     }
 
     const mainImage = items.find((i) => i.size === 512 && i.format === 'jpg')
 
-    await repository.user.update(userId, { avatarUrl: mainImage?.url })
+    await db.user.update(userId, { avatarUrl: mainImage?.url })
 
     return { ok: true }
   } catch (error) {

@@ -1,5 +1,5 @@
 import { updatePartnerLegalEntitySchema } from '#shared/services/partner'
-import { repository } from '@roll-stack/database'
+import { db } from '@roll-stack/database'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
       throw data
     }
 
-    const entity = await repository.partner.findLegalEntity(entityId)
+    const entity = await db.partner.findLegalEntity(entityId)
     if (!entity) {
       throw createError({
         statusCode: 404,
@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    await repository.partner.updateLegalEntity(entityId, data)
+    await db.partner.updateLegalEntity(entityId, data)
 
     return {
       ok: true,

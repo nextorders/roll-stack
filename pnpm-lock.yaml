@@ -39,6 +39,9 @@ catalogs:
     '@neoconfetti/vue':
       specifier: ^2.2.1
       version: 2.2.1
+    '@nextorders/queue':
+      specifier: ^0.1.0
+      version: 0.1.0
     '@nuxt/devtools':
       specifier: ^2.6.3
       version: 2.6.3
@@ -171,9 +174,6 @@ catalogs:
     playwright:
       specifier: ^1.55.0
       version: 1.55.0
-    rabbitmq-client:
-      specifier: ^5.0.5
-      version: 5.0.5
     ru-nalog-fias-gar:
       specifier: ^1.0.4
       version: 1.0.4
@@ -276,9 +276,9 @@ importers:
       '@roll-stack/database':
         specifier: workspace:*
         version: link:../../packages/database
-      '@roll-stack/queue':
+      '@roll-stack/essence':
         specifier: workspace:*
-        version: link:../../packages/queue
+        version: link:../../packages/essence
       '@roll-stack/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -313,9 +313,9 @@ importers:
       '@roll-stack/database':
         specifier: workspace:*
         version: link:../../packages/database
-      '@roll-stack/queue':
+      '@roll-stack/essence':
         specifier: workspace:*
-        version: link:../../packages/queue
+        version: link:../../packages/essence
       '@roll-stack/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -436,9 +436,9 @@ importers:
       '@roll-stack/database':
         specifier: workspace:*
         version: link:../../packages/database
-      '@roll-stack/queue':
+      '@roll-stack/essence':
         specifier: workspace:*
-        version: link:../../packages/queue
+        version: link:../../packages/essence
       '@roll-stack/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -578,9 +578,6 @@ importers:
 
   packages/database:
     dependencies:
-      '@paralleldrive/cuid2':
-        specifier: 'catalog:'
-        version: 2.2.2
       drizzle-cuid2:
         specifier: 'catalog:'
         version: 2.1.0(drizzle-orm@0.44.5(@opentelemetry/api@1.9.0)(@types/pg@8.15.5)(pg@8.16.3))
@@ -603,6 +600,19 @@ importers:
       drizzle-kit:
         specifier: 'catalog:'
         version: 0.31.4
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.2
+
+  packages/essence:
+    dependencies:
+      '@nextorders/queue':
+        specifier: 'catalog:'
+        version: 0.1.0
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.3.1
       typescript:
         specifier: 'catalog:'
         version: 5.9.2
@@ -634,22 +644,6 @@ importers:
       drizzle-kit:
         specifier: 'catalog:'
         version: 0.31.4
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.2
-
-  packages/queue:
-    dependencies:
-      '@paralleldrive/cuid2':
-        specifier: 'catalog:'
-        version: 2.2.2
-      rabbitmq-client:
-        specifier: 'catalog:'
-        version: 5.0.5
-    devDependencies:
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.3.1
       typescript:
         specifier: 'catalog:'
         version: 5.9.2
@@ -1835,6 +1829,9 @@ packages:
   '@netlify/runtime-utils@1.3.1':
     resolution: {integrity: sha512-7/vIJlMYrPJPlEW84V2yeRuG3QBu66dmlv9neTmZ5nXzwylhBEOhy11ai+34A8mHCSZI4mKns25w3HM9kaDdJg==}
     engines: {node: '>=16.0.0'}
+
+  '@nextorders/queue@0.1.0':
+    resolution: {integrity: sha512-Brlm9OSXA1tba6AeOEIt3q8CRM9H6yZ88WV8jE9cj5EcE1jhq6zALAV49hWBGJT4VD90acKulj5rROfXPTW89Q==}
 
   '@noble/hashes@1.8.0':
     resolution: {integrity: sha512-jCs9ldd7NwzpgXDIf6P3+NrHh9/sD6CQdxHyjQI+h/6rDNo88ypBxxz45UDuZHz9r3tNz7N/VInSVoVdtXEI4A==}
@@ -9603,6 +9600,10 @@ snapshots:
 
   '@netlify/runtime-utils@1.3.1':
     optional: true
+
+  '@nextorders/queue@0.1.0':
+    dependencies:
+      rabbitmq-client: 5.0.5
 
   '@noble/hashes@1.8.0': {}
 
