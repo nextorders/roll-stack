@@ -25,19 +25,19 @@ const speakers = ref([
     name: 'Лидия Трошина',
     caption: 'Директор по маркетингу франшизы «Суши Love»',
     description: 'Покажет стратегии по привлечению гостей работающие в 2025 году',
-    image: 'https://avatar.nextorders.ru/377188?emotion=8&gender=female&clothing=teal',
+    image: '/speaker-1.jpg',
   },
   {
     name: 'Татьяна Панасевич',
     caption: 'Основатель сети суши-баров «Суши Love»',
-    description: 'Ответит на все вопросы по работе с франшизой',
-    image: 'https://avatar.nextorders.ru/797837?emotion=6&gender=female&clothing=violet',
+    description: 'Открыла более 100 заведений, ответит на все ваши вопросы',
+    image: '/speaker-2.jpg',
   },
   {
     name: 'Анна Михалко',
     caption: 'Наставник партнеров и эксперт по открытию новых точек франшизы',
     description: 'Даст пошаговый план открытия, который используют все наши партнеры',
-    image: 'https://avatar.nextorders.ru/887463?emotion=7&gender=female&clothing=pink',
+    image: '/speaker-3.jpg',
   },
 ])
 </script>

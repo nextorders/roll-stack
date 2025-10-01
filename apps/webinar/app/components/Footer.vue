@@ -15,7 +15,7 @@
             size="xl"
             color="neutral"
             variant="soft"
-            icon="i-lucide-briefcase"
+            :icon="item.icon"
             :label="item.label"
             block
           />
