@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row gap-2">
+  <div class="w-full grid grid-cols-4 gap-2">
     <CountdownTimerItem :value="state.days" label="Дней" />
     <CountdownTimerItem :value="state.hours" label="Часов" />
     <CountdownTimerItem :value="state.minutes" label="Минут" />
