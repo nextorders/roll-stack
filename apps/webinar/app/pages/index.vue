@@ -4,6 +4,7 @@
   <InfiniteTitlesDivider />
 
   <UPageSection
+    id="for"
     title="Для кого этот вебинар?"
     description="Этот вебинар идеально подойдет для вас, если вы:"
     orientation="horizontal"
@@ -28,6 +29,10 @@
 
   <Countdown />
   <Speakers />
+  <Results />
+  <About />
+  <Questions />
+
   <Footer />
 </template>
 
@@ -96,6 +101,6 @@ const secondSectionItems: PageFeatureProps[] = [
 ]
 
 useHead({
-  title: 'Вебинар',
+  title: 'Вебинар «Как открыть ресторан, кофейню или суши-бар с нуля и избежать ошибок» | Октябрь 2025',
 })
 </script>

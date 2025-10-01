@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-const target = ref(new Date('2025-10-23T12:00:00'))
+const target = ref(new Date('2025-10-30T12:00:00'))
 
 const state = ref({
   days: 0,

@@ -2,7 +2,7 @@
   <UFooter :ui="{ top: 'border-b border-muted/50' }">
     <template #top>
       <UContainer>
-        <div class="w-full grid grid-cols-1 lg:grid-cols-4 gap-4 items-center justify-center">
+        <div class="w-full grid grid-cols-1 lg:grid-cols-3 gap-4 items-center justify-center">
           <div class="mx-auto md:mx-0 mb-2 md:mb-0">
             <Logo />
           </div>
@@ -37,11 +37,6 @@
 
 <script setup lang="ts">
 const items = ref([
-  {
-    to: 'tel:79951234567',
-    label: '+7 (995) 123-45-67',
-    icon: 'i-lucide-phone',
-  },
   {
     to: 'mailto:test@sushi-love.ru',
     label: 'test@sushi-love.ru',
