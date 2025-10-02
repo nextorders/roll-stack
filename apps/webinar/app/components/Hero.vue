@@ -30,13 +30,13 @@
 <script setup lang="ts">
 const links = ref([
   {
-    label: 'Зарегистрироваться через Telegram',
+    label: 'Зарегистрироваться',
     to: 'https://t.me/SLFranchiseBot',
     target: '_blank',
     trailingIcon: 'simple-icons:telegram',
     color: 'secondary' as const,
     ui: {
-      base: 'px-6 md:text-xl w-full md:w-fit',
+      base: 'px-6 md:px-12 md:text-xl text-xl font-bold w-full md:w-fit justify-center',
     },
   },
 ])

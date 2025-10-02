@@ -11,9 +11,10 @@
     :reverse="true"
     :features="firstSectionItems"
   >
-    <div class="p-4 w-full h-full min-h-56 text-muted bg-muted rounded-lg motion-preset-slide-right">
-      Тут фото?
-    </div>
+    <div
+      class="w-full h-fit aspect-3/2 min-h-56 text-muted bg-cover rounded-lg motion-preset-slide-right"
+      style="background-image: url('/bg-1.jpg');"
+    />
   </UPageSection>
 
   <UPageSection
@@ -21,10 +22,14 @@
     description="За 1,5 часа вы получите готовый план действий"
     orientation="horizontal"
     :features="secondSectionItems"
+    :ui="{
+      container: 'lg:pt-0',
+    }"
   >
-    <div class="p-4 w-full h-full min-h-56 text-muted bg-muted rounded-lg motion-preset-slide-left">
-      Тут фото?
-    </div>
+    <div
+      class="w-full h-fit aspect-3/2 min-h-56 text-muted bg-cover rounded-lg motion-preset-slide-left"
+      style="background-image: url('/bg-2.jpg');"
+    />
   </UPageSection>
 
   <Countdown />
@@ -32,6 +37,8 @@
   <About />
   <Results />
   <Questions />
+
+  <InfiniteTitlesDivider />
 
   <Footer />
 </template>

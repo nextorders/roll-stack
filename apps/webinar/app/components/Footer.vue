@@ -1,12 +1,8 @@
 <template>
   <UFooter :ui="{ top: 'border-b border-muted/50' }">
     <template #top>
-      <UContainer>
-        <div class="w-full grid grid-cols-1 lg:grid-cols-3 gap-4 items-center justify-center">
-          <div class="mx-auto md:mx-0 mb-2 md:mb-0">
-            <Logo />
-          </div>
-
+      <UContainer class="max-w-2xl">
+        <div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-4 items-center justify-center">
           <UButton
             v-for="item in items"
             :key="item.to"

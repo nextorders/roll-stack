@@ -1,5 +1,6 @@
 <template>
-  <div class="bg-elevated bg-cover" style="background-image: url('/countdown-background.jpg');">
+  <div class="relative overflow-hidden bg-black/40">
+    <div class="-z-10 absolute inset-0 -left-4 w-11/10 h-full bg-cover blur-[5px]" style="background-image: url('/countdown-bg.jpg');" />
     <UPageSection
       title="Получить готовый план"
       description="И ответы на все свои вопросы, от поиска помещения до первого заработка. Мероприятие будет доступно через:"
