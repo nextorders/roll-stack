@@ -56,7 +56,7 @@ const firstSectionItems: PageFeatureProps[] = [
     icon: 'i-lucide-piggy-bank',
   },
   {
-    title: 'Не знаете, с чего начать и сколько денег нужно',
+    title: 'Не знаете, с чего начать и сколько денег нужно для открытия',
     icon: 'i-lucide-chart-pie',
   },
   {
@@ -64,19 +64,19 @@ const firstSectionItems: PageFeatureProps[] = [
     icon: 'i-lucide-users',
   },
   {
-    title: 'Не понимаете, как контролировать закупки, себестоимость и воровство на кухне',
+    title: 'Не понимаете, как контролировать закупки и себестоимость продукции',
     icon: 'i-lucide-hand-coins',
   },
 ]
 
 const secondSectionItems: PageFeatureProps[] = [
   {
-    title: 'Актуальность рынка',
+    title: 'Актуальность рынка общепита',
     description: 'Данные исследований за 2025 год',
     icon: 'i-lucide-pie-chart',
   },
   {
-    title: 'Выбор и проверка помещения',
+    title: 'Выбор помещения для старта',
     description: 'Как избежать ошибок и не взять «проблемное» место',
     icon: 'i-lucide-home',
   },
@@ -87,22 +87,22 @@ const secondSectionItems: PageFeatureProps[] = [
   },
   {
     title: 'Ремонт и оборудование',
-    description: 'Как не переплатить подрядчикам и где искать недорогое оборудование',
+    description: 'Как сделать ремонт недорого и не переплачивать за лишнее оборудование',
     icon: 'i-lucide-hammer',
   },
   {
     title: 'Подбор и обучение персонала',
-    description: 'Где найти поваров и как их обучить стандартам',
+    description: 'Как собрать и обучить команду, которая будет приносить вам деньги',
     icon: 'i-lucide-users',
   },
   {
-    title: 'Запуск рекламы',
-    description: 'И привлечение первых гостей',
+    title: 'Запуск рекламы и привлечение первых гостей',
+    description: 'В какую рекламу стоит вкладываться, а какую избегать',
     icon: 'i-lucide-megaphone',
   },
   {
     title: 'Финансовый расчет',
-    description: 'Разбор инвестиций, ежемесячных расходов и планируемой прибыли',
+    description: 'Разбор инвестиций, ежемесячных расходов и планируемой прибыли на примере действующего суши-бара',
     icon: 'i-lucide-chart-line',
   },
 ]
