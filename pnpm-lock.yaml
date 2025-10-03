@@ -163,8 +163,8 @@ catalogs:
       specifier: ^2.3.1
       version: 2.3.1
     openai:
-      specifier: ^5.20.1
-      version: 5.20.1
+      specifier: ^6.1.0
+      version: 6.1.0
     pg:
       specifier: ^8.16.3
       version: 8.16.3
@@ -465,7 +465,7 @@ importers:
         version: 2.3.1(@tiptap/core@2.24.2(@tiptap/pm@2.24.2))(@tiptap/extension-code-block@2.24.2(@tiptap/core@2.24.2(@tiptap/pm@2.24.2))(@tiptap/pm@2.24.2))(highlight.js@11.11.1)(magicast@0.3.5)(vue@3.5.21(typescript@5.9.2))
       openai:
         specifier: 'catalog:'
-        version: 5.20.1(ws@8.18.3)(zod@3.25.76)
+        version: 6.1.0(ws@8.18.3)(zod@3.25.76)
       pinia:
         specifier: 'catalog:'
         version: 3.0.3(typescript@5.9.2)(vue@3.5.21(typescript@5.9.2))
@@ -2900,11 +2900,13 @@ packages:
 
   '@telegram-apps/sdk-vue@2.0.31':
     resolution: {integrity: sha512-aRfpfTTbBRfTf2Y3voR+jd22ZqvQV2SbrCJ8MDRON+xB05D3fU6WeBdvKrkptqF1T9ni1ythk3FGjf0z/dvQcg==}
+    deprecated: The package is unsupported anymore. Use @tma.js/sdk-vue instead
     peerDependencies:
       vue: ^3.0.0
 
   '@telegram-apps/sdk@3.11.5':
     resolution: {integrity: sha512-PwOvmfyYIoszqQK7WuxUyTKn6utSBiOVg0P/EeI6WblV4yKTPa7zHEBNbIjlCV3jk40oe0ACN0iH8GUVeP+RQw==}
+    deprecated: The package is unsupported anymore. Use @tma.js/sdk instead
 
   '@telegram-apps/signals@1.1.2':
     resolution: {integrity: sha512-1P1kdCLX7MfETGPxH7f3UZKIsdE7Tz5S7QmN4Km1sbYQMakD5Bi1NecSMR7/wnHp50gWMI1JzENcMtCEmouhSg==}
@@ -6594,6 +6596,18 @@ packages:
     peerDependencies:
       ws: ^8.18.0
       zod: ^3.23.8
+    peerDependenciesMeta:
+      ws:
+        optional: true
+      zod:
+        optional: true
+
+  openai@6.1.0:
+    resolution: {integrity: sha512-5sqb1wK67HoVgGlsPwcH2bUbkg66nnoIYKoyV9zi5pZPqh7EWlmSrSDjAh4O5jaIg/0rIlcDKBtWvZBuacmGZg==}
+    hasBin: true
+    peerDependencies:
+      ws: ^8.18.0
+      zod: ^3.25 || ^4.0
     peerDependenciesMeta:
       ws:
         optional: true
@@ -15264,6 +15278,11 @@ snapshots:
       is-wsl: 2.2.0
 
   openai@5.20.1(ws@8.18.3)(zod@3.25.76):
+    optionalDependencies:
+      ws: 8.18.3
+      zod: 3.25.76
+
+  openai@6.1.0(ws@8.18.3)(zod@3.25.76):
     optionalDependencies:
       ws: 8.18.3
       zod: 3.25.76
