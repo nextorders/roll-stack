@@ -47,7 +47,7 @@
   },
   "resolutions": {
     "rollup": "^4.50.2",
-    "unimport": "4.1.1"
+    "unimport": "5.4.1"
   },
   "lint-staged": {
     "*.ts": "eslint ."
