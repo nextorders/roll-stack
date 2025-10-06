@@ -8,7 +8,7 @@
       />
     </div>
 
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2 text-center">
       <h4 class="text-2xl font-bold">
         {{ speaker.name }}
       </h4>
