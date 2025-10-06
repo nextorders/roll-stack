@@ -57,7 +57,7 @@ catalog:
   nuxt-auth-utils: ^0.5.24
   nuxt-tiptap-editor: ^2.3.1
   nuxt-zod-i18n: ^1.12.1
-  openai: ^5.20.1
+  openai: ^6.2.0
   pg: ^8.16.3
   pinia: ^3.0.3
   playwright: ^1.55.0

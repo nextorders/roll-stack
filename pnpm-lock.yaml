@@ -163,8 +163,8 @@ catalogs:
       specifier: ^2.3.1
       version: 2.3.1
     openai:
-      specifier: ^5.20.1
-      version: 5.20.1
+      specifier: ^6.2.0
+      version: 6.2.0
     pg:
       specifier: ^8.16.3
       version: 8.16.3
@@ -465,7 +465,7 @@ importers:
         version: 2.3.1(@tiptap/core@2.24.2(@tiptap/pm@2.24.2))(@tiptap/extension-code-block@2.24.2(@tiptap/core@2.24.2(@tiptap/pm@2.24.2))(@tiptap/pm@2.24.2))(highlight.js@11.11.1)(magicast@0.3.5)(vue@3.5.21(typescript@5.9.2))
       openai:
         specifier: 'catalog:'
-        version: 5.20.1(ws@8.18.3)(zod@3.25.76)
+        version: 6.2.0(ws@8.18.3)(zod@3.25.76)
       pinia:
         specifier: 'catalog:'
         version: 3.0.3(typescript@5.9.2)(vue@3.5.21(typescript@5.9.2))
@@ -2900,6 +2900,7 @@ packages:
 
   '@telegram-apps/sdk-vue@2.0.31':
     resolution: {integrity: sha512-aRfpfTTbBRfTf2Y3voR+jd22ZqvQV2SbrCJ8MDRON+xB05D3fU6WeBdvKrkptqF1T9ni1ythk3FGjf0z/dvQcg==}
+    deprecated: The package is unsupported anymore. Use @tma.js/sdk-vue instead
     peerDependencies:
       vue: ^3.0.0
 
@@ -6594,6 +6595,18 @@ packages:
     peerDependencies:
       ws: ^8.18.0
       zod: ^3.23.8
+    peerDependenciesMeta:
+      ws:
+        optional: true
+      zod:
+        optional: true
+
+  openai@6.2.0:
+    resolution: {integrity: sha512-qqjzHls7F5xkXNGy9P1Ei1rorI5LWupUUFWP66zPU8FlZbiITX8SFcHMKNZg/NATJ0LpIZcMUFxSwQmdeQPwSw==}
+    hasBin: true
+    peerDependencies:
+      ws: ^8.18.0
+      zod: ^3.25 || ^4.0
     peerDependenciesMeta:
       ws:
         optional: true
@@ -15264,6 +15277,11 @@ snapshots:
       is-wsl: 2.2.0
 
   openai@5.20.1(ws@8.18.3)(zod@3.25.76):
+    optionalDependencies:
+      ws: 8.18.3
+      zod: 3.25.76
+
+  openai@6.2.0(ws@8.18.3)(zod@3.25.76):
     optionalDependencies:
       ws: 8.18.3
       zod: 3.25.76
