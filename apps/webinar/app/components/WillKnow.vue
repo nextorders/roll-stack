@@ -11,7 +11,7 @@
   >
     <div
       class="w-full h-fit aspect-square min-h-56 text-muted bg-cover rounded-lg"
-      :class="{ 'motion-preset-slide-left': isVisible }"
+      :class="{ 'motion-preset-slide-left motion-preset-pop motion-duration-2000': isVisible }"
       style="background-image: url('/bg-know.png');"
     />
   </UPageSection>
@@ -57,7 +57,9 @@ const secondSectionItems = [
 ]
 
 const target = useTemplateRef<HTMLDivElement>('target')
-const targetIsVisible = useElementVisibility(target)
+const targetIsVisible = useElementVisibility(target, {
+  rootMargin: '0px 0px -100px 0px',
+})
 
 const isVisible = ref(false)
 watch(targetIsVisible, () => {
