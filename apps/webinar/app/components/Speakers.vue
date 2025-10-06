@@ -1,12 +1,12 @@
 <template>
   <UPageSection
     id="speakers"
-    title="Спикеры и участники"
-    headline="Наши специалисты"
+    title="Спикеры вебинара"
+    description="Руководитель и топ-менеджеры компании “Суши Love”"
     orientation="vertical"
     :ui="{
       title: 'text-center',
-      headline: 'py-2 px-4 mx-auto w-fit bg-secondary text-white rounded-md motion-preset-stretch-sm',
+      description: 'text-lg sm:text-2xl/8 text-muted text-pretty',
     }"
   >
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">

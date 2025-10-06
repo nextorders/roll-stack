@@ -1,8 +1,13 @@
 <template>
   <UContainer class="mt-4 md:mt-6 flex flex-row gap-2 items-center justify-between">
-    <Logo />
-
-    <UNavigationMenu :items="items" class="hidden md:flex" />
+    <UNavigationMenu
+      :items="items"
+      class="hidden md:flex"
+      :ui="{
+        item: 'mr-2',
+        link: '!text-xl',
+      }"
+    />
 
     <SocialButtons />
   </UContainer>
