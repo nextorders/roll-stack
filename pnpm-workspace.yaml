@@ -4,8 +4,8 @@ packages:
 
 catalog:
   '@antfu/eslint-config': ^5.4.1
-  '@commitlint/cli': ^19.8.1
-  '@commitlint/config-conventional': ^19.8.1
+  '@commitlint/cli': ^20.1.0
+  '@commitlint/config-conventional': ^20.0.0
   '@date-fns/tz': ^1.4.1
   '@iconify-json/circle-flags': ^1.2.8
   '@iconify-json/fluent': ^1.2.31
