@@ -1,5 +1,9 @@
 <template>
-  <div class="flex flex-col gap-3.5 motion-preset-slide-up">
+  <div
+    ref="target"
+    class="flex flex-col gap-3.5"
+    :class="{ 'motion-preset-slide-up motion-duration-2000': isVisible }"
+  >
     <div class="shrink-0 relative w-full h-auto aspect-square">
       <div class="w-full h-full bg-secondary mask-[url(/heart-fill.svg)] mask-origin-fill mask-cover mask-center -rotate-4" />
       <div
@@ -24,4 +28,16 @@
 
 <script setup lang="ts">
 defineProps<{ speaker: { name: string, caption: string, description: string, image: string } }>()
+
+const target = useTemplateRef<HTMLDivElement>('target')
+const targetIsVisible = useElementVisibility(target)
+
+const isVisible = ref(false)
+watch(targetIsVisible, () => {
+  if (!targetIsVisible.value) {
+    return
+  }
+
+  isVisible.value = targetIsVisible.value
+})
 </script>

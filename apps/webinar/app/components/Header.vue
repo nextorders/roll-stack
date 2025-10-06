@@ -2,10 +2,11 @@
   <UContainer class="mt-4 md:mt-6 flex flex-row gap-2 items-center justify-between">
     <UNavigationMenu
       :items="items"
+      variant="link"
       class="hidden md:flex"
       :ui="{
-        item: 'mr-2',
-        link: '!text-xl',
+        item: 'mr-3',
+        link: '!text-xl text-primary hover:text-secondary pl-0.5',
       }"
     />
 

@@ -42,7 +42,7 @@
       </UButton>
 
       <div class="mt-2 max-w-120 flex flex-row gap-3.5 items-center">
-        <UIcon name="i-lucide-gift" class="shrink-0 size-12 text-secondary motion-preset-wobble-sm" />
+        <UIcon name="i-lucide-gift" class="shrink-0 size-12 text-secondary motion-preset-pulse motion-duration-2000" />
         <p class="text-base/5">
           Сразу <span class="font-bold">после регистрации получи</span> гайд по документообороту открытия своего заведения
         </p>
