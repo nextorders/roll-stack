@@ -37,7 +37,7 @@
         Посмотрели
       </h3>
 
-      <div class="flex flex-row gap-2">
+      <div class="flex flex-row flex-wrap gap-1">
         <UAvatar
           v-for="view in item?.views"
           :key="view.id"
@@ -61,16 +61,26 @@
         </UBadge>
       </div>
 
-      <UButton
-        variant="solid"
-        color="secondary"
-        size="xl"
-        block
-        class="items-center justify-center"
-        icon="i-lucide-message-circle"
-        label="Написать сообщение"
-        @click="vibrate()"
-      />
+      <UDrawer v-model:open="isDrawerOpened">
+        <UButton
+          variant="solid"
+          color="secondary"
+          size="xl"
+          block
+          class="items-center justify-center"
+          icon="i-lucide-message-circle"
+          label="Написать сообщение"
+          @click="vibrate()"
+        />
+
+        <template #body>
+          <FormCreateFlowItemComment
+            :item-id="item?.id ?? ''"
+            @submitted="isDrawerOpened = false"
+            @success="isDrawerOpened = false"
+          />
+        </template>
+      </UDrawer>
 
       <div v-if="item?.comments.length" class="w-full flex flex-col gap-3.5 flex-1 last-of-type:mb-20">
         <FlowItemComment
@@ -95,6 +105,8 @@ definePageMeta({
 
 const { params } = useRoute('flow-itemId')
 const { vibrate } = useFeedback()
+
+const isDrawerOpened = ref(false)
 
 const userStore = useUserStore()
 const flowStore = useFlowStore()
