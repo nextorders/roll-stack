@@ -3,7 +3,7 @@
     id="hero"
     orientation="horizontal"
     :ui="{
-      container: 'lg:pt-24',
+      container: 'pt-0 lg:pt-24',
       body: 'flex flex-col gap-3.5',
     }"
   >
