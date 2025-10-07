@@ -2,13 +2,13 @@
   <ActiveCard>
     <div class="flex flex-row gap-2 items-center">
       <UAvatar
-        v-if="item.userId"
+        v-if="item.userId && item.type === 'user_post'"
         :src="userAvatarUrl"
         class="size-8"
       />
       <UIcon
         v-else
-        name="i-lucide-clipboard-check"
+        :name="getIconName(item.type)"
         class="size-8 text-primary"
       />
 
@@ -59,4 +59,18 @@ const { item } = defineProps<{
 const userStore = useUserStore()
 const isViewed = computed(() => item.views.some((view) => view.userId === userStore?.id))
 const userAvatarUrl = computed(() => userStore.users.find((user) => user.id === item.userId)?.avatarUrl ?? undefined)
+
+function getIconName(type: FlowItemWithData['type']): string {
+  switch (type) {
+    case 'user_post':
+      return 'i-lucide-square-user-round'
+    case 'partner_maintenance':
+      return 'i-lucide-user'
+    case 'daily_task_report':
+    case 'weekly_task_report':
+      return 'i-lucide-clipboard-check'
+    default:
+      return 'i-lucide-clipboard'
+  }
+}
 </script>

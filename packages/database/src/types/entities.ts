@@ -31,7 +31,10 @@ export type TimeZone = '+00:00'
   | '+11:00'
   | '+12:00'
 
-export type FlowItemType = 'daily_task_report' | 'weekly_task_report' | 'user_post' | 'task_list'
+export type FlowItemType = 'daily_task_report'
+  | 'weekly_task_report'
+  | 'user_post'
+  | 'partner_maintenance'
 
 export type PermissionCode = 'product:view'
   | 'product:edit'
