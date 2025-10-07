@@ -19,7 +19,7 @@ const reviews = ref([{
     name: 'Сергей',
     description: 'Одинцово',
     avatar: {
-      src: 'https://avatar.nextorders.ru/637024?emotion=8&gender=male&clothing=teal',
+      src: '/review-1.jpg',
       alt: '',
     },
   },
@@ -29,7 +29,7 @@ const reviews = ref([{
     name: 'Надежда',
     description: 'Зеленоградск',
     avatar: {
-      src: 'https://avatar.nextorders.ru/219743?emotion=7&gender=female&clothing=violet',
+      src: '/review-2.jpg',
       alt: '',
     },
   },
@@ -39,7 +39,7 @@ const reviews = ref([{
     name: 'Екатерина',
     description: 'Гурьевск',
     avatar: {
-      src: 'https://avatar.nextorders.ru/108633?emotion=9&gender=female&clothing=green',
+      src: '/review-3.jpg',
       alt: '',
     },
   },

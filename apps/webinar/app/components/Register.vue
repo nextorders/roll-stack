@@ -26,12 +26,12 @@
               <UIcon name="i-lucide-calendar" class="size-8 text-secondary" /> 30 октября 2025
             </h3>
             <h3 class="flex flex-row gap-2 items-center text-xl font-bold">
-              <UIcon name="i-lucide-clock" class="size-8 text-secondary" /> 12:00-13:30 (МСК)
+              <UIcon name="i-lucide-clock" class="size-8 text-secondary" /> 13:00-14:30 (МСК)
             </h3>
           </div>
 
           <UButton
-            to="https://t.me/sign_up_for_webinars_bot"
+            to="https://watbot.ru/w/uic1"
             target="_blank"
             variant="solid"
             color="secondary"

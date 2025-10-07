@@ -8,7 +8,11 @@
   >
     <template #body>
       <div class="flex flex-row gap-4 items-center">
-        <UAvatar :src="review.user.avatar.src" class="size-20" />
+        <img
+          :src="review.user.avatar.src"
+          alt=""
+          class="size-20 rounded-full"
+        >
         <div>
           <h3 class="text-2xl/7 font-semibold text-primary">
             {{ review.user.name }}

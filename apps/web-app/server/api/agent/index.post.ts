@@ -41,7 +41,7 @@ export default defineEventHandler(async (event) => {
     const agent = new Agent({
       name: 'Дата агент сети доставок "Суши Love"',
       instructions: 'У тебя есть доступ к данным партнеров сети. Отвечай всегда на русском в мужском роде.',
-      model: new OpenAIChatCompletionsModel(client, ai.model),
+      model: new OpenAIChatCompletionsModel(client as any, ai.model),
       tools: [
         getPartnersByCityTool,
         getPartnersBySurnameTool,
