@@ -6,7 +6,7 @@
     orientation="horizontal"
     :features="secondSectionItems"
     :ui="{
-      container: 'lg:pt-0',
+      container: 'pt-0 lg:pt-0',
     }"
   >
     <div

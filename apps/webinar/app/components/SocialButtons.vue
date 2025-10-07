@@ -4,6 +4,7 @@
       v-for="item in items"
       :key="item.to"
       :to="item.to"
+      target="_blank"
       size="xl"
       color="neutral"
       variant="ghost"
@@ -15,7 +16,7 @@
 <script setup lang="ts">
 const items = ref([
   {
-    to: 'https://t.me/SLFranchiseBot',
+    to: 'https://t.me/franshizasushi',
     icon: 'simple-icons:telegram',
   },
   {

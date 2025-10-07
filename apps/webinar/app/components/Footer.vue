@@ -35,6 +35,7 @@
 const items = ref([
   {
     to: 'mailto:franshiza@sushi-love.com',
+    target: '_blank',
     label: 'franshiza@sushi-love.com',
     icon: 'i-lucide-mail',
   },
