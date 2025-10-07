@@ -24,7 +24,7 @@ const { vibrate } = useFeedback()
 
 const items = ref([
   {
-    label: 'Реестр договоров',
+    label: 'Договоры',
     to: '/agreement',
     icon: 'i-lucide-list-checks',
     onClick: () => vibrate(),

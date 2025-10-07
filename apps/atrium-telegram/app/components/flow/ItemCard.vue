@@ -27,7 +27,7 @@
       {{ item.title }}
     </h3>
 
-    <div class="w-full text-base/5 font-normal whitespace-pre-wrap break-words line-clamp-12">
+    <div class="w-full text-base/5 font-normal whitespace-pre-wrap break-words line-clamp-8">
       {{ item.description }}
     </div>
 

@@ -1,4 +1,4 @@
-import type { UserGender } from '@roll-stack/database'
+import type { AgreementPatentStatus, UserGender } from '@roll-stack/database'
 import type { Resolution } from '../services/task'
 
 export function pluralizationRu(int: number, array: [string, string, string]): string {
@@ -44,4 +44,19 @@ export function getResolutionForSelect(): { value: Resolution, label: string, ic
     { value: 'failure', label: 'Не выполнена', icon: 'i-lucide-circle-x' },
     { value: 'unknown', label: 'Не ясно, есть вопросы', icon: 'i-lucide-circle-help' },
   ]
+}
+
+export function getPatentStatus(status: AgreementPatentStatus): string {
+  switch (status) {
+    case 'not_paid':
+      return 'Не оплачен'
+    case 'in_work':
+      return 'В работе'
+    case 'on_registration':
+      return 'На регистрации'
+    case 'registered':
+      return 'Зарегистрирован'
+    default:
+      return ''
+  }
 }
