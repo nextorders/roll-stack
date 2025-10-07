@@ -34,8 +34,8 @@
 <script setup lang="ts">
 const items = ref([
   {
-    to: 'mailto:test@sushi-love.ru',
-    label: 'test@sushi-love.ru',
+    to: 'mailto:franshiza@sushi-love.com',
+    label: 'franshiza@sushi-love.com',
     icon: 'i-lucide-mail',
   },
   {

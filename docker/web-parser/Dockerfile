@@ -1,11 +1,11 @@
-FROM node:22.18.0-slim AS base
+FROM node:22.20.0-slim AS base
 ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 ENV PLAYWRIGHT_BROWSERS_PATH=/opt/ms-playwright
 
 # Builder stage
 FROM base AS builder
 WORKDIR /app
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY packages/database ./packages/database
 COPY apps/web-parser ./apps/web-parser
 RUN npm install --ignore-scripts -g pnpm && \

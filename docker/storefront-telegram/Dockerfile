@@ -1,10 +1,10 @@
-FROM node:22.18.0-alpine AS base
+FROM node:22.20.0-alpine AS base
 ENV NODE_OPTIONS="--max_old_space_size=4096"
 
 # Builder stage
 FROM base AS builder
 WORKDIR /app
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY packages ./packages
 COPY apps/storefront-telegram ./apps/storefront-telegram
 RUN npm install --ignore-scripts -g pnpm && \

@@ -23,7 +23,7 @@
             <CountdownTimer />
 
             <UButton
-              to="https://t.me/sign_up_for_webinars_bot"
+              to="https://watbot.ru/w/uic1"
               target="_blank"
               variant="solid"
               color="secondary"
