@@ -4,13 +4,37 @@
       <SectionTitle title="Договоры" />
       <UBadge
         v-if="filteredAgreements.length"
-        size="sm"
+        size="md"
         color="primary"
-        variant="soft"
-        class="min-w-6 justify-center"
-      >
-        {{ filteredAgreements.length }}
-      </UBadge>
+        variant="subtle"
+        :label="filteredAgreements.length"
+        class="min-w-8 justify-center"
+      />
+    </div>
+
+    <div class="grid grid-cols-1 gap-2.5 items-center">
+      <USelect
+        v-model="sortedBy"
+        size="xl"
+        trailing-icon="i-lucide-arrow-down-wide-narrow"
+        :items="[
+          { label: 'По дате заключения (убывание)', value: 'concludedAtDesc' },
+          { label: 'По дате заключения (возрастание)', value: 'concludedAtAsc' },
+          { label: 'По дате окончания (убывание)', value: 'willEndAtDesc' },
+          { label: 'По дате окончания (возрастание)', value: 'willEndAtAsc' },
+        ]"
+      />
+
+      <USelect
+        v-model="filteredBy"
+        size="xl"
+        trailing-icon="i-lucide-funnel"
+        :items="[
+          { label: 'Все', value: 'all' },
+          { label: 'Только активные', value: 'active' },
+          { label: 'Скоро окончатся (6 месяцев) ', value: 'willEndSoon' },
+        ]"
+      />
     </div>
 
     <div class="flex flex-col gap-2.5">
@@ -31,5 +55,79 @@
 <script setup lang="ts">
 const partnerStore = usePartnerStore()
 
-const filteredAgreements = computed(() => partnerStore.agreements.toSorted((a, b) => new Date(b.concludedAt ?? '').getTime() - new Date(a.concludedAt ?? '').getTime()))
+const sortedBy = ref<'concludedAtDesc' | 'concludedAtAsc' | 'willEndAtDesc' | 'willEndAtAsc'>('concludedAtDesc')
+
+function sortByConcludedAtDesc(a: PartnerAgreementWithAllData, b: PartnerAgreementWithAllData) {
+  const aTime = a.concludedAt ? new Date(a.concludedAt).getTime() : 0
+  const bTime = b.concludedAt ? new Date(b.concludedAt).getTime() : 0
+  return bTime - aTime
+}
+
+function sortByConcludedAtAsc(a: PartnerAgreementWithAllData, b: PartnerAgreementWithAllData) {
+  const aTime = a.concludedAt ? new Date(a.concludedAt).getTime() : 0
+  const bTime = b.concludedAt ? new Date(b.concludedAt).getTime() : 0
+  return aTime - bTime
+}
+
+function sortByWillEndAtDesc(a: PartnerAgreementWithAllData, b: PartnerAgreementWithAllData) {
+  const aTime = a.willEndAt ? new Date(a.willEndAt).getTime() : 0
+  const bTime = b.willEndAt ? new Date(b.willEndAt).getTime() : 0
+  return bTime - aTime
+}
+
+function sortByWillEndAtAsc(a: PartnerAgreementWithAllData, b: PartnerAgreementWithAllData) {
+  const aTime = a.willEndAt ? new Date(a.willEndAt).getTime() : 0
+  const bTime = b.willEndAt ? new Date(b.willEndAt).getTime() : 0
+  return aTime - bTime
+}
+
+function chooseSortFunction() {
+  switch (sortedBy.value) {
+    case 'concludedAtDesc':
+      return sortByConcludedAtDesc
+    case 'concludedAtAsc':
+      return sortByConcludedAtAsc
+    case 'willEndAtDesc':
+      return sortByWillEndAtDesc
+    case 'willEndAtAsc':
+      return sortByWillEndAtAsc
+  }
+}
+
+const filteredBy = ref<'all' | 'active' | 'willEndSoon'>('all')
+
+function filterByAll() {
+  return true
+}
+
+function filterByActive(agreement: PartnerAgreementWithAllData) {
+  return agreement.concludedAt && agreement.isActive
+}
+
+function filterByWillEndSoon(agreement: PartnerAgreementWithAllData) {
+  const SIX_MONTHS = 6 * 30 * 24 * 60 * 60 * 1000
+  return (
+    agreement.isActive
+    && agreement.willEndAt
+    && new Date(agreement.willEndAt).getTime() - new Date().getTime() < SIX_MONTHS
+  )
+}
+
+function chooseFilterFunction() {
+  switch (filteredBy.value) {
+    case 'all':
+      return filterByAll
+    case 'active':
+      return filterByActive
+    case 'willEndSoon':
+      return filterByWillEndSoon
+  }
+}
+
+const filteredAgreements = computed(() => {
+  const sorted = partnerStore.agreements.toSorted(chooseSortFunction())
+  const filtered = sorted.filter(chooseFilterFunction())
+
+  return filtered
+})
 </script>

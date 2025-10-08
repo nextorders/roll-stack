@@ -52,13 +52,12 @@
         <SectionTitle title="Комментарии" />
         <UBadge
           v-if="item?.comments.length"
-          size="sm"
+          size="md"
           color="primary"
-          variant="soft"
-          class="min-w-6 justify-center"
-        >
-          {{ item?.comments.length }}
-        </UBadge>
+          variant="subtle"
+          :label="item.comments.length"
+          class="min-w-8 justify-center"
+        />
       </div>
 
       <UDrawer v-model:open="isDrawerOpened">

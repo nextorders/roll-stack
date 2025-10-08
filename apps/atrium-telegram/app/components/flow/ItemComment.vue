@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-row gap-2 items-start">
-    <div class="mt-2.5">
+    <div class="mt-3">
       <UAvatar :src="user?.avatarUrl ?? undefined" />
     </div>
     <div class="w-full flex flex-col gap-1.5">
@@ -15,15 +15,13 @@
         }"
       >
         <ActiveCard>
-          <div class="w-full relative flex flex-col justify-between gap-2">
-            <div class="flex flex-col gap-1">
-              <div class="text-base/5 whitespace-break-spaces text-default font-medium">
-                {{ comment?.text }}
-              </div>
+          <div class="w-full relative flex flex-col gap-1">
+            <div class="text-base/5 whitespace-break-spaces text-default font-medium">
+              {{ comment?.text }}
+            </div>
 
-              <div v-if="comment?.createdAt" class="mt-1 flex justify-end text-xs text-muted">
-                {{ format(new Date(comment.createdAt), 'dd MMMM в HH:mm', { locale: ru }) }}
-              </div>
+            <div v-if="comment?.createdAt" class="mt-1 flex justify-end text-xs text-muted">
+              {{ format(new Date(comment.createdAt), 'dd MMMM в HH:mm', { locale: ru }) }}
             </div>
           </div>
         </ActiveCard>
