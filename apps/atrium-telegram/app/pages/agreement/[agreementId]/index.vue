@@ -39,7 +39,7 @@
           Роялти: {{ agreement.royalty }}%, минимум {{ agreement.minRoyaltyPerMonth }} ₽
         </div>
 
-        <div v-if="agreement?.royalty" class="w-full text-base/5 font-normal">
+        <div v-if="agreement?.patentStatus" class="w-full text-base/5 font-normal">
           Роспатент: {{ getPatentStatus(agreement.patentStatus) }}
         </div>
       </div>

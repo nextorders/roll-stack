@@ -58,19 +58,27 @@ const partnerStore = usePartnerStore()
 const sortedBy = ref<'concludedAtDesc' | 'concludedAtAsc' | 'willEndAtDesc' | 'willEndAtAsc'>('concludedAtDesc')
 
 function sortByConcludedAtDesc(a: PartnerAgreementWithAllData, b: PartnerAgreementWithAllData) {
-  return new Date(b.concludedAt ?? '').getTime() - new Date(a.concludedAt ?? '').getTime()
+  const aTime = a.concludedAt ? new Date(a.concludedAt).getTime() : 0
+  const bTime = b.concludedAt ? new Date(b.concludedAt).getTime() : 0
+  return bTime - aTime
 }
 
 function sortByConcludedAtAsc(a: PartnerAgreementWithAllData, b: PartnerAgreementWithAllData) {
-  return new Date(a.concludedAt ?? '').getTime() - new Date(b.concludedAt ?? '').getTime()
+  const aTime = a.concludedAt ? new Date(a.concludedAt).getTime() : 0
+  const bTime = b.concludedAt ? new Date(b.concludedAt).getTime() : 0
+  return aTime - bTime
 }
 
 function sortByWillEndAtDesc(a: PartnerAgreementWithAllData, b: PartnerAgreementWithAllData) {
-  return new Date(b.willEndAt ?? '').getTime() - new Date(a.willEndAt ?? '').getTime()
+  const aTime = a.willEndAt ? new Date(a.willEndAt).getTime() : 0
+  const bTime = b.willEndAt ? new Date(b.willEndAt).getTime() : 0
+  return bTime - aTime
 }
 
 function sortByWillEndAtAsc(a: PartnerAgreementWithAllData, b: PartnerAgreementWithAllData) {
-  return new Date(a.willEndAt ?? '').getTime() - new Date(b.willEndAt ?? '').getTime()
+  const aTime = a.willEndAt ? new Date(a.willEndAt).getTime() : 0
+  const bTime = b.willEndAt ? new Date(b.willEndAt).getTime() : 0
+  return aTime - bTime
 }
 
 function chooseSortFunction() {
