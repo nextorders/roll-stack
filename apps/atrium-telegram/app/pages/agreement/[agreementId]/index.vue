@@ -48,6 +48,34 @@
         {{ agreement.comment }}
       </div>
     </Section>
+
+    <div v-if="agreement?.files.length" class="flex flex-col gap-2.5">
+      <div class="flex flex-row justify-between items-center">
+        <SectionTitle title="Загруженные файлы" />
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <NuxtLink
+          v-for="file of agreement.files"
+          :key="file.id"
+          :to="file.url"
+          target="_blank"
+        >
+          <ActiveCard>
+            <div class="flex flex-row gap-2 items-start">
+              <UIcon
+                name="i-lucide-file"
+                class="shrink-0 size-8 text-primary"
+              />
+
+              <p class="text-base/5 font-semibold">
+                {{ file.name }}
+              </p>
+            </div>
+          </ActiveCard>
+        </NuxtLink>
+      </div>
+    </div>
   </PageContainer>
 </template>
 
