@@ -5,7 +5,7 @@
 
       <div v-if="agreement.isActive" class="flex flex-row items-center gap-1.5 text-primary">
         <UIcon
-          name="i-lucide-book-check"
+          name="i-lucide-bookmark-check"
           class="size-8"
         />
         <p class="max-w-22 text-sm/4 font-bold">
@@ -32,16 +32,6 @@
       </div>
     </div>
 
-    <div>
-      <div v-if="agreement.royalty" class="w-full text-base/5 font-normal">
-        Роялти: {{ agreement.royalty }}%, минимум {{ agreement.minRoyaltyPerMonth }} ₽
-      </div>
-
-      <div v-if="agreement.royalty" class="w-full text-base/5 font-normal">
-        Роспатент: {{ getPatentStatus(agreement.patentStatus) }}
-      </div>
-    </div>
-
     <div v-if="agreement.comment" class="w-full text-base/5 text-muted font-normal whitespace-pre-wrap break-words line-clamp-5">
       {{ agreement.comment }}
     </div>
@@ -65,7 +55,6 @@
 
 <script setup lang="ts">
 import type { PartnerAgreementWithAllData } from '~/stores/partner'
-import { getPatentStatus } from '#shared/utils/helpers'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale/ru'
 

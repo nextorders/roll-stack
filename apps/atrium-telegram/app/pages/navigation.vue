@@ -1,17 +1,17 @@
 <template>
   <PageContainer>
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2.5">
       <UButton
         v-for="item in items"
         :key="item.label"
         size="xl"
-        color="neutral"
-        variant="ghost"
+        color="secondary"
+        variant="soft"
         :label="item.label"
         :to="item.to"
         :icon="item.icon"
         :ui="{
-          base: 'px-0 pt-0 text-2xl/6 font-bold',
+          base: 'text-2xl/6 font-bold',
         }"
         @click="item.onClick"
       />
