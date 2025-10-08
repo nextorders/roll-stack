@@ -18,7 +18,7 @@
         size="xl"
         trailing-icon="i-lucide-arrow-down-wide-narrow"
         :ui="{
-          base: 'rounded-lg ring-0',
+          base: 'rounded-lg font-bold ring-0',
         }"
         :items="[
           { label: 'По дате заключения (убывание)', value: 'concludedAtDesc' },
@@ -34,7 +34,7 @@
         size="xl"
         trailing-icon="i-lucide-funnel"
         :ui="{
-          base: 'rounded-lg ring-0',
+          base: 'rounded-lg font-bold ring-0',
         }"
         :items="[
           { label: 'Все', value: 'all' },
