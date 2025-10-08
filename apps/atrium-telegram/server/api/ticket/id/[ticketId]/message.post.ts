@@ -1,6 +1,7 @@
+import type { TicketMessageCreated } from '@roll-stack/essence'
 import { createTicketMessageSchema } from '#shared/services/ticket'
 import { db } from '@roll-stack/database'
-import { queue } from '@roll-stack/essence'
+import { Events, queue } from '@roll-stack/essence'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -39,8 +40,8 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    // Event
-    await queue.ticket.messageCreated({
+    // Push Event
+    await queue.publish<TicketMessageCreated>(Events.ticketMessageCreated, {
       ticketId: message.ticketId,
       ticketOwnerId: ticket.userId,
       messageId: message.id,

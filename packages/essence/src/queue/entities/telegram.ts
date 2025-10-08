@@ -7,8 +7,8 @@ export class Telegram extends Entity {
     super({
       name: 'telegram',
       eventsToConsume: [
-        Events.TICKET_MESSAGE_CREATED,
-        Events.NOTIFICATION_USER_BEACON_ON_EPIC_COMMENT_CREATED,
+        Events.ticketMessageCreated,
+        Events.notificationUserBeaconOnEpicCommentCreated,
       ],
       repository,
     })

@@ -21,5 +21,11 @@ useHead({
     lang,
     dir,
   },
+  script: [
+    {
+      type: 'text/javascript',
+      src: '/vk-pixel.min.js',
+    },
+  ],
 })
 </script>

@@ -1,14 +1,19 @@
-import type { BaseEventMessage } from '@nextorders/queue'
+import type { BaseEventMessage, Status } from '@nextorders/queue'
 
 export enum Events {
-  TICKET_MESSAGE_CREATED = 'ticketMessageCreated',
-  NOTIFICATION_USER_BEACON_ON_EPIC_COMMENT_CREATED = 'notificationUserBeaconOnEpicCommentCreated',
+  ticketMessageCreated = 'ticketMessageCreated',
+  notificationUserBeaconOnEpicCommentCreated = 'notificationUserBeaconOnEpicCommentCreated',
 }
 
-export type EventMessage = BaseEventMessage<Events>
+export type EventMessage = TicketMessageCreated | NotificationUserBeaconOnEpicCommentCreated
 
-export interface TicketMessageCreated extends EventMessage {
-  type: typeof Events.TICKET_MESSAGE_CREATED
+export type EventHandler = (msg: EventMessage) => Promise<Status>
+export type EventMessageHandler<T = EventMessage['data']> = (data: T) => Promise<boolean>
+
+export type EventHandlerMap = Record<EventMessage['event'], EventMessageHandler>
+
+export interface TicketMessageCreated extends BaseEventMessage {
+  type: typeof Events.ticketMessageCreated
   data: {
     ticketId: string
     ticketOwnerId: string
@@ -20,8 +25,8 @@ export interface TicketMessageCreated extends EventMessage {
   }
 }
 
-export interface NotificationUserBeaconOnEpicCommentCreated extends EventMessage {
-  type: typeof Events.NOTIFICATION_USER_BEACON_ON_EPIC_COMMENT_CREATED
+export interface NotificationUserBeaconOnEpicCommentCreated extends BaseEventMessage {
+  type: typeof Events.notificationUserBeaconOnEpicCommentCreated
   data: {
     userId: string
     senderName: string
