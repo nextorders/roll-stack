@@ -17,23 +17,32 @@
         v-model="sortedBy"
         size="xl"
         trailing-icon="i-lucide-arrow-down-wide-narrow"
+        :ui="{
+          base: 'rounded-lg ring-0',
+        }"
         :items="[
           { label: 'По дате заключения (убывание)', value: 'concludedAtDesc' },
           { label: 'По дате заключения (возрастание)', value: 'concludedAtAsc' },
           { label: 'По дате окончания (убывание)', value: 'willEndAtDesc' },
           { label: 'По дате окончания (возрастание)', value: 'willEndAtAsc' },
         ]"
+        class="motion-preset-slide-down"
       />
 
       <USelect
         v-model="filteredBy"
         size="xl"
         trailing-icon="i-lucide-funnel"
+        :ui="{
+          base: 'rounded-lg ring-0',
+        }"
         :items="[
           { label: 'Все', value: 'all' },
           { label: 'Только активные', value: 'active' },
+          { label: 'Только неактивные', value: 'inactive' },
           { label: 'Скоро окончатся (6 месяцев) ', value: 'willEndSoon' },
         ]"
+        class="motion-preset-slide-up"
       />
     </div>
 
@@ -94,7 +103,7 @@ function chooseSortFunction() {
   }
 }
 
-const filteredBy = ref<'all' | 'active' | 'willEndSoon'>('all')
+const filteredBy = ref<'all' | 'active' | 'inactive' | 'willEndSoon'>('all')
 
 function filterByAll() {
   return true
@@ -102,6 +111,10 @@ function filterByAll() {
 
 function filterByActive(agreement: PartnerAgreementWithAllData) {
   return agreement.concludedAt && agreement.isActive
+}
+
+function filterByInactive(agreement: PartnerAgreementWithAllData) {
+  return !agreement.concludedAt || !agreement.isActive
 }
 
 function filterByWillEndSoon(agreement: PartnerAgreementWithAllData) {
@@ -119,6 +132,8 @@ function chooseFilterFunction() {
       return filterByAll
     case 'active':
       return filterByActive
+    case 'inactive':
+      return filterByInactive
     case 'willEndSoon':
       return filterByWillEndSoon
   }

@@ -1,20 +1,19 @@
 <template>
   <PageContainer>
-    <div class="flex flex-col gap-2.5">
-      <UButton
+    <div class="flex flex-col gap-2.5 motion-preset-slide-left">
+      <NuxtLink
         v-for="item in items"
         :key="item.label"
-        size="xl"
-        color="secondary"
-        variant="soft"
-        :label="item.label"
         :to="item.to"
-        :icon="item.icon"
-        :ui="{
-          base: 'text-2xl/6 font-bold',
-        }"
         @click="item.onClick"
-      />
+      >
+        <ActiveCard>
+          <div class="text-2xl/6 font-bold flex flex-row gap-2 items-center">
+            <UIcon :name="item.icon" />
+            {{ item.label }}
+          </div>
+        </ActiveCard>
+      </NuxtLink>
     </div>
   </PageContainer>
 </template>
