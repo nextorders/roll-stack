@@ -1,6 +1,7 @@
+import type { NotificationUserBeaconOnEpicCommentCreated } from '@roll-stack/essence'
 import { createBeaconSchema } from '#shared/services/notification'
 import { db } from '@roll-stack/database'
-import { queue } from '@roll-stack/essence'
+import { Events, queue } from '@roll-stack/essence'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
@@ -50,8 +51,8 @@ export default defineEventHandler(async (event) => {
         description,
       })
 
-      // Queue
-      await queue.notification.userBeaconOnEpicCommentCreated({
+      // Push Event
+      await queue.publish<NotificationUserBeaconOnEpicCommentCreated>(Events.notificationUserBeaconOnEpicCommentCreated, {
         userId,
         senderName: sender.name,
         senderSurname: sender.surname,
