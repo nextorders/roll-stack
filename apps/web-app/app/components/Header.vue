@@ -11,7 +11,7 @@
     <div class="flex items-center shrink-0 gap-3">
       <slot />
 
-      <UTooltip text="Уведомления" :shortcuts="['N']">
+      <UTooltip text="Поток">
         <UButton
           color="neutral"
           variant="ghost"
@@ -20,10 +20,14 @@
         >
           <UChip
             color="error"
-            inset
-            :show="haveNotifications"
+            size="3xl"
+            :text="flowStore.nowViewedItemsCount.toString()"
+            :show="flowStore.nowViewedItemsCount > 0"
+            :ui="{
+              base: 'right-0 px-1.5 py-2 ring-2 tg-text-button font-bold motion-translate-y-loop-25 motion-duration-3500',
+            }"
           >
-            <UIcon name="i-lucide-bell" class="size-5 shrink-0" />
+            <UIcon name="i-lucide-waves" class="size-5 shrink-0" />
           </UChip>
         </UButton>
       </UTooltip>
@@ -44,6 +48,5 @@ defineProps<{ title: string }>()
 
 const { isNotificationsOpened } = useApp()
 
-const notificationStore = useNotificationStore()
-const haveNotifications = computed(() => notificationStore.notifications.filter((notification) => !notification.viewedAt).length > 0)
+const flowStore = useFlowStore()
 </script>

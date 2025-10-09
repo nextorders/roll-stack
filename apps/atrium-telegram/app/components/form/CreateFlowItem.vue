@@ -40,9 +40,9 @@
 </template>
 
 <script setup lang="ts">
-import type { CreateFlowItem } from '#shared/services/flow'
 import type { FormSubmitEvent } from '@nuxt/ui'
-import { createFlowItemSchema } from '#shared/services/flow'
+import type { CreateFlowItem } from '@roll-stack/essence/schema'
+import { createFlowItemSchema } from '@roll-stack/essence/schema'
 
 const emit = defineEmits(['success', 'submitted'])
 

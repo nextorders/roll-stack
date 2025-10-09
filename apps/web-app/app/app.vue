@@ -51,7 +51,7 @@ const notification = useNotificationStore()
 const post = usePostStore()
 const print = usePrintStore()
 const activity = useActivityStore()
-const epic = useEpicStore()
+const flow = useFlowStore()
 const locker = useLockerStore()
 
 await Promise.all([
@@ -77,7 +77,7 @@ onMounted(async () => {
     task.update(),
     ticket.update(),
     notification.update(),
-    epic.update(),
+    flow.update(),
   ])
 
   interval = setInterval(async () => {
@@ -87,7 +87,7 @@ onMounted(async () => {
       task.update(),
       ticket.update(),
       notification.update(),
-      epic.update(),
+      flow.update(),
     ])
   }, 30000)
 })

@@ -30,9 +30,9 @@
 </template>
 
 <script setup lang="ts">
-import type { CreateFlowItemComment } from '#shared/services/flow'
 import type { FormSubmitEvent } from '@nuxt/ui'
-import { createFlowItemCommentSchema } from '#shared/services/flow'
+import type { CreateFlowItemComment } from '@roll-stack/essence/schema'
+import { createFlowItemCommentSchema } from '@roll-stack/essence/schema'
 
 const { itemId } = defineProps<{ itemId: string }>()
 

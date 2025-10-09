@@ -25,11 +25,17 @@
             </div>
           </UCard>
 
-          <NotificationCard
-            v-for="notification in notificationStore.notifications"
-            :key="notification.id"
-            :notification="notification"
-          />
+          <h2 class="pb-2 text-3xl font-bold">
+            Поток
+          </h2>
+
+          <div class="flex flex-col gap-3.5">
+            <FlowItemCard
+              v-for="item in flowStore.items"
+              :key="item.id"
+              :item="item"
+            />
+          </div>
         </div>
       </div>
     </template>
@@ -41,7 +47,7 @@ import { ModalAttachTelegram } from '#components'
 
 const { isNotificationsOpened } = useApp()
 
-const notificationStore = useNotificationStore()
+const flowStore = useFlowStore()
 const userStore = useUserStore()
 
 const atriumBotId = 'lwleg6bka2oo61x5ot6zog6h'
