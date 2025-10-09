@@ -47,7 +47,7 @@
   },
   "resolutions": {
     "@nuxt/cli": "3.28.0",
-    "unimport": "4.1.1"
+    "unimport": "5.4.1"
   },
   "lint-staged": {
     "*.ts": "eslint ."
