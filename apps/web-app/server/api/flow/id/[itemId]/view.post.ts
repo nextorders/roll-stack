@@ -1,6 +1,4 @@
 import { db } from '@roll-stack/database'
-import { createFlowItemCommentSchema } from '@roll-stack/schema'
-import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -12,14 +10,9 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const body = await readBody(event)
-    const data = createFlowItemCommentSchema(body)
-    if (data instanceof type.errors) {
-      throw data
-    }
-
     // Guards:
     // If not exist
+    // If already viewed
     const item = await db.flow.findItem(itemId)
     if (!item) {
       throw createError({
@@ -27,9 +20,14 @@ export default defineEventHandler(async (event) => {
         message: 'Item not found',
       })
     }
+    if (item.views.some((view) => view.userId === event.context.user.id)) {
+      throw createError({
+        statusCode: 400,
+        message: 'Already viewed',
+      })
+    }
 
-    await db.flow.createItemComment({
-      text: data.text,
+    await db.flow.createItemView({
       itemId,
       userId: event.context.user.id,
     })
