@@ -1,6 +1,6 @@
 <template>
   <UBadge
-    v-if="value"
+    v-if="value != null && value > 0"
     size="lg"
     color="primary"
     variant="solid"
