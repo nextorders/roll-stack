@@ -1,50 +1,52 @@
 <template>
   <ActiveCard>
-    <div class="flex flex-row gap-2 items-center">
-      <UAvatar
-        v-if="item.userId && item.type === 'user_post'"
-        :src="userAvatarUrl"
-        class="size-8"
-      />
-      <UIcon
-        v-else
-        :name="getIconName(item.type)"
-        class="size-8 text-primary"
-      />
-
-      <div v-if="!isViewed" class="flex flex-row items-center gap-1.5 text-error">
-        <UIcon
-          name="i-lucide-pointer"
-          class="size-8 motion-translate-y-loop-25 motion-preset-seesaw motion-duration-2000"
+    <Section>
+      <div class="flex flex-row gap-2 items-center">
+        <UAvatar
+          v-if="item.userId && item.type === 'user_post'"
+          :src="userAvatarUrl"
+          class="size-8"
         />
-        <p class="max-w-22 text-sm/4 font-bold">
-          Не просмотрено
-        </p>
-      </div>
-    </div>
+        <UIcon
+          v-else
+          :name="getIconName(item.type)"
+          class="size-8 text-primary"
+        />
 
-    <h3 class="text-xl/5 font-bold">
-      {{ item.title }}
-    </h3>
-
-    <div class="w-full text-base/5 font-normal whitespace-pre-wrap break-words line-clamp-8">
-      {{ item.description }}
-    </div>
-
-    <div class="flex justify-between items-center">
-      <div class="flex flex-row gap-4">
-        <div class="flex flex-row gap-1.5 items-center text-sm text-muted">
-          <UIcon name="i-lucide-message-circle" class="size-5" />
-          <p>{{ item?.comments.length }}</p>
+        <div v-if="!isViewed" class="flex flex-row items-center gap-1.5 text-error">
+          <UIcon
+            name="i-lucide-pointer"
+            class="size-8 motion-translate-y-loop-25 motion-preset-seesaw motion-duration-2000"
+          />
+          <p class="max-w-22 text-sm/4 font-bold">
+            Не просмотрено
+          </p>
         </div>
       </div>
 
-      <time
-        :datetime="item.createdAt"
-        class="text-sm text-muted"
-        v-text="format(new Date(item.createdAt), 'd MMMM yyyy в HH:mm', { locale: ru })"
-      />
-    </div>
+      <h3 class="text-xl/5 font-bold">
+        {{ item.title }}
+      </h3>
+
+      <div class="w-full text-base/5 font-normal whitespace-pre-wrap break-words line-clamp-8">
+        {{ item.description }}
+      </div>
+
+      <div class="flex justify-between items-center">
+        <div class="flex flex-row gap-4">
+          <div class="flex flex-row gap-1.5 items-center text-sm text-muted">
+            <UIcon name="i-lucide-message-circle" class="size-5" />
+            <p>{{ item?.comments.length }}</p>
+          </div>
+        </div>
+
+        <time
+          :datetime="item.createdAt"
+          class="text-sm text-muted"
+          v-text="format(new Date(item.createdAt), 'd MMMM yyyy в HH:mm', { locale: ru })"
+        />
+      </div>
+    </Section>
   </ActiveCard>
 </template>
 

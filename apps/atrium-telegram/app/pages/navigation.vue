@@ -8,10 +8,12 @@
         @click="item.onClick"
       >
         <ActiveCard>
-          <div class="text-2xl/6 font-bold flex flex-row gap-2 items-center">
-            <UIcon :name="item.icon" />
-            {{ item.label }}
-          </div>
+          <Section>
+            <div class="text-2xl/6 font-bold flex flex-row gap-2 items-center">
+              <UIcon :name="item.icon" />
+              {{ item.label }}
+            </div>
+          </Section>
         </ActiveCard>
       </NuxtLink>
     </div>
@@ -23,15 +25,15 @@ const { vibrate } = useFeedback()
 
 const items = ref([
   {
-    label: 'Договоры',
-    to: '/agreement',
-    icon: 'i-lucide-list-checks',
-    onClick: () => vibrate(),
-  },
-  {
     label: 'Партнеры',
     to: '/partner',
     icon: 'i-lucide-users',
+    onClick: () => vibrate(),
+  },
+  {
+    label: 'Договоры',
+    to: '/agreement',
+    icon: 'i-lucide-list-checks',
     onClick: () => vibrate(),
   },
   {

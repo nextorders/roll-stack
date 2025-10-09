@@ -4,9 +4,7 @@
     :class="props.class"
     @click="vibrate()"
   >
-    <Section>
-      <slot />
-    </Section>
+    <slot />
   </button>
 </template>
 

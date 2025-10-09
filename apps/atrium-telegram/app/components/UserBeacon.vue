@@ -23,7 +23,7 @@ const { notification } = defineProps<{
 }>()
 
 const { vibrate } = useFeedback()
-const epicStore = useEpicStore()
+// const epicStore = useEpicStore()
 const notificationStore = useNotificationStore()
 const userStore = useUserStore()
 const user = computed(() => userStore.find(notification.userId))
@@ -37,6 +37,6 @@ async function markAsViewed() {
 
   await notificationStore.markAsViewed(notification.id)
   vibrate('success')
-  epicStore.update()
+  // epicStore.update()
 }
 </script>
