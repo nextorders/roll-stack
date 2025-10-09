@@ -1,19 +1,21 @@
 <template>
   <div class="w-2/3 relative flex flex-col justify-between gap-1.5">
     <ActiveCard>
-      <div class="w-full relative flex flex-col justify-between gap-2">
-        <div class="p-2 w-16 h-10 flex flex-row items-center justify-center bg-primary rounded-md">
-          <UIcon :name="getFileData(message.fileType).icon" class="size-6 tg-text-button" />
-        </div>
+      <Section>
+        <div class="w-full relative flex flex-col justify-between gap-2">
+          <div class="p-2 w-16 h-10 flex flex-row items-center justify-center bg-primary rounded-md">
+            <UIcon :name="getFileData(message.fileType).icon" class="size-6 tg-text-button" />
+          </div>
 
-        <div class="text-base/5 whitespace-break-spaces text-default font-medium">
-          {{ getFileData(message.fileType).label }}
-        </div>
+          <div class="text-base/5 whitespace-break-spaces text-default font-medium">
+            {{ getFileData(message.fileType).label }}
+          </div>
 
-        <div v-if="message?.createdAt" class="flex justify-end text-xs text-muted">
-          {{ format(new Date(message.createdAt), 'dd MMMM в HH:mm', { locale: ru }) }}
+          <div v-if="message?.createdAt" class="flex justify-end text-xs text-muted">
+            {{ format(new Date(message.createdAt), 'dd MMMM в HH:mm', { locale: ru }) }}
+          </div>
         </div>
-      </div>
+      </Section>
     </ActiveCard>
   </div>
 </template>

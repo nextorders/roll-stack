@@ -50,14 +50,7 @@
     <div class="flex flex-col gap-2.5">
       <div class="flex flex-row gap-2.5 items-center">
         <SectionTitle title="Комментарии" />
-        <UBadge
-          v-if="item?.comments.length"
-          size="md"
-          color="primary"
-          variant="subtle"
-          :label="item.comments.length"
-          class="min-w-8 justify-center"
-        />
+        <CounterBadge :value="item?.comments.length" />
       </div>
 
       <UDrawer v-model:open="isDrawerOpened">

@@ -14,9 +14,8 @@
           variant="solid"
           size="lg"
           class="rounded-lg"
-        >
-          {{ partner.priceLevel }} уровень
-        </UBadge>
+          :label="`${partner.priceLevel} уровень цен`"
+        />
       </div>
 
       <div
@@ -30,7 +29,7 @@
             name="i-lucide-scroll-text"
             class="shrink-0 size-5 text-primary"
             :class="[
-              agreementProgress <= 15 && '!text-error animate-pulse',
+              agreementProgress <= 15 && '!text-error motion-preset-seesaw motion-preset-wobble-sm',
             ]"
           />
 

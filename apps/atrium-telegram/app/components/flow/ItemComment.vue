@@ -15,15 +15,17 @@
         }"
       >
         <ActiveCard>
-          <div class="w-full relative flex flex-col gap-1">
-            <div class="text-base/5 whitespace-break-spaces text-default font-medium">
-              {{ comment?.text }}
-            </div>
+          <Section>
+            <div class="w-full relative flex flex-col gap-1">
+              <div class="text-base/5 whitespace-break-spaces text-default font-medium">
+                {{ comment?.text }}
+              </div>
 
-            <div v-if="comment?.createdAt" class="mt-1 flex justify-end text-xs text-muted">
-              {{ format(new Date(comment.createdAt), 'dd MMMM в HH:mm', { locale: ru }) }}
+              <div v-if="comment?.createdAt" class="mt-1 flex justify-end text-xs text-muted">
+                {{ format(new Date(comment.createdAt), 'dd MMMM в HH:mm', { locale: ru }) }}
+              </div>
             </div>
-          </div>
+          </Section>
         </ActiveCard>
       </UDropdownMenu>
 

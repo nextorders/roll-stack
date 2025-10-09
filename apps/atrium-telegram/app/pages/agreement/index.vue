@@ -2,14 +2,7 @@
   <PageContainer>
     <div class="flex flex-row gap-2.5 items-center">
       <SectionTitle title="Договоры" />
-      <UBadge
-        v-if="filteredAgreements.length"
-        size="md"
-        color="primary"
-        variant="subtle"
-        :label="filteredAgreements.length"
-        class="min-w-8 justify-center"
-      />
+      <CounterBadge :value="filteredAgreements.length" />
     </div>
 
     <div class="grid grid-cols-1 gap-2.5 items-center">
@@ -18,7 +11,7 @@
         size="xl"
         trailing-icon="i-lucide-arrow-down-wide-narrow"
         :ui="{
-          base: 'rounded-lg font-bold ring-0',
+          base: 'rounded-lg text-lg/5 font-bold ring-0',
         }"
         :items="[
           { label: 'По дате заключения (убывание)', value: 'concludedAtDesc' },
@@ -34,13 +27,13 @@
         size="xl"
         trailing-icon="i-lucide-funnel"
         :ui="{
-          base: 'rounded-lg font-bold ring-0',
+          base: 'rounded-lg text-lg/5 font-bold ring-0',
         }"
         :items="[
           { label: 'Все', value: 'all' },
           { label: 'Только активные', value: 'active' },
           { label: 'Только неактивные', value: 'inactive' },
-          { label: 'Скоро окончатся (6 месяцев) ', value: 'willEndSoon' },
+          { label: 'Заканчиваются (6 месяцев) ', value: 'willEndSoon' },
         ]"
         class="motion-preset-slide-up"
       />

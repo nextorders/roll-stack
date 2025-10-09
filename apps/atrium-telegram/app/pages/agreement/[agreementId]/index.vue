@@ -62,16 +62,18 @@
           target="_blank"
         >
           <ActiveCard>
-            <div class="flex flex-row gap-2 items-start">
-              <UIcon
-                name="i-lucide-file"
-                class="shrink-0 size-8 text-primary"
-              />
+            <Section>
+              <div class="flex flex-row gap-2 items-start">
+                <UIcon
+                  name="i-lucide-file"
+                  class="shrink-0 size-8 text-primary"
+                />
 
-              <p class="text-base/5 font-semibold">
-                {{ file.name }}
-              </p>
-            </div>
+                <p class="text-base/5 font-semibold">
+                  {{ file.name }}
+                </p>
+              </div>
+            </Section>
           </ActiveCard>
         </NuxtLink>
       </div>
