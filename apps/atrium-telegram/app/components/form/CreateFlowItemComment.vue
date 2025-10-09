@@ -31,8 +31,8 @@
 
 <script setup lang="ts">
 import type { FormSubmitEvent } from '@nuxt/ui'
-import type { CreateFlowItemComment } from '@roll-stack/essence/schema'
-import { createFlowItemCommentSchema } from '@roll-stack/essence/schema'
+import type { CreateFlowItemComment } from '@roll-stack/schema'
+import { createFlowItemCommentSchema } from '@roll-stack/schema'
 
 const { itemId } = defineProps<{ itemId: string }>()
 

@@ -18,6 +18,7 @@
     "@pinia/nuxt": "catalog:",
     "@roll-stack/database": "workspace:*",
     "@roll-stack/essence": "workspace:*",
+    "@roll-stack/schema": "workspace:*",
     "@roll-stack/ui": "workspace:*",
     "@telegram-apps/init-data-node": "catalog:",
     "@telegram-apps/sdk-vue": "catalog:",

@@ -1,5 +1,5 @@
 import { db } from '@roll-stack/database'
-import { createFlowItemSchema } from '@roll-stack/essence/schema'
+import { createFlowItemSchema } from '@roll-stack/schema'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {

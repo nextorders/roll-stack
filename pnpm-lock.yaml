@@ -279,6 +279,9 @@ importers:
       '@roll-stack/essence':
         specifier: workspace:*
         version: link:../../packages/essence
+      '@roll-stack/schema':
+        specifier: workspace:*
+        version: link:../../packages/schema
       '@roll-stack/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -439,12 +442,12 @@ importers:
       '@roll-stack/essence':
         specifier: workspace:*
         version: link:../../packages/essence
+      '@roll-stack/schema':
+        specifier: workspace:*
+        version: link:../../packages/schema
       '@roll-stack/ui':
         specifier: workspace:*
         version: link:../../packages/ui
-      arktype:
-        specifier: 'catalog:'
-        version: 2.1.22
       aws4fetch:
         specifier: 'catalog:'
         version: 1.0.20
@@ -641,6 +644,22 @@ importers:
       drizzle-kit:
         specifier: 'catalog:'
         version: 0.31.5
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+
+  packages/schema:
+    dependencies:
+      arktype:
+        specifier: 'catalog:'
+        version: 2.1.22
+      zod:
+        specifier: 'catalog:'
+        version: 3.25.76
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.7.0
       typescript:
         specifier: 'catalog:'
         version: 5.9.3

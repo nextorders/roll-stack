@@ -41,8 +41,8 @@
 
 <script setup lang="ts">
 import type { FormSubmitEvent } from '@nuxt/ui'
-import type { CreateFlowItem } from '@roll-stack/essence/schema'
-import { createFlowItemSchema } from '@roll-stack/essence/schema'
+import type { CreateFlowItem } from '@roll-stack/schema'
+import { createFlowItemSchema } from '@roll-stack/schema'
 
 const emit = defineEmits(['success', 'submitted'])
 
