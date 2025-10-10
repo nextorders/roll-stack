@@ -3,7 +3,7 @@ export default defineAppConfig({
     badge: {
       variants: {
         color: {
-          neutral: '',
+          secondary: '!text-white disabled:!bg-inverted/25',
         },
       },
     },

@@ -47,7 +47,7 @@
           :to="`/agreement/${agreement.id}`"
           class="motion-preset-slide-left"
         >
-          <PartnerAgreementCard :agreement="agreement" />
+          <PartnerAgreementCard :agreement-id="agreement.id" />
         </NuxtLink>
       </div>
     </div>

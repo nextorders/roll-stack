@@ -2,10 +2,10 @@
   <UBadge
     v-if="value != null && value > 0"
     size="lg"
-    color="primary"
+    color="secondary"
     variant="solid"
     :label="value"
-    class="min-w-8 justify-center text-base/4 font-semibold"
+    class="min-w-8 justify-center text-base/4 font-bold tracking-tight"
   />
 </template>
 
