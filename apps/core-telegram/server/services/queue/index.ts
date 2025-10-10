@@ -1,16 +1,16 @@
-import type { EventHandlerMap, NotificationUserBeaconOnEpicCommentCreated, TicketMessageCreated } from '@roll-stack/essence'
+import type { EventHandlerMap, NotificationUserBeaconOnEpicCommentCreated, TicketMessageCreated } from '@roll-stack/queue'
 import { db } from '@roll-stack/database'
-import { Events, queue } from '@roll-stack/essence'
+import { queue } from '@roll-stack/queue'
 import { useAtriumBot } from '../telegram/atrium-bot'
 import { useWasabiBot } from '../telegram/wasabi-bot'
 
 const { telegram } = useRuntimeConfig()
 
 export async function setupConsumers() {
-  return queue.consume(queue.telegram.name, {
-    [Events.ticketMessageCreated]: handleTicketMessageCreated,
-    [Events.notificationUserBeaconOnEpicCommentCreated]: handleUserBeaconOnEpicCommentCreated,
-  } as EventHandlerMap)
+  return queue.consume<EventHandlerMap>(queue.telegram.name, {
+    ticketMessageCreated: handleTicketMessageCreated,
+    notificationUserBeaconOnEpicCommentCreated: handleUserBeaconOnEpicCommentCreated,
+  })
 }
 
 async function handleTicketMessageCreated(data: TicketMessageCreated['data']): Promise<boolean> {

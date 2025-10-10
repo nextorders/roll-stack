@@ -1,7 +1,7 @@
-import type { TicketMessageCreated } from '@roll-stack/essence'
+import type { TicketMessageCreated } from '@roll-stack/queue'
 import { createTicketMessageSchema } from '#shared/services/ticket'
 import { db } from '@roll-stack/database'
-import { Events, queue } from '@roll-stack/essence'
+import { Events, queue } from '@roll-stack/queue'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {

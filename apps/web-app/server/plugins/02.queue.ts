@@ -1,5 +1,5 @@
 import process from 'node:process'
-import { queue } from '@roll-stack/essence'
+import { queue } from '@roll-stack/queue'
 
 /**
  * Queue init
