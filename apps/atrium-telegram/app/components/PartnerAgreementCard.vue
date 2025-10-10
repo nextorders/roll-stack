@@ -64,5 +64,5 @@ const { agreementId } = defineProps<{
 }>()
 
 const partnerStore = usePartnerStore()
-const agreement = partnerStore.agreements.find((agreement) => agreement.id === agreementId)
+const agreement = computed(() => partnerStore.agreements.find((agreement) => agreement.id === agreementId))
 </script>

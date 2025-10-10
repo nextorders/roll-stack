@@ -1,9 +1,13 @@
 import type { Kitchen, Partner, PartnerAgreement, PartnerAgreementFile, PartnerLegalEntity, User } from '@roll-stack/database'
 import { initDataRaw as _initDataRaw, useSignal } from '@telegram-apps/sdk-vue'
 
+type PartnerLegalEntityWithPartners = PartnerLegalEntity & {
+  partners: Partner[]
+}
+
 export type PartnerAgreementWithAllData = PartnerAgreement & {
   files: PartnerAgreementFile[]
-  legalEntity: PartnerLegalEntity | null
+  legalEntity: PartnerLegalEntityWithPartners | null
   kitchens: Kitchen[]
 }
 
