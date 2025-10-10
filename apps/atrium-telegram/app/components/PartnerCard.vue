@@ -13,32 +13,28 @@
             color="neutral"
             variant="solid"
             size="lg"
-            class="rounded-lg"
+            class="px-3 rounded-xl bg-default text-default motion-preset-pop"
             :label="`${partner.priceLevel} уровень цен`"
           />
         </div>
 
         <div
-          class="absolute top-4 left-0 right-0 w-full opacity-0 group-hover:opacity-100 duration-200"
-          :class="[
-            agreementProgress <= 15 && 'opacity-100',
-          ]"
+          v-if="agreementProgress <= 15"
+          class="absolute top-4 left-0 right-0 w-full"
         >
           <div class="mx-4 px-2 py-1 bg-default rounded-lg flex flex-row items-center gap-1.5">
             <UIcon
               name="i-lucide-scroll-text"
-              class="shrink-0 size-5 text-primary"
-              :class="[
-                agreementProgress <= 15 && '!text-error motion-preset-seesaw motion-preset-wobble-sm',
-              ]"
+              class="shrink-0 size-5 text-error motion-preset-seesaw motion-preset-wobble-sm"
             />
 
             <UProgress
               v-model="agreementProgress"
               size="md"
-              color="secondary"
+              color="neutral"
               :ui="{
-                indicator: agreementProgress <= 15 && '!bg-error',
+                indicator: '!bg-error',
+                base: 'bg-error/25',
               }"
             />
           </div>
@@ -52,7 +48,6 @@
                 :key="user.id"
                 :src="user?.avatarUrl ?? undefined"
                 alt=""
-                class="group-hover:scale-110 duration-200"
               />
             </UAvatarGroup>
           </div>
