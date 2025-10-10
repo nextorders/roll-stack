@@ -1,11 +1,10 @@
 {
-  "name": "@roll-stack/essence",
+  "name": "@roll-stack/queue",
   "type": "module",
   "version": "0.0.0",
   "private": true,
   "exports": {
-    ".": "./src/index.ts",
-    "./schema": "./src/schema/index.ts"
+    ".": "./src/index.ts"
   },
   "scripts": {
     "clean:modules": "rm -rf node_modules",

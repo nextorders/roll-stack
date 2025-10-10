@@ -1,7 +1,7 @@
-import type { NotificationUserBeaconOnEpicCommentCreated } from '@roll-stack/essence'
+import type { NotificationUserBeaconOnEpicCommentCreated } from '@roll-stack/queue'
 import { createBeaconSchema } from '#shared/services/notification'
 import { db } from '@roll-stack/database'
-import { Events, queue } from '@roll-stack/essence'
+import { Events, queue } from '@roll-stack/queue'
 import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
