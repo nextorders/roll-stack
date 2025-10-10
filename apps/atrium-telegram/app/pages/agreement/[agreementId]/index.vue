@@ -49,12 +49,16 @@
       </div>
     </Section>
 
+    <NuxtLink v-if="partner" :to="`/partner/${partner.id}`">
+      <PartnerActiveCard :partner-id="partner.id" />
+    </NuxtLink>
+
     <div v-if="agreement?.files.length" class="flex flex-col gap-2.5">
       <div class="flex flex-row justify-between items-center">
         <SectionTitle title="Загруженные файлы" />
       </div>
 
-      <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-2">
         <NuxtLink
           v-for="file of agreement.files"
           :key="file.id"
@@ -95,4 +99,5 @@ const { params } = useRoute('agreement-agreementId')
 
 const partnerStore = usePartnerStore()
 const agreement = computed(() => partnerStore.agreements.find((agreement) => agreement.id === params.agreementId))
+const partner = computed(() => partnerStore.partners.find((partner) => partner.id === agreement.value?.legalEntity?.partners[0]?.id))
 </script>

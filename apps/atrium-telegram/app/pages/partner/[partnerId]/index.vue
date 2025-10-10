@@ -26,7 +26,7 @@
         <SectionTitle title="Юридическое лицо" />
       </div>
 
-      <Section>
+      <Section class="motion-preset-slide-left">
         <div class="flex flex-col gap-2.5">
           <div class="flex flex-row gap-2 items-center">
             <UIcon
@@ -76,11 +76,13 @@
       </div>
 
       <div class="flex flex-col gap-4">
-        <KitchenCard
+        <div
           v-for="kitchen in partner.kitchens"
           :key="kitchen.id"
-          :kitchen="kitchen"
-        />
+          class="motion-preset-slide-left"
+        >
+          <KitchenCard :kitchen="kitchen" />
+        </div>
       </div>
     </div>
   </PageContainer>

@@ -821,7 +821,6 @@ export const partnerAgreementRelations = relations(partnerAgreements, ({ one, ma
     fields: [partnerAgreements.legalEntityId],
     references: [partnerLegalEntities.id],
   }),
-  partners: many(partners),
   kitchens: many(kitchens),
   files: many(partnerAgreementFiles),
 }))
