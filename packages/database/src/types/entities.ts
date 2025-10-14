@@ -96,3 +96,5 @@ export type ActivityScheduleTag = 'permanent'
   | 'temporary'
   | 'optional'
   | 'advertising'
+
+export type InvoiceStatus = 'paid' | 'unpaid'

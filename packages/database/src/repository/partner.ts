@@ -46,6 +46,7 @@ export class Partner {
           },
         },
         users: true,
+        invoices: true,
       },
     })
 

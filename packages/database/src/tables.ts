@@ -37,6 +37,7 @@ export const partners = pgTable('partners', {
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   priceLevel: integer('price_level').notNull().default(0),
   prestige: integer('prestige').notNull().default(0),
+  balance: numeric('balance', { mode: 'number' }).notNull().default(0),
   isActive: boolean('is_active').notNull().default(true),
   city: varchar('city'),
   legalEntityId: cuid2('legal_entity_id').references(() => partnerLegalEntities.id),
@@ -780,6 +781,17 @@ export const flowItemViews = pgTable('flow_item_views', {
   }),
 })
 
+export const invoices = pgTable('invoices', {
+  id: cuid2('id').defaultRandom().primaryKey(),
+  createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
+  title: varchar('title').notNull(),
+  total: numeric('total', { mode: 'number' }).notNull().default(0),
+  paid: numeric('paid', { mode: 'number' }).notNull().default(0),
+  status: varchar('status').notNull().$type<entities.InvoiceStatus>().default('unpaid'),
+  partnerId: cuid2('partner_id').references(() => partners.id),
+})
+
 export const userRelations = relations(users, ({ many, one }) => ({
   chatMessages: many(chatMessages),
   chatMembers: many(chatMembers),
@@ -805,6 +817,7 @@ export const userRelations = relations(users, ({ many, one }) => ({
 export const partnerRelations = relations(partners, ({ many, one }) => ({
   kitchens: many(kitchens),
   users: many(users),
+  invoices: many(invoices),
   legalEntity: one(partnerLegalEntities, {
     fields: [partners.legalEntityId],
     references: [partnerLegalEntities.id],
@@ -1282,5 +1295,12 @@ export const flowItemViewRelations = relations(flowItemViews, ({ one }) => ({
   item: one(flowItems, {
     fields: [flowItemViews.itemId],
     references: [flowItems.id],
+  }),
+}))
+
+export const invoiceRelations = relations(invoices, ({ one }) => ({
+  partner: one(partners, {
+    fields: [invoices.partnerId],
+    references: [partners.id],
   }),
 }))

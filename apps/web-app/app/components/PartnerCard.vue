@@ -61,6 +61,14 @@
     </div>
 
     <div class="min-h-20 h-full px-4 pb-2 flex flex-col gap-2.5">
+      <UBadge
+        :color="partner.balance >= 0 ? 'neutral' : 'error'"
+        variant="soft"
+        size="md"
+        class="rounded-lg justify-center font-semibold"
+        :label="`Баланс ${new Intl.NumberFormat().format(partner.balance)} руб`"
+      />
+
       <h3 class="text-sm/4 font-bold">
         {{ partner.legalEntity?.name }}
       </h3>
