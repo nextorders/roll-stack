@@ -14,14 +14,7 @@ function _useNavigation() {
       title: t('app.flow'),
       icon: 'i-lucide-waves',
       exact: true,
-      badge: flowStore.nowViewedItemsCount.toString(),
-    },
-    {
-      path: '/ticket',
-      names: ['ticket', 'ticket-ticketId'],
-      title: t('app.tickets'),
-      icon: 'i-lucide-mail-question-mark',
-      badge: ticketStore.ticketsWithoutAnswer.length.toString(),
+      badge: flowStore.nowViewedItemsCount > 10 ? '10+' : flowStore.nowViewedItemsCount.toString(),
     },
     {
       path: '/tasks',
@@ -29,6 +22,13 @@ function _useNavigation() {
       title: t('app.my-tasks'),
       icon: 'i-lucide-layout-dashboard',
       badge: taskStore.myTodayTasks.length.toString(),
+    },
+    {
+      path: '/ticket',
+      names: ['ticket', 'ticket-ticketId'],
+      title: t('app.tickets'),
+      icon: 'i-lucide-mail-question-mark',
+      badge: ticketStore.ticketsWithoutAnswer.length.toString(),
     },
     {
       path: '/navigation',
