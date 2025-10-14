@@ -112,3 +112,22 @@ export async function getFileDownloadUrl(data: { ctx: Context, fileId: string, b
     return null
   }
 }
+
+export async function getAndUploadUserPhoto(ctx: Context, botToken: string): Promise<string | null> {
+  if (!ctx.message?.from.id) {
+    return null
+  }
+
+  const photos = await ctx.api.getUserProfilePhotos(ctx.message.from.id)
+  const userPhoto = photos.photos[0]?.pop()
+  if (userPhoto?.file_id) {
+    const fileDownloadUrl = await getFileDownloadUrl({ ctx, fileId: userPhoto.file_id, botToken, isLocalBot: false })
+    if (fileDownloadUrl) {
+      const uploaded = await uploadToStorage(fileDownloadUrl, userPhoto.file_id)
+
+      return uploaded?.fileUrl ?? null
+    }
+  }
+
+  return null
+}
