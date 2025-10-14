@@ -157,6 +157,8 @@ async function getAndUploadUserPhoto(ctx: Context, botToken: string): Promise<st
   }
 
   const photos = await ctx.api.getUserProfilePhotos(ctx.message.from.id)
+  logger.log(`User ${ctx.message.from.id} have ${photos.total_count} photos:`, JSON.stringify(photos.photos))
+
   const userPhoto = photos.photos[0]?.pop()
   if (userPhoto?.file_id) {
     const fileDownloadUrl = await getFileDownloadUrl({ ctx, fileId: userPhoto.file_id, botToken, isLocalBot: false })
