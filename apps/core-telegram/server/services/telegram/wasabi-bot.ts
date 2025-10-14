@@ -1,19 +1,16 @@
 import type { Ticket, User } from '@roll-stack/database'
 import type { Context } from 'grammy'
-import fs from 'node:fs/promises'
 import { db } from '@roll-stack/database'
 import { Bot } from 'grammy'
-import { generateAccessCode } from './common'
-
-const S3_TELEGRAM_DIRECTORY = 'telegram/files'
+import { generateAccessCode, getBotToken, getFileDownloadUrl, uploadToStorage } from './common'
 
 const logger = useLogger('telegram:wasabi-bot')
-const { telegram, public: { mediaUrl } } = useRuntimeConfig()
+const { telegram } = useRuntimeConfig()
 
 let bot: Bot | null = null
 
 export async function useCreateWasabiBot() {
-  const token = await getBotToken()
+  const token = await getBotToken(telegram.wasabiBotId)
   if (!token) {
     throw new Error('Wasabi bot is not configured')
   }
@@ -138,7 +135,7 @@ async function handlePhoto(ctx: Context) {
 
   const fileId = bestQuality.file_id
 
-  const botToken = await getBotToken()
+  const botToken = await getBotToken(telegram.wasabiBotId)
   if (!botToken) {
     return null
   }
@@ -181,7 +178,7 @@ async function handleVideo(ctx: Context) {
 
   const fileId = ctx.message.video.file_id
 
-  const botToken = await getBotToken()
+  const botToken = await getBotToken(telegram.wasabiBotId)
   if (!botToken) {
     return null
   }
@@ -223,7 +220,7 @@ async function handleFile(ctx: Context) {
 
   const fileId = ctx.message.document.file_id
 
-  const botToken = await getBotToken()
+  const botToken = await getBotToken(telegram.wasabiBotId)
   if (!botToken) {
     return null
   }
@@ -276,52 +273,6 @@ async function getUserAndTicket(telegramId: string): Promise<{ user: User, ticke
   }
 
   return { user: telegramUser.user, ticket }
-}
-
-async function getFileDownloadUrl(data: { ctx: Context, fileId: string, botToken: string }): Promise<string | null> {
-  try {
-    const file = await data.ctx.api.getFile(data.fileId)
-    if (!file) {
-      return null
-    }
-
-    // /var/lib/bot/token/documents/file_id.ext
-    return file.file_path ?? null
-  } catch (e) {
-    logger.error('getFileDownloadUrl', e)
-    return null
-  }
-}
-
-async function getBotToken(): Promise<string | null> {
-  const botInDb = await db.telegram.findBot(telegram.wasabiBotId)
-  if (!botInDb?.token) {
-    return null
-  }
-
-  return botInDb.token
-}
-
-async function uploadToStorage(downloadUrl: string, fileId: string) {
-  try {
-    const extension = downloadUrl.split('.').pop()
-
-    const buffer = await fs.readFile(downloadUrl)
-    if (!buffer) {
-      return null
-    }
-
-    const fileInnerUri = `/${S3_TELEGRAM_DIRECTORY}/${fileId}.${extension}`
-    const fileUrl = `${mediaUrl}${fileInnerUri}`
-
-    const storage = useStorage('s3')
-    await storage.setItemRaw(fileInnerUri, buffer)
-
-    return { fileUrl }
-  } catch (e) {
-    logger.error('uploadToStorage', e)
-    return null
-  }
 }
 
 export function useWasabiBot(): Bot {

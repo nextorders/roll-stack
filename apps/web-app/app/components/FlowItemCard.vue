@@ -1,5 +1,5 @@
 <template>
-  <UCard>
+  <UCard @mouseover="setAsViewed()">
     <div class="flex flex-col gap-3">
       <div class="flex flex-row gap-3 items-center">
         <UAvatar
@@ -42,7 +42,16 @@
           icon="i-lucide-check"
           label="Отметить как просмотренное"
           class="w-full justify-center font-bold"
-          @click="flowStore.addView(item.id)"
+          @click="setAsViewed()"
+        />
+      </div>
+
+      <div class="flex flex-row flex-wrap gap-1.5">
+        <UAvatar
+          v-for="view in item?.views"
+          :key="view.id"
+          :src="userStore.users.find((user) => user.id === view.userId)?.avatarUrl ?? undefined"
+          size="md"
         />
       </div>
 
@@ -89,5 +98,13 @@ function getIconName(type: FlowItemWithData['type']): string {
     default:
       return 'i-lucide-clipboard'
   }
+}
+
+function setAsViewed() {
+  if (isViewed.value) {
+    return
+  }
+
+  flowStore.addView(item.id)
 }
 </script>

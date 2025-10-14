@@ -3,6 +3,7 @@ import type { Context } from 'grammy'
 import { createId } from '@paralleldrive/cuid2'
 import { db } from '@roll-stack/database'
 import { Bot } from 'grammy'
+import { getBotToken, requestContactPhone } from './common'
 
 const logger = useLogger('telegram:order-bot')
 const { telegram } = useRuntimeConfig()
@@ -10,12 +11,12 @@ const { telegram } = useRuntimeConfig()
 let bot: Bot | null = null
 
 export async function useCreateOrderBot() {
-  const botInDb = await db.telegram.findBot(telegram.orderBotId)
-  if (!botInDb?.token) {
-    throw new Error('Order bot is not configured')
+  const token = await getBotToken(telegram.orderBotId)
+  if (!token) {
+    throw new Error('Atrium bot is not configured')
   }
 
-  bot = new Bot(botInDb.token)
+  bot = new Bot(token)
 
   bot.on('message:text', async (ctx) => {
     if (ctx.hasCommand('start')) {
@@ -58,22 +59,8 @@ async function handleStart(ctx: Context) {
   // Find user
   const telegramUser = await db.telegram.findClientByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.orderBotId)
   if (!telegramUser) {
-    // Get phone number
-    await ctx.reply(
-      `Всего один шаг — подтвердите номер телефона 📱👇\n\n_Продолжая, вы подтверждаете своё согласие на [сбор и обработку персональных данных](https://sushi-love.ru), а также принимаете условия [Пользовательского соглашения](https://sushi-love.ru)_`,
-      {
-        parse_mode: 'MarkdownV2',
-        link_preview_options: {
-          is_disabled: true,
-        },
-        reply_markup: {
-          keyboard: [
-            [{ text: 'Подтвердить номер', request_contact: true }],
-          ],
-          resize_keyboard: true,
-        },
-      },
-    )
+    // Request phone number from user
+    await requestContactPhone(ctx)
     return
   }
 
