@@ -88,8 +88,9 @@ async function handleContact(ctx: Context) {
     return null
   }
 
+  const phone = ctx.message.contact.phone_number.replace(/\D/g, '')
   const user = await findOrCreateAtriumUser({
-    phone: ctx.message.contact.phone_number,
+    phone,
     user: {
       name: ctx.message.from.first_name,
       surname: ctx.message.from.last_name,

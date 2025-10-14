@@ -84,7 +84,8 @@ async function handleContact(ctx: Context) {
   }
 
   // Find Client
-  const client = await findOrCreateClient(ctx.message.contact.phone_number, {
+  const phone = ctx.message.contact.phone_number.replace(/\D/g, '')
+  const client = await findOrCreateClient(phone, {
     name: ctx.message.from.first_name,
     surname: ctx.message.from.last_name,
   })
