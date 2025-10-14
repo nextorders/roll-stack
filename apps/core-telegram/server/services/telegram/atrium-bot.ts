@@ -113,7 +113,7 @@ async function handleContact(ctx: Context) {
       userId: user.id,
     })
 
-    logger.log('new user', createdTelegramUser)
+    logger.log('New Telegram user', createdTelegramUser)
 
     await ctx.setChatMenuButton({
       chat_id: ctx.message.chat.id,
@@ -157,6 +157,8 @@ async function getAndUploadUserPhoto(ctx: Context, botToken: string): Promise<st
   }
 
   const photos = await ctx.api.getUserProfilePhotos(ctx.message.from.id)
+  logger.log(`User ${ctx.message.from.id} have ${photos.total_count} photos:`, JSON.stringify(photos.photos))
+
   const userPhoto = photos.photos[0]?.pop()
   if (userPhoto?.file_id) {
     const fileDownloadUrl = await getFileDownloadUrl({ ctx, fileId: userPhoto.file_id, botToken, isLocalBot: false })
@@ -180,7 +182,7 @@ async function findOrCreateAtriumUser(data: { phone: string, user: { name: strin
     const avatarUrl = await getAndUploadUserPhoto(data.ctx, data.botToken)
     logger.log('New user avatar', avatarUrl)
 
-    return db.user.create({
+    const createdUser = await db.user.create({
       id,
       phone: data.phone,
       type: 'staff',
@@ -188,6 +190,9 @@ async function findOrCreateAtriumUser(data: { phone: string, user: { name: strin
       surname: data.user.surname,
       avatarUrl: avatarUrl ?? defaultAvatarUrl,
     })
+    logger.log('New user', createdUser)
+
+    return createdUser
   }
 
   return userInDB
