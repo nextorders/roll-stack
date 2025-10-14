@@ -35,6 +35,13 @@ export class Flow {
   }
 
   static async createItemView(data: FlowItemViewDraft) {
+    const exist = await useDatabase().query.flowItemViews.findFirst({
+      where: (view, { eq, and }) => and(eq(view.userId, data.userId), eq(view.itemId, data.itemId)),
+    })
+    if (exist) {
+      return exist
+    }
+
     const [view] = await useDatabase().insert(flowItemViews).values(data).returning()
     return view
   }
