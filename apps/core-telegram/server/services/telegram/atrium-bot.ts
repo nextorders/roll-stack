@@ -3,7 +3,7 @@ import type { Context } from 'grammy'
 import { createId } from '@paralleldrive/cuid2'
 import { db } from '@roll-stack/database'
 import { Bot } from 'grammy'
-import { generateAccessCode, getBotToken, getFileDownloadUrl, requestContactPhone, uploadToStorage } from './common'
+import { generateAccessCode, getAndUploadUserPhoto, getBotToken, requestContactPhone } from './common'
 
 const logger = useLogger('telegram:atrium-bot')
 const { telegram } = useRuntimeConfig()
@@ -83,7 +83,7 @@ async function handleContact(ctx: Context) {
     return
   }
 
-  const botToken = await getBotToken(telegram.wasabiBotId)
+  const botToken = await getBotToken(telegram.atriumBotId)
   if (!botToken) {
     return null
   }
@@ -151,27 +151,6 @@ async function handleMessage(ctx: Context) {
   // ctx.reply('Сообщение передано в службу поддержки.')
 }
 
-async function getAndUploadUserPhoto(ctx: Context, botToken: string): Promise<string | null> {
-  if (!ctx.message?.from.id) {
-    return null
-  }
-
-  const photos = await ctx.api.getUserProfilePhotos(ctx.message.from.id)
-  logger.log(`User ${ctx.message.from.id} have ${photos.total_count} photos:`, JSON.stringify(photos.photos))
-
-  const userPhoto = photos.photos[0]?.pop()
-  if (userPhoto?.file_id) {
-    const fileDownloadUrl = await getFileDownloadUrl({ ctx, fileId: userPhoto.file_id, botToken, isLocalBot: false })
-    if (fileDownloadUrl) {
-      const uploaded = await uploadToStorage(fileDownloadUrl, userPhoto.file_id)
-
-      return uploaded?.fileUrl ?? null
-    }
-  }
-
-  return null
-}
-
 async function findOrCreateAtriumUser(data: { phone: string, user: { name: string, surname: string | undefined }, ctx: Context, botToken: string }): Promise<User> {
   const userInDB = await db.user.findByPhone(data.phone)
   if (!userInDB) {
@@ -189,6 +168,8 @@ async function findOrCreateAtriumUser(data: { phone: string, user: { name: strin
       name: data.user.name,
       surname: data.user.surname,
       avatarUrl: avatarUrl ?? defaultAvatarUrl,
+      gender: 'female',
+      caption: 'Новый участник команды',
     })
     logger.log('New user', createdUser)
 
