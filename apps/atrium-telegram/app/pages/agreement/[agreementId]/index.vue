@@ -44,7 +44,7 @@
         </div>
       </div>
 
-      <div v-if="agreement?.comment" class="w-full text-base/5 text-muted font-normal whitespace-pre-wrap break-words line-clamp-5">
+      <div v-if="agreement?.comment" class="w-full text-sm/5 text-muted font-normal whitespace-pre-wrap break-words line-clamp-5">
         {{ agreement.comment }}
       </div>
     </Section>

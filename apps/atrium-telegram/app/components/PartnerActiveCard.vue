@@ -17,19 +17,19 @@
         <div class="flex flex-row justify-between items-start">
           <div class="flex flex-col gap-3">
             <div class="flex flex-col gap-1">
-              <div class="text-xl/5 font-bold">
+              <h3 class="text-xl/5 font-bold">
                 {{ partnerUser?.name }} {{ partnerUser?.surname }}
-              </div>
+              </h3>
               <div class="text-sm/4">
                 {{ partner?.city }}
               </div>
             </div>
 
-            <div class="flex flex-row gap-1.5 items-start">
+            <div class="relative flex flex-row gap-1.5 items-start">
               <img
                 :src="partnerUser?.avatarUrl ?? undefined"
                 alt=""
-                class="size-24 rounded-lg border-2"
+                class="size-28 rounded-lg border-2"
               >
 
               <div class="flex flex-row justify-end">
@@ -38,7 +38,7 @@
                   :key="user.id"
                   :src="user?.avatarUrl ?? undefined"
                   alt=""
-                  class="size-12 rounded-lg border-2"
+                  class="size-14 rounded-lg border-2"
                 >
               </div>
             </div>
@@ -75,5 +75,5 @@ const { x, y } = useGyroscope()
 const partnerStore = usePartnerStore()
 const partner = computed(() => partnerStore.partners.find((partner) => partner.id === partnerId))
 const partnerUser = computed(() => partner.value?.users.find((user) => user.type === 'partner'))
-const otherUsers = computed(() => partner.value?.users.filter((user) => user.type !== 'partner'))
+const otherUsers = computed(() => partner.value?.users.filter((user) => user.type !== 'partner').slice(0, 3))
 </script>

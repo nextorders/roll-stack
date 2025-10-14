@@ -9,9 +9,11 @@
       >
         <ActiveCard>
           <Section>
-            <div class="text-2xl/6 font-bold flex flex-row gap-2 items-center">
+            <div class="flex flex-row gap-2 items-center">
               <UIcon :name="item.icon" />
-              {{ item.label }}
+              <h3 class="text-2xl/6 font-bold">
+                {{ item.label }}
+              </h3>
             </div>
           </Section>
         </ActiveCard>
