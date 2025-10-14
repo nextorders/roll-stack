@@ -26,6 +26,10 @@ useHead({
       type: 'text/javascript',
       src: '/vk-pixel.min.js',
     },
+    {
+      type: 'text/javascript',
+      src: '/metric.min.js',
+    },
   ],
 })
 </script>
