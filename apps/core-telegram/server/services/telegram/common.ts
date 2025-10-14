@@ -59,7 +59,17 @@ export async function uploadToStorage(downloadUrl: string, fileId: string) {
   try {
     const extension = downloadUrl.split('.').pop()
 
-    const buffer = await fs.readFile(downloadUrl)
+    let buffer
+
+    if (downloadUrl.startsWith('http://') || downloadUrl.startsWith('https://')) {
+      // Download file
+      const response = await fetch(downloadUrl)
+      buffer = await response.arrayBuffer()
+    } else {
+      // Read file
+      buffer = await fs.readFile(downloadUrl)
+    }
+
     if (!buffer) {
       return null
     }
@@ -77,15 +87,20 @@ export async function uploadToStorage(downloadUrl: string, fileId: string) {
   }
 }
 
-export async function getFileDownloadUrl(data: { ctx: Context, fileId: string, botToken: string }): Promise<string | null> {
+export async function getFileDownloadUrl(data: { ctx: Context, fileId: string, botToken: string, isLocalBot: boolean }): Promise<string | null> {
   try {
     const file = await data.ctx.api.getFile(data.fileId)
-    if (!file) {
+    if (!file?.file_path) {
       return null
     }
 
-    // /var/lib/bot/token/documents/file_id.ext
-    return file.file_path ?? null
+    // as /var/lib/bot/token/documents/file_id.ext
+    if (data.isLocalBot) {
+      return file.file_path
+    }
+
+    // or from telegram api
+    return `https://api.telegram.org/file/bot${data.botToken}/${file.file_path}`
   } catch (e) {
     logger.error('getFileDownloadUrl', e)
     return null

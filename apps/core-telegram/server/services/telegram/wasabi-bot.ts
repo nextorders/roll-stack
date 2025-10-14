@@ -142,7 +142,7 @@ async function handlePhoto(ctx: Context) {
 
   let fileUrl
 
-  const downloadUrl = await getFileDownloadUrl({ ctx, fileId, botToken })
+  const downloadUrl = await getFileDownloadUrl({ ctx, fileId, botToken, isLocalBot: true })
   if (downloadUrl) {
     const uploaded = await uploadToStorage(downloadUrl, fileId)
     if (uploaded?.fileUrl) {
@@ -185,7 +185,7 @@ async function handleVideo(ctx: Context) {
 
   let fileUrl
 
-  const downloadUrl = await getFileDownloadUrl({ ctx, fileId, botToken })
+  const downloadUrl = await getFileDownloadUrl({ ctx, fileId, botToken, isLocalBot: true })
   if (downloadUrl) {
     const uploaded = await uploadToStorage(downloadUrl, fileId)
     if (uploaded?.fileUrl) {
@@ -227,7 +227,7 @@ async function handleFile(ctx: Context) {
 
   let fileUrl
 
-  const downloadUrl = await getFileDownloadUrl({ ctx, fileId, botToken })
+  const downloadUrl = await getFileDownloadUrl({ ctx, fileId, botToken, isLocalBot: true })
   if (downloadUrl) {
     const uploaded = await uploadToStorage(downloadUrl, fileId)
     if (uploaded?.fileUrl) {

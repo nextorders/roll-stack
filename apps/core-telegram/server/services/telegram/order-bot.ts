@@ -13,7 +13,7 @@ let bot: Bot | null = null
 export async function useCreateOrderBot() {
   const token = await getBotToken(telegram.orderBotId)
   if (!token) {
-    throw new Error('Atrium bot is not configured')
+    throw new Error('Order bot is not configured')
   }
 
   bot = new Bot(token)

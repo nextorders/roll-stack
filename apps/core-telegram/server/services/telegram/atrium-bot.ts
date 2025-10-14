@@ -98,11 +98,11 @@ async function handleContact(ctx: Context) {
     botToken,
   })
 
-  const telegramUser = await db.telegram.findClientByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.atriumBotId)
+  const telegramUser = await db.telegram.findUserByTelegramIdAndBotId(ctx.message.from.id.toString(), telegram.atriumBotId)
   if (!telegramUser?.id) {
     const accessKey = await generateAccessCode()
 
-    const telegramUser = await db.telegram.createUser({
+    const createdTelegramUser = await db.telegram.createUser({
       telegramUserType: ctx.message.chat.type,
       telegramId: ctx.message.from.id.toString(),
       firstName: ctx.message.from.first_name,
@@ -113,7 +113,7 @@ async function handleContact(ctx: Context) {
       userId: user.id,
     })
 
-    logger.log('new user', telegramUser)
+    logger.log('new user', createdTelegramUser)
 
     await ctx.setChatMenuButton({
       chat_id: ctx.message.chat.id,
@@ -159,7 +159,7 @@ async function getAndUploadUserPhoto(ctx: Context, botToken: string): Promise<st
   const photos = await ctx.api.getUserProfilePhotos(ctx.message.from.id)
   const userPhoto = photos.photos[0]?.pop()
   if (userPhoto?.file_id) {
-    const fileDownloadUrl = await getFileDownloadUrl({ ctx, fileId: userPhoto.file_id, botToken })
+    const fileDownloadUrl = await getFileDownloadUrl({ ctx, fileId: userPhoto.file_id, botToken, isLocalBot: false })
     if (fileDownloadUrl) {
       const uploaded = await uploadToStorage(fileDownloadUrl, userPhoto.file_id)
 
