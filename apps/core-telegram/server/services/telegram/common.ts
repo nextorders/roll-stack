@@ -1,4 +1,5 @@
 import type { Context } from 'grammy'
+import { Buffer } from 'node:buffer'
 import fs from 'node:fs/promises'
 import { db } from '@roll-stack/database'
 import { useAtriumBot } from './atrium-bot'
@@ -59,12 +60,13 @@ export async function uploadToStorage(downloadUrl: string, fileId: string) {
   try {
     const extension = downloadUrl.split('.').pop()
 
-    let buffer
+    let buffer: Buffer<ArrayBufferLike>
 
     if (downloadUrl.startsWith('http://') || downloadUrl.startsWith('https://')) {
       // Download file
       const response = await fetch(downloadUrl)
-      buffer = await response.arrayBuffer()
+      const arrayBuffer = await response.arrayBuffer()
+      buffer = Buffer.from(arrayBuffer)
     } else {
       // Read file
       buffer = await fs.readFile(downloadUrl)
@@ -96,11 +98,15 @@ export async function getFileDownloadUrl(data: { ctx: Context, fileId: string, b
 
     // as /var/lib/bot/token/documents/file_id.ext
     if (data.isLocalBot) {
+      logger.log('getFileDownloadUrl: local mode', file.file_path)
       return file.file_path
     }
 
     // or from telegram api
-    return `https://api.telegram.org/file/bot${data.botToken}/${file.file_path}`
+    const telegramServerUrl = `https://api.telegram.org/file/bot${data.botToken}/${file.file_path}`
+    logger.log('getFileDownloadUrl: remote mode', telegramServerUrl)
+
+    return telegramServerUrl
   } catch (e) {
     logger.error('getFileDownloadUrl', e)
     return null
