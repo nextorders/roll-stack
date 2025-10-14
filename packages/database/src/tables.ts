@@ -1,7 +1,7 @@
 import type * as entities from './types/entities'
 import { cuid2 } from 'drizzle-cuid2/postgres'
 import { relations } from 'drizzle-orm'
-import { boolean, date, integer, jsonb, numeric, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core'
+import { boolean, date, integer, jsonb, numeric, pgTable, text, timestamp, uniqueIndex, varchar } from 'drizzle-orm/pg-core'
 
 export const permissions = pgTable('permissions', {
   id: cuid2('id').defaultRandom().primaryKey(),
@@ -779,7 +779,9 @@ export const flowItemViews = pgTable('flow_item_views', {
     onDelete: 'cascade',
     onUpdate: 'cascade',
   }),
-})
+}, (t) => [
+  uniqueIndex('flow_item_views_user_item_unique').on(t.userId, t.itemId),
+])
 
 export const invoices = pgTable('invoices', {
   id: cuid2('id').defaultRandom().primaryKey(),
