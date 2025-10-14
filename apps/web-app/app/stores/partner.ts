@@ -1,4 +1,4 @@
-import type { Kitchen, Partner, PartnerAgreement, PartnerAgreementFile, PartnerLegalEntity, User } from '@roll-stack/database'
+import type { Invoice, Kitchen, Partner, PartnerAgreement, PartnerAgreementFile, PartnerLegalEntity, User } from '@roll-stack/database'
 
 export type PartnerAgreementWithAllData = PartnerAgreement & {
   files: PartnerAgreementFile[]
@@ -18,6 +18,7 @@ export type PartnerWithData = Partner & {
   kitchens: Kitchen[]
   legalEntity: PartnerLegalEntityWithData | null
   users: User[]
+  invoices: Invoice[]
 }
 
 export const usePartnerStore = defineStore('partner', () => {

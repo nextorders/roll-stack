@@ -171,3 +171,6 @@ export type FlowItemCommentDraft = InferInsertModel<typeof tables.flowItemCommen
 
 export type FlowItemView = InferSelectModel<typeof tables.flowItemViews>
 export type FlowItemViewDraft = InferInsertModel<typeof tables.flowItemViews>
+
+export type Invoice = InferSelectModel<typeof tables.invoices>
+export type InvoiceDraft = InferInsertModel<typeof tables.invoices>
