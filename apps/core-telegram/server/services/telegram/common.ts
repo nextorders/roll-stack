@@ -60,7 +60,7 @@ export async function uploadToStorage(downloadUrl: string, fileId: string) {
   try {
     const extension = downloadUrl.split('.').pop()
 
-    let buffer: Buffer<ArrayBufferLike>
+    let buffer: Buffer
 
     if (downloadUrl.startsWith('http://') || downloadUrl.startsWith('https://')) {
       // Download file
