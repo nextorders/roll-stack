@@ -1,6 +1,5 @@
 export default defineNuxtConfig({
   extends: ['@roll-stack/ui'],
-  modules: ['nuxt-auth-utils', '@pinia/nuxt'],
   devtools: {
     componentInspector: false,
   },
@@ -39,9 +38,6 @@ export default defineNuxtConfig({
       { code: 'ru', language: 'ru-RU', name: 'Русский', file: 'ru-RU.json' },
     ],
     strategy: 'no_prefix',
-  },
-  pinia: {
-    storesDirs: ['./app/stores/**'],
   },
   compatibilityDate: '2025-02-20',
 })
