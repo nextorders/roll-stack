@@ -1,5 +1,5 @@
 <template>
-  <ActiveCard>
+  <ActiveCard class="motion-preset-slide-left">
     <Section>
       <div class="flex flex-row gap-2 items-center">
         <UAvatar :src="performer?.avatarUrl ?? undefined" class="size-8" />

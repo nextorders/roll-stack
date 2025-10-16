@@ -30,6 +30,7 @@
         :items="[
           { label: 'Все задачи', value: 'all' },
           { label: 'Только выполненные', value: 'completed' },
+          { label: 'Только в процессе', value: 'inProgress' },
         ]"
         class="motion-preset-slide-up"
       />
@@ -115,7 +116,7 @@ function chooseSortFunction() {
   }
 }
 
-const filteredBy = ref<'all' | 'completed'>('all')
+const filteredBy = ref<'all' | 'completed' | 'inProgress'>('all')
 
 function filterByAll() {
   return true
@@ -125,12 +126,18 @@ function filterByCompleted(task: Task) {
   return task.completedAt
 }
 
+function filterByInProgress(task: Task) {
+  return !task.completedAt
+}
+
 function chooseFilterFunction() {
   switch (filteredBy.value) {
     case 'all':
       return filterByAll
     case 'completed':
       return filterByCompleted
+    case 'inProgress':
+      return filterByInProgress
   }
 }
 

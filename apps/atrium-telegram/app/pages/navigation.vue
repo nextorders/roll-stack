@@ -14,6 +14,18 @@
               <h3 class="text-2xl/6 font-bold">
                 {{ item.label }}
               </h3>
+
+              <div v-if="item?.badge">
+                <div class="flex flex-row items-center gap-1.5 text-primary">
+                  <UIcon
+                    name="i-lucide-pointer"
+                    class="size-5 motion-translate-y-loop-25 motion-preset-seesaw motion-duration-2000"
+                  />
+                  <p class="text-base/5 font-bold">
+                    {{ item.badge }}
+                  </p>
+                </div>
+              </div>
             </div>
           </Section>
         </ActiveCard>
@@ -48,6 +60,7 @@ const items = ref([
     label: 'Задачи',
     to: '/all-tasks',
     icon: 'i-lucide-list-checks',
+    badge: 'апдейт',
     onClick: () => vibrate(),
   },
 ])

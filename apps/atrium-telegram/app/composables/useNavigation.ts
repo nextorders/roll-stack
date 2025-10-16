@@ -35,6 +35,7 @@ function _useNavigation() {
       names: ['navigation'],
       title: t('app.navigation'),
       icon: 'i-lucide-menu',
+      badge: '+1',
     },
   ])
 

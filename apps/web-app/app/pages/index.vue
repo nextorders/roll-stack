@@ -1,4 +1,14 @@
 <template>
+  <ClientOnly>
+    <div
+      v-if="isShown"
+      ref="confetti"
+      class="z-40 mx-auto h-dvh w-dvw fixed inset-0 overflow-y-hidden overscroll-y-none"
+    >
+      <div v-confetti="{ particleCount: 240, duration: 4500, stageHeight: confetti?.clientHeight, stageWidth: confetti?.clientWidth, force: 0.4 }" />
+    </div>
+  </ClientOnly>
+
   <Header :title="$t('app.menu.my-space')" />
 
   <Content>
@@ -74,10 +84,14 @@
 <script setup lang="ts">
 import { ModalCreateTaskList, ModalUploadUserAvatar } from '#components'
 import { getLocalTimeZone, isToday, parseDate } from '@internationalized/date'
+import { vConfetti } from '@neoconfetti/vue'
 
 definePageMeta({
   middleware: ['01-auth-only'],
 })
+
+const confetti = ref<HTMLElement | null>(null)
+const { isShown } = useConfetti()
 
 const overlay = useOverlay()
 const modalCreateTaskList = overlay.create(ModalCreateTaskList)
