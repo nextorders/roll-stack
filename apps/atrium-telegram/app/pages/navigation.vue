@@ -9,8 +9,8 @@
       >
         <ActiveCard>
           <Section>
-            <div class="flex flex-row gap-2 items-center">
-              <UIcon :name="item.icon" />
+            <div class="flex flex-row gap-2.5 items-center">
+              <UIcon :name="item.icon" class="size-5 shrink-0" />
               <h3 class="text-2xl/6 font-bold">
                 {{ item.label }}
               </h3>
@@ -35,13 +35,19 @@ const items = ref([
   {
     label: 'Договоры',
     to: '/agreement',
-    icon: 'i-lucide-list-checks',
+    icon: 'i-lucide-scroll',
     onClick: () => vibrate(),
   },
   {
     label: 'Кухни',
     to: '/kitchen',
     icon: 'i-lucide-store',
+    onClick: () => vibrate(),
+  },
+  {
+    label: 'Задачи',
+    to: '/all-tasks',
+    icon: 'i-lucide-list-checks',
     onClick: () => vibrate(),
   },
 ])

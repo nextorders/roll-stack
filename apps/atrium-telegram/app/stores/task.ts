@@ -13,6 +13,7 @@ type TaskListWithData = TaskList & {
 
 export const useTaskStore = defineStore('task', () => {
   const lists = ref<TaskListWithData[]>([])
+  const tasks = ref<Task[]>([])
   const isTodayOnly = ref(false)
   const isInitialized = ref(false)
 
@@ -41,6 +42,32 @@ export const useTaskStore = defineStore('task', () => {
       lists.value = data
 
       isInitialized.value = true
+
+      await updateCompleted()
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message.includes('401')) {
+          // No session
+        }
+        if (error.message.includes('404')) {
+          // Not found
+        }
+      }
+    }
+  }
+
+  async function updateCompleted() {
+    try {
+      const data = await $fetch('/api/task/list/completed', {
+        headers: {
+          Authorization: `tma ${initDataRaw.value}`,
+        },
+      })
+      if (!data) {
+        return
+      }
+
+      tasks.value = data
     } catch (error) {
       if (error instanceof Error) {
         if (error.message.includes('401')) {
@@ -89,6 +116,7 @@ export const useTaskStore = defineStore('task', () => {
 
   return {
     lists,
+    tasks,
     isTodayOnly,
     isInitialized,
 

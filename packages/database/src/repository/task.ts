@@ -13,6 +13,7 @@ export class Task {
   static async findAll() {
     return useDatabase().query.tasks.findMany({
       orderBy: (tasks, { desc }) => desc(tasks.updatedAt),
+      limit: 1500,
     })
   }
 
