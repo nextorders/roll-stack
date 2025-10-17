@@ -57,11 +57,14 @@
 
     <div class="flex flex-col gap-2.5">
       <div class="flex flex-col gap-4">
-        <TaskInfoCard
+        <NuxtLink
           v-for="task in filteredTasks.show"
           :key="task.id"
-          :task="task"
-        />
+          :to="`/task/${task.id}`"
+          class="motion-preset-slide-left"
+        >
+          <TaskInfoCard :task="task" />
+        </NuxtLink>
 
         <UButton
           v-if="filteredTasks.canShowMore"

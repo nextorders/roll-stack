@@ -1,6 +1,6 @@
 <template>
   <PageContainer>
-    <Section>
+    <Section class="motion-preset-slide-left">
       <div class="flex flex-row items-start justify-between gap-2.5">
         <UAvatar
           v-if="item?.userId"

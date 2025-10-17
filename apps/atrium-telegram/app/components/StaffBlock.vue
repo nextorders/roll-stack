@@ -1,6 +1,6 @@
 <template>
-  <div class="max-w-full overflow-x-scroll overflow-y-hidden snap-x hide-scroll">
-    <div class="w-max flex flex-row flex-wrap gap-2">
+  <div class="max-w-full overflow-x-auto overflow-y-hidden snap-x hide-scroll relative">
+    <div class="flex flex-row gap-3">
       <div
         v-for="user in allUsers"
         :key="user.id"
@@ -10,7 +10,7 @@
         <div class="relative">
           <UAvatar
             :src="user?.avatarUrl ?? undefined"
-            class="size-16 border-2 border-default"
+            class="size-16 border-3 border-default"
             :class="[
               user.isOnline && 'border-primary',
             ]"

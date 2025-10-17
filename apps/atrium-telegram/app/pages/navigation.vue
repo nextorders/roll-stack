@@ -58,8 +58,8 @@ const items = ref([
   },
   {
     label: 'Задачи',
-    to: '/all-tasks',
-    icon: 'i-lucide-list-checks',
+    to: '/task/all',
+    icon: 'i-lucide-list-todo',
     badge: 'апдейт',
     onClick: () => vibrate(),
   },
