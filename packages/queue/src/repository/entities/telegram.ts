@@ -9,6 +9,7 @@ export class Telegram extends Entity {
       eventsToConsume: [
         Events.ticketMessageCreated,
         Events.notificationUserBeaconOnEpicCommentCreated,
+        Events.flowItemCreated,
       ],
       repository,
     })

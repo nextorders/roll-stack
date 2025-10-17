@@ -1,5 +1,7 @@
+import type { FlowItemCreated } from '@roll-stack/queue'
 import process from 'node:process'
 import { db } from '@roll-stack/database'
+import { Events, queue } from '@roll-stack/queue'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale/ru'
 import OpenAI from 'openai'
@@ -77,10 +79,18 @@ export default defineTask({
 
       // Flow item
       const week = format(new Date(), 'w', { locale: ru })
-      await db.flow.createItem({
+      const item = await db.flow.createItem({
         type: 'weekly_task_report',
         title: `Задачи за неделю ${week}`,
         description: finalMessage,
+      })
+
+      // Push Event
+      await queue.publish<FlowItemCreated>(Events.flowItemCreated, {
+        itemId: item.id,
+        type: item.type,
+        title: item.title,
+        description: item.description ?? '',
       })
     } catch (error) {
       errorResolver(error)
