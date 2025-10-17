@@ -1,17 +1,33 @@
 <template>
-  <ActiveCard class="motion-preset-slide-left">
+  <ActiveCard>
     <Section>
       <div class="flex flex-row gap-2 items-center">
         <UAvatar :src="performer?.avatarUrl ?? undefined" class="size-8" />
 
+        <div v-if="isCompleted" class="flex flex-row gap-1 items-center text-primary">
+          <UIcon
+            name="i-lucide-check"
+            class="shrink-0 size-8 text-primary"
+          />
+          <p v-if="task.completedAt" class="text-base/5 font-semibold">
+            {{ format(new Date(task.completedAt), 'd MMMM yyyy в HH:mm', { locale: ru }) }}
+          </p>
+        </div>
         <UIcon
-          :name="isCompleted ? 'i-lucide-check' : 'i-lucide-loader-circle'"
-          class="shrink-0 size-8"
-          :class="[
-            isCompleted ? 'text-primary' : 'text-muted/50',
-            !isCompleted && 'motion-preset-spin motion-duration-4000',
-          ]"
+          v-else
+          name="i-lucide-loader-circle"
+          class="shrink-0 size-8 text-muted/50 motion-preset-spin motion-duration-4000"
         />
+
+        <div v-if="isFocused" class="flex flex-row items-center gap-1.5 text-primary">
+          <UIcon
+            name="i-lucide-goal"
+            class="shrink-0 size-8 motion-preset-seesaw"
+          />
+          <p class="max-w-22 text-sm/4 font-bold">
+            В Фокусе
+          </p>
+        </div>
       </div>
 
       <h3 class="text-xl/6 font-bold">
@@ -26,13 +42,6 @@
         <UIcon name="i-lucide-clipboard-pen" class="shrink-0 size-5 text-primary" />
         <p class="text-base/5 font-semibold whitespace-pre-wrap break-words line-clamp-12">
           {{ task.report }}
-        </p>
-      </div>
-
-      <div v-if="task?.completedAt" class="flex flex-row gap-2 items-start w-full">
-        <UIcon name="i-lucide-calendar" class="shrink-0 size-5 text-primary" />
-        <p class="text-base/5 font-semibold">
-          {{ format(new Date(task.completedAt), 'd MMMM yyyy в HH:mm', { locale: ru }) }}
         </p>
       </div>
     </Section>
@@ -52,4 +61,6 @@ const userStore = useUserStore()
 
 const isCompleted = computed(() => !!task.completedAt)
 const performer = computed(() => userStore.staff.find((staff) => staff.id === task.performerId))
+
+const isFocused = computed(() => task.id === performer.value?.focusedTaskId)
 </script>

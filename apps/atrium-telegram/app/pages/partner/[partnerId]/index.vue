@@ -1,6 +1,6 @@
 <template>
   <PageContainer>
-    <Section>
+    <Section class="motion-preset-slide-left">
       <div class="flex flex-row gap-2 items-center">
         <UIcon
           name="i-lucide-user"

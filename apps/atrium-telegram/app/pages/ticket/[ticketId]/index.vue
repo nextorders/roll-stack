@@ -1,6 +1,6 @@
 <template>
   <PageContainer>
-    <Section>
+    <Section class="motion-preset-slide-left">
       <div class="flex flex-row items-start justify-between gap-2.5">
         <UIcon name="i-lucide-mail-question-mark" class="size-10 text-primary" />
 

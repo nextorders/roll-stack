@@ -17,8 +17,8 @@ function _useNavigation() {
       badge: flowStore.nowViewedItemsCount > 10 ? '10+' : flowStore.nowViewedItemsCount.toString(),
     },
     {
-      path: '/tasks',
-      names: ['tasks'],
+      path: '/task/my',
+      names: ['my-tasks'],
       title: t('app.my-tasks'),
       icon: 'i-lucide-layout-dashboard',
       badge: taskStore.myTodayTasks.length.toString(),

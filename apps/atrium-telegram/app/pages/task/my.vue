@@ -60,6 +60,10 @@
 <script setup lang="ts">
 import { ModalCreateTaskList, ModalUploadUserAvatar } from '#components'
 
+definePageMeta({
+  name: 'my-tasks',
+})
+
 const { vibrate } = useFeedback()
 
 const overlay = useOverlay()
