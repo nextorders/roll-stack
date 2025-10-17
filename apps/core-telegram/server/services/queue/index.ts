@@ -1,4 +1,4 @@
-import type { EventHandlerMap, NotificationUserBeaconOnEpicCommentCreated, TicketMessageCreated } from '@roll-stack/queue'
+import type { EventHandlerMap, FlowItemCreated, NotificationUserBeaconOnEpicCommentCreated, TicketMessageCreated } from '@roll-stack/queue'
 import { db } from '@roll-stack/database'
 import { queue } from '@roll-stack/queue'
 import { useAtriumBot } from '../telegram/atrium-bot'
@@ -10,6 +10,7 @@ export async function setupConsumers() {
   return queue.consume<EventHandlerMap>(queue.telegram.name, {
     ticketMessageCreated: handleTicketMessageCreated,
     notificationUserBeaconOnEpicCommentCreated: handleUserBeaconOnEpicCommentCreated,
+    flowItemCreated: handleFlowItemCreated,
   })
 }
 
@@ -52,6 +53,34 @@ async function handleUserBeaconOnEpicCommentCreated(data: NotificationUserBeacon
           },
         )
     }
+
+    return true
+  } catch (error) {
+    console.error(error)
+    return false
+  }
+}
+
+async function handleFlowItemCreated(data: FlowItemCreated['data']): Promise<boolean> {
+  try {
+    const separator = 'zzzzz'
+    const startAppData = `flow${separator}${data.itemId}`
+
+    // Get first words
+    const messageIntro = data.description.split(' ').slice(0, 45).join(' ')
+    const preparedMessage = `${messageIntro}...\n\nОстальное в Атриуме 🙃`
+
+    await useAtriumBot().api.sendMessage(telegram.teamGroupId, preparedMessage, {
+      link_preview_options: {
+        is_disabled: true,
+      },
+      reply_markup: {
+        inline_keyboard: [[{
+          text: '👉 Открыть Атриум',
+          url: `https://t.me/sushi_atrium_bot/app?startapp=${startAppData}`,
+        }]],
+      },
+    })
 
     return true
   } catch (error) {

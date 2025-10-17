@@ -3,9 +3,10 @@ import type { BaseEventMap, BaseEventMessage, BaseEventMessageHandlerMap } from 
 export enum Events {
   ticketMessageCreated = 'ticketMessageCreated',
   notificationUserBeaconOnEpicCommentCreated = 'notificationUserBeaconOnEpicCommentCreated',
+  flowItemCreated = 'flowItemCreated',
 }
 
-type EventMessage = TicketMessageCreated | NotificationUserBeaconOnEpicCommentCreated
+type EventMessage = TicketMessageCreated | NotificationUserBeaconOnEpicCommentCreated | FlowItemCreated
 type EventMap = BaseEventMap<EventMessage>
 
 export type EventHandlerMap = Partial<BaseEventMessageHandlerMap<EventMap>>
@@ -34,4 +35,14 @@ type NotificationUserBeaconOnEpicCommentCreatedData = {
 }
 export interface NotificationUserBeaconOnEpicCommentCreated extends BaseEventMessage<NotificationUserBeaconOnEpicCommentCreatedData> {
   event: typeof Events.notificationUserBeaconOnEpicCommentCreated
+}
+
+type FlowItemCreatedData = {
+  itemId: string
+  type: string
+  title: string
+  description: string
+}
+export interface FlowItemCreated extends BaseEventMessage<FlowItemCreatedData> {
+  event: typeof Events.flowItemCreated
 }

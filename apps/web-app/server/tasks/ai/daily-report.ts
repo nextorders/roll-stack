@@ -61,25 +61,6 @@ export default defineTask({
         title: `Задачи ${date}`,
         description: finalMessage,
       })
-
-      // const separator = 'zzzzz'
-      // const startAppData = `flow${separator}${flowItem?.id}`
-
-      // // Get first words
-      // const messageIntro = finalMessage.split(' ').slice(0, 40).join(' ')
-      // const preparedMessage = `${messageIntro}...\n\nПродолжение внутри Атриума? 🙃`
-
-      // await useAtriumBot().api.sendMessage(telegram.teamGroupId, preparedMessage, {
-      //   link_preview_options: {
-      //     is_disabled: true,
-      //   },
-      //   reply_markup: {
-      //     inline_keyboard: [[{
-      //       text: '👉 Открыть Атриум',
-      //       url: `https://t.me/sushi_atrium_bot/app?startapp=${startAppData}`,
-      //     }]],
-      //   },
-      // })
     } catch (error) {
       errorResolver(error)
     }
