@@ -57,7 +57,7 @@
         </p>
       </div>
 
-      <div class="mt-6 flex flex-col gap-0.5">
+      <div class="mt-6 flex flex-col gap-1">
         <div class="text-sm text-muted">
           Создана
           <time

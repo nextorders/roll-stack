@@ -17,6 +17,13 @@ export class Task {
     })
   }
 
+  static async findAllNotCompleted() {
+    return useDatabase().query.tasks.findMany({
+      where: (tasks, { isNull }) => isNull(tasks.completedAt),
+      orderBy: (tasks, { desc }) => desc(tasks.updatedAt),
+    })
+  }
+
   static async findList(id: string) {
     return useDatabase().query.taskLists.findFirst({
       where: (taskLists, { eq, and }) => and(eq(taskLists.id, id), eq(taskLists.isArchived, false)),
