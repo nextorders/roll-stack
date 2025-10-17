@@ -1,19 +1,25 @@
 <template>
-  <Section>
-    <div class="flex flex-row gap-2 items-center justify-between">
-      <div class="flex flex-row gap-2.5 items-center">
-        <UPopover
-          v-if="activeChatMembers?.length"
-          mode="hover"
-          :content="{
-            align: 'center',
-            side: 'bottom',
-            sideOffset: 8,
-          }"
-        >
+  <div class="flex flex-col gap-2.5">
+    <div class="flex flex-row gap-2.5 items-center justify-between">
+      <SectionTitle :title="list?.name ?? ''" />
+
+      <UButton
+        v-if="canEdit"
+        variant="solid"
+        color="secondary"
+        icon="i-lucide-plus"
+        label="Создать"
+        @click="handleCreateTask()"
+      />
+    </div>
+
+    <Section class="py-2">
+      <div class="flex flex-row items-center justify-between">
+        <div class="h-8">
           <UAvatarGroup
-            :max="2"
-            size="xs"
+            v-if="activeChatMembers?.length"
+            :max="3"
+            size="md"
             :ui="{
               base: '-me-1.5',
             }"
@@ -25,69 +31,37 @@
               alt=""
             />
           </UAvatarGroup>
+        </div>
 
-          <template #content>
-            <div class="h-auto w-fit px-1.5 py-2 flex flex-col gap-2">
-              <UButtonGroup orientation="vertical">
-                <UButton
-                  v-for="member in activeChatMembers"
-                  :key="member.id"
-                  :to="`/staff/${member.user.id}`"
-                  :avatar="{ src: member.user.avatarUrl ?? undefined }"
-                  :ui="{
-                    leadingAvatarSize: 'sm',
-                  }"
-                  :label="`${member.user.name} ${member.user.surname}`"
-                  block
-                  color="primary"
-                  variant="link"
-                  class="text-sm justify-start"
-                />
-              </UButtonGroup>
-            </div>
-          </template>
-        </UPopover>
-
-        <h3 class="text-lg/5 font-bold">
-          {{ list?.name }}
-        </h3>
+        <div v-if="canEdit" class="flex flex-row gap-2">
+          <UButton
+            variant="soft"
+            color="primary"
+            size="xl"
+            icon="i-lucide-pencil"
+            class="h-10"
+            @click="handleEditTaskList()"
+          />
+        </div>
       </div>
-
-      <div v-if="canEdit" class="flex flex-row gap-2">
-        <UButton
-          variant="soft"
-          color="primary"
-          size="md"
-          icon="i-lucide-pencil"
-          @click="handleEditTaskList"
-        />
-
-        <UButton
-          variant="solid"
-          color="secondary"
-          size="md"
-          icon="i-lucide-plus"
-          @click="handleCreateTask"
-        />
-      </div>
-    </div>
+    </Section>
 
     <div
       v-if="tasks.length"
-      class="w-full flex flex-col gap-3"
+      class="w-full flex flex-col gap-2.5"
     >
-      <TaskCard
+      <TaskActiveCard
         v-for="task in tasks"
         :key="task.id"
         :task="task"
       />
     </div>
     <template v-else>
-      <p class="text-base text-muted">
+      <p class="text-center text-base text-muted">
         Активных задач нет
       </p>
     </template>
-  </Section>
+  </div>
 </template>
 
 <script setup lang="ts">

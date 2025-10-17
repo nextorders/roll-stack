@@ -1,5 +1,5 @@
 <template>
-  <ActiveCard>
+  <ActiveCard class="motion-preset-slide-left">
     <Section>
       <div class="flex flex-row gap-2 items-center">
         <UAvatar :src="performer?.avatarUrl ?? undefined" class="size-8" />
@@ -36,6 +36,13 @@
 
       <div v-if="task.description" class="w-full text-base/5 font-normal whitespace-pre-wrap break-words line-clamp-8">
         {{ task.description }}
+      </div>
+
+      <div v-if="task?.date" class="flex flex-row gap-2 items-center w-full">
+        <UIcon name="i-lucide-calendar" class="shrink-0 size-5 text-primary" />
+        <p class="text-base/5 font-semibold whitespace-pre-wrap break-words">
+          {{ format(new Date(task.date), 'd MMMM yyyy', { locale: ru }) }}
+        </p>
       </div>
 
       <div v-if="task.report" class="flex flex-row gap-2 items-start w-full">
