@@ -49,6 +49,7 @@ const { taskId } = defineProps<{
 
 const emit = defineEmits(['success', 'submitted'])
 
+const { pop } = useConfetti()
 const { vibrate } = useFeedback()
 const userStore = useUserStore()
 const taskStore = useTaskStore()
@@ -77,6 +78,7 @@ async function onSubmit(event: FormSubmitEvent<CompleteTask>) {
       userStore.update(),
     ])
 
+    pop()
     vibrate('success')
     emit('success')
   } catch (error) {
