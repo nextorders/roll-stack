@@ -4,7 +4,7 @@
       <div
         v-for="user in allUsers"
         :key="user.id"
-        class="w-18 flex flex-col gap-1 justify-start items-center scroll-ml-6 snap-start motion-preset-slide-right"
+        class="w-18 flex flex-col gap-1 justify-start items-center scroll-ml-6 snap-start motion-preset-slide-up"
         @click="handleClick(user.id)"
       >
         <div class="relative">

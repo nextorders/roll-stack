@@ -43,14 +43,14 @@
         </p>
       </div>
 
-      <div v-if="task?.date" class="flex flex-row gap-2 items-start w-full">
+      <div v-if="task?.date" class="flex flex-row gap-2 items-center w-full">
         <UIcon name="i-lucide-calendar" class="shrink-0 size-6 text-primary" />
         <p class="text-base/5 font-semibold whitespace-pre-wrap break-words">
           {{ format(new Date(task.date), 'd MMMM yyyy', { locale: ru }) }}
         </p>
       </div>
 
-      <div v-if="taskList" class="flex flex-row gap-2 items-start w-full">
+      <div v-if="taskList" class="flex flex-row gap-2 items-center w-full">
         <UIcon name="i-lucide-book-marked" class="shrink-0 size-6 text-primary" />
         <p class="text-base/5 font-semibold whitespace-pre-wrap break-words">
           {{ taskList.name }}

@@ -1,12 +1,6 @@
 <template>
   <PageContainer>
     <div class="flex flex-row gap-3.5 items-center">
-      <UAvatar
-        :src="userStore?.avatarUrl ?? undefined"
-        class="size-14 border-2 border-primary hover:scale-95 active:scale-90 duration-200"
-        @click="handleUploadUserAvatar"
-      />
-
       <div class="flex flex-col gap-1">
         <SectionTitle :title="`${userStore.name}, привет!`" />
         <p class="text-base/5">
@@ -58,23 +52,15 @@
 </template>
 
 <script setup lang="ts">
-import { ModalCreateTaskList, ModalUploadUserAvatar } from '#components'
+import { ModalCreateTaskList } from '#components'
 
 definePageMeta({
   name: 'my-tasks',
 })
 
-const { vibrate } = useFeedback()
-
 const overlay = useOverlay()
 const modalCreateTaskList = overlay.create(ModalCreateTaskList)
-const modalUploadUserAvatar = overlay.create(ModalUploadUserAvatar)
 
 const userStore = useUserStore()
 const taskStore = useTaskStore()
-
-function handleUploadUserAvatar() {
-  vibrate()
-  modalUploadUserAvatar.open()
-}
 </script>
