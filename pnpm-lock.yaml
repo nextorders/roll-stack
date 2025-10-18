@@ -58,8 +58,8 @@ catalogs:
       specifier: ^0.1.9
       version: 0.1.9
     '@paralleldrive/cuid2':
-      specifier: ^2.2.2
-      version: 2.2.2
+      specifier: ^3.0.0
+      version: 3.0.0
     '@pinia/nuxt':
       specifier: ^0.11.2
       version: 0.11.2
@@ -599,7 +599,7 @@ importers:
     dependencies:
       '@paralleldrive/cuid2':
         specifier: 'catalog:'
-        version: 2.2.2
+        version: 3.0.0
       drizzle-cuid2:
         specifier: 'catalog:'
         version: 2.1.0(drizzle-orm@0.44.6(@opentelemetry/api@1.9.0)(@types/pg@8.15.5)(pg@8.16.3))
@@ -1856,6 +1856,10 @@ packages:
     resolution: {integrity: sha512-jCs9ldd7NwzpgXDIf6P3+NrHh9/sD6CQdxHyjQI+h/6rDNo88ypBxxz45UDuZHz9r3tNz7N/VInSVoVdtXEI4A==}
     engines: {node: ^14.21.3 || >=16}
 
+  '@noble/hashes@2.0.1':
+    resolution: {integrity: sha512-XlOlEbQcE9fmuXxrVTXCTlG2nlRXa9Rj3rr5Ue/+tX+nmkgbX720YHh0VR3hBF9xDvwnb8D2shVGOwNx+ulArw==}
+    engines: {node: '>= 20.19.0'}
+
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -2446,6 +2450,10 @@ packages:
 
   '@paralleldrive/cuid2@2.2.2':
     resolution: {integrity: sha512-ZOBkgDwEdoYVlSeRbYYXs0S9MejQofiVYoTbKzy/6GQa39/q5tQU2IX46+shYnUkpEl3wc+J6wRlar7r2EK2xA==}
+
+  '@paralleldrive/cuid2@3.0.0':
+    resolution: {integrity: sha512-hUUm1qa210of5RrpxbUqOeo8PuF3LHl9WgjUQO50T5YoI59/wOlC6n/edo/y/QLy6EUN144Tl7hm4341QHBZxA==}
+    hasBin: true
 
   '@parcel/watcher-android-arm64@2.5.1':
     resolution: {integrity: sha512-KF8+j9nNbUN8vzOFDpRMsaKBHZ/mcjEjMToVMJOhTozkDonQFFrRcfdLWn6yWKCmJKmdVxSgHiYvTCef4/qcBA==}
@@ -5087,6 +5095,9 @@ packages:
   environment@1.1.0:
     resolution: {integrity: sha512-xUtoPkMggbz0MPyPiIWr1Kp4aeWJjDZ6SMvURhimjdZgsRuDplF5/s9hcgGhyXMhs+6vpnuoiZ2kFiu3FMnS8Q==}
     engines: {node: '>=18'}
+
+  error-causes@3.0.2:
+    resolution: {integrity: sha512-i0B8zq1dHL6mM85FGoxaJnVtx6LD5nL2v0hlpGdntg5FOSyzQ46c9lmz5qx0xRS2+PWHGOHcYxGIBC5Le2dRMw==}
 
   error-ex@1.3.2:
     resolution: {integrity: sha512-7dFHNmqeFSEt2ZBsCriorKnn3Z2pj+fd9kmI6QoWw4//DL+icEBfc0U7qJCisqrTsKTjw4fNFy2pW9OqStD84g==}
@@ -9852,6 +9863,8 @@ snapshots:
 
   '@noble/hashes@1.8.0': {}
 
+  '@noble/hashes@2.0.1': {}
+
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -10713,6 +10726,11 @@ snapshots:
   '@paralleldrive/cuid2@2.2.2':
     dependencies:
       '@noble/hashes': 1.8.0
+
+  '@paralleldrive/cuid2@3.0.0':
+    dependencies:
+      '@noble/hashes': 2.0.1
+      error-causes: 3.0.2
 
   '@parcel/watcher-android-arm64@2.5.1':
     optional: true
@@ -13516,6 +13534,8 @@ snapshots:
     optional: true
 
   environment@1.1.0: {}
+
+  error-causes@3.0.2: {}
 
   error-ex@1.3.2:
     dependencies:
