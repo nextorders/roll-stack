@@ -31,8 +31,8 @@
           </div>
 
           <UButton
-            to="https://watbot.ru/w/uic1"
-            target="_blank"
+            to="https://t.me/vebinar_cafe_start_bot"
+            external
             variant="solid"
             color="secondary"
             size="xl"
