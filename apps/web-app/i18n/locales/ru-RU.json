@@ -144,7 +144,9 @@
       "agreements": "Договоры",
       "prestige": "Престиж",
       "activity-schedule": "Регламент активностей",
-      "activity-schedules": "Регламенты активностей"
+      "activity-schedules": "Регламенты активностей",
+      "invoices": "Счета",
+      "invoice": "Счет"
     },
     "product": {
       "available-for-purchase": "Доступен для покупки",
@@ -432,6 +434,9 @@
     "epic-created": "Эпик создан",
     "epic-updated": "Эпик обновлен",
     "epic-deleted": "Эпик удален",
-    "beacon-created": "Маяк создан"
+    "beacon-created": "Маяк создан",
+    "invoice-created": "Счет создан",
+    "invoice-updated": "Счет обновлен",
+    "invoice-deleted": "Счет удален"
   }
 }

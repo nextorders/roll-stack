@@ -77,7 +77,7 @@
                 {{ kitchen.address }}
               </h3>
 
-              <h3 class="text-sm/5">
+              <h3 class="text-sm/4">
                 {{ kitchen.city }}
               </h3>
             </div>

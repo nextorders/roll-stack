@@ -3,6 +3,8 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 2xl:grid-cols-7 gap-4 md:gap-6">
       <PartnerPageCard v-if="partner" :partner="partner" />
 
+      <PartnerBalanceCard :balance="partner?.balance ?? 0" />
+
       <UCard>
         <div class="flex flex-col gap-2.5">
           <div class="flex flex-row items-center gap-1.5">

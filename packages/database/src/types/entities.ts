@@ -97,4 +97,5 @@ export type ActivityScheduleTag = 'permanent'
   | 'optional'
   | 'advertising'
 
+export type InvoiceType = 'replenishment' | 'royalties' | 'other'
 export type InvoiceStatus = 'paid' | 'unpaid'
