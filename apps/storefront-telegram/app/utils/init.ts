@@ -78,30 +78,31 @@ export async function init(options: {
   }
 
   if (viewport.mount.isAvailable()) {
-    viewport.mount().then(() => {
-      viewport.bindCssVars()
+    await viewport.mount()
+    viewport.bindCssVars()
 
-      if (viewport.requestFullscreen.isAvailable()) {
-        viewport.requestFullscreen().finally(() => {
-          // Wait
-          setTimeout(() => {
-            // The app is now in fullscreen
-            if (window.innerWidth > 600) {
-              // Application should be in fullscreen mode only on small screens!
-              viewport.exitFullscreen()
-            }
-          }, 50)
-        })
-      }
-    })
+    if (viewport.requestFullscreen.isAvailable()) {
+      await viewport.requestFullscreen()
+
+      setTimeout(() => {
+        // The app is now in fullscreen
+        if (window.innerWidth > 600) {
+          // Application should be in fullscreen mode only on small screens!
+          viewport.exitFullscreen()
+        }
+      }, 100)
+    }
   }
 
-  closingBehavior.mount.ifAvailable()
-  closingBehavior.enableConfirmation.ifAvailable()
+  if (closingBehavior.mount.isAvailable()) {
+    closingBehavior.mount()
+    closingBehavior.enableConfirmation()
+  }
 
-  // Disable vertical swipes to prevent app close
-  swipeBehavior.mount.ifAvailable()
-  swipeBehavior.disableVertical.ifAvailable()
+  if (swipeBehavior.mount.isAvailable()) {
+    swipeBehavior.mount()
+    swipeBehavior.disableVertical()
+  }
 
   // Orientation lock
   postEvent('web_app_toggle_orientation_lock', {
