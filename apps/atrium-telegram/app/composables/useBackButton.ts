@@ -1,4 +1,4 @@
-import { backButton } from '@telegram-apps/sdk-vue'
+import { backButton } from '@tma.js/sdk-vue'
 
 function _useBackButton() {
   let offClick: () => void = () => {}

@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import * as locales from '@nuxt/ui/locale'
-import { retrieveLaunchParams, themeParams } from '@telegram-apps/sdk-vue'
+import { retrieveLaunchParams, themeParams } from '@tma.js/sdk-vue'
 
 const { locale } = useI18n()
 

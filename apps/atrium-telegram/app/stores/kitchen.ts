@@ -1,4 +1,4 @@
-import { initDataRaw as _initDataRaw, useSignal } from '@telegram-apps/sdk-vue'
+import { initData, useSignal } from '@tma.js/sdk-vue'
 
 type TodayData = {
   hoursWorkedForNow: number
@@ -9,7 +9,7 @@ export const useKitchenStore = defineStore('kitchen', () => {
   const kitchens = ref<KitchenWithData[]>([])
   const todayData = ref<TodayData | undefined>()
 
-  const initDataRaw = useSignal(_initDataRaw)
+  const initDataRaw = useSignal(initData.raw)
 
   async function update() {
     try {

@@ -3,7 +3,7 @@ import type { InitData } from '@telegram-apps/init-data-node'
 import type { H3Event } from 'h3'
 import process from 'node:process'
 import { db } from '@roll-stack/database'
-import { parse, validate } from '@telegram-apps/init-data-node'
+import { isValid, parse } from '@telegram-apps/init-data-node'
 
 const logger = useLogger('middleware:auth')
 
@@ -72,6 +72,9 @@ async function getUserFromToken(event: H3Event): Promise<User | null> {
 }
 
 function validateTelegramData(authData: string, botToken: string): InitData | undefined {
-  validate(authData, botToken, { expiresIn: 0 })
+  if (!isValid(authData, botToken, { expiresIn: 0 })) {
+    return
+  }
+
   return parse(authData)
 }

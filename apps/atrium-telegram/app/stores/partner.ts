@@ -1,5 +1,5 @@
-import type { Kitchen, Partner, PartnerAgreement, PartnerAgreementFile, PartnerLegalEntity, User } from '@roll-stack/database'
-import { initDataRaw as _initDataRaw, useSignal } from '@telegram-apps/sdk-vue'
+import type { Invoice, Kitchen, Partner, PartnerAgreement, PartnerAgreementFile, PartnerLegalEntity, User } from '@roll-stack/database'
+import { initData, useSignal } from '@tma.js/sdk-vue'
 
 type PartnerLegalEntityWithPartners = PartnerLegalEntity & {
   partners: Partner[]
@@ -23,6 +23,7 @@ export type PartnerWithData = Partner & {
   kitchens: Kitchen[]
   legalEntity: PartnerLegalEntityWithData | null
   users: User[]
+  invoices: Invoice[]
 }
 
 export const usePartnerStore = defineStore('partner', () => {
@@ -30,7 +31,7 @@ export const usePartnerStore = defineStore('partner', () => {
   const agreements = ref<PartnerAgreementWithAllData[]>([])
   const legalEntities = ref<PartnerLegalEntity[]>([])
 
-  const initDataRaw = useSignal(_initDataRaw)
+  const initDataRaw = useSignal(initData.raw)
 
   async function update() {
     try {

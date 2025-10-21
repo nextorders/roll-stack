@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { openTelegramLink, showPopup } from '@telegram-apps/sdk-vue'
+import { openTelegramLink, popup } from '@tma.js/sdk-vue'
 
 const { vibrate } = useFeedback()
 
@@ -80,8 +80,8 @@ async function handleClick(userId: string) {
     return
   }
 
-  if (showPopup.isAvailable()) {
-    const buttonId = await showPopup({
+  if (popup.show.isAvailable()) {
+    const buttonId = await popup.show({
       title: `${user.name} ${user.surname}`,
       message: user.caption,
       buttons: [

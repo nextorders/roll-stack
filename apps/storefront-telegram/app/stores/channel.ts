@@ -1,5 +1,5 @@
 import type { Kitchen, PaymentMethod } from '@roll-stack/database'
-import { initDataRaw as _initDataRaw, useSignal } from '@telegram-apps/sdk-vue'
+import { initData, useSignal } from '@tma.js/sdk-vue'
 
 type KitchenWithData = Kitchen & {
   paymentMethods: PaymentMethod[]
@@ -17,7 +17,7 @@ export const useChannelStore = defineStore('channel', () => {
 
   const isKitchenOpened = computed(() => false)
 
-  const initDataRaw = useSignal(_initDataRaw)
+  const initDataRaw = useSignal(initData.raw)
 
   async function update() {
     try {

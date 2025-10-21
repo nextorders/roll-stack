@@ -18,6 +18,10 @@
         <div class="flex flex-row gap-2 items-start text-base/5">
           <UIcon name="i-lucide-map" class="shrink-0 size-5" /> {{ partner?.city }}
         </div>
+
+        <div class="flex flex-row gap-2 items-start text-base/5">
+          <UIcon name="i-lucide-banknote" class="shrink-0 size-5" /> Баланс {{ new Intl.NumberFormat().format(partner?.balance ?? 0) }} ₽
+        </div>
       </div>
     </Section>
 
@@ -85,6 +89,22 @@
         </div>
       </div>
     </div>
+
+    <div v-if="invoices?.length" class="flex flex-col gap-2.5">
+      <div class="flex flex-row justify-between items-center">
+        <SectionTitle title="Счета" />
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <div
+          v-for="invoice in invoices"
+          :key="invoice.id"
+          class="motion-preset-slide-left"
+        >
+          <PartnerInvoiceCard :invoice="invoice" />
+        </div>
+      </div>
+    </div>
   </PageContainer>
 </template>
 
@@ -99,4 +119,6 @@ const { params } = useRoute('partner-partnerId')
 const partnerStore = usePartnerStore()
 const partner = computed(() => partnerStore.partners.find((partner) => partner.id === params.partnerId))
 const partnerUser = computed(() => partner.value?.users.find((user) => user.type === 'partner'))
+
+const invoices = computed(() => partner.value?.invoices.toSorted((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()))
 </script>

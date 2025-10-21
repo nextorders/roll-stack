@@ -67,7 +67,7 @@ async function handleFlowItemCreated(data: FlowItemCreated['data']): Promise<boo
     const startAppData = `flow${separator}${data.itemId}`
 
     // Get first words
-    const messageIntro = data.description.split(' ').slice(0, 45).join(' ')
+    const messageIntro = data.description.split(' ').slice(0, 100).join(' ')
     const preparedMessage = `${messageIntro}...\n\nОстальное в Атриуме 🙃`
 
     await useAtriumBot().api.sendMessage(telegram.teamGroupId, preparedMessage, {

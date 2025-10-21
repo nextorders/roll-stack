@@ -18,7 +18,7 @@
     "@roll-stack/database": "workspace:*",
     "@roll-stack/ui": "workspace:*",
     "@telegram-apps/init-data-node": "catalog:",
-    "@telegram-apps/sdk-vue": "catalog:",
+    "@tma.js/sdk-vue": "catalog:",
     "date-fns": "catalog:",
     "libphonenumber-js": "catalog:",
     "pinia": "catalog:"

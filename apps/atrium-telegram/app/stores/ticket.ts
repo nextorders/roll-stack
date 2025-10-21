@@ -1,5 +1,5 @@
 import type { Ticket, TicketMessage, User } from '@roll-stack/database'
-import { initDataRaw as _initDataRaw, useSignal } from '@telegram-apps/sdk-vue'
+import { initData, useSignal } from '@tma.js/sdk-vue'
 
 export type TicketWithData = Ticket & {
   messages: TicketMessage[]
@@ -12,7 +12,7 @@ export const useTicketStore = defineStore('ticket', () => {
 
   const ticketsWithoutAnswer = computed(() => tickets.value.filter((ticket) => ticket.lastMessage?.userId === ticket.userId))
 
-  const initDataRaw = useSignal(_initDataRaw)
+  const initDataRaw = useSignal(initData.raw)
 
   async function update() {
     try {
