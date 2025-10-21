@@ -5,16 +5,16 @@ export async function recountPartnerBalance(partnerId: string) {
 
   let balance = 0
   for (const invoice of partnerInvoices) {
-    if (invoice.type === 'replenishment' && invoice.status === 'paid') {
-      balance += invoice.total
+    if (invoice.type === 'replenishment') {
+      if (invoice.status === 'paid') {
+        balance += invoice.total
+      }
+
+      continue
     }
 
-    if (invoice.type === 'royalties') {
-      balance -= invoice.total
-    }
-    if (invoice.type === 'other') {
-      balance -= invoice.total
-    }
+    // All other invoices
+    balance -= invoice.total
   }
 
   await db.partner.update(partnerId, {
