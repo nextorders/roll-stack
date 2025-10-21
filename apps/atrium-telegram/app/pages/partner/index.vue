@@ -37,8 +37,13 @@ const partnerStore = usePartnerStore()
 const search = ref('')
 
 const filteredPartners = computed(() => {
+  if (!search.value) {
+    // Show all
+    return partnerStore.partners
+  }
+
   const filteredBySearch = partnerStore.partners.filter((partner) => {
-    return partner.legalEntity?.name.toLowerCase().includes(search.value.toLowerCase())
+    return partner.legalEntity?.name?.toLowerCase().includes(search.value.toLowerCase()) ?? false
   })
 
   return filteredBySearch
