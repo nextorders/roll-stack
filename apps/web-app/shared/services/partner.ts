@@ -51,3 +51,21 @@ export const updatePartnerAgreementSchema = type({
   patentStatus: patentStatus.describe('error.length.invalid').optional(),
 })
 export type UpdatePartnerAgreement = typeof updatePartnerAgreementSchema.infer
+
+export const createPartnerInvoiceSchema = type({
+  title: type('string').describe('error.length.invalid'),
+  description: type('string | undefined').describe('error.length.invalid').optional(),
+  total: type('number').describe('error.length.invalid'),
+  type: type('string').describe('error.length.invalid'),
+  status: type('string').describe('error.length.invalid'),
+})
+export type CreatePartnerInvoice = typeof createPartnerInvoiceSchema.infer
+
+export const updatePartnerInvoiceSchema = type({
+  title: type('string | undefined').describe('error.length.invalid').optional(),
+  description: type('string | undefined').describe('error.length.invalid').optional(),
+  total: type('number | undefined').describe('error.length.invalid').optional(),
+  type: type('string | undefined').describe('error.length.invalid').optional(),
+  status: type('string | undefined').describe('error.length.invalid').optional(),
+})
+export type UpdatePartnerInvoice = typeof updatePartnerInvoiceSchema.infer

@@ -788,8 +788,10 @@ export const invoices = pgTable('invoices', {
   createdAt: timestamp('created_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   title: varchar('title').notNull(),
+  description: varchar('description'),
   total: numeric('total', { mode: 'number' }).notNull().default(0),
   paid: numeric('paid', { mode: 'number' }).notNull().default(0),
+  type: varchar('type').notNull().$type<entities.InvoiceType>(),
   status: varchar('status').notNull().$type<entities.InvoiceStatus>().default('unpaid'),
   partnerId: cuid2('partner_id').references(() => partners.id),
 })

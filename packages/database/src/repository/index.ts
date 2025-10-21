@@ -9,6 +9,7 @@ import { Epic } from './epic'
 import { Feedback } from './feedback'
 import { File } from './file'
 import { Flow } from './flow'
+import { Invoice } from './invoice'
 import { Kitchen } from './kitchen'
 import { Locker } from './locker'
 import { Media } from './media'
@@ -37,6 +38,7 @@ class Repository {
   readonly feedback = Feedback
   readonly file = File
   readonly flow = Flow
+  readonly invoice = Invoice
   readonly kitchen = Kitchen
   readonly locker = Locker
   readonly media = Media

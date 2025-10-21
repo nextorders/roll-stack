@@ -66,7 +66,7 @@
         variant="soft"
         size="md"
         class="rounded-lg justify-center font-semibold"
-        :label="`Баланс ${new Intl.NumberFormat().format(partner.balance)} руб`"
+        :label="`Баланс ${new Intl.NumberFormat().format(partner.balance)} ₽`"
       />
 
       <h3 class="text-sm/4 font-bold">

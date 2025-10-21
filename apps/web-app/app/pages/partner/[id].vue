@@ -19,6 +19,8 @@ const { params } = useRoute('partner-id')
 const partnerStore = usePartnerStore()
 const partner = computed(() => partnerStore.partners.find((partner) => partner.id === params.id))
 
+const activeInvoices = computed(() => partner.value?.invoices)
+
 const submenuItems = computed(() => [
   {
     label: t('common.partner'),
@@ -27,8 +29,14 @@ const submenuItems = computed(() => [
     exact: true,
   },
   {
+    label: t('app.menu.invoices'),
+    to: `/partner/${partner.value?.id}/invoice`,
+    icon: 'i-lucide-banknote-arrow-down',
+    badge: activeInvoices.value?.length,
+  },
+  {
     label: t('app.menu.kitchens'),
-    to: `/partner/${partner.value?.id}/kitchens`,
+    to: `/partner/${partner.value?.id}/kitchen`,
     icon: 'i-lucide-map-pinned',
     badge: partner.value?.kitchens.length,
   },
