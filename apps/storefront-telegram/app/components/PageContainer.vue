@@ -7,9 +7,9 @@
 </template>
 
 <script setup lang="ts">
-import { hideBackButton } from '@telegram-apps/sdk-vue'
+import { backButton } from '@tma.js/sdk-vue'
 
 const { back = true } = defineProps<{ back?: boolean }>()
 
-onMounted(() => !back && hideBackButton())
+onMounted(() => !back && backButton.hide())
 </script>

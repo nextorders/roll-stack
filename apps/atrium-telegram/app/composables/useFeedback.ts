@@ -1,4 +1,4 @@
-import { hapticFeedback } from '@telegram-apps/sdk-vue'
+import { hapticFeedback } from '@tma.js/sdk-vue'
 
 function _useFeedback() {
   function vibrate(type: 'light' | 'success' | 'error' = 'light') {

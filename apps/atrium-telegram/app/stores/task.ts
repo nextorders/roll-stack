@@ -1,6 +1,6 @@
 import type { Chat, ChatMember, Task, TaskList, User } from '@roll-stack/database'
 import { getLocalTimeZone, isToday, parseDate } from '@internationalized/date'
-import { initDataRaw as _initDataRaw, useSignal } from '@telegram-apps/sdk-vue'
+import { initData, useSignal } from '@tma.js/sdk-vue'
 
 type ChatWithData = Chat & {
   members: (ChatMember & { user: User })[]
@@ -38,7 +38,7 @@ export const useTaskStore = defineStore('task', () => {
     return [...tasksWithDate, ...tasksWithoutDate]
   })
 
-  const initDataRaw = useSignal(_initDataRaw)
+  const initDataRaw = useSignal(initData.raw)
 
   async function update() {
     try {

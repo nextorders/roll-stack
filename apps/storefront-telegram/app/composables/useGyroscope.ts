@@ -1,5 +1,5 @@
-import type { EventListener } from '@telegram-apps/sdk-vue'
-import { off, on } from '@telegram-apps/sdk-vue'
+import type { EventListener } from '@tma.js/sdk-vue'
+import { off, on } from '@tma.js/sdk-vue'
 
 function _useGyroscope() {
   const x = ref(0)

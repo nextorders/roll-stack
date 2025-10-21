@@ -54,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import { showPopup } from '@telegram-apps/sdk-vue'
+import { popup } from '@tma.js/sdk-vue'
 import { parsePhoneNumberWithError } from 'libphonenumber-js'
 
 const { vibrate } = useFeedback()
@@ -67,8 +67,8 @@ const formattedToCall = `tel:+${tel}`
 async function handleCall() {
   vibrate()
 
-  if (showPopup.isAvailable()) {
-    const buttonId = await showPopup({
+  if (popup.show.isAvailable()) {
+    const buttonId = await popup.show({
       title: formatted,
       message: 'Телефон кухни. Выберите действие',
       buttons: [

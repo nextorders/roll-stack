@@ -1,5 +1,5 @@
 import type { Media, MediaItem, Menu, MenuCategory, Product, ProductVariant } from '@roll-stack/database'
-import { initDataRaw as _initDataRaw, useSignal } from '@telegram-apps/sdk-vue'
+import { initData, useSignal } from '@tma.js/sdk-vue'
 
 type ProductWithCategory = Product & { category: MenuCategory }
 
@@ -21,7 +21,7 @@ export const useMenuStore = defineStore('menu', () => {
 
   const products = computed(() => menu.value?.categories.flatMap((c) => c.products) || [])
 
-  const initDataRaw = useSignal(_initDataRaw)
+  const initDataRaw = useSignal(initData.raw)
 
   async function update() {
     try {

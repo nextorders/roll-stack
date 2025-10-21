@@ -1,5 +1,5 @@
 import process from 'node:process'
-import { emitEvent, isTMA, mockTelegramEnv } from '@telegram-apps/sdk-vue'
+import { emitEvent, isTMA, mockTelegramEnv } from '@tma.js/sdk-vue'
 
 // It is important, to mock the environment only for development purposes. When building the
 // application, the code inside will be tree-shaken, so you will not see it in your final bundle.
@@ -28,10 +28,10 @@ export async function mockEnv(): Promise<void> {
           mockTelegramEnv({
             onEvent(e) {
               // Here you can write your own handlers for all known Telegram Mini Apps methods.
-              if (e[0] === 'web_app_request_theme') {
+              if (e.name === 'web_app_request_theme') {
                 return emitEvent('theme_changed', { theme_params: themeParams })
               }
-              if (e[0] === 'web_app_request_viewport') {
+              if (e.name === 'web_app_request_viewport') {
                 return emitEvent('viewport_changed', {
                   height: window.innerHeight,
                   width: window.innerWidth,
@@ -39,10 +39,10 @@ export async function mockEnv(): Promise<void> {
                   is_state_stable: true,
                 })
               }
-              if (e[0] === 'web_app_request_content_safe_area') {
+              if (e.name === 'web_app_request_content_safe_area') {
                 return emitEvent('content_safe_area_changed', noInsets)
               }
-              if (e[0] === 'web_app_request_safe_area') {
+              if (e.name === 'web_app_request_safe_area') {
                 return emitEvent('safe_area_changed', noInsets)
               }
             },

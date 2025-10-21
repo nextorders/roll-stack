@@ -1,5 +1,5 @@
 import type { City, ClientLevel } from '@roll-stack/database'
-import { initDataRaw as _initDataRaw, initDataState as _initDataState, useSignal } from '@telegram-apps/sdk-vue'
+import { initData, useSignal } from '@tma.js/sdk-vue'
 import { parsePhoneNumberWithError } from 'libphonenumber-js'
 
 export const useClientStore = defineStore('client', () => {
@@ -23,8 +23,8 @@ export const useClientStore = defineStore('client', () => {
   const bonusProgramParticipantFrom = ref<string | null>(null)
   const isBonusProgramParticipant = computed(() => !!bonusProgramParticipantFrom.value)
 
-  const initDataRaw = useSignal(_initDataRaw)
-  const initDataState = useSignal(_initDataState)
+  const initDataRaw = useSignal(initData.raw)
+  const initDataState = useSignal(initData.state)
 
   const fullName = computed<string>(() => {
     return `${name.value} ${surname.value}`

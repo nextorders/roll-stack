@@ -1,25 +1,19 @@
-import type { ThemeParams } from '@telegram-apps/sdk-vue'
+import type { ThemeParams } from '@tma.js/sdk-vue'
 import {
-  bindThemeParamsCssVars,
-  bindViewportCssVars,
+  backButton,
   closingBehavior,
-  disableVerticalSwipes,
   emitEvent,
-  exitFullscreen,
+  initData,
   init as initSDK,
+  miniApp,
   mockTelegramEnv,
-  mountBackButton,
-  mountClosingBehavior,
-  mountMiniAppSync,
-  mountSwipeBehavior,
-  mountViewport,
   postEvent,
-  requestFullscreen,
-  restoreInitData,
   retrieveLaunchParams,
   setDebug,
-  themeParamsState,
-} from '@telegram-apps/sdk-vue'
+  swipeBehavior,
+  themeParams,
+  viewport,
+} from '@tma.js/sdk-vue'
 
 /**
  * Initializes the application and configures its dependencies.
@@ -33,11 +27,12 @@ export async function init(options: {
   initSDK()
 
   // Add Eruda if needed.
-  options.eruda
-  && void import('eruda').then(({ default: eruda }) => {
-    eruda.init()
-    eruda.position({ x: window.innerWidth - 50, y: 0 })
-  })
+  if (options.eruda) {
+    import('eruda').then(({ default: eruda }) => {
+      eruda.init()
+      eruda.position({ x: window.innerWidth - 50, y: 0 })
+    })
+  }
 
   // Telegram for macOS has a ton of bugs, including cases, when the client doesn't
   // even response to the "web_app_request_theme" method. It also generates an incorrect
@@ -46,26 +41,24 @@ export async function init(options: {
     let firstThemeSent = false
     mockTelegramEnv({
       onEvent(event, next) {
-        if (event[0] === 'web_app_request_theme') {
+        if (event.name === 'web_app_request_theme') {
           let tp: ThemeParams = {}
           if (firstThemeSent) {
-            tp = themeParamsState()
+            tp = themeParams.state()
           } else {
             firstThemeSent = true
             tp ||= retrieveLaunchParams().tgWebAppThemeParams
           }
-          emitEvent('theme_changed', { theme_params: tp })
-          return
+          return emitEvent('theme_changed', { theme_params: tp })
         }
 
-        if (event[0] === 'web_app_request_safe_area') {
-          emitEvent('safe_area_changed', {
+        if (event.name === 'web_app_request_safe_area') {
+          return emitEvent('safe_area_changed', {
             left: 0,
             top: 0,
             right: 0,
             bottom: 0,
           })
-          return
         }
 
         next()
@@ -74,18 +67,40 @@ export async function init(options: {
   }
 
   // Mount all components used in the project.
-  mountBackButton.ifAvailable()
-  restoreInitData()
+  backButton.mount.ifAvailable()
+  initData.restore()
 
-  mountMiniAppSync.ifAvailable()
-  bindThemeParamsCssVars.ifAvailable()
+  if (miniApp.mount.isAvailable()) {
+    themeParams.mount()
+    miniApp.mount()
+    themeParams.bindCssVars()
+  }
 
-  mountClosingBehavior.ifAvailable()
+  if (viewport.mount.isAvailable()) {
+    viewport.mount().then(() => {
+      viewport.bindCssVars()
+
+      if (viewport.requestFullscreen.isAvailable()) {
+        viewport.requestFullscreen().finally(() => {
+          // Wait
+          setTimeout(() => {
+            // The app is now in fullscreen
+            if (window.innerWidth > 600) {
+              // Application should be in fullscreen mode only on small screens!
+              viewport.exitFullscreen()
+            }
+          }, 50)
+        })
+      }
+    })
+  }
+
+  closingBehavior.mount.ifAvailable()
   closingBehavior.enableConfirmation.ifAvailable()
 
   // Disable vertical swipes to prevent app close
-  mountSwipeBehavior.ifAvailable()
-  disableVerticalSwipes.ifAvailable()
+  swipeBehavior.mount.ifAvailable()
+  swipeBehavior.disableVertical.ifAvailable()
 
   // Orientation lock
   postEvent('web_app_toggle_orientation_lock', {
@@ -96,23 +111,4 @@ export async function init(options: {
   postEvent('web_app_start_gyroscope', {
     refresh_rate: 80,
   })
-
-  if (mountViewport.isAvailable()) {
-    mountViewport().then(() => {
-      bindViewportCssVars()
-
-      if (requestFullscreen.isAvailable()) {
-        requestFullscreen().finally(() => {
-          // Wait
-          setTimeout(() => {
-            // The app is now in fullscreen
-            if (window.innerWidth > 600) {
-              // Application should be in fullscreen mode only on small screens!
-              exitFullscreen()
-            }
-          }, 50)
-        })
-      }
-    })
-  }
 }

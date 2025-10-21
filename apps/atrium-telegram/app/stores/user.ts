@@ -1,5 +1,5 @@
 import type { Task, TelegramUser, User } from '@roll-stack/database'
-import { initDataRaw as _initDataRaw, initDataState as _initDataState, useSignal } from '@telegram-apps/sdk-vue'
+import { initData, useSignal } from '@tma.js/sdk-vue'
 
 type UserWithData = User & {
   focusedTask: Task | null
@@ -17,8 +17,8 @@ export const useUserStore = defineStore('user', () => {
   const avatarUrl = ref<string | null>(null)
   const focusedTaskId = ref<string | null>(null)
 
-  const initDataRaw = useSignal(_initDataRaw)
-  const initDataState = useSignal(_initDataState)
+  const initDataRaw = useSignal(initData.raw)
+  const initDataState = useSignal(initData.state)
 
   const { idle } = useIdle(30 * 1000) // 30 sec
 

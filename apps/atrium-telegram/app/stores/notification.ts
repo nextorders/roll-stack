@@ -1,5 +1,5 @@
 import type { Notification, Task, User } from '@roll-stack/database'
-import { initDataRaw as _initDataRaw, useSignal } from '@telegram-apps/sdk-vue'
+import { initData, useSignal } from '@tma.js/sdk-vue'
 
 type TaskWithPerformer = Task & {
   performer: User | null
@@ -13,7 +13,7 @@ export type NotificationWithEntities = Notification & {
 export const useNotificationStore = defineStore('notification', () => {
   const notifications = ref<NotificationWithEntities[]>([])
 
-  const initDataRaw = useSignal(_initDataRaw)
+  const initDataRaw = useSignal(initData.raw)
 
   async function update() {
     try {

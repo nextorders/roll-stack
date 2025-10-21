@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import * as locales from '@nuxt/ui/locale'
-import { retrieveLaunchParams, themeParams } from '@telegram-apps/sdk-vue'
+import { retrieveLaunchParams, themeParams } from '@tma.js/sdk-vue'
 
 const { locale } = useI18n()
 
@@ -35,11 +35,14 @@ useHead({
 })
 
 // App
-const isDev = (retrieveLaunchParams().startParam === 'debug' || import.meta.env.DEV) ?? false
+const launchParams = retrieveLaunchParams()
+const { tgWebAppPlatform: platform } = launchParams
+const debug = (launchParams.tgWebAppStartParam || '').includes('debug') || import.meta.env.DEV
+
 await init({
-  debug: false,
-  eruda: isDev,
-  mockForMacOS: false,
+  debug,
+  eruda: debug && ['ios', 'android'].includes(platform),
+  mockForMacOS: platform === 'macos',
 })
 
 // Telegram

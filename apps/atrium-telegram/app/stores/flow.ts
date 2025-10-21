@@ -1,11 +1,11 @@
-import { initDataRaw as _initDataRaw, useSignal } from '@telegram-apps/sdk-vue'
+import { initData, useSignal } from '@tma.js/sdk-vue'
 
 export const useFlowStore = defineStore('flow', () => {
   const items = ref<FlowItemWithData[]>([])
 
   const nowViewedItemsCount = computed(() => items.value.filter((item) => !item.views.some((view) => view.userId === useUserStore().id)).length)
 
-  const initDataRaw = useSignal(_initDataRaw)
+  const initDataRaw = useSignal(initData.raw)
 
   async function update() {
     try {
