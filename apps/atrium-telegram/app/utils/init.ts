@@ -27,12 +27,11 @@ export async function init(options: {
   initSDK()
 
   // Add Eruda if needed.
-  if (options.eruda) {
-    import('eruda').then(({ default: eruda }) => {
-      eruda.init()
-      eruda.position({ x: window.innerWidth - 50, y: 0 })
-    })
-  }
+  options.eruda
+  && void import('eruda').then(({ default: eruda }) => {
+    eruda.init()
+    eruda.position({ x: window.innerWidth - 50, y: 0 })
+  })
 
   // Telegram for macOS has a ton of bugs, including cases, when the client doesn't
   // even response to the "web_app_request_theme" method. It also generates an incorrect
@@ -49,16 +48,18 @@ export async function init(options: {
             firstThemeSent = true
             tp ||= retrieveLaunchParams().tgWebAppThemeParams
           }
-          return emitEvent('theme_changed', { theme_params: tp })
+          emitEvent('theme_changed', { theme_params: tp })
+          return
         }
 
         if (event.name === 'web_app_request_safe_area') {
-          return emitEvent('safe_area_changed', {
+          emitEvent('safe_area_changed', {
             left: 0,
             top: 0,
             right: 0,
             bottom: 0,
           })
+          return
         }
 
         next()
@@ -77,30 +78,31 @@ export async function init(options: {
   }
 
   if (viewport.mount.isAvailable()) {
-    viewport.mount().then(() => {
-      viewport.bindCssVars()
+    await viewport.mount()
+    viewport.bindCssVars()
 
-      if (viewport.requestFullscreen.isAvailable()) {
-        viewport.requestFullscreen().finally(() => {
-          // Wait
-          setTimeout(() => {
-            // The app is now in fullscreen
-            if (window.innerWidth > 600) {
-              // Application should be in fullscreen mode only on small screens!
-              viewport.exitFullscreen()
-            }
-          }, 50)
-        })
-      }
-    })
+    if (viewport.requestFullscreen.isAvailable()) {
+      await viewport.requestFullscreen()
+
+      setTimeout(() => {
+        // The app is now in fullscreen
+        if (window.innerWidth > 600) {
+          // Application should be in fullscreen mode only on small screens!
+          viewport.exitFullscreen()
+        }
+      }, 100)
+    }
   }
 
-  closingBehavior.mount.ifAvailable()
-  closingBehavior.enableConfirmation.ifAvailable()
+  if (closingBehavior.mount.isAvailable()) {
+    closingBehavior.mount()
+    closingBehavior.enableConfirmation()
+  }
 
-  // Disable vertical swipes to prevent app close
-  swipeBehavior.mount.ifAvailable()
-  swipeBehavior.disableVertical.ifAvailable()
+  if (swipeBehavior.mount.isAvailable()) {
+    swipeBehavior.mount()
+    swipeBehavior.disableVertical()
+  }
 
   // Orientation lock
   postEvent('web_app_toggle_orientation_lock', {
