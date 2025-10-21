@@ -21,9 +21,15 @@
         </div>
       </div>
 
-      <h3 class="text-xl/5 font-bold">
-        {{ new Intl.NumberFormat().format(invoice.total) }} ₽
-      </h3>
+      <div class="flex flex-col gap-1">
+        <h3 class="text-xl/5 font-bold">
+          {{ new Intl.NumberFormat().format(invoice.total) }} ₽
+        </h3>
+
+        <div class="text-base/5 font-bold">
+          {{ getInfoByType(invoice.type) }}
+        </div>
+      </div>
 
       <div class="flex flex-col gap-1">
         <div class="text-base/5">
@@ -50,4 +56,23 @@ import { ru } from 'date-fns/locale/ru'
 defineProps<{
   invoice: Invoice
 }>()
+
+function getInfoByType(type: Invoice['type']) {
+  switch (type) {
+    case 'replenishment':
+      return 'Пополнение'
+    case 'royalties':
+      return 'Роялти'
+    case 'lump_sum_fee':
+      return 'Паушальный взнос'
+    case 'marketing_fee':
+      return 'Маркетинговый сбор'
+    case 'rospatent_fee':
+      return 'Роспатент'
+    case 'other':
+      return 'Другое'
+    default:
+      return 'Другое'
+  }
+}
 </script>
