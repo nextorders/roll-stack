@@ -2,7 +2,7 @@
   <UCard class="group/list">
     <div class="flex flex-col gap-2.5">
       <div class="flex flex-row justify-between">
-        <UIcon name="i-lucide-banknote-arrow-up" class="size-14 text-primary" />
+        <UIcon name="i-lucide-banknote-arrow-up" class="size-10 text-muted/50" />
 
         <UButton
           variant="outline"
@@ -14,6 +14,10 @@
         />
       </div>
 
+      <div class="text-sm/4 text-muted">
+        Создан {{ format(new Date(invoice.createdAt), 'd MMMM в HH:mm', { locale: ru }) }}
+      </div>
+
       <h3 class="text-xl md:text-xl/6 font-semibold">
         {{ new Intl.NumberFormat().format(invoice.total) }} ₽
       </h3>
@@ -22,7 +26,7 @@
         {{ invoice.title }}
       </p>
 
-      <p class="text-sm/4 text-muted">
+      <p v-if="invoice.description" class="text-sm/4 text-muted">
         {{ invoice.description }}
       </p>
 
@@ -36,7 +40,7 @@
 
         <UBadge
           :label="getInfoByStatus(invoice.status)"
-          :color="invoice.status === 'unpaid' ? 'error' : 'success'"
+          :color="invoice.status === 'unpaid' ? 'error' : 'neutral'"
           size="md"
           variant="soft"
         />
@@ -48,6 +52,8 @@
 <script setup lang="ts">
 import type { Invoice } from '@roll-stack/database'
 import { ModalUpdateInvoice } from '#components'
+import { format } from 'date-fns'
+import { ru } from 'date-fns/locale/ru'
 
 defineProps<{
   invoice: Invoice
@@ -59,7 +65,15 @@ function getInfoByType(type: Invoice['type']) {
       return 'Пополнение'
     case 'royalties':
       return 'Роялти'
+    case 'lump_sum_fee':
+      return 'Паушальный взнос'
+    case 'marketing_fee':
+      return 'Маркетинговый сбор'
+    case 'rospatent_fee':
+      return 'Роспатент'
     case 'other':
+      return 'Другое'
+    default:
       return 'Другое'
   }
 }
@@ -70,6 +84,8 @@ function getInfoByStatus(status: Invoice['status']) {
       return 'Не оплачен'
     case 'paid':
       return 'Оплачен'
+    default:
+      return 'Неизвестно'
   }
 }
 

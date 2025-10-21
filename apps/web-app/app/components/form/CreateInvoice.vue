@@ -31,11 +31,7 @@
     <UFormField label="Тип" name="type">
       <USelect
         v-model="state.type"
-        :items="[
-          { label: 'Оплата роялти', value: 'royalties' },
-          { label: 'Пополнение', value: 'replenishment' },
-          { label: 'Другое', value: 'other' },
-        ]"
+        :items="getInvoiceTypeForSelect()"
         :placeholder="$t('common.select')"
         size="xl"
         class="w-full"
@@ -72,6 +68,7 @@
 import type { CreatePartnerInvoice } from '#shared/services/partner'
 import type { FormSubmitEvent } from '@nuxt/ui'
 import { createPartnerInvoiceSchema } from '#shared/services/partner'
+import { getInvoiceTypeForSelect } from '#shared/utils/helpers'
 
 const { partnerId } = defineProps<{ partnerId?: string }>()
 const emit = defineEmits(['success', 'submitted'])

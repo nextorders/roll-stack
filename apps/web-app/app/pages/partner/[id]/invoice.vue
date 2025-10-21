@@ -4,7 +4,7 @@
       <PartnerBalanceCard :balance="partner?.balance ?? 0" />
 
       <InvoiceCard
-        v-for="invoice in activeInvoices"
+        v-for="invoice in invoices"
         :key="invoice.id"
         :invoice="invoice"
       />
@@ -28,8 +28,7 @@ const { params } = useRoute('partner-id')
 
 const partnerStore = usePartnerStore()
 const partner = computed(() => partnerStore.partners.find((partner) => partner.id === params.id))
-
-const activeInvoices = computed(() => partner.value?.invoices)
+const invoices = computed(() => partner.value?.invoices.toSorted((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()))
 
 const overlay = useOverlay()
 const modalCreateInvoice = overlay.create(ModalCreateInvoice)

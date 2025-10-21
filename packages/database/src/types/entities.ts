@@ -97,5 +97,10 @@ export type ActivityScheduleTag = 'permanent'
   | 'optional'
   | 'advertising'
 
-export type InvoiceType = 'replenishment' | 'royalties' | 'other'
+export type InvoiceType = 'replenishment'
+  | 'royalties' // Роялти
+  | 'lump_sum_fee' // Паушальный взнос
+  | 'marketing_fee' // Маркетинговый сбор
+  | 'rospatent_fee' // Роспатент
+  | 'other'
 export type InvoiceStatus = 'paid' | 'unpaid'

@@ -1,6 +1,17 @@
 import type { AgreementPatentStatus, User } from '@roll-stack/database'
 import type { Resolution } from '../services/task'
 
+export function getInvoiceTypeForSelect() {
+  return [
+    { label: 'Оплата роялти', value: 'royalties' },
+    { label: 'Паушальный взнос', value: 'lump_sum_fee' },
+    { label: 'Маркетинговый сбор', value: 'marketing_fee' },
+    { label: 'Роспатент', value: 'rospatent_fee' },
+    { label: 'Пополнение', value: 'replenishment' },
+    { label: 'Другое', value: 'other' },
+  ]
+}
+
 export function getResolutionForSelect(): { value: Resolution, label: string, icon: string }[] {
   return [
     { value: 'success', label: 'Успешно выполнена', icon: 'i-lucide-circle-check' },
