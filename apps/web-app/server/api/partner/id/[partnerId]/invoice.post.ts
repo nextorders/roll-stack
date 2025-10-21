@@ -2,6 +2,7 @@ import type { Invoice } from '@roll-stack/database'
 import { createPartnerInvoiceSchema } from '#shared/services/partner'
 import { db } from '@roll-stack/database'
 import { type } from 'arktype'
+import { recountPartnerBalance } from '~~/server/services/invoice'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -33,6 +34,8 @@ export default defineEventHandler(async (event) => {
       status: data.status as Invoice['status'],
       partnerId: partner.id,
     })
+
+    await recountPartnerBalance(partner.id)
 
     return {
       ok: true,

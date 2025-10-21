@@ -2,6 +2,7 @@ import type { Invoice } from '@roll-stack/database'
 import { updatePartnerInvoiceSchema } from '#shared/services/partner'
 import { db } from '@roll-stack/database'
 import { type } from 'arktype'
+import { recountPartnerBalance } from '~~/server/services/invoice'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -51,25 +52,3 @@ export default defineEventHandler(async (event) => {
     throw errorResolver(error)
   }
 })
-
-async function recountPartnerBalance(partnerId: string) {
-  const partnerInvoices = await db.invoice.listForPartner(partnerId)
-
-  let balance = 0
-  for (const invoice of partnerInvoices) {
-    if (invoice.type === 'replenishment' && invoice.status === 'paid') {
-      balance += invoice.total
-    }
-
-    if (invoice.type === 'royalties') {
-      balance -= invoice.total
-    }
-    if (invoice.type === 'other') {
-      balance -= invoice.total
-    }
-  }
-
-  await db.partner.update(partnerId, {
-    balance,
-  })
-}
