@@ -134,8 +134,6 @@ function chooseFilterFunction() {
 
 const filteredAgreements = computed(() => {
   const sorted = partnerStore.agreements.toSorted(chooseSortFunction())
-  const filtered = sorted.filter(chooseFilterFunction())
-
-  return filtered
+  return sorted.filter(chooseFilterFunction())
 })
 </script>
