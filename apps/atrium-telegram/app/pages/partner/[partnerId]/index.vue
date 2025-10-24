@@ -91,8 +91,9 @@
     </div>
 
     <div v-if="invoices?.length" class="flex flex-col gap-2.5">
-      <div class="flex flex-row justify-between items-center">
+      <div class="flex flex-row gap-2.5 items-center">
         <SectionTitle title="Счета" />
+        <CounterBadge v-if="typeof partner?.balance === 'number'" :value="`Баланс ${new Intl.NumberFormat().format(partner?.balance)} ₽`" />
       </div>
 
       <div class="flex flex-col gap-4">

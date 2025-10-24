@@ -2,8 +2,8 @@
   <PageContainer>
     <div class="flex flex-row gap-2.5 items-center">
       <SectionTitle title="Партнеры" />
-      <CounterBadge :value="filteredPartners.length" />
-      <CounterBadge :value="`${new Intl.NumberFormat().format(totalBalance)} ₽`" />
+      <CounterBadge v-if="filteredPartners.length" :value="filteredPartners.length" />
+      <CounterBadge v-if="totalBalance" :value="`${new Intl.NumberFormat().format(totalBalance)} ₽`" />
     </div>
 
     <div class="grid grid-cols-1 gap-2.5 items-center">
@@ -13,7 +13,7 @@
         trailing-icon="i-lucide-search"
         placeholder="Найти..."
         :ui="{
-          base: 'rounded-lg text-lg/5 font-bold ring-0',
+          base: '!ring-0',
         }"
         class="motion-preset-slide-down"
       />
@@ -23,7 +23,7 @@
         size="xl"
         trailing-icon="i-lucide-arrow-down-wide-narrow"
         :ui="{
-          base: 'rounded-lg text-lg/5 font-bold ring-0',
+          base: '!ring-0',
         }"
         :items="[
           { label: 'По фамилии (возрастание)', value: 'nameAsc' },
@@ -38,7 +38,7 @@
         size="xl"
         trailing-icon="i-lucide-funnel"
         :ui="{
-          base: 'rounded-lg text-lg/5 font-bold ring-0',
+          base: '!ring-0',
         }"
         :items="[
           { label: 'Все', value: 'all' },
@@ -65,8 +65,6 @@
 import type { PartnerWithData } from '~/stores/partner'
 
 const partnerStore = usePartnerStore()
-
-const totalBalance = computed(() => partnerStore.partners.reduce((acc, partner) => acc + partner.balance, 0))
 
 const sortedBy = ref<'nameAsc' | 'balanceAsc' | 'balanceDesc'>('nameAsc')
 
@@ -127,4 +125,6 @@ const filteredPartners = computed(() => {
     return partner.legalEntity?.name?.toLowerCase().includes(search.value.toLowerCase()) ?? false
   })
 })
+
+const totalBalance = computed(() => filteredPartners.value.reduce((acc, partner) => acc + partner.balance, 0))
 </script>

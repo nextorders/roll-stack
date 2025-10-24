@@ -11,7 +11,7 @@
         size="xl"
         trailing-icon="i-lucide-arrow-down-wide-narrow"
         :ui="{
-          base: 'rounded-lg text-lg/5 font-bold ring-0',
+          base: '!ring-0',
         }"
         :items="[
           { label: 'По дате создания (убывание)', value: 'updatedAtDesc' },
@@ -25,7 +25,7 @@
         size="xl"
         trailing-icon="i-lucide-funnel"
         :ui="{
-          base: 'rounded-lg text-lg/5 font-bold ring-0',
+          base: '!ring-0',
         }"
         :items="[
           { label: 'Все задачи', value: 'all' },
@@ -40,7 +40,7 @@
         :items="availablePerformers"
         size="xl"
         :ui="{
-          base: 'rounded-lg text-lg/5 font-bold ring-0',
+          base: '!ring-0',
         }"
         placeholder="Все исполнители"
         class="motion-preset-slide-up"
