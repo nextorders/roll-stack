@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "@roll-stack/database": "workspace:*",
-    "playwright": "catalog:"
+    "playwright": "catalog:test"
   },
   "devDependencies": {
-    "nitropack": "catalog:"
+    "nitropack": "catalog:dev"
   }
 }

@@ -13,14 +13,14 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@neoconfetti/vue": "catalog:",
+    "@neoconfetti/vue": "catalog:integrations",
     "@roll-stack/ui": "workspace:*",
-    "arktype": "catalog:",
-    "date-fns": "catalog:",
-    "libphonenumber-js": "catalog:"
+    "arktype": "catalog:integrations",
+    "date-fns": "catalog:integrations",
+    "libphonenumber-js": "catalog:integrations"
   },
   "devDependencies": {
-    "@types/node": "catalog:",
-    "nuxt": "catalog:"
+    "@types/node": "catalog:types",
+    "nuxt": "catalog:dev"
   }
 }

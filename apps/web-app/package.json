@@ -6,6 +6,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev --port 3501",
+    "dev:compose": "docker compose -f ./../../docker/web-app/docker-compose.yaml up -d",
     "preview": "PORT=3501 nuxt preview",
     "clean": "rm -rf .output",
     "clean:modules": "rm -rf .nuxt node_modules",
@@ -13,27 +14,27 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@neoconfetti/vue": "catalog:",
-    "@openai/agents": "catalog:",
-    "@pinia/nuxt": "catalog:",
+    "@neoconfetti/vue": "catalog:integrations",
+    "@openai/agents": "catalog:integrations",
+    "@pinia/nuxt": "catalog:integrations",
     "@roll-stack/database": "workspace:*",
     "@roll-stack/queue": "workspace:*",
     "@roll-stack/schema": "workspace:*",
     "@roll-stack/ui": "workspace:*",
-    "aws4fetch": "catalog:",
-    "date-fns": "catalog:",
-    "ioredis": "catalog:",
-    "libphonenumber-js": "catalog:",
-    "node-xlsx": "catalog:",
-    "nuxt-tiptap-editor": "catalog:",
-    "openai": "catalog:",
-    "pinia": "catalog:",
-    "sharp": "catalog:",
-    "uqr": "catalog:"
+    "aws4fetch": "catalog:integrations",
+    "date-fns": "catalog:integrations",
+    "ioredis": "catalog:integrations",
+    "libphonenumber-js": "catalog:integrations",
+    "node-xlsx": "0.24.0",
+    "nuxt-tiptap-editor": "catalog:integrations",
+    "openai": "catalog:integrations",
+    "pinia": "catalog:integrations",
+    "sharp": "catalog:integrations",
+    "uqr": "0.1.2"
   },
   "devDependencies": {
-    "@types/node": "catalog:",
-    "nuxt": "catalog:",
-    "nuxt-auth-utils": "catalog:"
+    "@types/node": "catalog:types",
+    "nuxt": "catalog:dev",
+    "nuxt-auth-utils": "catalog:dev"
   }
 }

@@ -13,19 +13,19 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@neoconfetti/vue": "catalog:",
-    "@pinia/nuxt": "catalog:",
+    "@neoconfetti/vue": "catalog:integrations",
+    "@pinia/nuxt": "catalog:integrations",
     "@roll-stack/database": "workspace:*",
     "@roll-stack/ui": "workspace:*",
-    "arktype": "catalog:",
-    "date-fns": "catalog:",
-    "libphonenumber-js": "catalog:",
-    "pinia": "catalog:",
-    "sharp": "catalog:"
+    "arktype": "catalog:integrations",
+    "date-fns": "catalog:integrations",
+    "libphonenumber-js": "catalog:integrations",
+    "pinia": "catalog:integrations",
+    "sharp": "catalog:integrations"
   },
   "devDependencies": {
-    "@types/node": "catalog:",
-    "nuxt": "catalog:",
-    "nuxt-auth-utils": "catalog:"
+    "@types/node": "catalog:types",
+    "nuxt": "catalog:dev",
+    "nuxt-auth-utils": "catalog:dev"
   }
 }

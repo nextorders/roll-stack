@@ -80,18 +80,18 @@ export async function init(options: {
   if (viewport.mount.isAvailable()) {
     await viewport.mount()
     viewport.bindCssVars()
+  }
 
-    if (viewport.requestFullscreen.isAvailable()) {
-      await viewport.requestFullscreen()
+  // Application should be in fullscreen mode only on small screens
+  if (viewport.requestFullscreen.isAvailable()) {
+    await viewport.requestFullscreen()
 
-      setTimeout(() => {
-        // The app is now in fullscreen
-        if (window.innerWidth > 600) {
-          // Application should be in fullscreen mode only on small screens!
-          viewport.exitFullscreen()
-        }
-      }, 100)
-    }
+    setTimeout(() => {
+      // The app is now in fullscreen
+      if (window.innerWidth > 600) {
+        viewport.exitFullscreen()
+      }
+    }, 50)
   }
 
   if (closingBehavior.mount.isAvailable()) {

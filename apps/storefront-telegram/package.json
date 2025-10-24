@@ -13,19 +13,19 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@neoconfetti/vue": "catalog:",
-    "@pinia/nuxt": "catalog:",
+    "@neoconfetti/vue": "catalog:integrations",
+    "@pinia/nuxt": "catalog:integrations",
     "@roll-stack/database": "workspace:*",
     "@roll-stack/ui": "workspace:*",
-    "@telegram-apps/init-data-node": "catalog:",
-    "@tma.js/sdk-vue": "catalog:",
-    "date-fns": "catalog:",
-    "libphonenumber-js": "catalog:",
-    "pinia": "catalog:"
+    "@telegram-apps/init-data-node": "catalog:integrations",
+    "@tma.js/sdk-vue": "catalog:integrations",
+    "date-fns": "catalog:integrations",
+    "libphonenumber-js": "catalog:integrations",
+    "pinia": "catalog:integrations"
   },
   "devDependencies": {
-    "@types/node": "catalog:",
-    "eruda": "catalog:",
-    "nuxt": "catalog:"
+    "@types/node": "catalog:types",
+    "eruda": "catalog:dev",
+    "nuxt": "catalog:dev"
   }
 }

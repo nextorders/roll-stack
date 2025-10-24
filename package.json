@@ -2,7 +2,7 @@
   "name": "roll-stack",
   "version": "",
   "private": true,
-  "packageManager": "pnpm@10.18.1",
+  "packageManager": "pnpm@10.19.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -10,14 +10,13 @@
   },
   "engines": {
     "node": ">=22.18.0",
-    "pnpm": ">=10.18.1"
+    "pnpm": ">=10.19.0"
   },
   "scripts": {
-    "release": "changelogen-monorepo --release --push",
+    "release": "bumpp --execute=\"npm run release:prepare\" --recursive",
+    "release:prepare": "pnpm run build",
     "build": "pnpm -r run build",
     "dev:generate-cert": "mkdir -p .cert && mkcert -key-file ./.cert/localhost-key.pem -cert-file ./.cert/localhost.pem 'app.local'",
-    "dev:web-app:compose": "docker compose -f ./docker/web-app/docker-compose.yaml up -d",
-    "dev:web-app": "pnpm -r --filter \"./apps/web-app\" dev",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "clean": "pnpm -r run clean",
@@ -30,27 +29,28 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "catalog:",
-    "@commitlint/cli": "catalog:",
-    "@commitlint/config-conventional": "catalog:",
-    "@vitest/browser": "catalog:",
-    "@vitest/coverage-v8": "catalog:",
-    "changelogen-monorepo": "catalog:",
-    "eslint": "catalog:",
-    "husky": "catalog:",
-    "lint-staged": "catalog:",
-    "playwright": "catalog:",
-    "vite": "catalog:",
-    "vite-tsconfig-paths": "catalog:",
-    "vitest": "catalog:",
-    "vitest-browser-vue": "catalog:"
+    "@antfu/eslint-config": "catalog:dev",
+    "@commitlint/cli": "catalog:dev",
+    "@commitlint/config-conventional": "catalog:dev",
+    "@vitest/browser": "catalog:test",
+    "@vitest/coverage-v8": "catalog:test",
+    "bumpp": "catalog:dev",
+    "eslint": "catalog:dev",
+    "husky": "catalog:dev",
+    "lint-staged": "catalog:dev",
+    "playwright": "catalog:test",
+    "vite": "catalog:dev",
+    "vitest": "catalog:test",
+    "vitest-browser-vue": "catalog:test"
   },
   "resolutions": {
     "@nuxt/cli": "3.28.0",
     "unimport": "4.1.1"
   },
   "lint-staged": {
-    "*.ts": "eslint ."
+    "*.{js,ts,tsx,vue,md,json}": [
+      "eslint --cache --fix"
+    ]
   },
   "commitlint": {
     "extends": [
