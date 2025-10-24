@@ -45,7 +45,7 @@
   },
   "resolutions": {
     "@nuxt/cli": "3.28.0",
-    "unimport": "4.1.1"
+    "unimport": "5.5.0"
   },
   "lint-staged": {
     "*.{js,ts,tsx,vue,md,json}": [
