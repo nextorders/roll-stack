@@ -10,7 +10,7 @@
             class="size-8"
           />
           <p class="max-w-22 text-sm/4 font-bold">
-            Оплачено
+            Оплачен
           </p>
         </div>
         <div v-else class="flex flex-row items-center gap-1.5 text-muted">
@@ -18,6 +18,9 @@
             name="i-lucide-loader-circle"
             class="size-8 motion-preset-spin motion-duration-4000"
           />
+          <p class="max-w-22 text-sm/4 font-bold">
+            Еще не оплачен
+          </p>
         </div>
       </div>
 

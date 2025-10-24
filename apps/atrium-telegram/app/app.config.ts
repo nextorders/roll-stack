@@ -9,7 +9,7 @@ export default defineAppConfig({
     },
     input: {
       slots: {
-        base: '!ring-default placeholder:text-muted/50',
+        base: '!py-2.5 !rounded-lg !text-lg/5 !font-bold !ring-default !placeholder:text-muted/50',
       },
     },
     inputMenu: {
@@ -19,17 +19,17 @@ export default defineAppConfig({
     },
     select: {
       slots: {
-        base: '!ring-default placeholder:text-muted/50',
+        base: '!rounded-lg !text-lg/5 !font-bold !ring-default !placeholder:text-muted/50',
       },
     },
     selectMenu: {
       slots: {
-        base: '!ring-default placeholder:text-muted/50',
+        base: '!rounded-lg !text-lg/5 !font-bold !ring-default !placeholder:text-muted/50',
       },
     },
     textarea: {
       slots: {
-        base: '!ring-default placeholder:text-muted/50',
+        base: '!py-2.5 !rounded-lg !text-lg/5 !font-bold !ring-default !placeholder:text-muted/50',
       },
     },
     button: {
