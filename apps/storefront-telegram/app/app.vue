@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import * as locales from '@nuxt/ui/locale'
-import { retrieveLaunchParams, themeParams } from '@tma.js/sdk-vue'
+import { themeParams } from '@tma.js/sdk-vue'
 
 const { locale } = useI18n()
 
@@ -34,16 +34,16 @@ useHead({
   }],
 })
 
-// App
-const isDev = (retrieveLaunchParams().startParam === 'debug' || import.meta.env.DEV) ?? false
-await init({
-  debug: false,
+// Telegram
+const isDev = import.meta.env.DEV
+
+init({
+  debug: isDev,
   eruda: isDev,
   mockForMacOS: false,
+}).then(() => {
+  useBackButton()
 })
-
-// Telegram
-useBackButton()
 
 // Fix system theme
 const isDark = computed(() => themeParams.isDark())

@@ -14,17 +14,17 @@
   },
   "dependencies": {
     "@roll-stack/geo-database": "workspace:*",
-    "arktype": "catalog:",
-    "aws4fetch": "catalog:",
-    "date-fns": "catalog:",
-    "ioredis": "catalog:",
-    "libphonenumber-js": "catalog:",
-    "ru-nalog-fias-gar": "catalog:",
-    "sharp": "catalog:"
+    "arktype": "catalog:integrations",
+    "aws4fetch": "catalog:integrations",
+    "date-fns": "catalog:integrations",
+    "ioredis": "catalog:integrations",
+    "libphonenumber-js": "catalog:integrations",
+    "ru-nalog-fias-gar": "1.0.4",
+    "sharp": "catalog:integrations"
   },
   "devDependencies": {
-    "@types/node": "catalog:",
-    "nuxt": "catalog:",
-    "nuxt-auth-utils": "catalog:"
+    "@types/node": "catalog:types",
+    "nuxt": "catalog:dev",
+    "nuxt-auth-utils": "catalog:dev"
   }
 }

@@ -16,15 +16,15 @@
     "@roll-stack/database": "workspace:*",
     "@roll-stack/queue": "workspace:*",
     "@roll-stack/ui": "workspace:*",
-    "arktype": "catalog:",
-    "aws4fetch": "catalog:",
-    "date-fns": "catalog:",
-    "grammy": "catalog:",
-    "libphonenumber-js": "catalog:",
-    "sharp": "catalog:"
+    "arktype": "catalog:integrations",
+    "aws4fetch": "catalog:integrations",
+    "date-fns": "catalog:integrations",
+    "grammy": "catalog:integrations",
+    "libphonenumber-js": "catalog:integrations",
+    "sharp": "catalog:integrations"
   },
   "devDependencies": {
-    "@types/node": "catalog:",
-    "nuxt": "catalog:"
+    "@types/node": "catalog:types",
+    "nuxt": "catalog:dev"
   }
 }

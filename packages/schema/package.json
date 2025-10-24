@@ -11,11 +11,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "arktype": "catalog:",
-    "zod": "catalog:"
+    "arktype": "catalog:integrations",
+    "zod": "catalog:integrations"
   },
   "devDependencies": {
-    "@types/node": "catalog:",
-    "typescript": "catalog:"
+    "@types/node": "catalog:types",
+    "typescript": "catalog:dev"
   }
 }

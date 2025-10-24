@@ -11,10 +11,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@nextorders/queue": "catalog:"
+    "@nextorders/queue": "catalog:integrations"
   },
   "devDependencies": {
-    "@types/node": "catalog:",
-    "typescript": "catalog:"
+    "@types/node": "catalog:types",
+    "typescript": "catalog:dev"
   }
 }

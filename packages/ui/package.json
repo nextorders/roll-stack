@@ -8,30 +8,30 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@internationalized/date": "catalog:",
-    "@nuxt/ui": "catalog:",
-    "@nuxtjs/i18n": "catalog:",
-    "@unovis/ts": "catalog:",
-    "@unovis/vue": "catalog:",
-    "@vueuse/components": "catalog:",
-    "@vueuse/core": "catalog:",
-    "@vueuse/integrations": "catalog:",
-    "@vueuse/nuxt": "catalog:",
-    "arktype": "catalog:",
-    "sortablejs": "catalog:",
-    "zod": "catalog:"
+    "@internationalized/date": "catalog:integrations",
+    "@nuxt/ui": "catalog:integrations",
+    "@unovis/ts": "catalog:integrations",
+    "@unovis/vue": "catalog:integrations",
+    "@vueuse/components": "catalog:integrations",
+    "@vueuse/core": "catalog:integrations",
+    "@vueuse/integrations": "catalog:integrations",
+    "@vueuse/nuxt": "catalog:integrations",
+    "arktype": "catalog:integrations",
+    "sortablejs": "catalog:integrations",
+    "zod": "catalog:integrations"
   },
   "devDependencies": {
-    "@iconify-json/circle-flags": "catalog:",
-    "@iconify-json/fluent": "catalog:",
-    "@iconify-json/fluent-emoji-flat": "catalog:",
-    "@iconify-json/lucide": "catalog:",
-    "@iconify-json/simple-icons": "catalog:",
-    "@nuxt/devtools": "catalog:",
-    "@nuxt/image": "catalog:",
-    "@tailwindcss/typography": "catalog:",
-    "nuxt": "catalog:",
-    "tailwindcss-motion": "catalog:",
-    "vue-tsc": "catalog:"
+    "@iconify-json/circle-flags": "catalog:dev",
+    "@iconify-json/fluent": "catalog:dev",
+    "@iconify-json/fluent-emoji-flat": "catalog:dev",
+    "@iconify-json/lucide": "catalog:dev",
+    "@iconify-json/simple-icons": "catalog:dev",
+    "@nuxt/devtools": "catalog:dev",
+    "@nuxt/image": "catalog:dev",
+    "@nuxtjs/i18n": "catalog:dev",
+    "@tailwindcss/typography": "catalog:dev",
+    "nuxt": "catalog:dev",
+    "tailwindcss-motion": "catalog:dev",
+    "vue-tsc": "catalog:dev"
   }
 }
