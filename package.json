@@ -9,7 +9,7 @@
     "url": "git+https://github.com/nextorders/roll-stack.git"
   },
   "engines": {
-    "node": ">=22.18.0",
+    "node": ">=22.21.0",
     "pnpm": ">=10.19.0"
   },
   "scripts": {
@@ -44,8 +44,8 @@
     "vitest-browser-vue": "catalog:test"
   },
   "resolutions": {
-    "@nuxt/cli": "3.28.0",
-    "unimport": "4.1.1"
+    "@nuxt/cli": "3.29.3",
+    "unimport": "4.2.0"
   },
   "lint-staged": {
     "*.{js,ts,tsx,vue,md,json}": [
