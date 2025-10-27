@@ -33,24 +33,9 @@
         </div>
       </div>
 
-      <div v-if="agreement?.comment" class="w-full text-sm/5 text-muted font-normal whitespace-pre-wrap break-words line-clamp-5">
+      <div v-if="agreement?.comment" class="w-full text-sm/5 text-muted font-normal whitespace-pre-wrap wrap-break-word line-clamp-5">
         {{ agreement.comment }}
       </div>
-
-    <!-- <div class="flex justify-between items-center">
-      <div class="flex flex-row gap-4">
-        <div class="flex flex-row gap-1.5 items-center text-muted">
-          <UIcon name="i-lucide-message-circle" class="size-5" />
-          <p>{{ epic?.comments.length }}</p>
-        </div>
-      </div>
-
-      <time
-        :datetime="epic.createdAt"
-        class="text-sm text-muted"
-        v-text="format(new Date(epic.createdAt), 'от d MMMM yyyy', { locale: ru })"
-      />
-    </div> -->
     </Section>
   </ActiveCard>
 </template>

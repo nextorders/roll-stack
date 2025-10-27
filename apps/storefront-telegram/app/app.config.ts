@@ -2,27 +2,27 @@ export default defineAppConfig({
   ui: {
     input: {
       slots: {
-        base: '!ring-default placeholder:text-muted/50',
+        base: 'ring-default! placeholder:text-muted/50',
       },
     },
     inputMenu: {
       slots: {
-        base: '!ring-default placeholder:text-muted/50',
+        base: 'ring-default! placeholder:text-muted/50',
       },
     },
     select: {
       slots: {
-        base: '!ring-default placeholder:text-muted/50',
+        base: 'ring-default! placeholder:text-muted/50',
       },
     },
     selectMenu: {
       slots: {
-        base: '!ring-default placeholder:text-muted/50',
+        base: 'ring-default! placeholder:text-muted/50',
       },
     },
     textarea: {
       slots: {
-        base: '!ring-default placeholder:text-muted/50',
+        base: 'ring-default! placeholder:text-muted/50',
       },
     },
     button: {
@@ -36,7 +36,7 @@ export default defineAppConfig({
           },
         },
         color: {
-          secondary: '!text-white disabled:!bg-inverted/25',
+          secondary: 'text-white! disabled:bg-inverted/25!',
         },
       },
     },
@@ -44,14 +44,14 @@ export default defineAppConfig({
       variants: {
         variant: {
           pill: {
-            trigger: 'data-[state=active]:!text-white',
+            trigger: 'data-[state=active]:text-white!',
           },
         },
       },
     },
     modal: {
       slots: {
-        content: 'divide-y-0 !ring-default',
+        content: 'divide-y-0 ring-default!',
         header: 'pb-0 min-h-12',
         title: 'font-semibold',
       },
@@ -60,7 +60,7 @@ export default defineAppConfig({
       slots: {
         header: 'text-xl/6 font-bold font-headers',
         body: 'mb-12 hide-scroll',
-        content: '!max-h-10/12 ring-default hide-scroll',
+        content: 'max-h-10/12! ring-default hide-scroll',
       },
     },
     navigationMenu: {

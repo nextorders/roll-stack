@@ -14,7 +14,7 @@ export default defineAppConfig({
           gradient: 'text-white bg-linear-to-br from-secondary-400 to-secondary-500 hover:opacity-90 disabled:from-neutral-300 disabled:to-neutral-400 aria-disabled:from-neutral-300 aria-disabled:to-neutral-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
         },
         color: {
-          secondary: '!text-white disabled:!bg-inverted/25',
+          secondary: 'text-white! disabled:bg-inverted/25!',
         },
       },
     },
@@ -22,7 +22,7 @@ export default defineAppConfig({
       variants: {
         variant: {
           pill: {
-            trigger: 'data-[state=active]:!text-white',
+            trigger: 'data-[state=active]:text-white!',
           },
           gradient: {
             list: 'bg-elevated rounded-lg',
