@@ -67,7 +67,7 @@
         thead: '[&>tr]:bg-default [&>tr]:after:content-none',
         tbody: '[&>tr]:last:[&>td]:border-b-0',
         th: 'py-1 bg-elevated/50 first:rounded-l-lg last:rounded-r-lg border-y border-default first:border-l last:border-r',
-        td: 'border-b border-default [&:has([data-action=true]))]:pr-0',
+        td: 'border-b border-default [&:has([data-action=true])]:pr-0',
       }"
     >
       <template #id-cell="{ row }">

@@ -23,17 +23,7 @@
         {{ kitchen.address }}, {{ kitchen.city }}
       </div>
 
-      <!-- <div>
-        <div v-if="agreement.concludedAt" class="w-full text-base/5 font-normal">
-          Заключен: {{ format(new Date(agreement.concludedAt), 'd MMMM yyyy', { locale: ru }) }}
-        </div>
-
-        <div v-if="agreement.willEndAt" class="w-full text-base/5 font-normal">
-          Заканчивается: {{ format(new Date(agreement.willEndAt), 'd MMMM yyyy', { locale: ru }) }}
-        </div>
-      </div> -->
-
-      <div v-if="kitchen.description" class="w-full text-base/5 text-muted font-normal whitespace-pre-wrap break-words line-clamp-5">
+      <div v-if="kitchen.description" class="w-full text-base/5 text-muted font-normal whitespace-pre-wrap wrap-break-word line-clamp-5">
         {{ kitchen.description }}
       </div>
     </Section>

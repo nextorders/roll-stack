@@ -41,9 +41,9 @@ init({
   debug: isDev,
   eruda: isDev,
   mockForMacOS: false,
-}).then(() => {
-  useBackButton()
 })
+
+useBackButton()
 
 // Fix system theme
 const isDark = computed(() => themeParams.isDark())

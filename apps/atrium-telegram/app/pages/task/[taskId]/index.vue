@@ -32,27 +32,27 @@
 
       <SectionTitle :title="task?.name ?? ''" />
 
-      <div v-if="task?.description" class="w-full text-base/5 font-normal whitespace-pre-wrap break-words">
+      <div v-if="task?.description" class="w-full text-base/5 font-normal whitespace-pre-wrap wrap-break-word">
         {{ task.description }}
       </div>
 
       <div v-if="task?.report" class="flex flex-row gap-2 items-start w-full">
         <UIcon name="i-lucide-clipboard-pen" class="shrink-0 size-6 text-primary" />
-        <p class="text-base/5 font-semibold whitespace-pre-wrap break-words">
+        <p class="text-base/5 font-semibold whitespace-pre-wrap wrap-break-word">
           {{ task.report }}
         </p>
       </div>
 
       <div v-if="task?.date" class="flex flex-row gap-2 items-center w-full">
         <UIcon name="i-lucide-calendar" class="shrink-0 size-6 text-primary" />
-        <p class="text-base/5 font-semibold whitespace-pre-wrap break-words">
+        <p class="text-base/5 font-semibold whitespace-pre-wrap wrap-break-word">
           {{ format(new Date(task.date), 'd MMMM yyyy', { locale: ru }) }}
         </p>
       </div>
 
       <div v-if="taskList" class="flex flex-row gap-2 items-center w-full">
         <UIcon name="i-lucide-book-marked" class="shrink-0 size-6 text-primary" />
-        <p class="text-base/5 font-semibold whitespace-pre-wrap break-words">
+        <p class="text-base/5 font-semibold whitespace-pre-wrap wrap-break-word">
           {{ taskList.name }}
         </p>
       </div>
