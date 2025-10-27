@@ -5,7 +5,7 @@
         variant="link"
         color="secondary"
         size="md"
-        class="!text-secondary px-2.5 py-0 text-lg font-semibold cursor-pointer"
+        class="text-secondary! px-2.5 py-0 text-lg font-semibold cursor-pointer"
         @click="modalCitySelector.open()"
       >
         {{ city?.name }}

@@ -4,17 +4,17 @@ packages:
 
 catalogs:
   dev:
-    '@antfu/eslint-config': ^6.0.0
+    '@antfu/eslint-config': ^6.1.0
     '@commitlint/cli': ^20.1.0
     '@commitlint/config-conventional': ^20.0.0
     '@iconify-json/circle-flags': ^1.2.10
-    '@iconify-json/fluent': ^1.2.33
+    '@iconify-json/fluent': ^1.2.34
     '@iconify-json/fluent-emoji-flat': ^1.2.5
-    '@iconify-json/lucide': ^1.2.70
+    '@iconify-json/lucide': ^1.2.71
     '@iconify-json/simple-icons': ^1.2.55
     '@nuxt/devtools': ^2.6.5
     '@nuxt/image': ^1.11.0
-    '@nuxtjs/i18n': ^10.1.1
+    '@nuxtjs/i18n': ^10.1.2
     '@tailwindcss/typography': ^0.5.19
     bumpp: ^10.3.1
     dotenv: ^17.2.3
@@ -22,13 +22,13 @@ catalogs:
     eslint: ^9.38.0
     husky: ^9.1.7
     lint-staged: ^16.2.6
-    nitropack: ^2.12.7
-    nuxt: ^4.1.3
+    nitropack: ^2.12.8
+    nuxt: ^4.2.0
     nuxt-auth-utils: ^0.5.25
     tailwindcss-motion: ^1.1.1
     typescript: ^5.9.3
     vite: ^7.1.12
-    vue-tsc: ^3.1.1
+    vue-tsc: ^3.1.2
   integrations:
     '@date-fns/tz': ^1.4.1
     '@internationalized/date': ^3.10.0
@@ -39,7 +39,7 @@ catalogs:
     '@paralleldrive/cuid2': 2.2.2
     '@pinia/nuxt': ^0.11.2
     '@telegram-apps/init-data-node': ^2.0.10
-    '@tma.js/sdk-vue': ^1.0.6
+    '@tma.js/sdk-vue': ^1.0.8
     '@unovis/ts': ^1.6.1
     '@unovis/vue': ^1.6.1
     '@vueuse/components': ^13.9.0

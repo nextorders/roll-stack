@@ -3,7 +3,7 @@
     <div class="flex flex-row gap-2.5 items-center">
       <SectionTitle title="Партнеры" />
       <CounterBadge v-if="filteredPartners.length" :value="filteredPartners.length" />
-      <CounterBadge v-if="totalBalance" :value="`${new Intl.NumberFormat().format(totalBalance)} ₽`" />
+      <CounterBadge v-if="typeof totalBalance === 'number'" :value="`${new Intl.NumberFormat().format(totalBalance)} ₽`" />
     </div>
 
     <div class="grid grid-cols-1 gap-2.5 items-center">
@@ -13,7 +13,7 @@
         trailing-icon="i-lucide-search"
         placeholder="Найти..."
         :ui="{
-          base: '!ring-0',
+          base: 'ring-0!',
         }"
         class="motion-preset-slide-down"
       />
@@ -23,7 +23,7 @@
         size="xl"
         trailing-icon="i-lucide-arrow-down-wide-narrow"
         :ui="{
-          base: '!ring-0',
+          base: 'ring-0!',
         }"
         :items="[
           { label: 'По фамилии (возрастание)', value: 'nameAsc' },
@@ -38,7 +38,7 @@
         size="xl"
         trailing-icon="i-lucide-funnel"
         :ui="{
-          base: '!ring-0',
+          base: 'ring-0!',
         }"
         :items="[
           { label: 'Все', value: 'all' },

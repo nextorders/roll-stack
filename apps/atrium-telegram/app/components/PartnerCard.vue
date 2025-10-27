@@ -1,6 +1,6 @@
 <template>
   <ActiveCard class="h-full">
-    <Section class="!p-0 h-full">
+    <Section class="p-0! h-full">
       <div class="relative">
         <img
           :src="partnerUser?.avatarUrl ?? undefined"
@@ -33,7 +33,7 @@
               size="md"
               color="neutral"
               :ui="{
-                indicator: '!bg-error',
+                indicator: 'bg-error!',
                 base: 'bg-error/25',
               }"
             />

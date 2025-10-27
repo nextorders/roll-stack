@@ -29,7 +29,7 @@
             name="i-lucide-scroll-text"
             class="shrink-0 size-5 text-primary"
             :class="[
-              agreementProgress <= 15 && '!text-error motion-preset-seesaw motion-preset-wobble-sm',
+              agreementProgress <= 15 && 'text-error! motion-preset-seesaw motion-preset-wobble-sm',
             ]"
           />
 
@@ -38,7 +38,7 @@
             size="md"
             color="secondary"
             :ui="{
-              indicator: agreementProgress <= 15 && '!bg-error',
+              indicator: agreementProgress <= 15 && 'bg-error!',
             }"
           />
         </div>

@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="isCatalogPage && !channelStore.isKitchenOpened"
-    class="tg-safe-area -mb-[calc(var(--tg-viewport-content-safe-area-inset-top)+var(--tg-viewport-safe-area-inset-top))] tg-text-button bg-gradient-to-b from-indigo-950 to-indigo-800 motion-preset-slide-down"
+    class="tg-safe-area -mb-[calc(var(--tg-viewport-content-safe-area-inset-top)+var(--tg-viewport-safe-area-inset-top))] tg-text-button bg-linear-to-b from-indigo-950 to-indigo-800 motion-preset-slide-down"
   >
     <div class="p-4 max-w-[28rem] mx-auto tg-content-safe-area-top">
       <div class="pt-6 flex flex-row items-center gap-2">
