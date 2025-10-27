@@ -13,7 +13,7 @@
     "pnpm": ">=10.19.0"
   },
   "scripts": {
-    "release": "bumpp --execute=\"npm run release:prepare\" --recursive",
+    "release": "bumpp --execute=\"pnpm run release:prepare\" --recursive",
     "release:prepare": "pnpm run build",
     "build": "pnpm -r run build",
     "dev:generate-cert": "mkdir -p .cert && mkcert -key-file ./.cert/localhost-key.pem -cert-file ./.cert/localhost.pem 'app.local'",
@@ -32,7 +32,7 @@
     "@antfu/eslint-config": "catalog:dev",
     "@commitlint/cli": "catalog:dev",
     "@commitlint/config-conventional": "catalog:dev",
-    "@vitest/browser": "catalog:test",
+    "@vitest/browser-playwright": "catalog:test",
     "@vitest/coverage-v8": "catalog:test",
     "bumpp": "catalog:dev",
     "eslint": "catalog:dev",
@@ -44,7 +44,6 @@
     "vitest-browser-vue": "catalog:test"
   },
   "resolutions": {
-    "@nuxt/cli": "3.28.0",
     "unimport": "4.1.1"
   },
   "lint-staged": {

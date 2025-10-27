@@ -1,5 +1,5 @@
 <template>
-  <ActiveCard class="!p-0">
+  <ActiveCard class="p-0!">
     <div class="h-full flex flex-col justify-between gap-2">
       <div class="relative w-full aspect-3/2">
         <ProductImage
