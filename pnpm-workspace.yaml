@@ -35,7 +35,7 @@ catalogs:
     '@neoconfetti/vue': ^2.2.1
     '@nextorders/queue': ^0.3.0
     '@nuxt/ui': ^4.1.0
-    '@openai/agents': ^0.1.9
+    '@openai/agents': ^0.2.1
     '@paralleldrive/cuid2': 2.2.2
     '@pinia/nuxt': ^0.11.2
     '@telegram-apps/init-data-node': ^2.0.10
@@ -50,11 +50,11 @@ catalogs:
     aws4fetch: ^1.0.20
     date-fns: ^4.1.0
     grammy: ^1.38.3
-    ioredis: ^5.8.1
-    libphonenumber-js: ^1.12.24
+    ioredis: ^5.8.2
+    libphonenumber-js: ^1.12.25
     nuxt-tiptap-editor: ^2.3.1
     nuxt-zod-i18n: ^1.12.1
-    openai: ^6.2.0
+    openai: ^6.7.0
     pinia: ^3.0.3
     sharp: ^0.34.4
     sortablejs: ^1.15.6
