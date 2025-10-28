@@ -121,7 +121,7 @@
         </div>
       </template>
       <template #files-cell="{ row }">
-        <AgreementFilesBlock :files="row.original.files" />
+        <AgreementFilesBlock :files="row.original.files" :is-active="!!row.getValue('isActive')" />
       </template>
       <template #royalty-cell="{ row }">
         <div class="text-center">
