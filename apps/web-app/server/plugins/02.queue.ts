@@ -8,7 +8,7 @@ export default defineNitroPlugin(async () => {
   const logger = useLogger('plugin:start-queue')
 
   if (process.env.NODE_ENV !== 'production' && !process.env.QUEUE_URL) {
-    logger.info('Skipping Queue in non-production environment')
+    logger.info('Skipping in non-production environment')
     return
   }
 
