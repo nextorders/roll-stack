@@ -17,8 +17,10 @@
       >
         <UIcon
           :name="getFileData(file).icon"
-          :class="getFileData(file).class"
           class="size-5 hover:scale-110 duration-200"
+          :class="[
+            (isActive && getFileData(file).type === 'main') && 'text-secondary',
+          ]"
         />
       </ULink>
 
@@ -52,28 +54,49 @@
 <script setup lang="ts">
 import type { PartnerAgreementFile } from '@roll-stack/database'
 
-defineProps<{ files: PartnerAgreementFile[] }>()
+defineProps<{ files: PartnerAgreementFile[], isActive?: boolean }>()
 
 function getFileData(file: PartnerAgreementFile) {
   if (file.name.startsWith('Договор к')) {
     return {
       type: 'main',
       icon: 'i-lucide-book-text',
-      class: 'text-secondary',
     }
   }
-  if (file.name.startsWith('Акт о при')) {
+  if (file.name.startsWith('Акт о приеме')) {
     return {
       type: 'act',
       icon: 'i-lucide-file-text',
-      class: '',
+    }
+  }
+  if (file.name.startsWith('Патент')) {
+    return {
+      type: 'patent',
+      icon: 'i-lucide-file-badge',
+    }
+  }
+  if (file.name.startsWith('Заявление о расторжении')) {
+    return {
+      type: 'terminate',
+      icon: 'i-lucide-file-x-2',
+    }
+  }
+  if (file.name.startsWith('Заявление о приостановке')) {
+    return {
+      type: 'suspense',
+      icon: 'i-lucide-file-clock',
+    }
+  }
+  if (file.name.startsWith('График платежей')) {
+    return {
+      type: 'payments',
+      icon: 'i-lucide-file-spreadsheet',
     }
   }
 
   return {
     type: 'unknown',
     icon: 'i-lucide-file',
-    class: '',
   }
 }
 </script>

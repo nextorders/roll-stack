@@ -69,7 +69,7 @@
             <Section>
               <div class="flex flex-row gap-2 items-start">
                 <UIcon
-                  name="i-lucide-file"
+                  :name="getFileData(file).icon"
                   class="shrink-0 size-8 text-primary"
                 />
 
@@ -86,6 +86,7 @@
 </template>
 
 <script setup lang="ts">
+import type { PartnerAgreementFile } from '@roll-stack/database'
 import { getPatentStatus } from '#shared/utils/helpers'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale/ru'
@@ -100,4 +101,48 @@ const { params } = useRoute('agreement-agreementId')
 const partnerStore = usePartnerStore()
 const agreement = computed(() => partnerStore.agreements.find((agreement) => agreement.id === params.agreementId))
 const partner = computed(() => partnerStore.partners.find((partner) => partner.id === agreement.value?.legalEntity?.partners[0]?.id))
+
+function getFileData(file: PartnerAgreementFile) {
+  if (file.name.startsWith('Договор к')) {
+    return {
+      type: 'main',
+      icon: 'i-lucide-book-text',
+    }
+  }
+  if (file.name.startsWith('Акт о приеме')) {
+    return {
+      type: 'act',
+      icon: 'i-lucide-file-text',
+    }
+  }
+  if (file.name.startsWith('Патент')) {
+    return {
+      type: 'patent',
+      icon: 'i-lucide-file-badge',
+    }
+  }
+  if (file.name.startsWith('Заявление о расторжении')) {
+    return {
+      type: 'terminate',
+      icon: 'i-lucide-file-x-2',
+    }
+  }
+  if (file.name.startsWith('Заявление о приостановке')) {
+    return {
+      type: 'suspense',
+      icon: 'i-lucide-file-clock',
+    }
+  }
+  if (file.name.startsWith('График платежей')) {
+    return {
+      type: 'payments',
+      icon: 'i-lucide-file-spreadsheet',
+    }
+  }
+
+  return {
+    type: 'unknown',
+    icon: 'i-lucide-file',
+  }
+}
 </script>
