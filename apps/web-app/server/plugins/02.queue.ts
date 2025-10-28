@@ -16,5 +16,13 @@ export default defineNitroPlugin(async () => {
     throw new Error('QUEUE_URL is not defined')
   }
 
-  await queue.connect(process.env.QUEUE_URL)
+  try {
+    await queue.connect(process.env.QUEUE_URL, 10)
+  } catch (error) {
+    // Have a problem
+    logger.error(error)
+
+    // System
+    process.exit(1)
+  }
 })
