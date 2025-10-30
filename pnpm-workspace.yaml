@@ -11,8 +11,8 @@ catalogs:
     '@iconify-json/fluent': ^1.2.34
     '@iconify-json/fluent-emoji-flat': ^1.2.5
     '@iconify-json/lucide': ^1.2.71
-    '@iconify-json/simple-icons': ^1.2.55
-    '@nuxt/devtools': ^2.6.5
+    '@iconify-json/simple-icons': ^1.2.56
+    '@nuxt/devtools': ^3.0.0
     '@nuxt/image': ^1.11.0
     '@nuxtjs/i18n': ^10.1.2
     '@tailwindcss/typography': ^0.5.19
@@ -22,7 +22,7 @@ catalogs:
     eslint: ^9.38.0
     husky: ^9.1.7
     lint-staged: ^16.2.6
-    nitropack: ^2.12.8
+    nitropack: ^2.12.9
     nuxt: ^4.2.0
     nuxt-auth-utils: ^0.5.25
     tailwindcss-motion: ^1.1.1
@@ -60,13 +60,13 @@ catalogs:
     sortablejs: ^1.15.6
     zod: ^3.25.76
   test:
-    '@vitest/browser-playwright': ^4.0.3
-    '@vitest/coverage-v8': ^4.0.3
+    '@vitest/browser-playwright': ^4.0.5
+    '@vitest/coverage-v8': ^4.0.5
     playwright: ^1.56.1
-    vitest: ^4.0.3
-    vitest-browser-vue: ^2.0.0
+    vitest: ^4.0.5
+    vitest-browser-vue: ^2.0.1
   types:
-    '@types/node': ^24.9.1
+    '@types/node': ^24.9.2
 
 ignoredBuiltDependencies:
   - '@parcel/watcher'
