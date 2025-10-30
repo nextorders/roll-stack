@@ -19,7 +19,7 @@
         {{ ticket.title }}
       </h3>
 
-      <div class="w-full text-base/5 font-normal whitespace-pre-wrap break-words line-clamp-5">
+      <div class="w-full text-base/5 font-normal whitespace-pre-wrap wrap-break-word line-clamp-5">
         {{ ticket.description }}
       </div>
 

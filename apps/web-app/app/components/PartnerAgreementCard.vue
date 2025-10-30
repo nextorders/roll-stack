@@ -18,7 +18,7 @@
             inverted
             class="h-14 py-1"
             :ui="{
-              indicator: agreementProgress <= 15 && '!bg-error',
+              indicator: agreementProgress <= 15 && 'bg-error!',
             }"
           />
         </div>
@@ -69,7 +69,7 @@
           :key="kitchen.id"
           :to="`/kitchen/${kitchen.id}`"
         >
-          <ActiveCard class="min-h-auto !p-4 !ring-accented bg-transparent">
+          <ActiveCard class="min-h-auto p-4! ring-accented! bg-transparent">
             <div class="shrink-0 w-full h-full flex flex-col gap-1.5 items-center justify-center text-center">
               <UIcon name="i-lucide-store" class="size-8 text-primary" />
 
