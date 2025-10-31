@@ -354,6 +354,55 @@ importers:
         specifier: catalog:dev
         version: 0.5.25(magicast@0.3.5)
 
+  apps/hub-telegram:
+    dependencies:
+      '@date-fns/tz':
+        specifier: catalog:integrations
+        version: 1.4.1
+      '@neoconfetti/vue':
+        specifier: catalog:integrations
+        version: 2.2.1
+      '@pinia/nuxt':
+        specifier: catalog:integrations
+        version: 0.11.2(magicast@0.3.5)(pinia@3.0.3(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3)))
+      '@roll-stack/database':
+        specifier: workspace:*
+        version: link:../../packages/database
+      '@roll-stack/queue':
+        specifier: workspace:*
+        version: link:../../packages/queue
+      '@roll-stack/schema':
+        specifier: workspace:*
+        version: link:../../packages/schema
+      '@roll-stack/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      '@telegram-apps/init-data-node':
+        specifier: catalog:integrations
+        version: 2.0.10(typescript@5.9.3)
+      '@tma.js/sdk-vue':
+        specifier: catalog:integrations
+        version: 1.0.8(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))
+      date-fns:
+        specifier: catalog:integrations
+        version: 4.1.0
+      libphonenumber-js:
+        specifier: catalog:integrations
+        version: 1.12.25
+      pinia:
+        specifier: catalog:integrations
+        version: 3.0.3(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))
+    devDependencies:
+      '@types/node':
+        specifier: catalog:types
+        version: 24.9.2
+      eruda:
+        specifier: catalog:dev
+        version: 3.4.3
+      nuxt:
+        specifier: catalog:dev
+        version: 4.2.0(@netlify/blobs@9.1.2)(@parcel/watcher@2.5.1)(@types/node@24.9.2)(@vue/compiler-sfc@3.5.22)(aws4fetch@1.0.20)(db0@0.3.4(drizzle-orm@0.44.6(@opentelemetry/api@1.9.0)(@types/pg@8.15.5)(pg@8.16.3)))(drizzle-orm@0.44.6(@opentelemetry/api@1.9.0)(@types/pg@8.15.5)(pg@8.16.3))(eslint@9.38.0(jiti@2.6.1))(ioredis@5.8.2)(lightningcss@1.30.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.52.5)(terser@5.39.1)(typescript@5.9.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.39.1)(yaml@2.8.1))(vue-tsc@3.1.2(typescript@5.9.3))(yaml@2.8.1)
+
   apps/storefront-telegram:
     dependencies:
       '@neoconfetti/vue':
@@ -3107,9 +3156,6 @@ packages:
 
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
-
-  '@types/node@24.9.1':
-    resolution: {integrity: sha512-QoiaXANRkSXK6p0Duvt56W208du4P9Uye9hWLWgGMDTEoKPhuenzNcC4vGUmrNkiOKTlIrBoyNQYNpSwfEZXSg==}
 
   '@types/node@24.9.2':
     resolution: {integrity: sha512-uWN8YqxXxqFMX2RqGOrumsKeti4LlmIMIyV0lgut4jx7KQBcBiW6vkDtIBvHnHIquwNfJhk8v2OtmO8zXWHfPA==}
@@ -10869,7 +10915,7 @@ snapshots:
 
   '@types/conventional-commits-parser@5.0.1':
     dependencies:
-      '@types/node': 24.9.1
+      '@types/node': 24.9.2
 
   '@types/d3-array@3.2.1': {}
 
@@ -11044,10 +11090,6 @@ snapshots:
   '@types/mdurl@2.0.0': {}
 
   '@types/ms@2.1.0': {}
-
-  '@types/node@24.9.1':
-    dependencies:
-      undici-types: 7.16.0
 
   '@types/node@24.9.2':
     dependencies:
