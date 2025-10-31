@@ -11,8 +11,8 @@
         <ActiveCard>
           <Section>
             <div class="flex flex-row gap-2.5 items-center">
-              <UIcon :name="item.icon" class="size-5 shrink-0" />
-              <h3 class="text-2xl/6 font-bold">
+              <UIcon :name="item.icon" class="size-5 shrink-0 text-primary" />
+              <h3 class="text-xl/5 font-bold">
                 {{ item.label }}
               </h3>
             </div>

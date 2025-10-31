@@ -17,6 +17,7 @@
 
         <UButton
           variant="solid"
+          color="secondary"
           size="xl"
           class="text-xl/5 font-bold justify-center min-w-24"
           trailing-icon="i-lucide-coins"
