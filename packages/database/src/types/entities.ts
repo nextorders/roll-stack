@@ -4,6 +4,7 @@ export type NotificationOption
 
 export type UserType = 'staff'
   | 'head'
+  | 'prospective_partner'
   | 'partner'
   | 'partner_head'
   | 'partner_admin'

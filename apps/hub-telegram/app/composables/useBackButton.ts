@@ -1,0 +1,29 @@
+import { backButton } from '@tma.js/sdk-vue'
+
+function _useBackButton() {
+  let offClick: () => void = () => {}
+
+  const router = useRouter()
+
+  watch(router.currentRoute, () => {
+    if (router.currentRoute.value.name === 'index') {
+      backButton.hide()
+      offClick()
+    } else if (!backButton.isVisible()) {
+      backButton.show()
+      offClick = backButton.onClick(onBackButtonClick)
+    }
+  })
+
+  async function onBackButtonClick(): Promise<void> {
+    // If have query "from=startapp" go to index
+    if (router.currentRoute.value.query.from === 'startapp') {
+      await navigateTo('/')
+      return
+    }
+
+    router.go(-1)
+  }
+}
+
+export const useBackButton = createSharedComposable(_useBackButton)

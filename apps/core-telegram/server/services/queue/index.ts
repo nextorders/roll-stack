@@ -66,9 +66,7 @@ async function handleFlowItemCreated(data: FlowItemCreated['data']): Promise<boo
     const separator = 'zzzzz'
     const startAppData = `flow${separator}${data.itemId}`
 
-    // Get first words
-    const messageIntro = data.description.split(' ').slice(0, 100).join(' ')
-    const preparedMessage = `${messageIntro}...\n\nОстальное в Атриуме 🙃`
+    const preparedMessage = data.description
 
     await useAtriumBot().api.sendMessage(telegram.teamGroupId, preparedMessage, {
       link_preview_options: {
@@ -76,7 +74,7 @@ async function handleFlowItemCreated(data: FlowItemCreated['data']): Promise<boo
       },
       reply_markup: {
         inline_keyboard: [[{
-          text: '👉 Открыть Атриум',
+          text: '👉 Открыть в Атриуме',
           url: `https://t.me/sushi_atrium_bot/app?startapp=${startAppData}`,
         }]],
       },
