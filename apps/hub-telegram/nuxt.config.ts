@@ -24,9 +24,6 @@ export default defineNuxtConfig({
       adminId: '',
       teamGroupId: '',
     },
-    public: {
-      coreApiUrl: '',
-    },
   },
   app: {
     rootAttrs: {
