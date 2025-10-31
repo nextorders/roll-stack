@@ -1,6 +1,6 @@
 <template>
   <div class="grid grid-cols-2 gap-2">
-    <NuxtLink to="/points">
+    <NuxtLink to="/point">
       <ActiveCard>
         <ProspectivePoints :points="userStore.prospectivePoints" />
       </ActiveCard>

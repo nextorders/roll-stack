@@ -17,3 +17,10 @@ export type FlowItemWithData = FlowItem & {
   comments: FlowItemCommentWithUser[]
   views: FlowItemView[]
 }
+
+export type Reward = {
+  id: string
+  name: string
+  description: string
+  points: number
+}
