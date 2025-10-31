@@ -59,6 +59,7 @@ watch(colorMode, () => {
 
 // Init Stores
 const user = useUserStore()
+const flow = useFlowStore()
 
 // Guard
 await user.update()
@@ -74,12 +75,14 @@ onMounted(async () => {
   await Promise.all([
     user.updateOnline(),
     user.update(),
+    flow.update(),
   ])
 
   interval = setInterval(async () => {
     await Promise.all([
       user.updateOnline(),
       user.update(),
+      flow.update(),
     ])
   }, 20000)
 })

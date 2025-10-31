@@ -35,6 +35,8 @@ export type TimeZone = '+00:00'
 export type FlowItemType = 'daily_task_report'
   | 'weekly_task_report'
   | 'user_post'
+  | 'hub_post'
+  | 'hub_iframe'
   | 'partner_maintenance'
 
 export type PermissionCode = 'product:view'
