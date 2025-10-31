@@ -4,12 +4,12 @@
       <img
         :src="userAvatar"
         alt=""
-        class="size-14 rounded-full"
+        class="size-16 rounded-full border-3 border-primary"
       >
 
       <SectionTitle :title="`Привет, ${userStore.name}!`" />
 
-      Ты 1 уровня
+      <ProspectiveBlock />
     </div>
 
     <div class="flex flex-col gap-2.5">

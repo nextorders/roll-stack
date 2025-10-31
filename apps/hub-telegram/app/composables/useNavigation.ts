@@ -13,10 +13,10 @@ function _useNavigation() {
       // badge: flowStore.nowViewedItemsCount > 10 ? '10+' : flowStore.nowViewedItemsCount.toString(),
     },
     {
-      path: '#',
-      names: [],
-      title: 'Позже',
-      icon: 'i-lucide-lock',
+      path: '/points',
+      names: ['points'],
+      title: 'Награды',
+      icon: 'i-lucide-coins',
     },
     {
       path: '#',
