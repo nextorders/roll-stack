@@ -17,8 +17,9 @@
       <UButton
         to="/task"
         variant="solid"
+        color="secondary"
         size="xl"
-        class="font-bold w-full justify-center"
+        class="text-lg/6 font-bold w-full justify-center"
         label="Хочу еще"
       />
     </Section>
