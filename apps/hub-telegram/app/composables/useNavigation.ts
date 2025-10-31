@@ -13,23 +13,23 @@ function _useNavigation() {
       // badge: flowStore.nowViewedItemsCount > 10 ? '10+' : flowStore.nowViewedItemsCount.toString(),
     },
     {
-      path: '/points',
-      names: ['points'],
-      title: 'Награды',
+      path: '/point',
+      names: ['point'],
+      title: t('app.rewards'),
       icon: 'i-lucide-coins',
     },
     {
-      path: '#',
-      names: [],
-      title: 'Позже',
-      icon: 'i-lucide-lock',
+      path: '/task',
+      names: ['task'],
+      title: t('app.tasks'),
+      icon: 'i-lucide-check-check',
     },
-    // {
-    //   path: '/navigation',
-    //   names: ['navigation'],
-    //   title: t('app.navigation'),
-    //   icon: 'i-lucide-menu',
-    // },
+    {
+      path: '/navigation',
+      names: ['navigation'],
+      title: t('app.navigation'),
+      icon: 'i-lucide-menu',
+    },
   ])
 
   const isNavigationShown = ref(true)
