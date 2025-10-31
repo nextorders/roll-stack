@@ -16,6 +16,8 @@ export const useUserStore = defineStore('user', () => {
   const phone = ref<string | null>(null)
   const avatarUrl = ref<string | null>(null)
   const focusedTaskId = ref<string | null>(null)
+  const createdAt = ref<string | null>(null)
+  const prospectivePoints = ref(0)
 
   const initDataRaw = useSignal(initData.raw)
   const initDataState = useSignal(initData.state)
@@ -49,6 +51,8 @@ export const useUserStore = defineStore('user', () => {
       phone.value = data.phone
       avatarUrl.value = data.avatarUrl
       focusedTaskId.value = data.focusedTaskId
+      createdAt.value = data.createdAt
+      prospectivePoints.value = data.prospectivePoints
     } catch (error) {
       if (error instanceof Error) {
         if (error.message.includes('401')) {
@@ -99,6 +103,8 @@ export const useUserStore = defineStore('user', () => {
     email,
     avatarUrl,
     focusedTaskId,
+    createdAt,
+    prospectivePoints,
 
     fullName,
 

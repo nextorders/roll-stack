@@ -26,6 +26,7 @@ export const users = pgTable('users', {
   phone: varchar('phone').unique(),
   avatarUrl: varchar('avatar_url'),
   focusedTaskId: cuid2('focused_task_id'),
+  prospectivePoints: integer('prospective_points').notNull().default(0),
   permissions: jsonb('permissions').notNull().default([]).$type<entities.PermissionCode[]>(),
   notifications: jsonb('notifications').notNull().default([]).$type<entities.NotificationOption[]>(),
   partnerId: cuid2('partner_id').references(() => partners.id),

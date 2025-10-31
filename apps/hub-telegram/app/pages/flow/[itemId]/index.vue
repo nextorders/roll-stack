@@ -27,28 +27,18 @@
       </div>
 
       <div class="mt-6 flex justify-between items-center">
-        <div class="flex flex-row gap-4" />
+        <div class="flex flex-row gap-4">
+          <div class="flex flex-row gap-1 items-center text-sm text-muted">
+            <UIcon name="i-lucide-eye" class="size-4" />
+            {{ item?.views.length }}
+          </div>
+        </div>
 
         <time
           v-if="item?.createdAt"
           :datetime="item.createdAt"
           class="text-sm text-muted"
           v-text="format(new Date(item.createdAt), 'd MMMM yyyy в HH:mm', { locale: ru })"
-        />
-      </div>
-    </Section>
-
-    <Section class="flex flex-col">
-      <h3 class="text-muted">
-        Посмотрели
-      </h3>
-
-      <div class="flex flex-row flex-wrap gap-1">
-        <UAvatar
-          v-for="view in item?.views"
-          :key="view.id"
-          :src="userStore.getAvatarUrl(view.userId)"
-          size="lg"
         />
       </div>
     </Section>
