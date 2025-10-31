@@ -1,0 +1,88 @@
+<template>
+  <div class="flex flex-row gap-2 items-start">
+    <div class="mt-3">
+      <UAvatar :src="user?.avatarUrl ?? undefined" />
+    </div>
+    <div class="w-full flex flex-col gap-1.5">
+      <UDropdownMenu
+        :items="items"
+        :ui="{
+          content: 'w-56',
+          item: 'p-2 motion-preset-slide-left motion-duration-200',
+        }"
+        :content="{
+          sideOffset: -32,
+        }"
+      >
+        <ActiveCard>
+          <Section>
+            <div class="w-full relative flex flex-col gap-1">
+              <div class="text-base/5 whitespace-break-spaces text-default font-medium">
+                {{ comment?.text }}
+              </div>
+
+              <div v-if="comment?.createdAt" class="mt-1 flex justify-end text-xs text-muted">
+                {{ format(new Date(comment.createdAt), 'dd MMMM в HH:mm', { locale: ru }) }}
+              </div>
+            </div>
+          </Section>
+        </ActiveCard>
+      </UDropdownMenu>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import type { DropdownMenuItem } from '@nuxt/ui'
+import { format } from 'date-fns'
+import { ru } from 'date-fns/locale/ru'
+
+const { itemId, commentId } = defineProps<{
+  itemId: string
+  commentId: string
+}>()
+
+const flowStore = useFlowStore()
+const userStore = useUserStore()
+
+const item = computed(() => flowStore.items.find((i) => i.id === itemId))
+const comment = computed(() => item.value?.comments.find((comment) => comment.id === commentId))
+const user = computed(() => comment.value?.user)
+
+const items = computed<DropdownMenuItem[]>(() => {
+  const menuItems: DropdownMenuItem[] = [
+    {
+      label: 'Скопировать сообщение',
+      icon: 'i-lucide-copy',
+      color: 'neutral',
+      disabled: false,
+      onSelect: () => navigator.clipboard.writeText(comment.value?.text ?? ''),
+      condition: true,
+    },
+    {
+      label: 'Лайкнуть (будет позже)',
+      icon: 'i-lucide-thumbs-up',
+      color: 'neutral',
+      disabled: true,
+      onSelect: () => {},
+      condition: user.value?.id !== userStore.id,
+    },
+    {
+      label: 'Редактировать',
+      icon: 'i-lucide-edit',
+      disabled: true,
+      onSelect: () => {},
+      condition: user.value?.id === userStore.id,
+    },
+    {
+      label: 'Удалить',
+      icon: 'i-lucide-trash-2',
+      disabled: true,
+      onSelect: () => {},
+      condition: user.value?.id === userStore.id,
+    },
+  ]
+
+  return menuItems.filter((item) => item.condition)
+})
+</script>

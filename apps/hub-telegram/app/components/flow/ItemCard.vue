@@ -2,28 +2,12 @@
   <ActiveCard>
     <Section>
       <div class="flex flex-row gap-2 items-center">
-        <UAvatar
-          v-if="item.userId && item.type === 'user_post'"
-          :src="userAvatarUrl"
-          class="size-8"
-        />
         <UIcon
-          v-else
           :name="getIconNameForFlowItem(item.type)"
           class="size-8 text-primary"
         />
 
-        <div v-if="isForHub" class="flex flex-row items-center gap-1.5 text-primary">
-          <UIcon
-            name="i-lucide-users-round"
-            class="size-8"
-          />
-          <p class="max-w-22 text-sm/4 font-bold">
-            В Хабе
-          </p>
-        </div>
-
-        <div v-if="!isViewed" class="flex flex-row items-center gap-1.5 text-error">
+        <div v-if="!isViewed" class="flex flex-row items-center gap-1.5 text-primary">
           <UIcon
             name="i-lucide-pointer"
             class="size-8 motion-translate-y-loop-25 motion-preset-seesaw motion-duration-2000"
@@ -71,7 +55,4 @@ const { item } = defineProps<{
 
 const userStore = useUserStore()
 const isViewed = computed(() => item.views.some((view) => view.userId === userStore?.id))
-const userAvatarUrl = computed(() => userStore.users.find((user) => user.id === item.userId)?.avatarUrl ?? undefined)
-
-const isForHub = computed(() => item.type === 'hub_iframe' || item.type === 'hub_post')
 </script>

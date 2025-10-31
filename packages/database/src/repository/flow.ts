@@ -29,6 +29,26 @@ export class Flow {
     })
   }
 
+  static async listHubItems() {
+    return useDatabase().query.flowItems.findMany({
+      where: (items, { eq, or }) => or(
+        eq(items.type, 'hub_iframe'),
+        eq(items.type, 'hub_post'),
+      ),
+      orderBy: (items, { desc }) => desc(items.createdAt),
+      limit: 100,
+      with: {
+        comments: {
+          orderBy: (comments, { desc }) => desc(comments.createdAt),
+          with: {
+            user: true,
+          },
+        },
+        views: true,
+      },
+    })
+  }
+
   static async createItem(data: FlowItemDraft) {
     const [item] = await useDatabase().insert(flowItems).values(data).returning()
     return item

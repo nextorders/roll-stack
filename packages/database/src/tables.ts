@@ -745,6 +745,7 @@ export const flowItems = pgTable('flow_items', {
   updatedAt: timestamp('updated_at', { precision: 3, withTimezone: true, mode: 'string' }).notNull().defaultNow(),
   title: varchar('title').notNull(),
   description: text('description'),
+  iframe: varchar('iframe'),
   type: varchar('type').notNull().$type<entities.FlowItemType>(),
   userId: cuid2('user_id').references(() => users.id, {
     onDelete: 'cascade',
