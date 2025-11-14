@@ -45,10 +45,15 @@ function _useActionToast() {
     })
   }
 
+  function close(id: string) {
+    toast.remove(id)
+  }
+
   return {
     start,
     success,
     error,
+    close,
   }
 }
 
