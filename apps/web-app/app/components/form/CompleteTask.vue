@@ -63,7 +63,6 @@ const { taskId } = defineProps<{
 
 const emit = defineEmits(['success', 'submitted'])
 
-const { t } = useI18n()
 const { pop } = useConfetti()
 const actionToast = useActionToast()
 const userStore = useUserStore()
@@ -99,7 +98,7 @@ async function onSubmit(event: FormSubmitEvent<CompleteTask>) {
       userStore.update(),
     ])
 
-    actionToast.success(toastId, t('toast.task-completed'))
+    actionToast.close(toastId)
     pop()
     emit('success')
   } catch (error) {
