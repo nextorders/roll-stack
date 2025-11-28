@@ -4,6 +4,8 @@ import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
   try {
+    hasPermission(event.context.user, 'partner:agreement:edit')
+
     const agreementId = getRouterParam(event, 'agreementId')
     if (!agreementId) {
       throw createError({

@@ -6,6 +6,8 @@ import { recountPartnerBalance } from '~~/server/services/invoice'
 
 export default defineEventHandler(async (event) => {
   try {
+    hasPermission(event.context.user, 'partner:invoice:edit')
+
     const partnerId = getRouterParam(event, 'partnerId')
     if (!partnerId) {
       throw createError({

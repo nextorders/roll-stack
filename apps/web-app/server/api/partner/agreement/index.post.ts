@@ -4,6 +4,8 @@ import { type } from 'arktype'
 
 export default defineEventHandler(async (event) => {
   try {
+    hasPermission(event.context.user, 'partner:agreement:edit')
+
     const body = await readBody(event)
     const data = createPartnerAgreementSchema(body)
     if (data instanceof type.errors) {

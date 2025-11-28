@@ -50,6 +50,8 @@ export type PermissionCode = 'product:view'
   | 'print:edit'
   | 'print:file:edit'
   | 'print:delete'
+  | 'partner:agreement:edit'
+  | 'partner:invoice:edit'
 
 export type MediaFormat = 'jpg' | 'webp'
 export type FileFormat = 'docx' | 'cdr' | 'zip' | 'pdf'

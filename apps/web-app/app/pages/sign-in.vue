@@ -9,7 +9,7 @@
     </div>
 
     <div class="my-4 flex flex-col justify-between items-center bg-default z-10">
-      <div class="flex-grow flex flex-col justify-center items-center">
+      <div class="grow flex flex-col justify-center items-center">
         <UContainer>
           <h1 class="mb-10 text-2xl md:text-3xl font-bold text-center">
             {{ $t('app.welcome-message') }}

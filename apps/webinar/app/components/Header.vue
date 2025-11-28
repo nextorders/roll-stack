@@ -6,7 +6,7 @@
       class="hidden md:flex"
       :ui="{
         item: 'mr-3',
-        link: '!text-xl text-primary hover:text-secondary pl-0.5',
+        link: 'text-xl! text-primary hover:text-secondary pl-0.5',
       }"
     />
 
