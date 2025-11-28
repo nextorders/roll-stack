@@ -24,18 +24,6 @@ export type MediaWithItems = Media & {
   items: MediaItem[]
 }
 
-export type PermissionCode = 'product:view'
-  | 'product:edit'
-  | 'product:delete'
-  | 'product:image:edit'
-  | 'post:view'
-  | 'post:edit'
-  | 'post:delete'
-  | 'post:image:edit'
-  | 'print:edit'
-  | 'print:file:edit'
-  | 'print:delete'
-
 export type PrintWithData = Print & {
   mainFile: File | null
   previewFile: File | null

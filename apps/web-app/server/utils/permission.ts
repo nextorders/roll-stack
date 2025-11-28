@@ -1,4 +1,4 @@
-import type { User } from '@roll-stack/database'
+import type { PermissionCode, User } from '@roll-stack/database'
 
 export function hasPermission(user: User, permission: PermissionCode): boolean {
   if (!user) {
