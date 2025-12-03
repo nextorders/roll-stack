@@ -42,10 +42,10 @@ catalogs:
     '@tma.js/sdk-vue': ^1.0.8
     '@unovis/ts': ^1.6.1
     '@unovis/vue': ^1.6.1
-    '@vueuse/components': ^13.9.0
-    '@vueuse/core': ^13.9.0
-    '@vueuse/integrations': ^13.9.0
-    '@vueuse/nuxt': ^13.9.0
+    '@vueuse/components': ^14.1.0
+    '@vueuse/core': ^14.1.0
+    '@vueuse/integrations': ^14.1.0
+    '@vueuse/nuxt': ^14.1.0
     arktype: ^2.1.22
     aws4fetch: ^1.0.20
     date-fns: ^4.1.0
