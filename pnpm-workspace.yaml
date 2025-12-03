@@ -52,7 +52,7 @@ catalogs:
     grammy: ^1.38.3
     ioredis: ^5.8.2
     libphonenumber-js: ^1.12.25
-    nuxt-tiptap-editor: ^2.3.1
+    nuxt-tiptap-editor: ^3.0.0
     nuxt-zod-i18n: ^1.12.1
     openai: ^6.7.0
     pinia: ^3.0.3
