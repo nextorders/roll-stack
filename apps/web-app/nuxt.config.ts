@@ -21,6 +21,12 @@ export default defineNuxtConfig({
       dailyReportPrompt: '',
       weeklyReportPrompt: '',
     },
+    iiko: {
+      filaApiToken: '',
+      filaOrganizationId: '',
+      filaTerminalGroupId: '',
+      filaMenuId: 0,
+    },
     public: {
       mediaUrl: '',
     },
