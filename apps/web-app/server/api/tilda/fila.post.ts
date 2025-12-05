@@ -83,7 +83,7 @@ interface IIKOOrderItem {
   comment: string
 }
 
-async function createAccessToken(): Promise<{ token: string, correlationId: string }> {
+async function createAccessToken(): Promise<string> {
   const { iiko } = useRuntimeConfig()
 
   const apiUrl = 'https://api-ru.iiko.services/api/1/access_token'
@@ -91,13 +91,15 @@ async function createAccessToken(): Promise<{ token: string, correlationId: stri
     apiLogin: iiko.filaApiToken,
   }
 
-  return fetch(apiUrl, {
+  const { token } = await fetch(apiUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
-  }).then((res) => res.json())
+  }).then((res) => res.json()) as { token: string, correlationId: string }
+
+  return token
 }
 
 async function sendToIntegration(data: TildaFilaBody) {
@@ -105,7 +107,11 @@ async function sendToIntegration(data: TildaFilaBody) {
   const { iiko } = useRuntimeConfig()
 
   try {
-    const { token } = await createAccessToken()
+    const token = await createAccessToken()
+    if (!token) {
+      logger.error('Failed to create access token')
+      throw createError({ statusCode: 500, message: 'Failed to create access token' })
+    }
 
     const apiUrl = 'https://api-ru.iiko.services/api/1/deliveries/create'
 
