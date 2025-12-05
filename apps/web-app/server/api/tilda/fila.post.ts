@@ -156,7 +156,7 @@ async function sendToIntegration(data: TildaFilaBody) {
         'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(body),
-    })
+    }).then((res) => res.json())
   } catch (error) {
     logger.error(error)
   }
