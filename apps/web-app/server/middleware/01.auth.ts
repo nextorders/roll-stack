@@ -11,6 +11,7 @@ const routesWithoutAuth = [
   '/api/beacon/epic/comment',
   '/api/cuid', // public
   '/api/qr', // public
+  '/api/tilda/fila', // public
 ]
 
 /**
