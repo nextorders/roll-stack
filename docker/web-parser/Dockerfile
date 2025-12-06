@@ -1,4 +1,4 @@
-FROM node:24.11.0-slim AS base
+FROM node:24.11.1-slim AS base
 ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 ENV PLAYWRIGHT_BROWSERS_PATH=/opt/ms-playwright
 
