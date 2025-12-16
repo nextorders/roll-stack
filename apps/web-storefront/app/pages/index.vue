@@ -1,6 +1,6 @@
 <template>
   <div class="mb-12 flex flex-col md:flex-row gap-6 md:items-center">
-    <div class="w-full md:w-76 py-4 px-6 aspect-3/1 flex flex-col items-center justify-center shrink-0 bg-linear-to-br from-secondary-500 to-secondary-500 rounded-lg">
+    <div class="w-full md:w-76 py-4 px-6 aspect-3/1 flex flex-col items-center justify-center shrink-0 bg-secondary-500 rounded-lg">
       <img
         src="/logo-full.png"
         alt=""
