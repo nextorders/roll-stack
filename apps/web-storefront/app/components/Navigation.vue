@@ -36,9 +36,9 @@
     />
   </div>
 
-  <div class="shrink-0 flex items-center gap-1.5 py-2 px-2">
-    <ColorModeToggle />
-  </div>
+  <!-- <div class="shrink-0 flex items-center gap-1.5 py-2 px-2">
+    <UColorModeButton />
+  </div> -->
 </template>
 
 <script setup lang="ts">

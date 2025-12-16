@@ -1,10 +1,10 @@
 <template>
-  <div class="mb-12 flex flex-row gap-6 md:items-center">
-    <div class="flex flex-col items-center justify-center shrink-0 size-28 bg-linear-to-br from-secondary-400 to-secondary-500 rounded-lg">
+  <div class="mb-12 flex flex-col md:flex-row gap-6 md:items-center">
+    <div class="w-full md:w-76 py-4 px-6 aspect-3/1 flex flex-col items-center justify-center shrink-0 bg-linear-to-br from-secondary-500 to-secondary-500 rounded-lg">
       <img
-        src="/sushi-heart-light.png"
+        src="/logo-full.png"
         alt=""
-        class="w-20 h-auto"
+        class="w-full h-auto"
       >
     </div>
 
@@ -12,10 +12,14 @@
       <h1 class="text-2xl md:text-3xl font-semibold tracking-tight">
         {{ channelStore?.name }}
       </h1>
-      <div class="max-w-xl text-base/5 md:text-lg/5">
+      <div class="max-w-xl text-base/5">
         {{ channelStore?.description }}
       </div>
     </div>
+  </div>
+
+  <div class="mb-12">
+    <PinsBlock :pins="[]" />
   </div>
 
   <CategoryBlock
