@@ -28,6 +28,12 @@
           />
         </template>
       </UModal>
+
+      <UColorModeButton
+        color="neutral"
+        variant="outline"
+        size="lg"
+      />
     </div>
 
     <div class="flex items-center shrink-0 gap-3">
