@@ -43,7 +43,7 @@
           size="sm"
           :label="c.name"
           class="px-0 py-0 text-md font-semibold cursor-pointer"
-          :class="{ '!text-secondary': c.id === city?.id }"
+          :class="{ 'text-secondary!': c.id === city?.id }"
         />
       </div>
 

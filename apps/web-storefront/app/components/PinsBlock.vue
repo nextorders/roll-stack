@@ -95,6 +95,17 @@ onMounted(() => {
 
 const minimum = 9
 
+function getImageByIndex(index: number) {
+  if (index === 0) {
+    return '/slider-test-0.jpg'
+  }
+  if (index === 1) {
+    return '/slider-test-1.jpg'
+  }
+
+  return ''
+}
+
 const preparedPins = computed(() => {
   const filtered = pins.filter((pin) => pin.type !== 'empty')
   const emptyCount = Math.max(0, minimum - filtered.length)
@@ -106,7 +117,7 @@ const preparedPins = computed(() => {
     userId: null,
     user: null,
     text: null,
-    mediaUrl: '/slider-test.jpg',
+    mediaUrl: getImageByIndex(i),
     pageId: 'placeholder',
   }))
   return [...filtered, ...emptyPins]
