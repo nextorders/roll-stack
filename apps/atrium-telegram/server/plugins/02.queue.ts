@@ -7,6 +7,9 @@ import { queue } from '@roll-stack/queue'
 export default defineNitroPlugin(async () => {
   const logger = useLogger('plugin:start-queue')
 
+  // Skip for now
+  return
+
   if (process.env.NODE_ENV !== 'production' && !process.env.QUEUE_URL) {
     logger.info('Skipping in non-production environment')
     return
