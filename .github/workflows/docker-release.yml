@@ -81,7 +81,7 @@ jobs:
           echo "APP_VERSION=${{ needs.determine-changes.outputs.version }}" >> $GITHUB_ENV
 
       - name: Login to Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ${{ secrets.DOCKER_REGISTRY }}
           username: ${{ secrets.DOCKER_USER }}
