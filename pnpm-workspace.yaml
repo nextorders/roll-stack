@@ -63,7 +63,7 @@ catalogs:
     '@vitest/browser-playwright': ^4.0.5
     '@vitest/coverage-v8': ^4.0.5
     playwright: ^1.56.1
-    vitest: ^4.0.5
+    vitest: ^4.1.0
     vitest-browser-vue: ^2.0.1
   types:
     '@types/node': ^24.9.2
