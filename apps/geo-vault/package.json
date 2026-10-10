@@ -19,7 +19,7 @@
     "date-fns": "catalog:integrations",
     "ioredis": "catalog:integrations",
     "libphonenumber-js": "catalog:integrations",
-    "ru-nalog-fias-gar": "1.0.4",
+    "ru-nalog-fias-gar": "1.0.5",
     "sharp": "catalog:integrations"
   },
   "devDependencies": {
