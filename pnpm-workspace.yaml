@@ -5,8 +5,8 @@ packages:
 catalogs:
   dev:
     '@antfu/eslint-config': ^6.1.0
-    '@commitlint/cli': ^20.1.0
-    '@commitlint/config-conventional': ^20.0.0
+    '@commitlint/cli': ^21.2.4
+    '@commitlint/config-conventional': ^21.2.4
     '@iconify-json/circle-flags': ^1.2.10
     '@iconify-json/fluent': ^1.2.34
     '@iconify-json/fluent-emoji-flat': ^1.2.5
